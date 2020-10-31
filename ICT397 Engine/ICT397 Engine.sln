@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ICT397 Engine", "ICT397 Engine\ICT397 Engine.vcxproj", "{E33D416B-8480-41F2-926C-288D356D5F45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E33D416B-8480-41F2-926C-288D356D5F45}.Debug|x64.ActiveCfg = Debug|x64
+		{E33D416B-8480-41F2-926C-288D356D5F45}.Debug|x64.Build.0 = Debug|x64
+		{E33D416B-8480-41F2-926C-288D356D5F45}.Debug|x86.ActiveCfg = Debug|Win32
+		{E33D416B-8480-41F2-926C-288D356D5F45}.Debug|x86.Build.0 = Debug|Win32
+		{E33D416B-8480-41F2-926C-288D356D5F45}.Release|x64.ActiveCfg = Release|x64
+		{E33D416B-8480-41F2-926C-288D356D5F45}.Release|x64.Build.0 = Release|x64
+		{E33D416B-8480-41F2-926C-288D356D5F45}.Release|x86.ActiveCfg = Release|Win32
+		{E33D416B-8480-41F2-926C-288D356D5F45}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4CAB3185-EF4F-49ED-A675-20042E172196}
+	EndGlobalSection
+EndGlobal
