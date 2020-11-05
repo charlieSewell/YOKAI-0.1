@@ -31,7 +31,7 @@ ICT397 Engine/.vs/ICT397 Engine/v16/ipch/AutoPCH/55ae6091c244513b/SYSTEM.ipch
 ICT397 Engine/ICT397 Engine/Debug/
 **/build
 **/debug
-**/lib
+**.vs/
 build/debug/CMakeCache.txt
 build/debug/CMakeFiles/3.18.4/CMakeSystem.cmake
 build/debug/CMakeFiles/3.18.4/CompilerIdCXX/CMakeCXXCompilerId.cpp

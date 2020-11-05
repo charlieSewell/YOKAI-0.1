@@ -1,6 +1,7 @@
 #include <iostream>
-
+#include <glm/glm.hpp>
 int main() {
-	std::cout << "Hello World!" << std::endl;
+    glm::vec4 test;
+	std::cout << "wow this really works!" << std::endl;
 	return 0;
 }
