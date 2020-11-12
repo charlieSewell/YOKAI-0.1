@@ -7,7 +7,7 @@
 #include <glm/glm.hpp>
 void error_callback(int error, const char* description)
 {
-    std::cout << "Error: %s\n"<< std::endl;
+    std::cout << "Error:"<< error << " "<< description<<  std::endl;
 }
 
 
