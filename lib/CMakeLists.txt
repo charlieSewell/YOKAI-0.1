@@ -14,6 +14,7 @@ add_compile_options(
     $<$<CXX_COMPILER_ID:MSVC>:/W0>
 )
 add_subdirectory(glm)
+add_subdirectory(glad)
 
 option(GLFW_BUILD_DOCS OFF)
 option(GLFW_BUILD_TESTS OFF)
@@ -22,10 +23,12 @@ add_subdirectory(glfw)
 
 # Puts a stop to the endlessly irritating practise postfixing 'd' onto debug libraries.
 set_target_properties(glfw PROPERTIES DEBUG_POSTFIX "")
-
+set_target_properties(glad PROPERTIES DEBUG_POSTFIX "")
 
 # Ignore warnings from library headers.
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE
     glfw/include
     glfw/src
+    glad/include
+    glad/src
 )
