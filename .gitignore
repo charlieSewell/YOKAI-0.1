@@ -30,7 +30,9 @@ ICT397 Engine/ICT397 Engine/Debug/vcpkg.applocal.log
 ICT397 Engine/.vs/ICT397 Engine/v16/ipch/AutoPCH/55ae6091c244513b/SYSTEM.ipch
 ICT397 Engine/ICT397 Engine/Debug/
 **/build
+**/cmake-build-debug
 **/debug
+**/.idea
 **.vs/
 build/debug/CMakeCache.txt
 build/debug/CMakeFiles/3.18.4/CMakeSystem.cmake
@@ -39,3 +41,4 @@ build/debug/CMakeFiles/3.18.4/CompilerIdCXX/CMakeCXXCompilerId.o
 build/debug/CMakeFiles/cmake.check_cache
 build/debug/CMakeFiles/CMakeError.log
 build/debug/CMakeFiles/CMakeOutput.log
+.DS_Store
