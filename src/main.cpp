@@ -1,10 +1,11 @@
 
 
 #include <glad/glad.h>
-#include <glfw/glfw3.h>
+#include <GLFW/glfw3.h>
 #define GLFW_INCLUDE_NONE
 #include <iostream>
 #include <glm/glm.hpp>
+#include "EntityManager.h"
 void error_callback(int error, const char* description)
 {
     std::cout << "Error:"<< error << " "<< description<<  std::endl;
@@ -12,6 +13,7 @@ void error_callback(int error, const char* description)
 
 
 int main() {
+    EntityManager entityManager;
     if (!glfwInit())
     {
         return -1;

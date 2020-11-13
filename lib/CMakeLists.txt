@@ -15,6 +15,7 @@ add_compile_options(
 )
 add_subdirectory(glm)
 add_subdirectory(glad)
+add_subdirectory(assimp)
 
 option(GLFW_BUILD_DOCS OFF)
 option(GLFW_BUILD_TESTS OFF)
@@ -22,6 +23,7 @@ option(GLFW_BUILD_EXAMPLES OFF)
 add_subdirectory(glfw)
 
 # Puts a stop to the endlessly irritating practise postfixing 'd' onto debug libraries.
+set_target_properties(assimp PROPERTIES DEBUG_POSTFIX "")
 set_target_properties(glfw PROPERTIES DEBUG_POSTFIX "")
 set_target_properties(glad PROPERTIES DEBUG_POSTFIX "")
 
@@ -31,4 +33,5 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE
     glfw/src
     glad/include
     glad/src
+    assimp/include
 )

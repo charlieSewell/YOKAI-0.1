@@ -1,7 +1,7 @@
 # Add source files.
 target_sources(${PROJECT_NAME} PRIVATE
     main.cpp
-
+    EntityManager.cpp
 )
 
 # Include project header files.
