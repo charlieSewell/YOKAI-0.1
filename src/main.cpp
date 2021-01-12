@@ -4,7 +4,7 @@
 #include <iostream>
 #include <glm/glm.hpp>
 #include "EntityManager.h"
-
+#include "ObjectLoading/Mesh.hpp"
 const char *vertexShaderSource = "#version 330 core\n"
                                  "layout (location = 0) in vec3 aPos;\n"
                                  "void main()\n"
@@ -33,7 +33,7 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 }
 int main() {
-
+    Mesh testMesh;
     if (!glfwInit())
     {
         return -1;

@@ -1,7 +1,10 @@
 # Add source files.
 target_sources(${PROJECT_NAME} PRIVATE
-    main.cpp
-    EntityManager.cpp
+        main.cpp
+        EntityManager.cpp
+        ObjectLoading/Mesh.cpp
+        ObjectLoading/Model.cpp
+        ObjectLoading/ModelManager.cpp
 )
 
 # Include project header files.
