@@ -58,7 +58,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 # find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 find_package(OpenGL REQUIRED)
 
-# Build 3rd Party Liberaries
+# Build 3rd Party Libraries
 add_subdirectory(lib)
 
 # Define source files.
