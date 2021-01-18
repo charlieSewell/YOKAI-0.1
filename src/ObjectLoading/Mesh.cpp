@@ -2,7 +2,7 @@
 // Created by Charlie Sewell on 12/01/2021.
 //
 #include "Mesh.hpp"
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures){
+Mesh::Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, const std::vector<Texture> &textures){
     this->vertices = vertices;
     this->indices = indices;
     this->textures = textures;
@@ -35,7 +35,7 @@ void Mesh::setupMesh(){
     glBindVertexArray(0);
 }
 //Mesh::Draw(Shader &Shader)
-void Mesh::Draw(){
+ const void Mesh::Draw(){
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
     for(unsigned int i = 0; i < textures.size(); i++)

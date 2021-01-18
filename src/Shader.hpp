@@ -1,0 +1,28 @@
+//
+// Created by Charlie Sewell on 13/01/2021.
+//
+
+#ifndef ICT397_GAME_ENGINE_SHADER_HPP
+#define ICT397_GAME_ENGINE_SHADER_HPP
+#include <glad/glad.h>
+
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+class Shader {
+  public:
+    Shader(const char* vertexPath, const char* fragmentPath);
+
+    void useShader();
+    //set uniforms
+    void setBool(const std::string &name, bool value) const;
+    void setInt(const std::string &name, int value) const;
+    void setFloat(const std::string &name, float value) const;
+    //shaders ID
+    unsigned int getShaderID(){return shaderID;}
+  private:
+    unsigned int shaderID;
+};
+
+#endif // ICT397_GAME_ENGINE_SHADER_HPP

@@ -23,11 +23,11 @@ struct Texture {
 class Mesh{
   public:
     Mesh(){}
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+    Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, const std::vector<Texture> &textures);
     std::vector<Vertex> getVertices(){return vertices;}
     std::vector<unsigned int> getIndices(){return indices;}
     std::vector<Texture> getTextures(){return textures;}
-    void Draw();
+    const void Draw();
   private:
     unsigned int VAO, VBO, EBO;
     std::vector<Vertex>       vertices;
