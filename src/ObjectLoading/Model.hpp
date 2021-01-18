@@ -5,6 +5,9 @@
 #ifndef ICT397_GAME_ENGINE_MODEL_HPP
 #define ICT397_GAME_ENGINE_MODEL_HPP
 
-class Model {};
+#include <Vector>
+class Model {
+    
+};
 
 #endif // ICT397_GAME_ENGINE_MODEL_HPP
