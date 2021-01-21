@@ -1,8 +1,10 @@
 # Add source files.
 target_sources(${PROJECT_NAME} PRIVATE
         main.cpp
-        EntityManager.cpp
-        Shader.cpp
+
+        ECS/EntityManager.cpp
+
+        Renderer/Shader.cpp
         ObjectLoading/Mesh.cpp
         ObjectLoading/Model.cpp
         ObjectLoading/ModelManager.cpp
