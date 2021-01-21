@@ -2,11 +2,12 @@
 #include <GLFW/glfw3.h>
 #define GLFW_INCLUDE_NONE
 #include <iostream>
+#include "ECS/EntityManager.h"
+#include "ObjectLoading/Model.hpp"
+#include "Renderer/Shader.hpp"
 #include <glm/glm.hpp>
-#include "EntityManager.h"
-#include "ObjectLoading/Mesh.hpp"
-#include "Shader.hpp"
-
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 void error_callback(int error, const char* description)
 {
     std::cout << "Error:"<< error << " "<< description<<  std::endl;
@@ -20,13 +21,12 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 }
 int main() {
-    Mesh testMesh;
     if (!glfwInit())
     {
         return -1;
     }
     EntityManager entityManager;
-    GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetErrorCallback(error_callback);
 
@@ -47,43 +47,41 @@ int main() {
         0.5f, -0.5f, 0.0f,
         0.0f,  0.5f, 0.0f
     };
+
     Shader testShader("src/vertexShader.vert","src/fragmentShader.frag");
-    unsigned int VBO,VAO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-
-    //tells opengl how to interpret data
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-
-
+    Model testModel("content/Models/backpack.obj");
+    glEnable(GL_DEPTH_TEST);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     while (!glfwWindowShouldClose(window))
     {
         processInput(window);
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
+        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         testShader.useShader();
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-        /* Swap front and back buffers */
+
+        // view/projection transformations
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+        glm::mat4 view = glm::lookAt(
+            glm::vec3(0,0,3),
+            glm::vec3(0,0,0),
+            glm::vec3(0,1,0)
+            );
+        testShader.setMat4("projection", projection);
+        testShader.setMat4("view", view);
+
+        // render the loaded model
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+        testShader.setMat4("model", model);
+        testModel.Draw(testShader);
+
         glfwSwapBuffers(window);
 
         /* Poll for and process events */
         glfwPollEvents();
     }
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
 
     glfwDestroyWindow(window);
     glfwTerminate();
