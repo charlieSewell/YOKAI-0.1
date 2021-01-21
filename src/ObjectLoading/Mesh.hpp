@@ -11,14 +11,18 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "Shader.hpp"
 struct Vertex {
     glm::vec3 position;
     glm::vec3 normal;
     glm::vec2 textureCoords;
+    glm::vec3 tangent;
+    glm::vec3 biTangent;
 };
 struct Texture {
     unsigned int id;
     std::string type;
+    std::string path;
 };
 class Mesh{
   public:
@@ -27,7 +31,7 @@ class Mesh{
     std::vector<Vertex> getVertices(){return vertices;}
     std::vector<unsigned int> getIndices(){return indices;}
     std::vector<Texture> getTextures(){return textures;}
-    const void Draw();
+    const void Draw(Shader &shader);
   private:
     unsigned int VAO, VBO, EBO;
     std::vector<Vertex>       vertices;
