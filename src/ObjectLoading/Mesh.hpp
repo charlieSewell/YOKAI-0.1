@@ -11,7 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Shader.hpp"
+#include "Renderer/Shader.hpp"
 struct Vertex {
     glm::vec3 position;
     glm::vec3 normal;

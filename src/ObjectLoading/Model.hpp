@@ -13,7 +13,7 @@
 #include <assimp/postprocess.h>
 
 #include "Mesh.hpp"
-#include "Shader.hpp"
+#include "Renderer/Shader.hpp"
 
 class Model {
   public:
@@ -30,6 +30,7 @@ class Model {
     void processNode(aiNode *node, const aiScene *scene);
     Mesh processMesh(aiMesh *mesh, const aiScene *scene);
     std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
+    unsigned int Model::TextureFromFile(const char *path, const std::string &directory);
 };
 
 #endif // ICT397_GAME_ENGINE_MODEL_HPP
