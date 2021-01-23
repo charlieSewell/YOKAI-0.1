@@ -5,6 +5,8 @@ target_sources(${PROJECT_NAME} PRIVATE
         ECS/EntityManager.cpp
 
         Renderer/Shader.cpp
+        Renderer/Camera.cpp
+
         ObjectLoading/Mesh.cpp
         ObjectLoading/Model.cpp
         ObjectLoading/ModelManager.cpp
