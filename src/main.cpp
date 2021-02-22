@@ -48,7 +48,7 @@ int main() {
         0.0f,  0.5f, 0.0f
     };
 
-    Shader testShader("src/vertexShader.vert","src/fragmentShader.frag");
+    Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
     Model testModel("content/Models/backpack.obj");
     glEnable(GL_DEPTH_TEST);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
