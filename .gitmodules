@@ -7,3 +7,6 @@
 [submodule "lib/assimp"]
 	path = lib/assimp
 	url = https://github.com/assimp/assimp
+[submodule "lib/LuaBridge"]
+	path = lib/LuaBridge
+	url = https://github.com/vinniefalco/LuaBridge
