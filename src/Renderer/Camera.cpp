@@ -3,3 +3,6 @@
 //
 
 #include "Camera.hpp"
+glm::mat4 Camera::getViewMatrix(){
+    return glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+}

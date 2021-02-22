@@ -6,8 +6,6 @@ Mesh::Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> 
     this->vertices = vertices;
     this->indices = indices;
     this->textures = textures;
-
-    std::cout << indices[1] << std::endl;
     setupMesh();
 }
 void Mesh::setupMesh(){

@@ -14,10 +14,12 @@ class Camera {
     Camera(float x,float y, float z){
         cameraPos = glm::vec3(x,y,z);
         fov = 45.0f;
+        cameraUp = glm::vec3(0,1,0);
     }
-    glm:: mat4 getViewMatrix(){return glm::lookAt(cameraPos, cameraPos + cameraFront,glm::vec3(0,1,0));}
+    glm:: mat4 getViewMatrix();
   private:
     glm::vec3 cameraPos;
+    glm::vec3 cameraUp;
     glm::vec3 cameraFront;
     float fov;
     
