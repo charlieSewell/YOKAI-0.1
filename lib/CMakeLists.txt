@@ -16,6 +16,8 @@ add_compile_options(
 add_subdirectory(glm)
 add_subdirectory(glad)
 add_subdirectory(assimp)
+add_subdirectory(luabridge)
+add_subdirectory(lua)
 
 option(GLFW_BUILD_DOCS OFF)
 option(GLFW_BUILD_TESTS OFF)
@@ -29,9 +31,11 @@ set_target_properties(glad PROPERTIES DEBUG_POSTFIX "")
 
 # Ignore warnings from library headers.
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE
-    glfw/include
-    glfw/src
-    glad/include
-    glad/src
-    assimp/include
+        glfw/include
+        glfw/src
+        glad/include
+        glad/src
+        assimp/include
+        LuaBridge/Source
+        lua/src
 )

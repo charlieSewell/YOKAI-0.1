@@ -104,7 +104,7 @@ target_link_options(${PROJECT_NAME} PRIVATE
 )
 
 # Include and link against dependencies.
-target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL assimp glfw glm glad ${CMAKE_DL_LIBS})
+target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL assimp lua LuaBridge glfw glm glad ${CMAKE_DL_LIBS})
 
 if (NOT DisablePostBuild)
     if (NOT CopyResources)

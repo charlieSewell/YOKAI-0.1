@@ -69,4 +69,4 @@ ninja && ./game-engine
 
 ## License
 This project is licensed under the MIT license. Please see the [LICENSE](LICENSE) file
-for details.
+for details
