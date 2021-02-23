@@ -3,3 +3,10 @@
 //
 
 #include "ModelManager.hpp"
+auto ModelManager::GetModelID(std::string filename) -> size_t {
+    auto id = modelIDtoName.find(filename);
+    if(id == modelIDtoName.end()){
+        //import model
+    }
+    return(id->second);
+}

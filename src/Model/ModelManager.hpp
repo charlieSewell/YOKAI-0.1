@@ -16,7 +16,7 @@ class ModelManager {
     std::array<Model,1000> models;
 
   public:
-
+    auto GetModelID(std::string filename) -> size_t;
 };
 
 #endif // ICT397_GAME_ENGINE_MODELMANAGER_HPP
