@@ -3,7 +3,7 @@
 #define GLFW_INCLUDE_NONE
 #include <iostream>
 #include "ECS/EntityManager.h"
-#include "ObjectLoading/Model.hpp"
+#include "Model/ObjectLoading/Model.hpp"
 #include "Renderer/Shader.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>

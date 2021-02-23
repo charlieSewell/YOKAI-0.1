@@ -7,9 +7,10 @@ target_sources(${PROJECT_NAME} PRIVATE
         Renderer/Shader.cpp
         Renderer/Camera.cpp
 
-        ObjectLoading/Mesh.cpp
-        ObjectLoading/Model.cpp
-        ObjectLoading/ModelManager.cpp
+        Model/ObjectLoading/Mesh.cpp
+        Model/ObjectLoading/Model.cpp
+        Model/ModelManager.cpp
+
 
 )
 
