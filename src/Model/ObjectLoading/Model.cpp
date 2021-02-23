@@ -149,9 +149,9 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType 
     return textures;
 }
 
-unsigned int Model::TextureFromFile(const char *path, const std::string &directory){
+unsigned int Model::TextureFromFile(const char *path, const std::string &inputDirectory){
     std::string filename = std::string(path);
-    filename = directory + '/' + filename;
+    filename = inputDirectory + '/' + filename;
     stbi_set_flip_vertically_on_load(true);
     unsigned int textureID;
     glGenTextures(1, &textureID);

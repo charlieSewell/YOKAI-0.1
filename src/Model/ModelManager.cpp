@@ -5,8 +5,15 @@
 #include "ModelManager.hpp"
 auto ModelManager::GetModelID(std::string filename) -> size_t {
     auto id = modelIDtoName.find(filename);
+    //stops files being loaded more then once
     if(id == modelIDtoName.end()){
-        //import model
+        models[modelCount] = Model(filename.c_str());
+        modelIDtoName.emplace(filename,modelCount);
+        modelCount++;
+        return modelCount-1;
     }
     return(id->second);
+}
+Model* ModelManager::GetModel(size_t modelID) {
+    return &models[modelID];
 }
