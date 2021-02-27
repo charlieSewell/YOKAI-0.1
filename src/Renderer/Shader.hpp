@@ -13,6 +13,9 @@
 #include <iostream>
 class Shader {
   public:
+    ///
+    /// @param vertexPath
+    /// @param fragmentPath
     Shader(const char* vertexPath, const char* fragmentPath);
 
     void useShader();
