@@ -2,9 +2,9 @@
 target_sources(${PROJECT_NAME} PRIVATE
         main.cpp
 
-        Renderer/Shader.cpp
-        Renderer/Camera.cpp
-        Renderer/OpenGL.cpp
+        View/Renderer/Shader.cpp
+        View/Camera.cpp
+        View/Renderer/OpenGL.cpp
 
 
         Model/ObjectLoading/Mesh.cpp
