@@ -11,6 +11,9 @@
 void OpenGL::Init() {
 
 }
+void OpenGL::Draw() {
+
+}
 void OpenGL::SetupMesh(unsigned int &VAO,unsigned int &VBO,unsigned int &EBO,std::vector<Vertex> &vertices, std::vector<unsigned int> &indices) {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);

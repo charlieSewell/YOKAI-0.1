@@ -12,7 +12,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "View/Renderer/OpenGL.hpp"
-#include "Mesh.hpp"
+#include "Model/ObjectLoading/Mesh.hpp"
 
 class Model {
   public:
