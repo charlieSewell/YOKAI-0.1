@@ -2,10 +2,7 @@
 #include <GLFW/glfw3.h>
 #define GLFW_INCLUDE_NONE
 #include <iostream>
-#include "ECS/EntityManager.h"
 #include "Model/ObjectLoading/Model.hpp"
-#include "Renderer/Shader.hpp"
-#include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 void error_callback(int error, const char* description)
 {
@@ -24,7 +21,6 @@ int main() {
     {
         return -1;
     }
-    EntityManager entityManager;
     GLFWwindow* window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetErrorCallback(error_callback);
@@ -41,11 +37,6 @@ int main() {
         return -1;
     }
 
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f,  0.5f, 0.0f
-    };
 
     Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
     Model testModel("content/Models/CAR.fbx");

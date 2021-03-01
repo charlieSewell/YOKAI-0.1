@@ -1,7 +1,7 @@
 //
 // Created by Charlie Sewell on 25/02/2021.
 //
-
+#pragma once
 #ifndef ICT397_GAME_ENGINE_RENDERER_HPP
 #define ICT397_GAME_ENGINE_RENDERER_HPP
 #include <glm/glm.hpp>
