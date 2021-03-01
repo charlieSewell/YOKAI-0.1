@@ -2,14 +2,15 @@
 target_sources(${PROJECT_NAME} PRIVATE
         main.cpp
 
-        ECS/EntityManager.cpp
-
         Renderer/Shader.cpp
         Renderer/Camera.cpp
+        Renderer/OpenGL.cpp
 
-        ObjectLoading/Mesh.cpp
-        ObjectLoading/Model.cpp
-        ObjectLoading/ModelManager.cpp
+
+        Model/ObjectLoading/Mesh.cpp
+        Model/ObjectLoading/Model.cpp
+        Model/ModelManager.cpp
+
 
 )
 

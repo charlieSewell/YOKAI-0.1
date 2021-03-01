@@ -3,7 +3,7 @@
 #define GLFW_INCLUDE_NONE
 #include <iostream>
 #include "ECS/EntityManager.h"
-#include "ObjectLoading/Model.hpp"
+#include "Model/ObjectLoading/Model.hpp"
 #include "Renderer/Shader.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -48,7 +48,7 @@ int main() {
     };
 
     Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
-    Model testModel("content/Models/backpack.obj");
+    Model testModel("content/Models/CAR.fbx");
     glEnable(GL_DEPTH_TEST);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     while (!glfwWindowShouldClose(window))
@@ -62,7 +62,7 @@ int main() {
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
         glm::mat4 view = glm::lookAt(
-            glm::vec3(0,0,3),
+            glm::vec3(0,0,20),
             glm::vec3(0,0,0),
             glm::vec3(0,1,0)
             );

@@ -5,7 +5,7 @@
 #define ICT397_GAME_ENGINE_MODEL_HPP
 
 #include <iostream>
-#include <Vector>
+#include <vector>
 
 #include <glad/glad.h>
 #include <assimp/Importer.hpp>
@@ -17,7 +17,7 @@
 
 class Model {
   public:
-    Model(char *filename){
+    Model(const char *filename){
         loadModel(filename);
     }
     void Draw(Shader &shader);
