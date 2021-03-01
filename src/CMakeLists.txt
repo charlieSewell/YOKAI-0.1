@@ -4,7 +4,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 
         Renderer/Shader.cpp
         Renderer/Camera.cpp
-        Renderer/Renderer.cpp
+        Renderer/OpenGL.cpp
 
 
         Model/ObjectLoading/Mesh.cpp
