@@ -2,58 +2,35 @@
 #include <GLFW/glfw3.h>
 #define GLFW_INCLUDE_NONE
 #include <iostream>
-#include "ECS/EntityManager.h"
 #include "Model/ObjectLoading/Model.hpp"
-#include "Renderer/Shader.hpp"
-#include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
-void error_callback(int error, const char* description)
-{
-    std::cout << "Error:"<< error << " "<< description<<  std::endl;
-}
-void framebuffer_size_callback(GLFWwindow* window, int width, int height){
-    glViewport(0, 0, width, height);
-}
+#include "Controller/unnamedEngine.hpp"
+
 void processInput(GLFWwindow *window)
 {
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 }
 int main() {
-    if (!glfwInit())
-    {
-        return -1;
-    }
-    EntityManager entityManager;
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSetErrorCallback(error_callback);
-
-    if (!window)
-    {
-        return -1;
-    }
-
-    glfwMakeContextCurrent(window);
-
-    if (!gladLoadGL()) {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
-
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f,  0.5f, 0.0f
-    };
+    auto &engine = unnamedEngine::getInstance();
+    engine.renderer.Init();
 
     Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
     Model testModel("content/Models/CAR.fbx");
     glEnable(GL_DEPTH_TEST);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    while (!glfwWindowShouldClose(window))
+
+
+
+
+    //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
+
+
+
+
+    while (!glfwWindowShouldClose(engine.renderer.window))
     {
-        processInput(window);
+        processInput(engine.renderer.window);
 
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -76,13 +53,13 @@ int main() {
         testShader.setMat4("model", model);
         testModel.Draw(testShader);
 
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(engine.renderer.window);
 
         /* Poll for and process events */
         glfwPollEvents();
     }
 
-    glfwDestroyWindow(window);
+    glfwDestroyWindow(engine.renderer.window);
     glfwTerminate();
     return 0;
 }

@@ -1,29 +1,15 @@
 //
 // Created by Charlie Sewell on 12/01/2021.
 //
-
+#pragma once
 #ifndef ICT397_GAME_ENGINE_MESH_HPP
 #define ICT397_GAME_ENGINE_MESH_HPP
-
-#include <glm/glm.hpp>
-#include <glad/glad.h>
 
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Renderer/Shader.hpp"
-struct Vertex {
-    glm::vec3 position;
-    glm::vec3 normal;
-    glm::vec2 textureCoords;
-    glm::vec3 tangent;
-    glm::vec3 biTangent;
-};
-struct Texture {
-    unsigned int id;
-    std::string type;
-    std::string path;
-};
+#include "View/Renderer/Shader.hpp"
+#include "View/Renderer/OpenGL.hpp"
 class Mesh{
   public:
     Mesh(){}
@@ -38,7 +24,7 @@ class Mesh{
     std::vector<unsigned int> indices;
     std::vector<Texture>      textures;
 
-    void setupMesh();
+    void SetupMesh();
 
 };
 #endif // ICT397_GAME_ENGINE_MESH_HPP

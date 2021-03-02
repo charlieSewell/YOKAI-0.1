@@ -1,7 +1,7 @@
 //
 // Created by charl on 22/01/2021.
 //
-
+#pragma once
 #ifndef ICT397_GAME_ENGINE__CAMERA_HPP
 #define ICT397_GAME_ENGINE__CAMERA_HPP
 
