@@ -6,13 +6,48 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-
+void error_callback(int error, const char* description)
+{
+    std::cout << "Error:"<< error << " "<< description<<  std::endl;
+}
+void framebuffer_size_callback(GLFWwindow* window, int width, int height){
+    glViewport(0, 0, width, height);
+}
 
 void OpenGL::Init() {
+    if (!glfwInit()){
+        return;
+    }
+    window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
+    glfwSetFramebufferSizeCallback(this->window, framebuffer_size_callback);
+    glfwSetErrorCallback(error_callback);
+
+    if (!window){
+        return;
+    }
+
+    glfwMakeContextCurrent(this->window);
+
+    if (!gladLoadGL()) {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return;
+    }
 
 }
 void OpenGL::Draw() {
 
+}
+void OpenGL::DeInit() {
+
+}
+
+void OpenGL::ToggleWireFrame() {
+    if(isWireFrame){
+        isWireFrame = false;
+    }
+    else{
+        isWireFrame = true;
+    }
 }
 void OpenGL::SetupMesh(unsigned int &VAO,unsigned int &VBO,unsigned int &EBO,std::vector<Vertex> &vertices, std::vector<unsigned int> &indices) {
     glGenVertexArrays(1, &VAO);
