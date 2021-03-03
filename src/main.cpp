@@ -16,7 +16,7 @@ int main() {
     engine.renderer.Init();
 
     Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
-    Model testModel("content/Models/CAR.fbx");
+    Model testModel("content/Models/pine.fbx");
     glEnable(GL_DEPTH_TEST);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -39,7 +39,7 @@ int main() {
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
         glm::mat4 view = glm::lookAt(
-            glm::vec3(0,0,20),
+            glm::vec3(0,20,80),
             glm::vec3(0,0,0),
             glm::vec3(0,1,0)
             );
@@ -49,6 +49,7 @@ int main() {
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f)); // translate it down so it's at the center of the scene
+        model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(1.0f,0.0f,0.0f));
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
         testShader.setMat4("model", model);
         testModel.Draw(testShader);
