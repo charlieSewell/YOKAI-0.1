@@ -22,7 +22,6 @@ int main() {
 
 
 
-
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
 
 
@@ -39,8 +38,8 @@ int main() {
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
         glm::mat4 view = glm::lookAt(
-            glm::vec3(0,20,80),
-            glm::vec3(0,0,0),
+            glm::vec3(0,20,90),
+            glm::vec3(0,20,0),
             glm::vec3(0,1,0)
             );
         testShader.setMat4("projection", projection);
@@ -50,8 +49,9 @@ int main() {
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f)); // translate it down so it's at the center of the scene
         model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(1.0f,0.0f,0.0f));
+        model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(0.0f,0.0f,1.0f));
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
-        testShader.setMat4("model", model);
+        //testShader.setMat4("model", model);
         testModel.Draw(testShader);
 
         glfwSwapBuffers(engine.renderer.window);
