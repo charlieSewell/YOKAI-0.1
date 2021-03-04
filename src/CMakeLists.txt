@@ -6,6 +6,7 @@ target_sources(${PROJECT_NAME} PRIVATE
         Model/ObjectLoading/Model.cpp
         Model/ModelManager.cpp
 
+        View/Renderer/AssimpMaths.cpp
         View/Renderer/Shader.cpp
         View/Camera.cpp
         View/Renderer/OpenGL.cpp

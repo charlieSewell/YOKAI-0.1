@@ -13,18 +13,21 @@
 class Mesh{
   public:
     Mesh(){}
-    Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, const std::vector<Texture> &textures);
+    Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, const std::vector<Texture> &textures,glm::mat4 &transform);
     std::vector<Vertex> getVertices(){return vertices;}
     std::vector<unsigned int> getIndices(){return indices;}
     std::vector<Texture> getTextures(){return textures;}
+    glm::mat4 getTransform(){return transform;}
     const void Draw(Shader &shader);
+    void SetupMesh();
   private:
     unsigned int VAO, VBO, EBO;
     std::vector<Vertex>       vertices;
     std::vector<unsigned int> indices;
     std::vector<Texture>      textures;
+    glm::mat4 transform;
 
-    void SetupMesh();
+
 
 };
 #endif // ICT397_GAME_ENGINE_MESH_HPP

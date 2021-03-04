@@ -1,9 +1,38 @@
-//
-// Created by Charlie on 12/01/2021.
-//
+
 #include "Model.hpp"
+#include <glm/gtx/matrix_decompose.hpp>
+#include <glm/ext.hpp>
+#include <glm/gtx/string_cast.hpp>
+
+static auto to_glm(aiMatrix4x4t<float> m) -> glm::mat4 {
+    return glm::mat4{m.a1, m.b1, m.c1, m.d1,
+                m.a2, m.b2, m.c2, m.d2,
+                m.a3, m.b3, m.c3, m.d3,
+                m.a4, m.b4, m.c4, m.d4};
+}
+
 void Model::Draw(Shader &shader){
+
     for(auto& mesh: meshes){
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f)); // translate it down so it's at the center of the scene
+        //model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(1.0f,0.0f,0.0f));
+        //model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(0.0f,0.0f,1.0f));
+        model = glm::scale(model, glm::vec3(0.03f, 0.03f, 0.03f));	// it's a bit too big for our scene, so scale it down
+
+        auto _scale       = glm::vec3{};
+        auto _rotation    = glm::quat{};
+        auto _translation = glm::vec3{};
+        auto _skew        = glm::vec3{};
+        auto _perspective = glm::vec4{};
+
+        glm::decompose(mesh.getTransform(), _scale, _rotation, _translation, _skew, _perspective);
+
+        model = glm::translate(model, _translation);
+        model *= glm::mat4_cast(_rotation);
+        model = glm::scale(model, _scale);
+
+        shader.setMat4("model", model);
         mesh.Draw(shader);
     }
 }
@@ -19,29 +48,33 @@ void Model::loadModel(std::string filename){
     directory = filename.substr(0, filename.find_last_of('/'));
 
     // process ASSIMP's root node recursively
-    processNode(scene->mRootNode, scene);
+    processNode(scene->mRootNode, scene,to_glm(scene->mRootNode->mTransformation));
+    for(auto& mesh: meshes){
+        mesh.SetupMesh();
+    }
 }
-void Model::processNode(aiNode *node, const aiScene *scene){
+void Model::processNode(aiNode *node, const aiScene *scene,glm::mat4 transform){
     // process each mesh located at the current node
     for(unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         // the node object only contains indices to index the actual objects in the scene.
         // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(processMesh(mesh, scene));
+        meshes.push_back(processMesh(mesh, scene, transform *to_glm(node->mTransformation)));
     }
     // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
     for(unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        processNode(node->mChildren[i], scene);
+        processNode(node->mChildren[i], scene, transform * to_glm(node->mTransformation));
     }
 }
-Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
+Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 transform){
     // data to fill
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
 
+    std::cout << "processing mesh" << std::endl;
     // walk through each of the mesh's vertices
     for(unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
@@ -81,7 +114,17 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
         }
         else
             vertex.textureCoords = glm::vec2(0.0f, 0.0f);
-
+        if (mesh->HasTangentsAndBitangents()) {
+            vector.x       = mesh->mTangents[i].x;
+            vector.y       = mesh->mTangents[i].y;
+            vector.z       = mesh->mTangents[i].z;
+            vertex.tangent = vector;
+            // bitangent
+            vector.x         = mesh->mBitangents[i].x;
+            vector.y         = mesh->mBitangents[i].y;
+            vector.z         = mesh->mBitangents[i].z;
+            vertex.biTangent = vector;
+        }
         vertices.push_back(vertex);
     }
     // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
@@ -114,7 +157,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
     // return a mesh object created from the extracted mesh data
-    return Mesh(vertices, indices, textures);
+    return Mesh(vertices, indices, textures,transform);
 }
 
 
@@ -129,6 +172,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType 
         bool skip = false;
         for(unsigned int j = 0; j < textures_loaded.size(); j++){
             if(std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0){
+                std::cout << "loading textures" <<std::endl;
                 textures.push_back(textures_loaded[j]);
                 skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
                 break;
