@@ -8,20 +8,20 @@ void TerrainGenerator::SetupChunk(Chunk &chunk,int size) {
     std::vector<unsigned int> indices;
     GenerateFlatMap(vertices,size,size);
     GenerateTerrainIndices(indices,size,size);
+    //TODO: Come Up with better solution as currently just stretching over terrain
     GenerateTexCoords(vertices,size,size);
     GeneratePerlinMap(size,size);
+    //TODO: Abstract into another function
     int x =0;
     int y=0;
     for(auto& vert: vertices){
         if(vert.position.x != x){
-            x = vert.position.x;
+            x ++;
             y=0;
         }
-        vert.position.y = heightVals.at(static_cast<size_t>(x)).at(static_cast<size_t>(y));
+        vert.position.y = heightVals.at(x).at(y);
         y++;
     }
-
-
     chunk.SetupChunk(vertices,indices);
 }
 void TerrainGenerator::GenerateFlatMap(std::vector<Vertex> &terrain, int xSize, int zSize) {
@@ -61,8 +61,8 @@ void TerrainGenerator::GeneratePerlinMap(int xSize,int ySize) {
     }
     float xFactor = 1.0f / (xSize - 1);
     float yFactor = 1.0f / (ySize - 1);
-    float a       = 10;
-    float b       = 3;
+    float a       = 10; //Tuning variables
+    float b       = 3;  //Tuning variables
 
     for( int row = 0; row < ySize; row++ ) {
         for( int col = 0 ; col < xSize; col++ ) {
@@ -79,7 +79,7 @@ void TerrainGenerator::GeneratePerlinMap(int xSize,int ySize) {
                 sum += val;
                 float result = (sum + 1.0f)/ 2.0f;
 
-                // Store in texture buffer
+                // Store in Vector of Vectors
                  heightVals.at(static_cast<size_t>(row)).at(static_cast<size_t>(col)) = result * 20.0f;
 
                 freq *= 2.0f;   // Double the frequency
