@@ -9,6 +9,19 @@ void TerrainGenerator::SetupChunk(Chunk &chunk,int size) {
     GenerateFlatMap(vertices,size,size);
     GenerateTerrainIndices(indices,size,size);
     GenerateTexCoords(vertices,size,size);
+    GeneratePerlinMap(size,size);
+    int x =0;
+    int y=0;
+    for(auto& vert: vertices){
+        if(vert.position.x != x){
+            x = vert.position.x;
+            y=0;
+        }
+        vert.position.y = heightVals.at(static_cast<size_t>(x)).at(static_cast<size_t>(y));
+        y++;
+    }
+
+
     chunk.SetupChunk(vertices,indices);
 }
 void TerrainGenerator::GenerateFlatMap(std::vector<Vertex> &terrain, int xSize, int zSize) {
@@ -39,5 +52,39 @@ void TerrainGenerator::GenerateTerrainIndices(std::vector<unsigned int> &terrain
 void TerrainGenerator::GenerateTexCoords(std::vector<Vertex> &terrain, int xSize, int zSize) {
     for(auto& vert: terrain){
         vert.textureCoords = glm::vec2((float)vert.position.x/xSize,(float)vert.position.z/xSize);
+    }
+}
+void TerrainGenerator::GeneratePerlinMap(int xSize,int ySize) {
+    heightVals.resize(static_cast<size_t>(xSize));
+    for (auto &e : heightVals) {
+        e.resize(static_cast<size_t>(ySize));
+    }
+    float xFactor = 1.0f / (xSize - 1);
+    float yFactor = 1.0f / (ySize - 1);
+    float a       = 10;
+    float b       = 3;
+
+    for( int row = 0; row < ySize; row++ ) {
+        for( int col = 0 ; col < xSize; col++ ) {
+            float x = xFactor * col;
+            float y = yFactor * row;
+            float sum = 0.0f;
+            float freq = a;
+            float scale = b;
+
+            // Compute the sum for each octave
+            for( int oct = 0; oct < 1; oct++ ) {
+                glm::vec2 p(x * freq, y * freq);
+                float val = glm::perlin(p) / scale;
+                sum += val;
+                float result = (sum + 1.0f)/ 2.0f;
+
+                // Store in texture buffer
+                 heightVals.at(static_cast<size_t>(row)).at(static_cast<size_t>(col)) = result * 20.0f;
+
+                freq *= 2.0f;   // Double the frequency
+                scale *= b;     // Next power of b
+            }
+        }
     }
 }

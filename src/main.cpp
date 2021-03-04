@@ -24,7 +24,8 @@ int main() {
     Model testModel("content/Models/pine.fbx");
     Chunk testChunk;
     TerrainGenerator terrainGenerator;
-    terrainGenerator.SetupChunk(testChunk,10);
+    terrainGenerator.SetupChunk(testChunk,100);
+
     glEnable(GL_DEPTH_TEST);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -46,8 +47,8 @@ int main() {
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
         glm::mat4 view = glm::lookAt(
-            glm::vec3(-5,5,15),
-            glm::vec3(5,0,0),
+            glm::vec3(-5,50,50),
+            glm::vec3(30,0,30),
             glm::vec3(0,1,0)
             );
         testShader.setMat4("projection", projection);
