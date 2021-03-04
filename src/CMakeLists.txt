@@ -14,6 +14,7 @@ target_sources(${PROJECT_NAME} PRIVATE
         Controller/Yokai.cpp
         Controller/ModelManager.cpp
         Controller/TerrainGenerator.cpp
+        Controller/Factory/TerrainFactory.cpp
         )
 
 # Include project header files.

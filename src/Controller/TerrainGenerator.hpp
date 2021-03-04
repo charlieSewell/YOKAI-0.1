@@ -14,11 +14,12 @@
 class TerrainGenerator {
   public:
     void SetupChunk(Chunk &Chunk,int size);
+
+  private:
     void GenerateFlatMap(std::vector<Vertex> &terrain,int xSize, int zSize);
     void GenerateTerrainIndices(std::vector<unsigned int> &terrain,int xSize, int zSize);
     void GenerateTexCoords(std::vector<Vertex> &terrain,int xSize, int zSize);
     void GeneratePerlinMap(int xSize,int ySize);
-  private:
     std::vector<std::vector<float>> heightVals = {};
 };
 

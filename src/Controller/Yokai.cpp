@@ -3,11 +3,7 @@
 //
 
 #include "Yokai.hpp"
-Yokai::Yokai(){
-}
-Yokai::~Yokai() {
 
-}
 Yokai &Yokai::getInstance() {
     static Yokai instance;
     return instance;

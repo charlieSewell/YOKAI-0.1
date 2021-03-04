@@ -80,7 +80,7 @@ void TerrainGenerator::GeneratePerlinMap(int xSize,int ySize) {
                 float result = (sum + 1.0f)/ 2.0f;
 
                 // Store in Vector of Vectors
-                 heightVals.at(static_cast<size_t>(row)).at(static_cast<size_t>(col)) = result * 20.0f;
+                 heightVals.at(static_cast<size_t>(row)).at(static_cast<size_t>(col)) = result * 30.0f;
 
                 freq *= 2.0f;   // Double the frequency
                 scale *= b;     // Next power of b

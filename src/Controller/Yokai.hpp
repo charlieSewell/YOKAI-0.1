@@ -16,9 +16,9 @@ class Yokai {
 
   private:
     //Singleton pattern requires that all constructors,destructors and copy constructors be private
-    Yokai();
-    ~Yokai();
-    Yokai(const Yokai &);
+    Yokai() = default;
+    ~Yokai() = default;
+    Yokai(const Yokai &) = delete;
     Yokai &operator =(const Yokai &);
 
 };
