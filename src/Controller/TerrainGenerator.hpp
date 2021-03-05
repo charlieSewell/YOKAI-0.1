@@ -10,7 +10,6 @@
 #include <View/Renderer/DataTypes.hpp>
 #include <glm/gtc/noise.hpp>
 #include "Model/Chunk.hpp"
-
 class TerrainGenerator {
   public:
     void SetupChunk(Chunk &Chunk,int size);

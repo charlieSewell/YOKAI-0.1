@@ -71,20 +71,18 @@ void TerrainGenerator::GeneratePerlinMap(int xSize,int ySize) {
             float sum = 0.0f;
             float freq = a;
             float scale = b;
-
+            float result =0.0f;
             // Compute the sum for each octave
-            for( int oct = 0; oct < 1; oct++ ) {
+            for( int oct = 0; oct < 4; oct++ ) {
                 glm::vec2 p(x * freq, y * freq);
                 float val = glm::perlin(p) / scale;
-                sum += val;
-                float result = (sum + 1.0f)/ 2.0f;
-
-                // Store in Vector of Vectors
-                 heightVals.at(static_cast<size_t>(row)).at(static_cast<size_t>(col)) = result * 30.0f;
-
+                sum += val;     // Sum of octaves
                 freq *= 2.0f;   // Double the frequency
                 scale *= b;     // Next power of b
             }
+            result = (sum + 1.0f)/ 2.0f;
+            // Store in Vector of Vectors
+            heightVals.at(static_cast<size_t>(row)).at(static_cast<size_t>(col)) = result * 30.0f;
         }
     }
 }
