@@ -12,6 +12,7 @@ target_sources(${PROJECT_NAME} PRIVATE
         View/Renderer/OpenGL.cpp
 
         Controller/unnamedEngine.cpp
+        Controller/inputManager.cpp
 
         )
 
