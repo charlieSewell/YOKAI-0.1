@@ -28,7 +28,7 @@ class TerrainFactory {
     void GenerateFlatMap(std::vector<Vertex> &terrain,int xSize, int zSize);
     void GenerateTerrainIndices(std::vector<unsigned int> &terrain,int xSize, int zSize);
     void GenerateTexCoords(std::vector<Vertex> &terrain,int xSize, int zSize);
-    void GeneratePerlinMap(int size);
+    void GeneratePerlinMap(int xSize,int ySize);
     std::vector<std::vector<float>> heightVals = {};
 };
 

@@ -8,8 +8,8 @@ TerrainFactory &TerrainFactory::getInstance() {
     return instance;
 }
 void TerrainFactory::Init(){
-    this->terrainSize = 1000;
-    GeneratePerlinMap(terrainSize);
+    this->terrainSize = 100;
+    GeneratePerlinMap(terrainSize,terrainSize);
 
 }
 void TerrainFactory::SetupChunk(Chunk &chunk,int size) {
@@ -22,14 +22,14 @@ void TerrainFactory::SetupChunk(Chunk &chunk,int size) {
 
     //TODO: Abstract into another function
     int x =0;
-    int y=0;
+    int z=0;
     for(auto& vert: vertices){
         if(vert.position.x != x){
             x ++;
-            y=0;
+            z=0;
         }
-        vert.position.y = heightVals.at(x).at(y);
-        y++;
+        vert.position.y = heightVals.at(x).at(z);
+        z++;
     }
     chunk.SetupChunk(vertices,indices);
 }
@@ -63,18 +63,18 @@ void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain, int xSize, 
         vert.textureCoords = glm::vec2((float)vert.position.x/xSize,(float)vert.position.z/xSize);
     }
 }
-void TerrainFactory::GeneratePerlinMap(int size) {
-    heightVals.resize(static_cast<size_t>(size));
+void TerrainFactory::GeneratePerlinMap(int xSize,int ySize) {
+    heightVals.resize(static_cast<size_t>(xSize));
     for (auto &e : heightVals) {
-        e.resize(static_cast<size_t>(size));
+        e.resize(static_cast<size_t>(ySize));
     }
-    float xFactor = 1.0f / (size - 1);
-    float yFactor = 1.0f / (size - 1);
+    float xFactor = 1.0f / (150 - 1);
+    float yFactor = 1.0f / (150 - 1);
     float a       = 1.7; //Tuning variables
-    float b       = 0.8;  //Tuning variables
+    float b       = 0.6;  //Tuning variables
 
-    for( int row = 0; row < size; row++ ) {
-        for( int col = 0 ; col < size; col++ ) {
+    for( int row = 0; row < ySize; row++ ) {
+        for( int col = 0 ; col < xSize; col++ ) {
             float x = xFactor * col;
             float y = yFactor * row;
             float sum = 0.0f;
@@ -84,21 +84,21 @@ void TerrainFactory::GeneratePerlinMap(int size) {
             // Compute the sum for each octave
             for( int oct = 1; oct <= 4; oct++ ) {
                 glm::vec2 p(x * freq, y * freq);
-                float val = glm::perlin(p) * 1/oct;
+                float val = glm::simplex(p) * 1/oct;
                 sum += val;     // Sum of octaves
                 freq *= 2.0f;   // Double the frequency
                 scale *= b;     // Next power of b
             }
             //clamping filter
-            result = pow((sum + 1.0f)/ 2.0f,1);
-
+            result = pow((sum + 1.0f)/ 2.0f,1.3);
             //Step filter for nodes
             //result = round(sum*32)/32;
+
             if(isnan(result)){
                 result =0 ;
             }
             // Store in Vector of Vectors
-            heightVals.at(static_cast<size_t>(row)).at(static_cast<size_t>(col)) = result*20;
+            heightVals.at(static_cast<size_t>(row)).at(static_cast<size_t>(col)) = result*10;
         }
     }
 }

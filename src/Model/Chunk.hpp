@@ -19,7 +19,6 @@ class Chunk {
     unsigned int GetID(){return chunkID;}
   private:
     unsigned int VBO = 0, VAO = 0, EBO = 0, EBO_Size = 0;
-    glm::vec3 location;
     std::vector<Texture> textures;
     unsigned int chunkID;
 

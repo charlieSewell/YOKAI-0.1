@@ -23,6 +23,7 @@ int main() {
     Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/testShader.frag");
     Model testModel("content/Models/pine.fbx");
     Chunk testChunk;
+    TerrainFactory::getInstance().Init();
     TerrainFactory::getInstance().SetupChunk(testChunk,100);
     engine.renderer.ToggleWireFrame();
 
@@ -45,8 +46,8 @@ int main() {
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
         glm::mat4 view = glm::lookAt(
-            glm::vec3(0,20,0),
-            glm::vec3(30,10,30),
+            glm::vec3(0,30,0),
+            glm::vec3(30,20,30),
             glm::vec3(0,1,0)
             );
         testShader.setMat4("projection", projection);
