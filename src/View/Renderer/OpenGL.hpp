@@ -19,8 +19,6 @@ class OpenGL : public Renderer {
     OpenGL() = default;
     void Init() override;
     void DeInit() override;
-    void Draw() override;
-    void AddToQueue(drawObject objToAdd);
     void ToggleWireFrame() override;
 
 
@@ -34,8 +32,6 @@ class OpenGL : public Renderer {
     static void DrawChunk(Shader& shader, unsigned int &VAO, const std::vector<Texture> &textures, const unsigned int indicesSize);
     GLFWwindow* window;
   private:
-
-    std::vector<drawObject> drawQueue;
     bool isWireFrame = false;
 };
 

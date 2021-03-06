@@ -25,9 +25,8 @@ int main() {
     Chunk testChunk;
     TerrainGenerator terrainGenerator;
     terrainGenerator.SetupChunk(testChunk,100);
+    engine.renderer.ToggleWireFrame();
 
-    glEnable(GL_DEPTH_TEST);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
 

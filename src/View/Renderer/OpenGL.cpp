@@ -32,9 +32,8 @@ void OpenGL::Init() {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return;
     }
+    glEnable(GL_DEPTH_TEST);
 
-}
-void OpenGL::Draw() {
 
 }
 void OpenGL::DeInit() {
@@ -43,9 +42,11 @@ void OpenGL::DeInit() {
 
 void OpenGL::ToggleWireFrame() {
     if(isWireFrame){
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         isWireFrame = false;
     }
     else{
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         isWireFrame = true;
     }
 }
@@ -173,7 +174,4 @@ void OpenGL::DrawChunk(Shader &shader, unsigned int &VAO, const std::vector<Text
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
-}
-void OpenGL::AddToQueue(drawObject objToAdd) {
-    drawQueue.push_back(objToAdd);
 }
