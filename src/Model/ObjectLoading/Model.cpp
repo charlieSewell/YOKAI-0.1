@@ -19,6 +19,8 @@ void Model::Draw(Shader &shader){
         //model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(1.0f,0.0f,0.0f));
         //model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(0.0f,0.0f,1.0f));
         model = glm::scale(model, glm::vec3(0.03f, 0.03f, 0.03f));	// it's a bit too big for our scene, so scale it down
+        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(5.0f),
+                            glm::vec3(0.0f, 1.0f, 0.0f));
 
         auto _scale       = glm::vec3{};
         auto _rotation    = glm::quat{};
