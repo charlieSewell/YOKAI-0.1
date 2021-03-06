@@ -47,13 +47,13 @@ int main() {
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
         glm::mat4 view = glm::lookAt(
-            glm::vec3(-5,50,50),
-            glm::vec3(30,0,30),
+            glm::vec3(0,20,0),
+            glm::vec3(30,10,30),
             glm::vec3(0,1,0)
             );
         testShader.setMat4("projection", projection);
         testShader.setMat4("view", view);
-        testShader.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
+        testShader.setVec3("objectColor", glm::vec3(0.0f, 1.0f, 0.31f));
         testShader.setVec3("lightColor",  glm::vec3(1.0f, 1.0f, 1.0f));
 
         // render the loaded model
