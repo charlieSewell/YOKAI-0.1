@@ -16,11 +16,12 @@ class Chunk {
     void SetupChunk(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices);
     void DrawChunk(Shader &shader);
     //void SetShader(Shader shader){this->shader = shader;}
-
+    unsigned int GetID(){return chunkID;}
   private:
     unsigned int VBO = 0, VAO = 0, EBO = 0, EBO_Size = 0;
     glm::vec3 location;
     std::vector<Texture> textures;
+    unsigned int chunkID;
 
 
 };

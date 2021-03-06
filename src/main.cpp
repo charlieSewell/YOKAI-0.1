@@ -9,7 +9,7 @@
 #include "Model/ObjectLoading/Model.hpp"
 
 #include "Model/Chunk.hpp"
-#include "Controller/TerrainGenerator.hpp"
+#include "Controller/Factory/TerrainFactory.hpp"
 
 void processInput(GLFWwindow *window)
 {
@@ -23,8 +23,7 @@ int main() {
     Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/testShader.frag");
     Model testModel("content/Models/pine.fbx");
     Chunk testChunk;
-    TerrainGenerator terrainGenerator;
-    terrainGenerator.SetupChunk(testChunk,100);
+    TerrainFactory::getInstance().SetupChunk(testChunk,100);
     engine.renderer.ToggleWireFrame();
 
 

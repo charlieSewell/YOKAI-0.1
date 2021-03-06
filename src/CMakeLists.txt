@@ -13,7 +13,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 
         Controller/Yokai.cpp
         Controller/ModelManager.cpp
-        Controller/TerrainGenerator.cpp
+        Controller/TerrainManager.cpp
         Controller/Factory/TerrainFactory.cpp
         )
 
