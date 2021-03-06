@@ -4,16 +4,18 @@ target_sources(${PROJECT_NAME} PRIVATE
 
         Model/ObjectLoading/Mesh.cpp
         Model/ObjectLoading/Model.cpp
-        Model/ModelManager.cpp
+        Model/Chunk.cpp
 
         View/Renderer/AssimpMaths.cpp
         View/Renderer/Shader.cpp
         View/Camera.cpp
         View/Renderer/OpenGL.cpp
 
-        Controller/unnamedEngine.cpp
+        Controller/Yokai.cpp
+        Controller/ModelManager.cpp
+        Controller/TerrainManager.cpp
+        Controller/Factory/TerrainFactory.cpp
         Controller/inputManager.cpp
-
         )
 
 # Include project header files.

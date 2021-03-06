@@ -10,6 +10,7 @@
 #include <string>
 #include "View/Renderer/Shader.hpp"
 #include "View/Renderer/OpenGL.hpp"
+#include "Controller/Yokai.hpp"
 class Mesh{
   public:
     Mesh(){}

@@ -19,20 +19,19 @@ class OpenGL : public Renderer {
     OpenGL() = default;
     void Init() override;
     void DeInit() override;
-    void Draw() override;
-    void AddToQueue(drawObject objToAdd);
     void ToggleWireFrame() override;
 
 
     static void SetupMesh(unsigned int &VAO, unsigned int &VBO, unsigned int &EBO,
                           std::vector<Vertex> &vertices, std::vector<unsigned int> &indices);
+    static void SetupTerrainMesh(unsigned int &VAO, unsigned int &VBO, unsigned int &EBO,
+                          const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices);
     static unsigned int TextureFromFile(const char *path, const std::string &inputDirectory);
 
     static void DrawModel(Shader& shader, unsigned int &VAO, const std::vector<Texture> &textures, const std::vector<unsigned int> &indices);
+    static void DrawChunk(Shader& shader, unsigned int &VAO, const std::vector<Texture> &textures, const unsigned int indicesSize);
     GLFWwindow* window;
   private:
-
-    std::vector<drawObject> drawQueue;
     bool isWireFrame = false;
 };
 
