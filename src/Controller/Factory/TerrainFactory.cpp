@@ -8,35 +8,36 @@ TerrainFactory &TerrainFactory::getInstance() {
     return instance;
 }
 void TerrainFactory::Init(){
-    this->terrainSize = 100;
+    this->terrainSize = 300;
     GeneratePerlinMap(terrainSize,terrainSize);
 
 }
-void TerrainFactory::SetupChunk(Chunk &chunk,int size) {
+void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zStart,int size) {
+    size+=1;
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
-    GenerateFlatMap(vertices,size,size);
+    GenerateFlatMap(vertices,xStart,zStart,size,size);
     GenerateTerrainIndices(indices,size,size);
     //TODO: Come Up with better solution as currently just stretching over terrain
     GenerateTexCoords(vertices,size,size);
 
     //TODO: Abstract into another function
-    int x =0;
-    int z=0;
+    int x =xStart;
+    int z=zStart;
     for(auto& vert: vertices){
         if(vert.position.x != x){
             x ++;
-            z=0;
+            z=zStart;
         }
         vert.position.y = heightVals.at(x).at(z);
         z++;
     }
     chunk.SetupChunk(vertices,indices);
 }
-void TerrainFactory::GenerateFlatMap(std::vector<Vertex> &terrain, int xSize, int zSize) {
+void TerrainFactory::GenerateFlatMap(std::vector<Vertex> &terrain,unsigned int xStart,unsigned int zStart, int xSize, int zSize) {
     Vertex vertex;
-    for (unsigned x = 0; x < xSize; x ++) {
-        for (unsigned z = 0 ; z < zSize; z ++) {
+    for (unsigned x = xStart; x < xSize+xStart; x ++) {
+        for (unsigned z = zStart ; z < zSize+zStart; z ++) {
             vertex.position.x = x;
             vertex.position.z = z;
             terrain.push_back(vertex);

@@ -8,7 +8,6 @@
 #include <vector>
 #include "View/Renderer/DataTypes.hpp"
 #include "View/Renderer/Shader.hpp"
-#include "Controller/Yokai.hpp"
 
 class Chunk {
   public:

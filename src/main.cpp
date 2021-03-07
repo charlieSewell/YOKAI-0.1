@@ -25,7 +25,7 @@ void processKeyboard(GLFWwindow *window)
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
     
-    float movementSpeed = 0.1f; // delete later - for testing
+    float movementSpeed = 0.02f; // delete later - for testing
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         movementSpeed *= 3;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -88,8 +88,10 @@ int main() {
 
     Model testModel("content/Models/pine.fbx");
     Chunk testChunk;
+    Chunk testChunk2;
     TerrainFactory::getInstance().Init();
-    TerrainFactory::getInstance().SetupChunk(testChunk,100);
+    TerrainFactory::getInstance().SetupChunk(testChunk,0,0,100);
+    TerrainFactory::getInstance().SetupChunk(testChunk2,0,100,100);
     engine.renderer.ToggleWireFrame();
 
 
@@ -121,7 +123,7 @@ int main() {
         //testModel.Draw(testShader);
       
         testChunk.DrawChunk(testShader);
-
+        testChunk2.DrawChunk(testShader);
         glfwSwapBuffers(engine.renderer.window);
 
         /* Poll for and process events */

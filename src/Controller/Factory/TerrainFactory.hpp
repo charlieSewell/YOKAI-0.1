@@ -16,7 +16,7 @@ class TerrainFactory {
   public:
     static TerrainFactory & getInstance();
     void Init();
-    void SetupChunk(Chunk &Chunk,int size);
+    void SetupChunk(Chunk &Chunk,unsigned int xStart,unsigned int zStart,int size);
   private:
     TerrainFactory() = default;
     ~TerrainFactory() = default;
@@ -25,7 +25,7 @@ class TerrainFactory {
     int terrainSize;
 
 
-    void GenerateFlatMap(std::vector<Vertex> &terrain,int xSize, int zSize);
+    void GenerateFlatMap(std::vector<Vertex> &terrain,unsigned int xStart,unsigned int zStart,int xSize, int zSize);
     void GenerateTerrainIndices(std::vector<unsigned int> &terrain,int xSize, int zSize);
     void GenerateTexCoords(std::vector<Vertex> &terrain,int xSize, int zSize);
     void GeneratePerlinMap(int xSize,int ySize);

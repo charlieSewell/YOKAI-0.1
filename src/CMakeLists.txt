@@ -15,7 +15,6 @@ target_sources(${PROJECT_NAME} PRIVATE
         Controller/ModelManager.cpp
         Controller/TerrainManager.cpp
         Controller/Factory/TerrainFactory.cpp
-        Controller/inputManager.cpp
         )
 
 # Include project header files.
