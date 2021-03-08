@@ -2,7 +2,7 @@
 <p align=center>
   <b> ICT397 Game Engine </b>
 </p>
-[![Build Status](https://github.com/charlieSewell/ICT397-Game-Engine/workflows/CMake/badge.svg)](https://github.com/charlieSewell/CMake/actions)
+[![Build Status](https://github.com/charlieSewell/ICT397-Game-Engine/workflows/CMake.yml/badge.svg)](https://github.com/charlieSewell/CMake/actions)
 <p align="center">
   <a href="#building">Building</a> •
   <a href="#contributing">Contributing</a> •
