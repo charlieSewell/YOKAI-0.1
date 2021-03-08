@@ -1,4 +1,4 @@
-name: CMake
+name: Windows
 
 on: [pull_request]
 
