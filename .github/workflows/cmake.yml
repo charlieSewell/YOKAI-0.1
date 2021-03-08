@@ -16,7 +16,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: openrndr/setup-opengl@v1.1
+    
+    - name: OpenGL Actions
+      uses: NishkarshRaj/OpenGL_Actions@1.0
       
       
     - name: Create Build Environment
