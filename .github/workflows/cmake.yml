@@ -16,9 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Install Dependancies
-      run: choco install OpenGL
+    - uses: openrndr/setup-opengl@v1.1
       
       
     - name: Create Build Environment
