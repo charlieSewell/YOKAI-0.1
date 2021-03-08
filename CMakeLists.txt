@@ -80,7 +80,6 @@ if (WarningsAsErrors)
         $<$<CXX_COMPILER_ID:MSVC>:/WX>
     )
 endif()
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fuse-ld=lld")
 # Set compile flags.
 target_compile_options(${PROJECT_NAME} PRIVATE
     # Clang

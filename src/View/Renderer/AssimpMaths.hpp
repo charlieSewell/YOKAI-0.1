@@ -5,9 +5,9 @@
 #ifndef ICT397_GAME_ENGINE_ASSIMPMATHS_HPP
 #define ICT397_GAME_ENGINE_ASSIMPMATHS_HPP
 
-#include "assimp\Importer.hpp"
-#include "assimp\scene.h"
-#include "assimp\postprocess.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 #include <glm/glm.hpp>
 
