@@ -1,7 +1,9 @@
+[![Build Status](https://github.com/charlieSewell/ICT397-Game-Engine/workflows/CMake/badge.svg)](https://github.com/charlieSewell/CMake/actions)
 # ICT397-Game-Engine
 <p align=center>
   <b> ICT397 Game Engine </b>
 </p>
+
 <p align="center">
   <a href="#building">Building</a> •
   <a href="#contributing">Contributing</a> •
