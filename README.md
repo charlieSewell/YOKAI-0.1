@@ -2,7 +2,7 @@
 <p align=center>
   <b> ICT397 Game Engine </b>
 </p>
-![cmake](https://github.com/github/docs/actions/workflows/cmake.yml/badge.svg)
+<a href="https://github.com/charlieSewell/ICT397-Game-Engine/actions/workflows/<WORKFLOW_FILE>/badge.svg">
 <p align="center">
   <a href="#building">Building</a> •
   <a href="#contributing">Contributing</a> •
