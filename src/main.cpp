@@ -18,7 +18,7 @@ double lastX = 400;         //screen currently hard coded at 800, 600
 double lastY = 300;
 double yaw = -90.0f;
 double pitch = 0.f;
-
+bool isPressed = true;
 //move to input class
 void processKeyboard(GLFWwindow *window)
 {
@@ -40,42 +40,52 @@ void processKeyboard(GLFWwindow *window)
         camera.m_position += movementSpeed * camera.m_up;
     if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
         camera.m_position -= movementSpeed * camera.m_up;
+    if(glfwGetKey(window,GLFW_KEY_M) == GLFW_PRESS){
+        if(isPressed){
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            isPressed = false;
+        }
+        else {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            isPressed = true;
+        }
+    }
     
 }
 
 void processMouse(GLFWwindow* window, double xpos, double ypos)
 {
-    if (firstMouse) 
-    {
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
+    if(isPressed) {
+        if (firstMouse) {
+            lastX      = xpos;
+            lastY      = ypos;
+            firstMouse = false;
+        }
+
+        float xoffset = xpos - lastX;
+        float yoffset = ypos - lastY;
+        lastX         = xpos;
+        lastY         = ypos;
+
+        float sensitivity = 0.05f;
+        xoffset *= sensitivity;
+        yoffset *= sensitivity;
+
+        yaw += xoffset;
+        pitch -= yoffset;
+
+        // stops bad weird camera movement
+        if (pitch > 89.0f)
+            pitch = 89.0f;
+        if (pitch < -89.0f)
+            pitch = -89.0f;
+
+        glm::vec3 direction;
+        direction.x    = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        direction.y    = sin(glm::radians(pitch));
+        direction.z    = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        camera.m_front = glm::normalize(direction);
     }
-
-    float xoffset = xpos - lastX;
-    float yoffset = ypos - lastY;
-    lastX = xpos;
-    lastY = ypos;
-
-    float sensitivity = 0.05f;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-
-    yaw += xoffset;
-    pitch -= yoffset;
-
-    //stops bad weird camera movement
-    if(pitch > 89.0f)
-        pitch = 89.0f;
-    if(pitch < -89.0f)
-        pitch = -89.0f;
-    
-    glm::vec3 direction;
-    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    direction.y = sin(glm::radians(pitch));
-    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    camera.m_front = glm::normalize(direction);
-
 }
 
 int main() {
