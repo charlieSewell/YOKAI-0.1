@@ -76,7 +76,6 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 transform){
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
 
-    std::cout << "processing mesh" << std::endl;
     // walk through each of the mesh's vertices
     for(unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
@@ -174,7 +173,6 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType 
         bool skip = false;
         for(unsigned int j = 0; j < textures_loaded.size(); j++){
             if(std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0){
-                std::cout << "loading textures" <<std::endl;
                 textures.push_back(textures_loaded[j]);
                 skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
                 break;
