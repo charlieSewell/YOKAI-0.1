@@ -16,7 +16,7 @@ add_compile_options(
 add_subdirectory(glm)
 add_subdirectory(glad)
 add_subdirectory(assimp)
-add_subdirectory(luabridge)
+add_subdirectory(LuaBridge)
 add_subdirectory(lua)
 
 option(GLFW_BUILD_DOCS OFF)
