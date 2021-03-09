@@ -2,21 +2,22 @@
 // Created by charl on 1/03/2021.
 //
 #pragma once
-#ifndef ICT397_GAME_ENGINE_OPENGL_HPP
-#define ICT397_GAME_ENGINE_OPENGL_HPP
-#include "Renderer.hpp"
-#include <glm/glm.hpp>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include "View/Renderer/Shader.hpp"
-#include "View/Renderer/DataTypes.hpp"
-#include <vector>
+#ifndef ICT397_GAME_ENGINE_OPENGLRENDERER_HPP
+#define ICT397_GAME_ENGINE_OPENGLRENDERER_HPP
 #include <iostream>
+#include <vector>
+#include <glad/glad.h>
+#include "View/Renderer/Renderer.hpp"
+#include <GLFW/glfw3.h>
 
+#include <glm/glm.hpp>
+#include "View/Renderer/DataTypes.hpp"
 
-class OpenGL : public Renderer {
+#include "View/Renderer/Shader.hpp"
+
+class OpenGLRenderer : public Renderer {
   public:
-    OpenGL() = default;
+    OpenGLRenderer() = default;
     void Init() override;
     void DeInit() override;
     void ToggleWireFrame() override;
@@ -36,4 +37,4 @@ class OpenGL : public Renderer {
 };
 
 
-#endif // ICT397_GAME_ENGINE_OPENGL_HPP
+#endif // ICT397_GAME_ENGINE_OPENGLRENDERER_HPP

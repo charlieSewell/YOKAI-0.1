@@ -5,12 +5,13 @@
 #ifndef ICT397_GAME_ENGINE_MESH_HPP
 #define ICT397_GAME_ENGINE_MESH_HPP
 
-#include <iostream>
-#include <vector>
-#include <string>
-#include "View/Renderer/Shader.hpp"
-#include "View/Renderer/OpenGL.hpp"
-#include "Controller/Yokai.hpp"
+#    include <iostream>
+#    include <string>
+#    include <vector>
+
+#    include "Controller/Yokai.hpp"
+#    include "View/Renderer/OpenGL/OpenGLRenderer.hpp"
+#    include "View/Renderer/Shader.hpp"
 class Mesh{
   public:
     Mesh(){}

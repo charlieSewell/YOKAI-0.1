@@ -2,7 +2,7 @@
 // Created by charl on 1/03/2021.
 //
 #pragma once
-#include "OpenGL.hpp"
+#include "OpenGLRenderer.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -14,7 +14,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height){
     glViewport(0, 0, width, height);
 }
 
-void OpenGL::Init() {
+void OpenGLRenderer::Init() {
     if (!glfwInit()){
         return;
     }
@@ -36,11 +36,11 @@ void OpenGL::Init() {
 
 
 }
-void OpenGL::DeInit() {
+void OpenGLRenderer::DeInit() {
 
 }
 
-void OpenGL::ToggleWireFrame() {
+void OpenGLRenderer::ToggleWireFrame() {
     if(isWireFrame){
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         isWireFrame = false;
@@ -50,7 +50,7 @@ void OpenGL::ToggleWireFrame() {
         isWireFrame = true;
     }
 }
-void OpenGL::SetupMesh(unsigned int &VAO,unsigned int &VBO,unsigned int &EBO,std::vector<Vertex> &vertices, std::vector<unsigned int> &indices) {
+void OpenGLRenderer::SetupMesh(unsigned int &VAO,unsigned int &VBO,unsigned int &EBO,std::vector<Vertex> &vertices, std::vector<unsigned int> &indices) {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -75,7 +75,7 @@ void OpenGL::SetupMesh(unsigned int &VAO,unsigned int &VBO,unsigned int &EBO,std
 
     glBindVertexArray(0);
 }
-void OpenGL::SetupTerrainMesh(unsigned int &VAO, unsigned int &VBO, unsigned int &EBO, const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices) {
+void OpenGLRenderer::SetupTerrainMesh(unsigned int &VAO, unsigned int &VBO, unsigned int &EBO, const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices) {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -100,10 +100,9 @@ void OpenGL::SetupTerrainMesh(unsigned int &VAO, unsigned int &VBO, unsigned int
 
     glBindVertexArray(0);
 }
-unsigned int OpenGL::TextureFromFile(const char *path, const std::string &inputDirectory){
+unsigned int OpenGLRenderer::TextureFromFile(const char *path, const std::string &inputDirectory){
     std::string filename = std::string(path);
     filename = inputDirectory + '/' + filename;
-    std::cout << filename << std::endl;
     //stbi_set_flip_vertically_on_load(true);
     unsigned int textureID;
     glGenTextures(1, &textureID);
@@ -139,7 +138,7 @@ unsigned int OpenGL::TextureFromFile(const char *path, const std::string &inputD
 
     return textureID;
 }
-void OpenGL::DrawModel(Shader& shader, unsigned int &VAO, const std::vector<Texture> &textures, const std::vector<unsigned int> &indices){
+void OpenGLRenderer::DrawModel(Shader& shader, unsigned int &VAO, const std::vector<Texture> &textures, const std::vector<unsigned int> &indices){
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
     for(unsigned int i = 0; i < textures.size(); i++)
@@ -162,7 +161,7 @@ void OpenGL::DrawModel(Shader& shader, unsigned int &VAO, const std::vector<Text
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
-void OpenGL::DrawChunk(Shader &shader, unsigned int &VAO, const std::vector<Texture> &textures, const unsigned int indicesSize) {
+void OpenGLRenderer::DrawChunk(Shader &shader, unsigned int &VAO, const std::vector<Texture> &textures, const unsigned int indicesSize) {
     GLint texCount = 0;
     /*
     for (auto &e : textures) {

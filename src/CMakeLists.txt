@@ -8,8 +8,10 @@ target_sources(${PROJECT_NAME} PRIVATE
 
         View/Renderer/AssimpMaths.cpp
         View/Renderer/Shader.cpp
+        View/Renderer/DataTypes.cpp
+        View/Renderer/OpenGL/OpenGLRenderer.cpp
+        View/Renderer/OpenGL/OpenGLDataTypes.cpp
         View/Camera.cpp
-        View/Renderer/OpenGL.cpp
 
         Controller/Yokai.cpp
         Controller/ModelManager.cpp
