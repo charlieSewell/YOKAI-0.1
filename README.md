@@ -56,7 +56,7 @@ ninja && ./game-engine
 #### Windows:
     * Open Visual Studio as Administrator (required to make symbolic links)
     * In Visual Studio, select Open → CMake, select `CMakeLists.txt`
-    * From the "Select Startup Item" menu, select `Project-Blue.exe`
+    * From the "Select Startup Item" menu, select `ICT397-Game-Engine.exe`
 
 ## Contributing
 * Ensure your editor uses Unix line endings
