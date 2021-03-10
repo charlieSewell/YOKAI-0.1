@@ -3,13 +3,16 @@
 //
 
 #include "Chunk.hpp"
+
+#include "View/Renderer/OpenGL/OpenGLRenderer.hpp"
 Chunk::Chunk(){
 
 }
 void Chunk::SetupChunk(const std::vector<Vertex>& vertices, const std::vector<unsigned int> &indices) {
-    Yokai::getInstance().renderer.SetupTerrainMesh(VAO, VBO, EBO, vertices, indices);
-    EBO_Size = indices.size();
+    VAO = VertexArrayBuffer::Create(vertices,indices);
+    indicesSize = indices.size();
 }
 void Chunk::DrawChunk(Shader &shader) {
-    Yokai::getInstance().renderer.DrawChunk(shader,VAO, textures, EBO_Size);
+    shader.useShader();
+    Renderer::Draw(*VAO,indicesSize);
 }

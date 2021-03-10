@@ -13,7 +13,7 @@ class TerrainManager {
 
 
   private:
-    //std::map<std::pair<int,int>,Chunk> chunks;
+    std::map<std::pair<int,int>,Chunk> chunks;
 };
 
 #endif // ICT397_GAME_ENGINE_TERRAINMANAGER_HPP

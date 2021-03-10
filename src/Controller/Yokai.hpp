@@ -5,14 +5,14 @@
 #ifndef ICT397_GAME_ENGINE_YOKAI_HPP
 #define ICT397_GAME_ENGINE_YOKAI_HPP
 
-#include "View/Renderer/OpenGL.hpp"
-#include "Controller/TerrainManager.hpp"
+#    include "Controller/TerrainManager.hpp"
+#    include "View/Renderer/Renderer.hpp"
 
 class Yokai {
   public:
     static Yokai & getInstance();
     static void Init();
-    OpenGL renderer = {};
+    Renderer renderer = {};
     //TerrainManager terrainManager = {};
 
   private:

@@ -4,19 +4,19 @@
 #pragma once
 #ifndef ICT397_GAME_ENGINE_RENDERER_HPP
 #define ICT397_GAME_ENGINE_RENDERER_HPP
-#include <glm/glm.hpp>
-#include <vector>
 
-
+#include "View/Renderer/RenderAPI.hpp"
+#include "View/Renderer/DataTypes.hpp"
+#include <memory>
 class Renderer {
   public:
-   virtual void Init() = 0;
-   virtual void DeInit() = 0;
-   virtual void ToggleWireFrame() = 0;
-
+    static void Init();
+    static void DeInit();
+    static void ToggleWireFrame();
+    static void Draw(VertexArrayBuffer& VAO,size_t indiceSize);
+    static void Clear();
   private:
-
-
+    static std::shared_ptr<RenderAPI> renderApi;
 
 };
 

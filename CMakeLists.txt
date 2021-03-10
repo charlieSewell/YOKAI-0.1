@@ -57,7 +57,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 # Find dependencies.
-# find_package(OpenGL REQUIRED COMPONENTS OpenGL)
+# find_package(OpenGLRenderer REQUIRED COMPONENTS OpenGLRenderer)
 find_package(OpenGL REQUIRED)
 
 # Build 3rd Party Libraries
