@@ -7,7 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <glad/glad.h>
-#include "View/Renderer/Renderer.hpp"
+#include "View/Renderer/RenderAPI.hpp"
 #include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
@@ -15,23 +15,20 @@
 
 #include "View/Renderer/Shader.hpp"
 
-class OpenGLRenderer : public Renderer {
+class OpenGLRenderer : public RenderAPI {
   public:
-    OpenGLRenderer() = default;
-    void Init() override;
-    void DeInit() override;
-    void ToggleWireFrame() override;
+    OpenGLRenderer();
+    ~OpenGLRenderer() override;
+    virtual void Init() override;
+    virtual void DeInit() override;
+    virtual void ToggleWireFrame() override;
+    virtual void Draw(VertexArrayBuffer& VAO,size_t indiceSize) override;
+    virtual void Clear() override;
 
-
-    static void SetupMesh(unsigned int &VAO, unsigned int &VBO, unsigned int &EBO,
-                          std::vector<Vertex> &vertices, std::vector<unsigned int> &indices);
-    static void SetupTerrainMesh(unsigned int &VAO, unsigned int &VBO, unsigned int &EBO,
-                          const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices);
     static unsigned int TextureFromFile(const char *path, const std::string &inputDirectory);
 
     static void DrawModel(Shader& shader, unsigned int &VAO, const std::vector<Texture> &textures, const std::vector<unsigned int> &indices);
-    static void DrawChunk(Shader& shader, unsigned int &VAO, const std::vector<Texture> &textures, const unsigned int indicesSize);
-    GLFWwindow* window;
+
   private:
     bool isWireFrame = false;
 };

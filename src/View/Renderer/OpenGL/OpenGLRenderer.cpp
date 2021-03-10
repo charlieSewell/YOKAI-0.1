@@ -6,40 +6,22 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-void error_callback(int error, const char* description)
-{
-    std::cout << "Error:"<< error << " "<< description<<  std::endl;
-}
-void framebuffer_size_callback(GLFWwindow* window, int width, int height){
-    glViewport(0, 0, width, height);
-}
 
+OpenGLRenderer::OpenGLRenderer() {
+
+}
+OpenGLRenderer::~OpenGLRenderer(){
+
+}
 void OpenGLRenderer::Init() {
-    if (!glfwInit()){
-        return;
-    }
-    window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
-    glfwSetFramebufferSizeCallback(this->window, framebuffer_size_callback);
-    glfwSetErrorCallback(error_callback);
-
-    if (!window){
-        return;
-    }
-
-    glfwMakeContextCurrent(this->window);
-
-    if (!gladLoadGL()) {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return;
-    }
-    glEnable(GL_DEPTH_TEST);
-
-
+    std::cout << "Using OpenGL" << std::endl;
 }
 void OpenGLRenderer::DeInit() {
 
 }
+void OpenGLRenderer::Clear() {
 
+}
 void OpenGLRenderer::ToggleWireFrame() {
     if(isWireFrame){
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -50,56 +32,13 @@ void OpenGLRenderer::ToggleWireFrame() {
         isWireFrame = true;
     }
 }
-void OpenGLRenderer::SetupMesh(unsigned int &VAO,unsigned int &VBO,unsigned int &EBO,std::vector<Vertex> &vertices, std::vector<unsigned int> &indices) {
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
-
-    glBindVertexArray(VAO);
-    //adding data to VBO/VAO
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
-    //setup of EBO
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),&indices[0], GL_STATIC_DRAW);
-
-    // vertex pointers setup
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-    // vertex normals pointer setup
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, normal));
-    // vertex coords pointer setup
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, textureCoords));
-
-    glBindVertexArray(0);
+void OpenGLRenderer::Draw(VertexArrayBuffer& VAO, size_t indicesSize) {
+    VAO.Bind();
+    std::cout << "Drawing" << std::endl;
+    glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
+    VAO.UnBind();
 }
-void OpenGLRenderer::SetupTerrainMesh(unsigned int &VAO, unsigned int &VBO, unsigned int &EBO, const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices) {
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
 
-    glBindVertexArray(VAO);
-    //adding data to VBO/VAO
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
-    //setup of EBO
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),&indices[0], GL_STATIC_DRAW);
-
-    // vertex pointers setup
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-    // vertex normals pointer setup
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, normal));
-    // vertex coords pointer setup
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, textureCoords));
-
-    glBindVertexArray(0);
-}
 unsigned int OpenGLRenderer::TextureFromFile(const char *path, const std::string &inputDirectory){
     std::string filename = std::string(path);
     filename = inputDirectory + '/' + filename;
@@ -159,18 +98,5 @@ void OpenGLRenderer::DrawModel(Shader& shader, unsigned int &VAO, const std::vec
     // draw mesh
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
-}
-void OpenGLRenderer::DrawChunk(Shader &shader, unsigned int &VAO, const std::vector<Texture> &textures, const unsigned int indicesSize) {
-    GLint texCount = 0;
-    /*
-    for (auto &e : textures) {
-        glActiveTexture(GL_TEXTURE0 + texCount);
-        glBindTexture(GL_TEXTURE_2D, e.id);
-        ++texCount;
-    }
-    */
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }

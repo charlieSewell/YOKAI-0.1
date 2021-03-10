@@ -21,16 +21,26 @@ struct Texture {
 };
 class VertexBuffer{
   public:
+    virtual ~VertexBuffer() = default;
     virtual void Bind() = 0;
     virtual void UnBind() =0;
-    virtual ~VertexBuffer();
-    //static VertexBuffer* Create(std::vector<Vertex> vertices);
+
+    static VertexBuffer* Create(std::vector<Vertex> vertices);
 };
 class IndexBuffer{
   public:
+    virtual ~IndexBuffer() = default;
     virtual void Bind() = 0;
     virtual void UnBind() =0;
-    virtual ~IndexBuffer();
-    //static IndexBuffer* Create(std::vector<unsigned int> indices);
+
+    static IndexBuffer* Create(std::vector<unsigned int> indices);
+};
+class VertexArrayBuffer{
+  public:
+    virtual ~VertexArrayBuffer() =default;
+    virtual void Bind() = 0;
+    virtual void UnBind() =0;
+
+    static VertexArrayBuffer* Create(std::vector<Vertex> vertices,std::vector<unsigned int> indices);
 };
 #endif // ICT397_GAME_ENGINE_DATATYPES_HPP

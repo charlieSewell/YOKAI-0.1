@@ -9,9 +9,9 @@ Chunk::Chunk(){
 
 }
 void Chunk::SetupChunk(const std::vector<Vertex>& vertices, const std::vector<unsigned int> &indices) {
-    OpenGLRenderer::SetupTerrainMesh(VAO, VBO, EBO, vertices, indices);
-    EBO_Size = indices.size();
+    VAO = VertexArrayBuffer::Create(vertices,indices);
+    indicesSize = indices.size();
 }
 void Chunk::DrawChunk(Shader &shader) {
-    OpenGLRenderer::DrawChunk(shader,VAO, textures, EBO_Size);
+    Renderer::Draw(*VAO,indicesSize);
 }

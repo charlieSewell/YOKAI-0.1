@@ -8,6 +8,7 @@
 #include <vector>
 #include "View/Renderer/DataTypes.hpp"
 #include "View/Renderer/Shader.hpp"
+#include "View/Renderer/Renderer.hpp"
 
 class Chunk {
   public:
@@ -17,7 +18,8 @@ class Chunk {
     //void SetShader(Shader shader){this->shader = shader;}
     unsigned int GetID(){return chunkID;}
   private:
-    unsigned int VBO = 0, VAO = 0, EBO = 0, EBO_Size = 0;
+    VertexArrayBuffer* VAO;
+    size_t indicesSize;
     std::vector<Texture> textures;
     unsigned int chunkID;
 

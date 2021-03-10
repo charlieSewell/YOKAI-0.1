@@ -10,8 +10,9 @@
 #    include <vector>
 
 #    include "Controller/Yokai.hpp"
-#    include "View/Renderer/OpenGL/OpenGLRenderer.hpp"
+#include "View/Renderer/DataTypes.hpp"
 #    include "View/Renderer/Shader.hpp"
+#include "View/Renderer/Renderer.hpp"
 class Mesh{
   public:
     Mesh(){}
@@ -23,7 +24,7 @@ class Mesh{
     const void Draw(Shader &shader);
     void SetupMesh();
   private:
-    unsigned int VAO, VBO, EBO;
+    VertexArrayBuffer* VAO;
     std::vector<Vertex>       vertices;
     std::vector<unsigned int> indices;
     std::vector<Texture>      textures;

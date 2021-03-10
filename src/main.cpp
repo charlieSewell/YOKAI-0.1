@@ -53,6 +53,13 @@ void processKeyboard(GLFWwindow *window)
     
 }
 
+void error_callback(int error, const char* description)
+{
+    std::cout << "Error:"<< error << " "<< description<<  std::endl;
+}
+void framebuffer_size_callback(GLFWwindow* window, int width, int height){
+    glViewport(0, 0, width, height);
+}
 void processMouse(GLFWwindow* window, double xpos, double ypos)
 {
     if(isPressed) {
@@ -89,12 +96,33 @@ void processMouse(GLFWwindow* window, double xpos, double ypos)
 }
 
 int main() {
+    GLFWwindow* window;
+    if (!glfwInit()){
+        return 0;
+    }
+    window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetErrorCallback(error_callback);
+
+    if (!window){
+        return 0;
+    }
+
+    glfwMakeContextCurrent(window);
+
+    if (!gladLoadGL()) {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return 0;
+    }
+    glEnable(GL_DEPTH_TEST);
+
+
     auto &engine = Yokai::getInstance();
-    engine.renderer.Init();
+    engine.Init();
 
     Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/testShader.frag");
-    glfwSetInputMode(engine.renderer.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glfwSetCursorPosCallback(engine.renderer.window, processMouse);     // move to input engine
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(window, processMouse);     // move to input engine
 
     Model testModel("content/Models/pine.fbx");
     Chunk testChunk;
@@ -109,10 +137,10 @@ int main() {
 
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
 
-    while (!glfwWindowShouldClose(engine.renderer.window))
+    while (!glfwWindowShouldClose(window))
     {
         //will be moved to input engine later
-        processKeyboard(engine.renderer.window);        
+        processKeyboard(window);
 
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -131,16 +159,16 @@ int main() {
         glm::mat4 model = glm::mat4(1.0f);
         testShader.setMat4("model", model);
         //testModel.Draw(testShader);
-      
+
         testChunk.DrawChunk(testShader);
         testChunk2.DrawChunk(testShader);
-        glfwSwapBuffers(engine.renderer.window);
+        glfwSwapBuffers(window);
 
         /* Poll for and process events */
         glfwPollEvents();
     }
 
-    glfwDestroyWindow(engine.renderer.window);
+    glfwDestroyWindow(window);
     glfwTerminate();
     return 0;
 }

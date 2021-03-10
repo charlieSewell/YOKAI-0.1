@@ -9,8 +9,9 @@ Mesh::Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> 
     this->transform = transform;
 }
 void Mesh::SetupMesh(){
-    Yokai::getInstance().renderer.SetupMesh(VAO,VBO,EBO,this->vertices,this->indices);
+    VAO = VertexArrayBuffer::Create(this->vertices,this->indices);
 }
  const void Mesh::Draw(Shader &shader){
-     Yokai::getInstance().renderer.DrawModel(shader,VAO, this->textures, this->indices);
+     VAO->Bind();
+     Renderer::Draw(*VAO,this->indices.size());
 }

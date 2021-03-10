@@ -9,4 +9,5 @@ Yokai &Yokai::getInstance() {
     return instance;
 }
 void Yokai::Init() {
+    Renderer::Init();
 }
