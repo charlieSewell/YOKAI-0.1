@@ -3,15 +3,16 @@
 //
 #include "DataTypes.hpp"
 #include "View/Renderer/OpenGL/OpenGLDataTypes.hpp"
-VertexBuffer * VertexBuffer::Create(std::vector<Vertex> vertices) {
-    return new OpenGLVertexBuffer(vertices);
+
+std::shared_ptr<VertexBuffer> VertexBuffer::Create(std::vector<Vertex> vertices) {
+    return std::shared_ptr<VertexBuffer>(new OpenGLVertexBuffer(vertices));
 }
-IndexBuffer * IndexBuffer::Create(std::vector<unsigned int> indices) {
-    return new OpenGLIndexBuffer(indices);
+std::shared_ptr<IndexBuffer> IndexBuffer::Create(std::vector<unsigned int> indices) {
+    return std::shared_ptr<IndexBuffer>(new OpenGLIndexBuffer(indices));
 }
-VertexArrayBuffer * VertexArrayBuffer::Create(std::vector<Vertex> vertices, std::vector<unsigned int> indices) {
-    return new OpenGLVertexArrayBuffer(vertices,indices);
+std::shared_ptr<VertexArrayBuffer> VertexArrayBuffer::Create(std::vector<Vertex> vertices, std::vector<unsigned int> indices) {
+    return std::shared_ptr<VertexArrayBuffer>(new OpenGLVertexArrayBuffer(vertices,indices));
 }
-Texture * Texture::Create(std::string fileName) {
-    return new OpenGLTexture(fileName);
+std::shared_ptr<Texture> Texture::Create(std::string fileName) {
+    return std::shared_ptr<Texture>(new OpenGLTexture(fileName));
 }

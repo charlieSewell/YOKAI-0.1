@@ -7,6 +7,7 @@
 #include <glm/glm.hpp>
 #include <string>
 #include <vector>
+#include <memory>
 struct Vertex {
     glm::vec3 position = {};
     glm::vec3 normal = {};
@@ -21,10 +22,10 @@ class Texture{
     virtual void Bind(size_t slot) = 0;
     virtual void UnBind() =0;
 
-    static Texture* Create(std::string fileName);
+    static std::shared_ptr<Texture> Create(std::string fileName);
 };
 struct ModelTexture {
-    Texture* texture;
+    std::shared_ptr<Texture> texture;
     std::string type = {};
     std::string path = {};
 };
@@ -35,7 +36,7 @@ class VertexBuffer{
     virtual void Bind() = 0;
     virtual void UnBind() =0;
 
-    static VertexBuffer* Create(std::vector<Vertex> vertices);
+    static std::shared_ptr<VertexBuffer> Create(std::vector<Vertex> vertices);
 };
 
 class IndexBuffer{
@@ -44,7 +45,7 @@ class IndexBuffer{
     virtual void Bind() = 0;
     virtual void UnBind() =0;
 
-    static IndexBuffer* Create(std::vector<unsigned int> indices);
+    static std::shared_ptr<IndexBuffer> Create(std::vector<unsigned int> indices);
 };
 
 class VertexArrayBuffer{
@@ -53,6 +54,6 @@ class VertexArrayBuffer{
     virtual void Bind() = 0;
     virtual void UnBind() =0;
 
-    static VertexArrayBuffer* Create(std::vector<Vertex> vertices,std::vector<unsigned int> indices);
+    static std::shared_ptr<VertexArrayBuffer> Create(std::vector<Vertex> vertices,std::vector<unsigned int> indices);
 };
 #endif // ICT397_GAME_ENGINE_DATATYPES_HPP

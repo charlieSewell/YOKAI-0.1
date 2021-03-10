@@ -7,8 +7,7 @@
 
 #include <glad/glad.h>
 #include "View/Renderer/DataTypes.hpp"
-
-
+#include <memory>
 
 class OpenGLTexture : public Texture{
   public:
@@ -50,8 +49,8 @@ class OpenGLVertexArrayBuffer : public VertexArrayBuffer{
 
   private:
     unsigned int bufferID;
-    OpenGLVertexBuffer* vertexBuffer;
-    OpenGLIndexBuffer* indexBuffer;
+    std::shared_ptr<OpenGLVertexBuffer> vertexBuffer;
+    std::shared_ptr<OpenGLIndexBuffer> indexBuffer;
 };
 
 #endif // ICT397_GAME_ENGINE_OPENGLDATATYPES_HPP

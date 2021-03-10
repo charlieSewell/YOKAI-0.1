@@ -82,8 +82,8 @@ void OpenGLIndexBuffer::UnBind() {
 OpenGLVertexArrayBuffer::OpenGLVertexArrayBuffer(std::vector<Vertex> vertices, std::vector<unsigned int> indices){
     glGenVertexArrays(1,&bufferID);
     glBindVertexArray(bufferID);
-    vertexBuffer = new OpenGLVertexBuffer(vertices);
-    indexBuffer = new OpenGLIndexBuffer(indices);
+    vertexBuffer = std::shared_ptr<OpenGLVertexBuffer>(new OpenGLVertexBuffer(vertices));
+    indexBuffer = std::shared_ptr<OpenGLIndexBuffer>(new OpenGLIndexBuffer(indices));
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);

@@ -5,14 +5,16 @@
 #ifndef ICT397_GAME_ENGINE_MESH_HPP
 #define ICT397_GAME_ENGINE_MESH_HPP
 
-#    include <iostream>
-#    include <string>
-#    include <vector>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <memory>
 
-#    include "Controller/Yokai.hpp"
+#include "Controller/Yokai.hpp"
 #include "View/Renderer/DataTypes.hpp"
-#    include "View/Renderer/Shader.hpp"
+#include "View/Renderer/Shader.hpp"
 #include "View/Renderer/Renderer.hpp"
+
 class Mesh{
   public:
     Mesh(){}
@@ -24,10 +26,10 @@ class Mesh{
     const void Draw(Shader &shader);
     void SetupMesh();
   private:
-    VertexArrayBuffer* VAO;
-    std::vector<Vertex>       vertices;
+    std::shared_ptr<VertexArrayBuffer> VAO;
+    std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
-    std::vector<ModelTexture>      textures;
+    std::vector<ModelTexture> textures;
     glm::mat4 transform;
 
 
