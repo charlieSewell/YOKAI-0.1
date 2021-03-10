@@ -22,7 +22,7 @@ class Model {
         loadModel(filename);
     }
     void Draw(Shader &shader);
-    std::vector<Texture> textures_loaded;
+    std::vector<ModelTexture> textures_loaded;
 
   private:
     std::vector<Mesh> meshes;
@@ -31,7 +31,7 @@ class Model {
     void loadModel(std::string filename);
     void processNode(aiNode *node, const aiScene *scene,glm::mat4 transform);
     Mesh processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 transform);
-    std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
+    std::vector<ModelTexture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
 };
 
 #endif // ICT397_GAME_ENGINE_MODEL_HPP

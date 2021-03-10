@@ -14,6 +14,7 @@ target_sources(${PROJECT_NAME} PRIVATE
         View/Renderer/OpenGL/OpenGLRenderer.cpp
         View/Renderer/OpenGL/OpenGLDataTypes.cpp
         View/Camera.cpp
+        View/Renderer/OpenGL/FileIO.cpp
 
         Controller/Yokai.cpp
         Controller/ModelManager.cpp

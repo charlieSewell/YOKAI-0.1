@@ -115,6 +115,7 @@ int main() {
     engine.Init();
 
     Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/testShader.frag");
+    Shader modelShader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetCursorPosCallback(window, processMouse);     // move to input engine
 
@@ -124,9 +125,9 @@ int main() {
     TerrainFactory::getInstance().Init();
     TerrainFactory::getInstance().SetupChunk(testChunk,0,0,100);
     TerrainFactory::getInstance().SetupChunk(testChunk2,0,100,100);
-    Renderer::ToggleWireFrame();
 
-    
+
+
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
 
     while (!glfwWindowShouldClose(window))
@@ -134,27 +135,37 @@ int main() {
         //will be moved to input engine later
         processKeyboard(window);
         Renderer::Clear();
-        testShader.useShader();
 
         // view/projection transformations
-
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 10000.0f);
         glm::mat4 view = camera.getViewMatrix();
+
+        testShader.useShader();
         testShader.setMat4("projection", projection);
         testShader.setMat4("view", view);
+        glm::mat4 model = glm::mat4(1.0f);
+        testShader.setMat4("model", model);
+
+
         testShader.setVec3("objectColor", glm::vec3(0.0f, 1.0f, 0.31f));
         testShader.setVec3("lightColor",  glm::vec3(1.0f, 1.0f, 1.0f));
 
+        modelShader.useShader();
+        modelShader.setMat4("projection", projection);
+        modelShader.setMat4("view", view);
+        modelShader.setMat4("model", model);
         // render the loaded model
-        glm::mat4 model = glm::mat4(1.0f);
-        testShader.setMat4("model", model);
-        //testModel.Draw(testShader);
 
+        testModel.Draw(modelShader);
+
+        Renderer::ToggleWireFrame();
         testChunk.DrawChunk(testShader);
         testChunk2.DrawChunk(testShader);
-        glfwSwapBuffers(window);
+        Renderer::ToggleWireFrame();
 
-        /* Poll for and process events */
+
+        /* Poll for and process events  NEEDS TO BE ABSTRACTED*/
+        glfwSwapBuffers(window);
         glfwPollEvents();
     }
 

@@ -8,13 +8,25 @@
 #include <glad/glad.h>
 #include "View/Renderer/DataTypes.hpp"
 
+
+
+class OpenGLTexture : public Texture{
+  public:
+    virtual ~OpenGLTexture();
+    OpenGLTexture(std::string fileName);
+    virtual void Bind(size_t slot) override;
+    virtual void UnBind() override;
+
+  private:
+    unsigned int textureID;
+};
+
 class OpenGLVertexBuffer : public VertexBuffer{
   public:
     virtual ~OpenGLVertexBuffer();
     OpenGLVertexBuffer(std::vector<Vertex> vertices);
     virtual void Bind() override;
     virtual void UnBind() override;
-
 
   private:
     unsigned int bufferID;

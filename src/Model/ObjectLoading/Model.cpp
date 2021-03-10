@@ -12,13 +12,11 @@ static auto to_glm(aiMatrix4x4t<float> m) -> glm::mat4 {
 }
 
 void Model::Draw(Shader &shader){
-
+    shader.useShader();
     for(auto& mesh: meshes){
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f)); // translate it down so it's at the center of the scene
-        //model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(1.0f,0.0f,0.0f));
-        //model = glm::rotate(model,glm::radians(-90.0f),glm::vec3(0.0f,0.0f,1.0f));
-        model = glm::scale(model, glm::vec3(0.03f, 0.03f, 0.03f));	// it's a bit too big for our scene, so scale it down
+        model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));	// it's a bit too big for our scene, so scale it down
         model = glm::rotate(model, (float)glfwGetTime() * glm::radians(5.0f),
                             glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -74,7 +72,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 transform){
     // data to fill
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
-    std::vector<Texture> textures;
+    std::vector<ModelTexture> textures;
 
     // walk through each of the mesh's vertices
     for(unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -145,16 +143,16 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 transform){
     // normal: texture_normalN
 
     // 1. diffuse maps
-    std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+    std::vector<ModelTexture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
     // 2. specular maps
-    std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+    std::vector<ModelTexture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
     textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     // 3. normal maps
-    std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+    std::vector<ModelTexture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
     textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
     // 4. height maps
-    std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+    std::vector<ModelTexture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
     // return a mesh object created from the extracted mesh data
@@ -164,8 +162,8 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 transform){
 
 // checks all material textures of a given type and loads the textures if they're not loaded yet.
 // the required info is returned as a Texture struct.
-std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName){
-    std::vector<Texture> textures;
+std::vector<ModelTexture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName){
+    std::vector<ModelTexture> textures;
     for(unsigned int i = 0; i < mat->GetTextureCount(type); i++){
         aiString str;
         mat->GetTexture(type, i, &str);
@@ -179,8 +177,9 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType 
             }
         }
         if(!skip){   // if texture hasn't been loaded already, load it
-            Texture texture;
-            texture.id = OpenGLRenderer::TextureFromFile(str.C_Str(), this->directory);
+            ModelTexture texture;
+            std::string fileName = this->directory +"/" + str.C_Str();
+            texture.texture = Texture::Create(fileName);
             texture.type = typeName;
             texture.path = str.C_Str();
             textures.push_back(texture);

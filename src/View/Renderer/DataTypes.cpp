@@ -12,3 +12,6 @@ IndexBuffer * IndexBuffer::Create(std::vector<unsigned int> indices) {
 VertexArrayBuffer * VertexArrayBuffer::Create(std::vector<Vertex> vertices, std::vector<unsigned int> indices) {
     return new OpenGLVertexArrayBuffer(vertices,indices);
 }
+Texture * Texture::Create(std::string fileName) {
+    return new OpenGLTexture(fileName);
+}

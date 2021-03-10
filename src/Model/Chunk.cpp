@@ -13,5 +13,6 @@ void Chunk::SetupChunk(const std::vector<Vertex>& vertices, const std::vector<un
     indicesSize = indices.size();
 }
 void Chunk::DrawChunk(Shader &shader) {
+    shader.useShader();
     Renderer::Draw(*VAO,indicesSize);
 }

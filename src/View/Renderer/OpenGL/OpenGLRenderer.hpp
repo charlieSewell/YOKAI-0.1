@@ -25,9 +25,6 @@ class OpenGLRenderer : public RenderAPI {
     virtual void Draw(VertexArrayBuffer& VAO,size_t indiceSize) override;
     virtual void Clear() override;
 
-    static unsigned int TextureFromFile(const char *path, const std::string &inputDirectory);
-
-    static void DrawModel(Shader& shader, unsigned int &VAO, const std::vector<Texture> &textures, const std::vector<unsigned int> &indices);
 
   private:
     bool isWireFrame = false;

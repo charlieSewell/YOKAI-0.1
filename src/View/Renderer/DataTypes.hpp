@@ -14,11 +14,21 @@ struct Vertex {
     glm::vec3 tangent = {};
     glm::vec3 biTangent = {};
 };
-struct Texture {
-    unsigned int id = {};
+
+class Texture{
+  public:
+    virtual ~Texture() = default;
+    virtual void Bind(size_t slot) = 0;
+    virtual void UnBind() =0;
+
+    static Texture* Create(std::string fileName);
+};
+struct ModelTexture {
+    Texture* texture;
     std::string type = {};
     std::string path = {};
 };
+
 class VertexBuffer{
   public:
     virtual ~VertexBuffer() = default;
@@ -27,6 +37,7 @@ class VertexBuffer{
 
     static VertexBuffer* Create(std::vector<Vertex> vertices);
 };
+
 class IndexBuffer{
   public:
     virtual ~IndexBuffer() = default;
@@ -35,6 +46,7 @@ class IndexBuffer{
 
     static IndexBuffer* Create(std::vector<unsigned int> indices);
 };
+
 class VertexArrayBuffer{
   public:
     virtual ~VertexArrayBuffer() =default;
