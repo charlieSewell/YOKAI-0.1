@@ -10,6 +10,7 @@
 #include "Model/Chunk.hpp"
 #include "Controller/Factory/TerrainFactory.hpp"
 #include "View/Camera.hpp"
+#include "View/Renderer/Renderer.hpp"
 #include <imgui.h>
 
 Camera camera;
@@ -103,18 +104,11 @@ int main() {
     window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetErrorCallback(error_callback);
-
     if (!window){
         return 0;
     }
-
     glfwMakeContextCurrent(window);
 
-    if (!gladLoadGL()) {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return 0;
-    }
-    glEnable(GL_DEPTH_TEST);
 
 
     auto &engine = Yokai::getInstance();
@@ -130,20 +124,16 @@ int main() {
     TerrainFactory::getInstance().Init();
     TerrainFactory::getInstance().SetupChunk(testChunk,0,0,100);
     TerrainFactory::getInstance().SetupChunk(testChunk2,0,100,100);
-    engine.renderer.ToggleWireFrame();
+    Renderer::ToggleWireFrame();
 
-
-
-
+    
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
 
     while (!glfwWindowShouldClose(window))
     {
         //will be moved to input engine later
         processKeyboard(window);
-
-        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        Renderer::Clear();
         testShader.useShader();
 
         // view/projection transformations

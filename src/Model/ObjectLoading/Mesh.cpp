@@ -12,6 +12,5 @@ void Mesh::SetupMesh(){
     VAO = VertexArrayBuffer::Create(this->vertices,this->indices);
 }
  const void Mesh::Draw(Shader &shader){
-     VAO->Bind();
      Renderer::Draw(*VAO,this->indices.size());
 }

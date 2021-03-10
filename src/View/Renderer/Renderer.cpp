@@ -14,7 +14,7 @@ void Renderer::ToggleWireFrame() {
     renderApi->ToggleWireFrame();
 }
 void Renderer::Clear() {
-
+    renderApi->Clear();
 }
 void Renderer::DeInit() {
     renderApi->DeInit();

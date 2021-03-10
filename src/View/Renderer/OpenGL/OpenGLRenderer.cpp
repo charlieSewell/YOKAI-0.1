@@ -14,13 +14,19 @@ OpenGLRenderer::~OpenGLRenderer(){
 
 }
 void OpenGLRenderer::Init() {
+    if (!gladLoadGL()) {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return;
+    }
+    glEnable(GL_DEPTH_TEST);
     std::cout << "Using OpenGL" << std::endl;
 }
 void OpenGLRenderer::DeInit() {
 
 }
 void OpenGLRenderer::Clear() {
-
+    glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void OpenGLRenderer::ToggleWireFrame() {
     if(isWireFrame){
@@ -34,7 +40,6 @@ void OpenGLRenderer::ToggleWireFrame() {
 }
 void OpenGLRenderer::Draw(VertexArrayBuffer& VAO, size_t indicesSize) {
     VAO.Bind();
-    std::cout << "Drawing" << std::endl;
     glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
     VAO.UnBind();
 }
