@@ -3,6 +3,6 @@
 //
 #include "View/Renderer/OpenGL/OpenGLRenderer.hpp"
 #include "RenderAPI.hpp"
-RenderAPI * RenderAPI::Create() {
-    return new OpenGLRenderer();
+std::shared_ptr<RenderAPI> RenderAPI::Create() {
+    return std::shared_ptr<RenderAPI>(new OpenGLRenderer());
 }

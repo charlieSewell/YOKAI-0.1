@@ -2,7 +2,9 @@
 // Created by Charlie Sewell on 10/03/2021.
 //
 #include "View/Renderer/Renderer.hpp"
-RenderAPI* Renderer::renderApi = RenderAPI::Create();
+//Initialises the selected runtime Render API
+std::shared_ptr<RenderAPI> Renderer::renderApi = RenderAPI::Create();
+
 void Renderer::Init() {
     renderApi->Init();
 

@@ -5,17 +5,16 @@
 #ifndef ICT397_GAME_ENGINE_MODEL_HPP
 #define ICT397_GAME_ENGINE_MODEL_HPP
 
-#    include <iostream>
-#    include <vector>
+#include <iostream>
+#include <vector>
 
-#    include <assimp/Importer.hpp>
-#    include <assimp/postprocess.h>
-#    include <assimp/scene.h>
-#    include <glm/gtc/type_ptr.hpp>
+#include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
+#include <assimp/scene.h>
+#include <glm/gtc/type_ptr.hpp>
 
-#    include "Model/ObjectLoading/Mesh.hpp"
-#    include "View/Renderer/AssimpMaths.hpp"
-#    include "View/Renderer/OpenGL/OpenGLRenderer.hpp"
+#include "Model/ObjectLoading/Mesh.hpp"
+#include "View/Renderer/AssimpMaths.hpp"
 class Model {
   public:
     Model(const char *filename){

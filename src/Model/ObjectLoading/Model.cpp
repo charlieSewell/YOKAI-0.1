@@ -3,7 +3,7 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/ext.hpp>
 #include <glm/gtx/string_cast.hpp>
-
+#include <GLFW/glfw3.h>
 static auto to_glm(aiMatrix4x4t<float> m) -> glm::mat4 {
     return glm::mat4{m.a1, m.b1, m.c1, m.d1,
                 m.a2, m.b2, m.c2, m.d2,

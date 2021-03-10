@@ -4,19 +4,19 @@
 #pragma once
 #ifndef ICT397_GAME_ENGINE_RENDERER_HPP
 #define ICT397_GAME_ENGINE_RENDERER_HPP
+
 #include "View/Renderer/RenderAPI.hpp"
 #include "View/Renderer/DataTypes.hpp"
-#include <GLFW/glfw3.h>
+#include <memory>
 class Renderer {
   public:
-    GLFWwindow* window;
     static void Init();
     static void DeInit();
     static void ToggleWireFrame();
     static void Draw(VertexArrayBuffer& VAO,size_t indiceSize);
     static void Clear();
   private:
-        static RenderAPI* renderApi;
+    static std::shared_ptr<RenderAPI> renderApi;
 
 };
 

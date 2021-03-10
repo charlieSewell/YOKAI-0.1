@@ -14,7 +14,7 @@ class RenderAPI {
     virtual void ToggleWireFrame()=0;
     virtual void Draw(VertexArrayBuffer& VAO,size_t indiceSize) = 0;
     virtual void Clear() =0;
-    static RenderAPI* Create();
+    static std::shared_ptr<RenderAPI> Create();
 };
 
 #endif // ICT397_GAME_ENGINE_RENDERAPI_HPP

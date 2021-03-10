@@ -10,7 +10,6 @@
 #include <vector>
 #include <memory>
 
-#include "Controller/Yokai.hpp"
 #include "View/Renderer/DataTypes.hpp"
 #include "View/Renderer/Shader.hpp"
 #include "View/Renderer/Renderer.hpp"
