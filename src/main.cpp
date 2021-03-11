@@ -7,11 +7,10 @@
 #include "Controller/Yokai.hpp"
 #include "Model/ObjectLoading/Model.hpp"
 
-#include "Model/Chunk.hpp"
+
 #include "Controller/Factory/TerrainFactory.hpp"
 #include "View/Camera.hpp"
-#include "View/Renderer/Renderer.hpp"
-#include <imgui.h>
+
 
 Camera camera;
 bool firstMouse = true;     // will be static memeber of input class
