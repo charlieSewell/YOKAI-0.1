@@ -5,6 +5,9 @@ target_sources(${PROJECT_NAME} PRIVATE
         Model/ObjectLoading/Mesh.cpp
         Model/ObjectLoading/Model.cpp
         Model/Chunk.cpp
+		Model/GameObject.cpp
+		Model/PlayerControlledMotion.cpp
+		Model/Player.cpp		
 
         View/Renderer/AssimpMaths.cpp
         View/Renderer/Shader.cpp

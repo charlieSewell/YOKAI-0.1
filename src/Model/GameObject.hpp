@@ -3,12 +3,12 @@
 #pragma once
 #include <glm/glm.hpp>
 
-enum class EntityType
+enum class GameObjectType
 {
 	player
 };
 
-class Entity
+class GameObject
 {
 public:
 	glm::vec3 getPosition() const;
@@ -16,6 +16,6 @@ public:
 	virtual void update();
 
 protected:
-	EntityType m_EntityType;
+	GameObjectType m_EntityType;
 	glm::vec3 m_position;
 };

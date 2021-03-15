@@ -46,7 +46,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE  ${PROJECT_BINARY_DIR}/lib)
 
 
 # Define the executable.
-add_executable(${PROJECT_NAME} src/main.cpp "src/Controller/LuaManager.cpp" "src/Controller/LuaManager.hpp" "src/Model/Entity.hpp" "src/Model/Player.hpp" "src/Model/Player.cpp"  "src/Model/PlayerControlledMotion.cpp" "src/Model/Entity.cpp")
+add_executable(${PROJECT_NAME} src/main.cpp "src/Controller/LuaManager.cpp" "src/Controller/LuaManager.hpp" "src/Model/GameObject.hpp" "src/Model/Player.hpp" "src/Model/Player.cpp"  "src/Model/PlayerControlledMotion.cpp" "src/Model/GameObject.cpp")
 
 # Set C++ standard.
 set_target_properties(${PROJECT_NAME} PROPERTIES
