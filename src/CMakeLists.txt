@@ -5,6 +5,9 @@ target_sources(${PROJECT_NAME} PRIVATE
         Model/ObjectLoading/Mesh.cpp
         Model/ObjectLoading/Model.cpp
         Model/Chunk.cpp
+		Model/GameObject.cpp
+		Model/PlayerControlledMotion.cpp
+		Model/Player.cpp		
 
         View/Renderer/AssimpMaths.cpp
         View/Renderer/Shader.cpp
@@ -20,7 +23,9 @@ target_sources(${PROJECT_NAME} PRIVATE
         Controller/ModelManager.cpp
         Controller/TerrainManager.cpp
         Controller/Factory/TerrainFactory.cpp
-	Controller/LuaManager.cpp
+		Controller/LuaManager.cpp
+		Controller/EventManager.cpp
+		Controller/InputManagerGLFW.cpp
         )
 
 # Include project header files.
