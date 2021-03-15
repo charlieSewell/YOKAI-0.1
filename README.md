@@ -33,7 +33,7 @@ git lfs install
 ```
 git clone https://github.com/charlieSewell/ICT397-Game-Engine.git
 cd ICT397-Game-Engine
-git checkout main
+git checkout master
 git submodule update --init --recursive --depth 1
 ```
 
