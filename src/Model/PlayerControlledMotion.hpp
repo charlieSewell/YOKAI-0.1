@@ -22,6 +22,8 @@ protected:
 	void registerMoveRight(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection);
 	void registerMoveUp(glm::vec3& position, glm::vec3& upDirection);
 	void registerMoveDown(glm::vec3& position, glm::vec3& upDirection);
+	void registerXYLook(glm::vec3& frontDirection);
 
 	float m_movementSpeed;
+	float m_lookSensitivity;
 };

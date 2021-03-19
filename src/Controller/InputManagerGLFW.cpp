@@ -26,6 +26,7 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 		EMS::getInstance().fire(InputEvent::moveDown);
 
+
 	//not implemented yet
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		EMS::getInstance().fire(InputEvent::increaseSpeed);
@@ -41,4 +42,25 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 			isPressed = true;
 		}
 	}*/
+}
+
+void InputManagerGLFW::processMouse(GLFWwindow* window)
+{
+	double xpos, ypos;
+	glfwGetCursorPos(window, &xpos, &ypos);
+
+	if (!mouseInit)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		mouseInit = true;
+	}
+
+	double xoffset = xpos - lastX;
+	double yoffset = ypos - lastY;
+
+	EMS::getInstance().fire(InputEvent::xyLook, xoffset, yoffset);
+
+	lastX = xpos;
+	lastY = ypos;
 }
