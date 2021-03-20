@@ -13,8 +13,13 @@ class InputManagerGLFW
 	  InputManagerGLFW(InputManagerGLFW const&) = delete;
 	  void operator=(InputManagerGLFW const&) = delete;
 
-	  static void processKeyboard(GLFWwindow * window);
+	  void processKeyboard(GLFWwindow * window);
+	  void processMouse(GLFWwindow* window);
 
   private:
-	  InputManagerGLFW() {}
+	  InputManagerGLFW() : mouseInit(0) {}
+
+	  bool mouseInit;
+	  double lastX, lastY;
+
 };

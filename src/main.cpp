@@ -19,13 +19,6 @@
 #include "Model/Player.hpp"
 
 Player player;
-bool firstMouse = true;     // will be static memeber of input class
-double lastX = 400;         //screen currently hard coded at 800, 600s
-double lastY = 300;
-double yaw = -90.0f;
-double pitch = 0.f;
-bool isPressed = true;
-//move to input class
 
 void error_callback(int error, const char* description)
 {
@@ -33,41 +26,6 @@ void error_callback(int error, const char* description)
 }
 void framebuffer_size_callback(GLFWwindow* window, int width, int height){
     glViewport(0, 0, width, height);
-}
-
-void processMouse(GLFWwindow* window, double xpos, double ypos)
-{
-    if(isPressed) {
-        if (firstMouse) {
-            lastX      = xpos;
-            lastY      = ypos;
-            firstMouse = false;
-        }
-
-        float xoffset = xpos - lastX;
-        float yoffset = ypos - lastY;
-        lastX         = xpos;
-        lastY         = ypos;
-
-        float sensitivity = 0.05f;
-        xoffset *= sensitivity;
-        yoffset *= sensitivity;
-
-        yaw += xoffset;
-        pitch -= yoffset;
-
-        // stops bad weird camera movement
-        if (pitch > 89.0f)
-            pitch = 89.0f;
-        if (pitch < -89.0f)
-            pitch = -89.0f;
-
-        glm::vec3 direction;
-        direction.x    = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-        direction.y    = sin(glm::radians(pitch));
-        direction.z    = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-        player.m_frontDirection = glm::normalize(direction);
-    }
 }
 
 int main() {
@@ -89,7 +47,7 @@ int main() {
     Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/testShader.frag");
     Shader modelShader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glfwSetCursorPosCallback(window, processMouse);     // move to input engine
+    //glfwSetCursorPosCallback(window, InputManagerGLFW::processMouse);     // move to input engine
 
     Model testModel("content/Models/pine.fbx");
     Chunk testChunk;
@@ -105,8 +63,8 @@ int main() {
     while (!glfwWindowShouldClose(window))
     {
         //will be moved to input engine later
-		InputManagerGLFW::getInstance();
-		InputManagerGLFW::processKeyboard(window);
+		InputManagerGLFW::getInstance().processKeyboard(window);
+		InputManagerGLFW::getInstance().processMouse(window);
         Renderer::Clear();
 
         // view/projection transformations
