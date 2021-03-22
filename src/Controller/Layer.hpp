@@ -7,6 +7,7 @@
 
 class Layer {
   public:
+    virtual void Init() = 0;
     virtual void Update() = 0;
     virtual void Enable() = 0;
     virtual void Disable() = 0;
