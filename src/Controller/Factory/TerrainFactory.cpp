@@ -1,7 +1,7 @@
 //
 // Created by Charlie Sewell on 4/03/2021.
 //
-
+#include "stb_image.h"
 #include "TerrainFactory.hpp"
 TerrainFactory &TerrainFactory::getInstance() {
     static TerrainFactory instance;
@@ -9,7 +9,7 @@ TerrainFactory &TerrainFactory::getInstance() {
 }
 void TerrainFactory::Init(){
     this->terrainSize = 300;
-    GeneratePerlinMap(terrainSize,terrainSize);
+    //GeneratePerlinMap(terrainSize,terrainSize);
 
 }
 void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zStart,int size) {
@@ -20,7 +20,7 @@ void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zS
     GenerateTerrainIndices(indices,size,size);
     //TODO: Come Up with better solution as currently just stretching over terrain
     GenerateTexCoords(vertices,size,size);
-
+    LoadHeightMap("content/Heightmap.png");
     //TODO: Abstract into another function
     int x =xStart;
     int z=zStart;
@@ -61,7 +61,21 @@ void TerrainFactory::GenerateTerrainIndices(std::vector<unsigned int> &terrain, 
 }
 void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain, int xSize, int zSize) {
     for(auto& vert: terrain){
-        vert.textureCoords = glm::vec2((float)vert.position.x/xSize,(float)vert.position.z/xSize);
+        vert.textureCoords = glm::vec2((float)vert.position.x,(float)vert.position.z);
+    }
+}
+void TerrainFactory::LoadHeightMap(std::string filename) {
+    int width,height,nrComponents;
+    float* data = stbi_loadf(filename.c_str(),&width,&height,&nrComponents,1);
+    heightVals.resize(static_cast<size_t>(width));
+    for (auto &e : heightVals) {
+        e.resize(static_cast<size_t>(height));
+    }
+    for(int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            //std::cout << data[x] << std::endl;
+            heightVals.at(static_cast<size_t>(x)).at(static_cast<size_t>(y)) = (data[(x*width)+y])*255;
+        }
     }
 }
 void TerrainFactory::GeneratePerlinMap(int xSize,int ySize) {

@@ -44,19 +44,17 @@ int main() {
     auto &engine = Yokai::getInstance();
     engine.Init();
 
-    Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/testShader.frag");
+    //Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/testShader.frag");
+    Shader testShader("content/Shaders/terrainVertex.vert","content/Shaders/terrainFragment.frag");
     Shader modelShader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     //glfwSetCursorPosCallback(window, InputManagerGLFW::processMouse);     // move to input engine
-
     Model testModel("content/Models/pine.fbx");
     Chunk testChunk;
     Chunk testChunk2;
     TerrainFactory::getInstance().Init();
-    TerrainFactory::getInstance().SetupChunk(testChunk,0,0,100);
+    TerrainFactory::getInstance().SetupChunk(testChunk,0,0,300);
     TerrainFactory::getInstance().SetupChunk(testChunk2,0,100,100);
-
-
 
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
 
@@ -78,8 +76,8 @@ int main() {
         testShader.setMat4("model", model);
 
 
-        testShader.setVec3("objectColor", glm::vec3(0.0f, 1.0f, 0.31f));
-        testShader.setVec3("lightColor",  glm::vec3(1.0f, 1.0f, 1.0f));
+        //testShader.setVec3("objectColor", glm::vec3(0.0f, 1.0f, 0.31f));
+        //testShader.setVec3("lightColor",  glm::vec3(1.0f, 1.0f, 1.0f));
 
         modelShader.useShader();
         modelShader.setMat4("projection", projection);
@@ -88,11 +86,10 @@ int main() {
         // render the loaded model
 
         testModel.Draw(modelShader);
-
-        Renderer::ToggleWireFrame();
+        //Renderer::ToggleWireFrame();
         testChunk.DrawChunk(testShader);
-        testChunk2.DrawChunk(testShader);
-        Renderer::ToggleWireFrame();
+        //testChunk2.DrawChunk(testShader);
+        //Renderer::ToggleWireFrame();
 
 
         /* Poll for and process events  NEEDS TO BE ABSTRACTED*/

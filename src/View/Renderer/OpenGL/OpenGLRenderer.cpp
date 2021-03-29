@@ -42,4 +42,3 @@ void OpenGLRenderer::Draw(VertexArrayBuffer& VAO, size_t indicesSize) {
     glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
     VAO.UnBind();
 }
-
