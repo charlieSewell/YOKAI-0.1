@@ -25,8 +25,8 @@ void Chunk::DrawChunk(Shader &shader) {
     shader.setInt("detailMap",3);
 
     shader.setFloat("sandHeight",10);
-    shader.setFloat("grassHeight",15);
-    shader.setFloat("snowHeight",80);
+    shader.setFloat("grassHeight",20);
+    shader.setFloat("snowHeight",100);
 
 
     textures[0]->Bind(0);

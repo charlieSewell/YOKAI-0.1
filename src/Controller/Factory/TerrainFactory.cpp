@@ -3,16 +3,19 @@
 //
 #include "stb_image.h"
 #include "TerrainFactory.hpp"
-TerrainFactory &TerrainFactory::getInstance() {
+TerrainFactory &TerrainFactory::getInstance()
+{
     static TerrainFactory instance;
     return instance;
 }
-void TerrainFactory::Init(){
-    this->terrainSize = 300;
+void TerrainFactory::Init()
+{
+    this->terrainSize = 512;
     //GeneratePerlinMap(terrainSize,terrainSize);
 
 }
-void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zStart,int size) {
+void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zStart,int size)
+{
     size+=1;
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
@@ -24,8 +27,10 @@ void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zS
     //TODO: Abstract into another function
     int x =xStart;
     int z=zStart;
-    for(auto& vert: vertices){
-        if(vert.position.x != x){
+    for(auto& vert: vertices)
+    {
+        if(vert.position.x != x)
+        {
             x ++;
             z=zStart;
         }
@@ -36,8 +41,10 @@ void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zS
 }
 void TerrainFactory::GenerateFlatMap(std::vector<Vertex> &terrain,unsigned int xStart,unsigned int zStart, int xSize, int zSize) {
     Vertex vertex;
-    for (unsigned x = xStart; x < xSize+xStart; x ++) {
-        for (unsigned z = zStart ; z < zSize+zStart; z ++) {
+    for (unsigned x = xStart; x < xSize+xStart; x ++)
+    {
+        for (unsigned z = zStart ; z < zSize+zStart; z ++)
+        {
             vertex.position.x = x;
             vertex.position.z = z;
             terrain.push_back(vertex);
@@ -45,9 +52,12 @@ void TerrainFactory::GenerateFlatMap(std::vector<Vertex> &terrain,unsigned int x
         }
     }
 }
-void TerrainFactory::GenerateTerrainIndices(std::vector<unsigned int> &terrain, int xSize, int zSize) {
-    for(int x =0; x < xSize-1; x++){
-        for(int z =0; z < zSize-1; z++){
+void TerrainFactory::GenerateTerrainIndices(std::vector<unsigned int> &terrain, int xSize, int zSize)
+{
+    for(int x =0; x < xSize-1; x++)
+    {
+        for(int z =0; z < zSize-1; z++)
+        {
             int pos = x * xSize + z;
             terrain.push_back(pos);             //0
             terrain.push_back(pos + 1);         //1
@@ -59,26 +69,30 @@ void TerrainFactory::GenerateTerrainIndices(std::vector<unsigned int> &terrain, 
         }
     }
 }
-void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain, int xSize, int zSize) {
-    for(auto& vert: terrain){
+void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain, int xSize, int zSize)
+{
+    for(auto& vert: terrain)
+    {
         vert.textureCoords = glm::vec2((float)vert.position.x,(float)vert.position.z);
     }
 }
-void TerrainFactory::LoadHeightMap(std::string filename) {
+void TerrainFactory::LoadHeightMap(std::string filename)
+{
     int width,height,nrComponents;
     float* data = stbi_loadf(filename.c_str(),&width,&height,&nrComponents,1);
-    heightVals.resize(static_cast<size_t>(width));
+    heightVals.resize(static_cast<size_t>(width)+1);
     for (auto &e : heightVals) {
-        e.resize(static_cast<size_t>(height));
+        e.resize(static_cast<size_t>(height)+1);
     }
-    for(int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
+    for(int x = 0; x <= width; x++) {
+        for (int y = 0; y <= height; y++) {
             //std::cout << data[x] << std::endl;
             heightVals.at(static_cast<size_t>(x)).at(static_cast<size_t>(y)) = (data[(x*width)+y])*255;
         }
     }
 }
-void TerrainFactory::GeneratePerlinMap(int xSize,int ySize) {
+void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
+{
     heightVals.resize(static_cast<size_t>(xSize));
     for (auto &e : heightVals) {
         e.resize(static_cast<size_t>(ySize));
@@ -109,7 +123,8 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize) {
             //Step filter for nodes
             //result = round(sum*32)/32;
 
-            if(isnan(result)){
+            if(isnan(result))
+            {
                 result =0 ;
             }
             // Store in Vector of Vectors

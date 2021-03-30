@@ -53,7 +53,7 @@ int main() {
     Chunk testChunk;
     Chunk testChunk2;
     TerrainFactory::getInstance().Init();
-    TerrainFactory::getInstance().SetupChunk(testChunk,0,0,300);
+    TerrainFactory::getInstance().SetupChunk(testChunk,0,0,512);
     TerrainFactory::getInstance().SetupChunk(testChunk2,0,100,100);
 
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
