@@ -1,8 +1,14 @@
-#version 330 core
+#version 410 core
 out vec4 FragColor;
 
 in vec2 TexCoord;
 in float HeightPoint;
+in vec3 Normal;
+in vec3 FragPos;
+
+uniform vec3 lightPos;
+uniform vec3 viewPos;
+uniform vec3 lightColor;
 
 uniform sampler2D sandTexture;
 uniform sampler2D grassTexture;
@@ -34,5 +40,27 @@ void main(){
     else{
         FragColor = sand;
     }
-    FragColor = FragColor * detail;
+
+    //Ambient
+    float ambientStrength = 0.1;
+    vec3 ambient = ambientStrength * lightColor;
+
+    //Difuse
+    vec3 norm = normalize(Normal);
+    vec3 lightDir = normalize(lightPos - FragPos);
+    float diff = max(dot(norm, lightDir), 0.0);
+    vec3 diffuse = diff * lightColor;
+
+    //Specular
+    float specularStrength = 0.05;
+    vec3 viewDir = normalize(viewPos - FragPos);
+    vec3 reflectDir = reflect(-lightDir, norm);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+    vec3 specular = specularStrength * spec * lightColor;
+
+    //final results
+    vec4 texResult = FragColor;
+    vec3 result = (ambient + diffuse + specular);
+
+    FragColor = texResult * vec4(result,1.0);
 }

@@ -24,7 +24,6 @@ void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zS
     //TODO: Come Up with better solution as currently just stretching over terrain
     GenerateTexCoords(vertices,size,size);
     LoadHeightMap("content/Heightmap.png");
-    //TODO: Abstract into another function
     int x =xStart;
     int z=zStart;
     for(auto& vert: vertices)
@@ -37,6 +36,7 @@ void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zS
         vert.position.y = heightVals.at(x).at(z);
         z++;
     }
+    GenerateNormals(vertices,indices);
     chunk.SetupChunk(vertices,indices);
 }
 void TerrainFactory::GenerateFlatMap(std::vector<Vertex> &terrain,unsigned int xStart,unsigned int zStart, int xSize, int zSize) {
@@ -76,6 +76,27 @@ void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain, int xSize, 
         vert.textureCoords = glm::vec2((float)vert.position.x,(float)vert.position.z);
     }
 }
+void TerrainFactory::GenerateNormals(std::vector<Vertex> &terrain, std::vector<unsigned int> &indices) {
+    for(int i=0; i < indices.size(); i += 3)
+    {
+        Vertex &vert = terrain[indices[i]];
+        Vertex &vert2 = terrain[indices[i+1]];
+        Vertex &vert3 = terrain[indices[i+2]];
+
+        glm::vec3 vec1 = vert2.position - vert.position;
+        glm::vec3 vec2 = vert3.position - vert.position;
+        glm::vec3 normal = glm::cross(vec1, vec2);
+        normal = glm::normalize(normal);
+
+        vert.normal += normal;
+        vert2.normal += normal;
+        vert3.normal += normal;
+    }
+    for(int i=0; i < terrain.size();i++)
+    {
+        terrain[i].normal = glm::normalize(terrain[i].normal);
+    }
+}
 void TerrainFactory::LoadHeightMap(std::string filename)
 {
     int width,height,nrComponents;
@@ -86,7 +107,6 @@ void TerrainFactory::LoadHeightMap(std::string filename)
     }
     for(int x = 0; x <= width; x++) {
         for (int y = 0; y <= height; y++) {
-            //std::cout << data[x] << std::endl;
             heightVals.at(static_cast<size_t>(x)).at(static_cast<size_t>(y)) = (data[(x*width)+y])*255;
         }
     }

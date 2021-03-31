@@ -27,7 +27,8 @@ void Chunk::DrawChunk(Shader &shader) {
     shader.setFloat("sandHeight",10);
     shader.setFloat("grassHeight",20);
     shader.setFloat("snowHeight",100);
-
+    shader.setVec3("lightColor",glm::vec3(1.0,1.0,1.0));
+    shader.setVec3("lightPos",glm::vec3(256.0,200.0,256.0));
 
     textures[0]->Bind(0);
     textures[1]->Bind(1);

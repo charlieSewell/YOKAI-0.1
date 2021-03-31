@@ -74,6 +74,7 @@ int main() {
         testShader.setMat4("view", view);
         glm::mat4 model = glm::mat4(1.0f);
         testShader.setMat4("model", model);
+        testShader.setVec3("viewPos", player.getPos());
 
 
         //testShader.setVec3("objectColor", glm::vec3(0.0f, 1.0f, 0.31f));

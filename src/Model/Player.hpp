@@ -13,5 +13,4 @@ class Player : public GameObject, public Camera, public PlayerControlledMotion
 public:
 	Player();
 	~Player();
-
 };
