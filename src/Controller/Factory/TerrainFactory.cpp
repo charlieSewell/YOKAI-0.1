@@ -58,13 +58,14 @@ void TerrainFactory::GenerateTerrainIndices(std::vector<unsigned int> &terrain, 
     {
         for(int z =0; z < zSize-1; z++)
         {
+            // Generates Terrain Indices for 2 triangles sharing one edge with the corners 0,1,2,3
             int pos = x * xSize + z;
-            terrain.push_back(pos);             //0
-            terrain.push_back(pos + 1);         //1
-            terrain.push_back(pos + xSize);     //2
-            terrain.push_back(pos + 1);         //1
-            terrain.push_back(pos + 1 + xSize); //3
-            terrain.push_back(pos + xSize);     //2
+            terrain.push_back(pos);             //Corner 0
+            terrain.push_back(pos + 1);         //Corner 1
+            terrain.push_back(pos + xSize);     //Corner 2
+            terrain.push_back(pos + 1);         //Corner 1
+            terrain.push_back(pos + 1 + xSize); //Corner 3
+            terrain.push_back(pos + xSize);     //Corner 2
 
         }
     }
