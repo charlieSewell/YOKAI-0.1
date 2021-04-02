@@ -25,8 +25,6 @@ void Mesh::SetupMesh(){
 
          shader.setFloat(("material." + name + number).c_str(), i);
      }
-
-     //glActiveTexture(GL_TEXTURE0);
      // draw mesh
      Renderer::Draw(*VAO,indices.size());
 }

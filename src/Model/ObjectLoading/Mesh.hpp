@@ -1,9 +1,8 @@
 //
 // Created by Charlie Sewell on 12/01/2021.
 //
+
 #pragma once
-#ifndef ICT397_GAME_ENGINE_MESH_HPP
-#define ICT397_GAME_ENGINE_MESH_HPP
 
 #include <iostream>
 #include <string>
@@ -33,4 +32,3 @@ class Mesh{
 
 
 };
-#endif // ICT397_GAME_ENGINE_MESH_HPP
