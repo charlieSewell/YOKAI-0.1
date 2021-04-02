@@ -20,13 +20,15 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height){
     glViewport(0, 0, width, height);
 }
 
-int main() {
+int main()
+{
     Player player;
     ModelManager modelManager;
     ModelLoader modelLoader;
     auto &engine = Yokai::getInstance();
     GLFWwindow* window;
-    if (!glfwInit()){
+    if (!glfwInit())
+	{
         return 0;
     }
     window = glfwCreateWindow(800, 600, "ICT397 Game Engine", NULL, NULL);
