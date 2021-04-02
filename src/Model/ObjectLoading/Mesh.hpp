@@ -32,6 +32,5 @@ class Mesh{
     glm::mat4 transform;
 
 
-
 };
 #endif // ICT397_GAME_ENGINE_MESH_HPP

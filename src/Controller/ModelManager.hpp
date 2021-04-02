@@ -18,7 +18,7 @@ class ModelManager {
   public:
     auto GetModelID(std::string filename) -> size_t;
     Model* GetModel(size_t modelID);
-    void DrawModel(size_t id,Shader shader);
+    void DrawModel(size_t id,Shader &shader);
 };
 
 #endif // ICT397_GAME_ENGINE_MODELMANAGER_HPP

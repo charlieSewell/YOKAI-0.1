@@ -17,7 +17,7 @@ auto ModelManager::GetModelID(std::string filename) -> size_t {
 Model* ModelManager::GetModel(size_t modelID) {
     return &models[modelID];
 }
-void ModelManager::DrawModel(size_t id, Shader shader) {
+void ModelManager::DrawModel(size_t id, Shader &shader) {
     models.at(id).Draw(shader);
 }
 

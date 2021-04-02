@@ -21,7 +21,7 @@ class Chunk {
   private:
     std::shared_ptr<VertexArrayBuffer> VAO;
     size_t indicesSize;
-    std::vector<Texture> textures;
+    std::vector<std::shared_ptr<Texture>> textures;
     unsigned int chunkID;
 
 

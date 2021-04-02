@@ -7,7 +7,7 @@ OpenGLTexture::OpenGLTexture(std::string path) {
     std::string filename = std::string(path);
     glGenTextures(1, &textureID);
     int width, height, nrComponents;
-    unsigned char *data = TextureFromFile(filename,width,height,nrComponents);
+    unsigned char *data = TextureFromFile(filename,width,height,nrComponents,0);
     if (data)
     {
         GLenum format;

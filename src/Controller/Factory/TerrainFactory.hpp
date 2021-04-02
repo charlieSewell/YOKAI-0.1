@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <glm/gtc/noise.hpp>
+#include <glm/gtx/normal.hpp>
 #include <math.h>
 
 #include "View/Renderer/DataTypes.hpp"
@@ -28,7 +29,9 @@ class TerrainFactory {
     void GenerateFlatMap(std::vector<Vertex> &terrain,unsigned int xStart,unsigned int zStart,int xSize, int zSize);
     void GenerateTerrainIndices(std::vector<unsigned int> &terrain,int xSize, int zSize);
     void GenerateTexCoords(std::vector<Vertex> &terrain,int xSize, int zSize);
+    void GenerateNormals(std::vector<Vertex> &terrain, std::vector<unsigned int> &indices);
     void GeneratePerlinMap(int xSize,int ySize);
+    void LoadHeightMap(std::string filename);
     std::vector<std::vector<float>> heightVals = {};
 };
 

@@ -19,7 +19,7 @@ void Model::Draw(Shader &shader){
         model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));	// it's a bit too big for our scene, so scale it down
         model = glm::rotate(model, (float)glfwGetTime() * glm::radians(5.0f),
                             glm::vec3(0.0f, 1.0f, 0.0f));
-
+/*
         auto _scale       = glm::vec3{};
         auto _rotation    = glm::quat{};
         auto _translation = glm::vec3{};
@@ -28,10 +28,11 @@ void Model::Draw(Shader &shader){
 
         glm::decompose(mesh.getTransform(), _scale, _rotation, _translation, _skew, _perspective);
 
-        model = glm::translate(model, _translation);
-        model *= glm::mat4_cast(_rotation);
-        model = glm::scale(model, _scale);
-
+        //model = glm::translate(model, _translation);
+        //model *= glm::mat4_cast(_rotation);
+        //model = glm::scale(model, _scale);
+*/
+        model = model * mesh.getTransform();
         shader.setMat4("model", model);
         mesh.Draw(shader);
     }
