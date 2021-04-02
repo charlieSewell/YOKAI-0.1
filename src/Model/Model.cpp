@@ -15,17 +15,7 @@ void Model::Draw(Shader &shader){
         model = glm::rotate(model, (float)glfwGetTime() * glm::radians(5.0f),
                             glm::vec3(0.0f, 1.0f, 0.0f));
 
-        auto _scale       = glm::vec3{};
-        auto _rotation    = glm::quat{};
-        auto _translation = glm::vec3{};
-        auto _skew        = glm::vec3{};
-        auto _perspective = glm::vec4{};
-
-        glm::decompose(mesh.getTransform(), _scale, _rotation, _translation, _skew, _perspective);
-
-        model = glm::translate(model, _translation);
-        model *= glm::mat4_cast(_rotation);
-        model = glm::scale(model, _scale);
+        model = model * mesh.getTransform();
 
         shader.setMat4("model", model);
         mesh.Draw(shader);
