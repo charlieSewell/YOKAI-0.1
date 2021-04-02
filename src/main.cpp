@@ -28,7 +28,7 @@ int main() {
     if (!glfwInit()){
         return 0;
     }
-    window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(800, 600, "ICT397 Game Engine", NULL, NULL);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetErrorCallback(error_callback);
     if (!window){
