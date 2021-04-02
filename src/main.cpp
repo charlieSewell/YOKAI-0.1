@@ -52,8 +52,8 @@ int main() {
     while (!glfwWindowShouldClose(window))
     {
         //will be moved to input engine later
-		    InputManagerGLFW::getInstance().processKeyboard(window);
-		    InputManagerGLFW::getInstance().processMouse(window);
+        InputManagerGLFW::getInstance().processKeyboard(window);
+        InputManagerGLFW::getInstance().processMouse(window);
         Renderer::Clear();
 
         // view/projection transformations
@@ -68,9 +68,6 @@ int main() {
         testShader.setVec3("viewPos", player.getPos());
 
 
-        //testShader.setVec3("objectColor", glm::vec3(0.0f, 1.0f, 0.31f));
-        //testShader.setVec3("lightColor",  glm::vec3(1.0f, 1.0f, 1.0f));
-
         modelShader.useShader();
         modelShader.setMat4("projection", projection);
         modelShader.setMat4("view", view);
@@ -79,7 +76,6 @@ int main() {
         modelManager.DrawModel(modelID,modelShader);
         //Renderer::ToggleWireFrame();
         testChunk.DrawChunk(testShader);
-        //testChunk2.DrawChunk(testShader);
         //Renderer::ToggleWireFrame();
 
 
