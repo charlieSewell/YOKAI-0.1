@@ -2,8 +2,7 @@
 // Created by Charlie Sewell on 1/04/2021.
 //
 
-#ifndef ICT397_GAME_ENGINE_MODELLOADER_HPP
-#define ICT397_GAME_ENGINE_MODELLOADER_HPP
+#pragma once
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
@@ -22,5 +21,3 @@ class ModelLoader {
     std::vector<ModelTexture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
     std::vector<ModelTexture> textures_loaded;
 };
-
-#endif // ICT397_GAME_ENGINE_MODELLOADER_HPP
