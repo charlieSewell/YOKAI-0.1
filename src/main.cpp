@@ -1,22 +1,20 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #define GLFW_INCLUDE_NONE
+#include <imgui.h>
 #include <iostream>
 
-#include "Controller/EventManager.h"
-
 #include <glm/gtc/type_ptr.hpp>
-#include "Controller/Yokai.hpp"
-#include "Model/ObjectLoading/Model.hpp"
 
-#include "Model/Chunk.hpp"
+#include "Controller/EventManager.h"
 #include "Controller/Factory/TerrainFactory.hpp"
+#include "Controller/InputManagerGLFW.hpp"
+#include "Controller/Yokai.hpp"
+#include "Model/Chunk.hpp"
+#include "Controller/ModelManager.hpp"
+#include "Model/Player.hpp"
 #include "View/Camera.hpp"
 #include "View/Renderer/Renderer.hpp"
-#include "Controller/InputManagerGLFW.hpp"
-#include <imgui.h>
-
-#include "Model/Player.hpp"
 
 Player player;
 
@@ -48,8 +46,7 @@ int main() {
     Shader modelShader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     //glfwSetCursorPosCallback(window, InputManagerGLFW::processMouse);     // move to input engine
-
-    Model testModel("content/Models/pine.fbx");
+    ModelManager modelManager;
     Chunk testChunk;
     Chunk testChunk2;
     TerrainFactory::getInstance().Init();
@@ -86,8 +83,8 @@ int main() {
         modelShader.setMat4("view", view);
         modelShader.setMat4("model", model);
         // render the loaded model
-
-        testModel.Draw(modelShader);
+        int id = modelManager.GetModelID("content/Models/pine.fbx");
+        modelManager.DrawModel(id,modelShader);
 
         Renderer::ToggleWireFrame();
         testChunk.DrawChunk(testShader);

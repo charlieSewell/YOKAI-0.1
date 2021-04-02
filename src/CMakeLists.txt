@@ -2,8 +2,9 @@
 target_sources(${PROJECT_NAME} PRIVATE
         main.cpp
 
-        Model/ObjectLoading/Mesh.cpp
-        Model/ObjectLoading/Model.cpp
+		Model/Mesh.cpp
+		Model/Model.cpp
+		Model/ObjectLoading/ModelLoader.cpp
         Model/Chunk.cpp
 		Model/GameObject.cpp
 		Model/PlayerControlledMotion.cpp
