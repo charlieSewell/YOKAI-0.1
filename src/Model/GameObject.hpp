@@ -11,7 +11,9 @@ enum class GameObjectType
 class GameObject
 {
 public:
-	glm::vec3 getPosition() const;
+	GameObject();
+	virtual glm::vec3 getPosition() const;
+	virtual void setPosition(glm::vec3 position);
 
 	virtual void update();
 

@@ -15,3 +15,13 @@ Player::~Player()
 {
 
 }
+
+glm::vec3 Player::getPosition() const
+{
+	return m_position;
+}
+
+void Player::setPosition(glm::vec3 position)
+{
+	m_position = position;
+}

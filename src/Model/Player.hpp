@@ -13,4 +13,7 @@ class Player : public GameObject, public Camera, public PlayerControlledMotion
 public:
 	Player();
 	~Player();
+
+	glm::vec3 getPosition() const override;
+	void setPosition(glm::vec3 position);
 };

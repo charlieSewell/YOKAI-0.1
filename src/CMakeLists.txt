@@ -29,6 +29,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/InputManagerGLFW.cpp
 		Controller/Layer.cpp
 		Controller/GameStack.cpp
+        Controller/Physics/PhysicsManager.cpp
         )
 
 # Include project header files.
