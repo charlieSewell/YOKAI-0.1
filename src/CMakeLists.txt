@@ -26,6 +26,8 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/LuaManager.cpp
 		Controller/EventManager.cpp
 		Controller/InputManagerGLFW.cpp
+		Controller/Layer.cpp
+		Controller/GameStack.cpp
         )
 
 # Include project header files.
