@@ -3,14 +3,11 @@
 //
 
 #include "ModelManager.hpp"
-ModelManager::ModelManager() {
-    models.resize(1000);
-}
 auto ModelManager::GetModelID(std::string filename) -> size_t {
     auto id = modelIDtoName.find(filename);
     //stops files being loaded more then once
     if(id == modelIDtoName.end()){
-        models[modelCount] = Model(loader.loadModel(filename));
+        models[modelCount] = Model(filename.c_str());
         modelIDtoName.emplace(filename,modelCount);
         modelCount++;
         return modelCount-1;
@@ -20,7 +17,7 @@ auto ModelManager::GetModelID(std::string filename) -> size_t {
 Model* ModelManager::GetModel(size_t modelID) {
     return &models[modelID];
 }
-void ModelManager::DrawModel(size_t id, Shader &shader) {
+void ModelManager::DrawModel(size_t id, Shader shader) {
     models.at(id).Draw(shader);
 }
 

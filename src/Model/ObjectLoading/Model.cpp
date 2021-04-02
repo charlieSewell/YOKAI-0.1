@@ -1,34 +1,59 @@
-//
-// Created by Charlie Sewell on 1/04/2021.
-//
 
-#include "ModelLoader.hpp"
+#include "Model.hpp"
+#include <glm/gtx/matrix_decompose.hpp>
+#include <glm/ext.hpp>
+#include <glm/gtx/string_cast.hpp>
+#include <GLFW/glfw3.h>
 static auto to_glm(aiMatrix4x4t<float> m) -> glm::mat4 {
     return glm::mat4{m.a1, m.b1, m.c1, m.d1,
-                     m.a2, m.b2, m.c2, m.d2,
-                     m.a3, m.b3, m.c3, m.d3,
-                     m.a4, m.b4, m.c4, m.d4};
+                m.a2, m.b2, m.c2, m.d2,
+                m.a3, m.b3, m.c3, m.d3,
+                m.a4, m.b4, m.c4, m.d4};
 }
-std::vector<Mesh> ModelLoader::loadModel(std::string filename){
-    std::vector<Mesh> meshes;
+
+void Model::Draw(Shader &shader){
+    shader.useShader();
+    for(auto& mesh: meshes){
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(0.02f, 0.02f, 0.02f));	// it's a bit too big for our scene, so scale it down
+        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(5.0f),
+                            glm::vec3(0.0f, 1.0f, 0.0f));
+
+        auto _scale       = glm::vec3{};
+        auto _rotation    = glm::quat{};
+        auto _translation = glm::vec3{};
+        auto _skew        = glm::vec3{};
+        auto _perspective = glm::vec4{};
+
+        glm::decompose(mesh.getTransform(), _scale, _rotation, _translation, _skew, _perspective);
+
+        model = glm::translate(model, _translation);
+        model *= glm::mat4_cast(_rotation);
+        model = glm::scale(model, _scale);
+
+        shader.setMat4("model", model);
+        mesh.Draw(shader);
+    }
+}
+void Model::loadModel(std::string filename){
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
         std::cout << "Error:" << importer.GetErrorString() << std::endl;
-        return meshes;
+        return;
     }
     // retrieve the directory path of the filepath
     directory = filename.substr(0, filename.find_last_of('/'));
 
     // process ASSIMP's root node recursively
-    processNode(meshes,scene->mRootNode, scene,to_glm(scene->mRootNode->mTransformation));
+    processNode(scene->mRootNode, scene,to_glm(scene->mRootNode->mTransformation));
     for(auto& mesh: meshes){
         mesh.SetupMesh();
     }
-    return(meshes);
 }
-void ModelLoader::processNode(std::vector<Mesh> &meshes,aiNode *node, const aiScene *scene,glm::mat4 transform){
+void Model::processNode(aiNode *node, const aiScene *scene,glm::mat4 transform){
     // process each mesh located at the current node
     for(unsigned int i = 0; i < node->mNumMeshes; i++)
     {
@@ -40,10 +65,10 @@ void ModelLoader::processNode(std::vector<Mesh> &meshes,aiNode *node, const aiSc
     // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
     for(unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        processNode(meshes,node->mChildren[i], scene, transform * to_glm(node->mTransformation));
+        processNode(node->mChildren[i], scene, transform * to_glm(node->mTransformation));
     }
 }
-Mesh ModelLoader::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 transform){
+Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 transform){
     // data to fill
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
@@ -137,7 +162,7 @@ Mesh ModelLoader::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 trans
 
 // checks all material textures of a given type and loads the textures if they're not loaded yet.
 // the required info is returned as a Texture struct.
-std::vector<ModelTexture> ModelLoader::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName){
+std::vector<ModelTexture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName){
     std::vector<ModelTexture> textures;
     for(unsigned int i = 0; i < mat->GetTextureCount(type); i++){
         aiString str;
@@ -163,3 +188,4 @@ std::vector<ModelTexture> ModelLoader::loadMaterialTextures(aiMaterial *mat, aiT
     }
     return textures;
 }
+
