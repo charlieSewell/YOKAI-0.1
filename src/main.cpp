@@ -5,20 +5,12 @@
 
 #include "Controller/EventManager.h"
 
-#include <glm/gtc/type_ptr.hpp>
+
 #include "Controller/Yokai.hpp"
-#include "Model/ObjectLoading/Model.hpp"
-
-#include "Model/Chunk.hpp"
-#include "Controller/Factory/TerrainFactory.hpp"
 #include "View/Camera.hpp"
-#include "View/Renderer/Renderer.hpp"
 #include "Controller/InputManagerGLFW.hpp"
-#include <imgui.h>
-
 #include "Model/Player.hpp"
 
-Player player;
 
 void error_callback(int error, const char* description)
 {
@@ -29,6 +21,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height){
 }
 
 int main() {
+    auto &engine = Yokai::getInstance();
+    engine.Init();
+    engine.Run();
     GLFWwindow* window;
     if (!glfwInit()){
         return 0;
@@ -57,12 +52,11 @@ int main() {
     TerrainFactory::getInstance().SetupChunk(testChunk2,0,100,100);
 
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
-
     while (!glfwWindowShouldClose(window))
     {
         //will be moved to input engine later
-		InputManagerGLFW::getInstance().processKeyboard(window);
-		InputManagerGLFW::getInstance().processMouse(window);
+		    InputManagerGLFW::getInstance().processKeyboard(window);
+		    InputManagerGLFW::getInstance().processMouse(window);
         Renderer::Clear();
 
         // view/projection transformations
@@ -97,7 +91,6 @@ int main() {
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;
