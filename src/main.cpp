@@ -10,8 +10,8 @@
 #include "View/Camera.hpp"
 #include "Controller/InputManagerGLFW.hpp"
 #include "Model/Player.hpp"
-
-
+#include "Controller/Factory/TerrainFactory.hpp"
+#include "Controller/ModelManager.hpp"
 void error_callback(int error, const char* description)
 {
     std::cout << "Error:"<< error << " "<< description<<  std::endl;
@@ -21,9 +21,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height){
 }
 
 int main() {
+    Player player;
+    ModelManager modelManager;
+    ModelLoader modelLoader;
     auto &engine = Yokai::getInstance();
-    engine.Init();
-    engine.Run();
     GLFWwindow* window;
     if (!glfwInit()){
         return 0;
@@ -35,8 +36,6 @@ int main() {
         return 0;
     }
     glfwMakeContextCurrent(window);
-
-    auto &engine = Yokai::getInstance();
     engine.Init();
 
     //Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/testShader.frag");
@@ -44,13 +43,11 @@ int main() {
     Shader modelShader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     //glfwSetCursorPosCallback(window, InputManagerGLFW::processMouse);     // move to input engine
-    Model testModel("content/Models/pine.fbx");
     Chunk testChunk;
-    Chunk testChunk2;
+
     TerrainFactory::getInstance().Init();
     TerrainFactory::getInstance().SetupChunk(testChunk,0,0,512);
-    TerrainFactory::getInstance().SetupChunk(testChunk2,0,100,100);
-
+    int modelID = modelManager.GetModelID("content/Models/pine.fbx");
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
     while (!glfwWindowShouldClose(window))
     {
@@ -79,8 +76,7 @@ int main() {
         modelShader.setMat4("view", view);
         modelShader.setMat4("model", model);
         // render the loaded model
-
-        testModel.Draw(modelShader);
+        modelManager.DrawModel(modelID,modelShader);
         //Renderer::ToggleWireFrame();
         testChunk.DrawChunk(testShader);
         //testChunk2.DrawChunk(testShader);
