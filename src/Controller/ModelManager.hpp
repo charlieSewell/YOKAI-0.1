@@ -6,19 +6,23 @@
 #ifndef ICT397_GAME_ENGINE_MODELMANAGER_HPP
 #define ICT397_GAME_ENGINE_MODELMANAGER_HPP
 
-#include "Model/ObjectLoading/Model.hpp"
-#include <map>
-#include <array>
+#    include <array>
+#    include <map>
+
+#    include "Model/Model.hpp"
+#include "Model/ObjectLoading/ModelLoader.hpp"
 class ModelManager {
+  public:
+    ModelManager();
+    auto GetModelID(std::string filename) -> size_t;
+    Model* GetModel(size_t modelID);
+    void DrawModel(size_t id,Shader &shader);
   private:
     size_t modelCount = 0;
     std::map<std::string,size_t>modelIDtoName;
-    std::array<Model,1000> models;
+    std::vector<Model> models;
+    ModelLoader loader;
 
-  public:
-    auto GetModelID(std::string filename) -> size_t;
-    Model* GetModel(size_t modelID);
-    void DrawModel(size_t id,Shader shader);
 };
 
 #endif // ICT397_GAME_ENGINE_MODELMANAGER_HPP
