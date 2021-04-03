@@ -12,14 +12,16 @@
 
 #include "View/Renderer/DataTypes.hpp"
 #include "Model/Chunk.hpp"
+#include "Asset.h"
 
 class TerrainFactory {
   public:
     static TerrainFactory & getInstance();
+    TerrainFactory() = default;
     void Init();
     void SetupChunk(Chunk &Chunk,unsigned int xStart,unsigned int zStart,int size);
   private:
-    TerrainFactory() = default;
+    //TerrainFactory() = default;
     ~TerrainFactory() = default;
     TerrainFactory(const TerrainFactory &) = delete;
     TerrainFactory &operator =(const TerrainFactory &);

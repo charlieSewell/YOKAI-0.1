@@ -46,7 +46,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE  ${PROJECT_BINARY_DIR}/lib)
 
 
 # Define the executable.
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp "src/Controller/Factory/GameAssetFactory.hpp" "src/Controller/Factory/GameAssetFactory.cpp" "src/Controller/Factory/Asset.h")
 
 # Set C++ standard.
 set_target_properties(${PROJECT_NAME} PROPERTIES
