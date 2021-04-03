@@ -24,5 +24,6 @@ class PhysicsManager
 
 	rp3d::CollisionBody *playerCollision;
 	rp3d::CollisionBody *terrainCollision;
-	float* heightFieldArray = new float[512*512];
+	//float* heightFieldArray = new float[512*512];
+	std::vector<float> heightFieldArray;
 };
