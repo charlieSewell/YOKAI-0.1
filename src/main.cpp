@@ -48,12 +48,12 @@ int main() {
 
     TerrainFactory::getInstance().Init();
     TerrainFactory::getInstance().SetupChunk(testChunk,0,0,512);
-    int modelID = modelManager.GetModelID("content/Models/pine.fbx");
+    //int modelID = modelManager.GetModelID("content/Models/pine.fbx");
 
     // TESTING FOR ASSET FACTORY
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     GameAssetFactory GF;
-    GameObject pineTree = GF.Create(GameObjectType::staticObject);
+    std::shared_ptr<GameObject> pineTree = GF.Create(GameObjectType::staticObject);
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
@@ -80,7 +80,8 @@ int main() {
         modelShader.setMat4("view", view);
         modelShader.setMat4("model", model);
         // render the loaded model
-        modelManager.DrawModel(modelID,modelShader);
+        //modelManager.DrawModel(modelID,modelShader);
+        pineTree->draw(modelShader);
         //Renderer::ToggleWireFrame();
         testChunk.DrawChunk(testShader);
         //Renderer::ToggleWireFrame();

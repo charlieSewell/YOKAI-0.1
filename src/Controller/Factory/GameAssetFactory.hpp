@@ -8,5 +8,5 @@
 class GameAssetFactory 
 {
   public:
-    GameObject Create(GameObjectType type);
+    std::shared_ptr<GameObject> Create(GameObjectType type);
 };

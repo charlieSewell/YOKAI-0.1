@@ -9,7 +9,8 @@ class StaticObject : public GameObject
 {
   public:
     StaticObject(std::string modelName);
-    //void draw(Shader shader);
+    void draw(Shader &shader);
+    //void draw();
 
   private:
     ModelManager modelManager;

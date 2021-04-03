@@ -1,9 +1,8 @@
 #include "GameAssetFactory.hpp"
 
-GameObject GameAssetFactory::Create(GameObjectType type) 
-{
+ std::shared_ptr<GameObject> GameAssetFactory::Create(GameObjectType type) {
     if (type == GameObjectType::staticObject) 
     {
-        return StaticObject("content/Models/pine.fbx");
+        return std::shared_ptr<GameObject>(new StaticObject("content/Models/pine.fbx"));
     } 
 }

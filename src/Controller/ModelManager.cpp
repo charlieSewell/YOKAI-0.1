@@ -23,4 +23,6 @@ Model* ModelManager::GetModel(size_t modelID) {
 void ModelManager::DrawModel(size_t id, Shader &shader) {
     models[id].Draw(shader);
 }
+void ModelManager::draw(size_t id) {
 
+}

@@ -13,10 +13,11 @@ enum class GameObjectType
 class GameObject
 {
 public:
+    //GameObject();
 	glm::vec3 getPosition() const;
 
 	virtual void update();
-    //virtual void draw(Shader shader); 
+    virtual void draw(Shader &shader) = 0; 
 
 protected:
 	GameObjectType m_EntityType;

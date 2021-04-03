@@ -18,7 +18,7 @@ class ModelManager {
     auto GetModelID(std::string filename) -> size_t;
     Model* GetModel(size_t modelID);
     void DrawModel(size_t id,Shader &shader);
-    //void draw(size_t id, glm::mat4 &transform);
+    void draw(size_t id);
   private:
     ModelLoader modelLoader;
     size_t modelCount = 0;

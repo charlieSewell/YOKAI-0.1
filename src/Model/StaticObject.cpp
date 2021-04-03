@@ -5,9 +5,9 @@ StaticObject::StaticObject(std::string modelName)
     modelID = modelManager.GetModelID(modelName);
 
 }
-/*
-void StaticObject::draw(Shader shader) 
+
+    
+void StaticObject::draw(Shader &shader) 
 {
     modelManager.DrawModel(modelID, shader);
 }
-*/
