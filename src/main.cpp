@@ -5,13 +5,14 @@
 
 #include "Controller/EventManager.h"
 
-
 #include "Controller/Yokai.hpp"
 #include "View/Camera.hpp"
 #include "Controller/InputManagerGLFW.hpp"
 #include "Model/Player.hpp"
 #include "Controller/Factory/TerrainFactory.hpp"
 #include "Controller/ModelManager.hpp"
+#include "Controller/Factory/GameAssetFactory.hpp"
+
 void error_callback(int error, const char* description)
 {
     std::cout << "Error:"<< error << " "<< description<<  std::endl;
@@ -48,6 +49,13 @@ int main() {
     TerrainFactory::getInstance().Init();
     TerrainFactory::getInstance().SetupChunk(testChunk,0,0,512);
     int modelID = modelManager.GetModelID("content/Models/pine.fbx");
+
+    // TESTING FOR ASSET FACTORY
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    GameAssetFactory GF;
+    GameObject pineTree = GF.Create(GameObjectType::staticObject);
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
     while (!glfwWindowShouldClose(window))
     {
@@ -66,7 +74,6 @@ int main() {
         glm::mat4 model = glm::mat4(1.0f);
         testShader.setMat4("model", model);
         testShader.setVec3("viewPos", player.getPos());
-
 
         modelShader.useShader();
         modelShader.setMat4("projection", projection);

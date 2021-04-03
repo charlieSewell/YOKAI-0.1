@@ -5,13 +5,13 @@
 #include "../View/Camera.hpp"
 #include "GameObject.hpp"
 #include "PlayerControlledMotion.hpp"
-#include "../Controller/Factory/Asset.h"
 
-class Player : public GameObject, public Camera, public PlayerControlledMotion, public Asset
+class Player : public GameObject, public Camera, public PlayerControlledMotion
 {
 	using Camera::m_position;
 
 public:
 	Player();
 	~Player();
+    void draw(Shader shader);
 };

@@ -1,21 +1,9 @@
 #include "GameAssetFactory.hpp"
 
-Asset *GameAssetFactory::Create(std::string type) 
+GameObject GameAssetFactory::Create(GameObjectType type) 
 {
-    if (type == "terrain") 
+    if (type == GameObjectType::staticObject) 
     {
-        //return new TerrainFactory;
+        return StaticObject("content/Models/pine.fbx");
     } 
-    else if (type == "model") 
-    {
-        //return new ModelManager;
-    } 
-    else if (type == "player") 
-    {
-        return new Player;
-    } 
-    else 
-    {
-        return nullptr;
-    }
 }
