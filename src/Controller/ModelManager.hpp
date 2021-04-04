@@ -17,8 +17,7 @@ class ModelManager {
     ModelManager();
     auto GetModelID(std::string filename) -> size_t;
     Model* GetModel(size_t modelID);
-    void DrawModel(size_t id,Shader &shader);
-    void draw(size_t id);
+    void DrawModel(size_t id, Shader &shader, glm::vec3 position);
   private:
     ModelLoader modelLoader;
     size_t modelCount = 0;

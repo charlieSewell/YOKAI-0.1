@@ -53,7 +53,8 @@ int main() {
     // TESTING FOR ASSET FACTORY
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     GameAssetFactory GF;
-    std::shared_ptr<GameObject> pineTree = GF.Create(GameObjectType::staticObject);
+    std::shared_ptr<GameObject> pineTree = GF.Create(GameObjectType::staticObject, "content/Models/pine.fbx");
+    std::shared_ptr<GameObject> zombie = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
@@ -81,7 +82,8 @@ int main() {
         modelShader.setMat4("model", model);
         // render the loaded model
         //modelManager.DrawModel(modelID,modelShader);
-        pineTree->draw(modelShader);
+        pineTree->draw(modelShader, glm::vec3(0.0f, 0.0f, -5.0f));
+        zombie->draw(modelShader, glm::vec3(0.0f, 0.0f, 50.0f));
         //Renderer::ToggleWireFrame();
         testChunk.DrawChunk(testShader);
         //Renderer::ToggleWireFrame();

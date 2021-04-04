@@ -7,17 +7,16 @@
 
 enum class GameObjectType
 {
-	player, staticObject
+	player, staticObject, npc
 };
 
 class GameObject
 {
 public:
-    //GameObject();
 	glm::vec3 getPosition() const;
 
 	virtual void update();
-    virtual void draw(Shader &shader) = 0; 
+    virtual void draw(Shader &shader, glm::vec3 position) = 0; 
 
 protected:
 	GameObjectType m_EntityType;

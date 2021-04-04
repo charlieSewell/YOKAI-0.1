@@ -10,6 +10,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Model/PlayerControlledMotion.cpp
 		Model/Player.cpp
         Model/StaticObject.cpp
+        Model/NPC.cpp
 
         View/Renderer/AssimpMaths.cpp
         View/Renderer/Shader.cpp

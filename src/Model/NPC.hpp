@@ -1,19 +1,17 @@
 #pragma once
-#include <glm/glm.hpp>
-#include "GameObject.hpp"
-#include "Controller/ModelManager.hpp"
-#include "View/Renderer/Shader.hpp"
 #include <iostream>
+#include <glm/glm.hpp>
+#include "Controller/ModelManager.hpp"
+#include "GameObject.hpp"
+#include "View/Renderer/Shader.hpp"
 
-class StaticObject : public GameObject 
-{
+class NPC : public GameObject {
   public:
-    StaticObject(std::string modelName);
+    NPC(std::string modelName);
     void draw(Shader &shader, glm::vec3 position);
-    //void draw();
 
   private:
     ModelManager modelManager;
     int modelID;
-    //glm::mat4 position;
+    // glm::mat4 position;
 };
