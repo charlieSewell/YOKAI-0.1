@@ -15,5 +15,5 @@ public:
 	~Player();
     void draw(Shader &shader);
     glm::mat4 getViewMatrix();
-    glm::vec3 getPos();
+    glm::vec3 getPosition();
 };

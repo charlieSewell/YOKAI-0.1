@@ -60,7 +60,7 @@ int main() {
     std::shared_ptr<GameObject> zombie = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
     std::shared_ptr<GameObject> rock = GF.Create(GameObjectType::staticObject, "content/Models/rock.fbx");
     pineTree->setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
-    zombie->setPosition(glm::vec3(0.0f, 0.0f, 50.0f));
+    zombie->setPosition(glm::vec3(255.0f, 10.0f, 255.0f));
     rock->setPosition(glm::vec3(0.0f, 0.0f, 100.0f));
 
     npcs.push_back(zombie);
@@ -85,7 +85,7 @@ int main() {
         testShader.setMat4("view", view);
         glm::mat4 model = glm::mat4(1.0f);
         testShader.setMat4("model", model);
-        testShader.setVec3("viewPos", player->getPos());
+        testShader.setVec3("viewPos", player->getPosition());
 
         modelShader.useShader();
         modelShader.setMat4("projection", projection);

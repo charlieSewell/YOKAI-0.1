@@ -14,7 +14,7 @@ void StaticObject::draw(Shader &shader) {
 glm::mat4 StaticObject::getViewMatrix() {
     return one;
 }
-glm::vec3 StaticObject::getPos() {
+glm::vec3 StaticObject::getPosition() {
     return two;
 }
 

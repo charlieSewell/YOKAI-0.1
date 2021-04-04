@@ -11,7 +11,7 @@ class StaticObject : public GameObject
     StaticObject(std::string modelName);
     void draw(Shader &shader);
     glm::mat4 getViewMatrix();
-    glm::vec3 getPos();
+    glm::vec3 getPosition();
 
   private:
     int modelID;

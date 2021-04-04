@@ -20,7 +20,7 @@ glm::mat4 Player::getViewMatrix()
     return Camera::getViewMatrix();
 };
 
-glm::vec3 Player::getPos() 
+glm::vec3 Player::getPosition() 
 {
-    return Camera::getPos();
+    return m_position;
 };
