@@ -5,15 +5,21 @@
 #include "../View/Camera.hpp"
 #include "GameObject.hpp"
 #include "PlayerControlledMotion.hpp"
+#include "Controller/Physics/PhysicsComponent.hpp"
 
-class Player : public Camera, public PlayerControlledMotion ,public GameObject
+class Player : public GameObject, public Camera, public PlayerControlledMotion, public PhysicsComponent
 {
 	using Camera::m_position;
 
 public:
 	Player();
 	~Player();
-    void draw(Shader &shader);
+
+	glm::vec3 getPosition() const override;
+	void setPosition(glm::vec3 position);
+    
+	void draw(Shader &shader);
     glm::mat4 getViewMatrix();
-    glm::vec3 getPosition();
+
+	void update() override;
 };

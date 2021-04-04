@@ -7,8 +7,10 @@
 
 class PlayerControlledMotion
 {
+public:
 	void setMovementSpeed(float movementSpeed);
 	float getMovementSpeed() const;
+	void setJumpHeight(float jumpHeight);;
 
 protected:
 	PlayerControlledMotion() {}
@@ -20,10 +22,19 @@ protected:
 	void registerMoveBackward(glm::vec3& position, glm::vec3& frontDirection);
 	void registerMoveLeft(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection);
 	void registerMoveRight(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection);
-	void registerMoveUp(glm::vec3& position, glm::vec3& upDirection);
+	void registerJump(glm::vec3& position, glm::vec3& upDirection);
 	void registerMoveDown(glm::vec3& position, glm::vec3& upDirection);
 	void registerXYLook(glm::vec3& frontDirection);
 
+	void updateJump(glm::vec3& position, glm::vec3& upDirection);
+
 	float m_movementSpeed;
 	float m_lookSensitivity;
+	float m_jumpHeight;
+	bool m_canJump;
+	bool m_jump;
+
+private:
+	float m_jumpTarget;
+	float m_jumpDecay;
 };

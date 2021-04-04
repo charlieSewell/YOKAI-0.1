@@ -39,6 +39,9 @@ void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zS
     }
     GenerateNormals(vertices,indices);
     chunk.SetupChunk(vertices,indices);
+
+	//TODO: Discuss better location for this
+	PhysicsManager::getInstance().setTerrainCollider(heightVals);
 }
 void TerrainFactory::GenerateFlatMap(std::vector<Vertex> &terrain,unsigned int xStart,unsigned int zStart, int xSize, int zSize) {
     Vertex vertex;
