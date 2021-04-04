@@ -6,11 +6,14 @@
 #include "GameObject.hpp"
 #include "PlayerControlledMotion.hpp"
 
-class Player : public GameObject, public Camera, public PlayerControlledMotion
+class Player : public Camera, public PlayerControlledMotion ,public GameObject
 {
 	using Camera::m_position;
 
 public:
 	Player();
 	~Player();
+    void draw(Shader &shader);
+    glm::mat4 getViewMatrix();
+    glm::vec3 getPosition();
 };

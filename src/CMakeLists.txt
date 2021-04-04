@@ -8,7 +8,9 @@ target_sources(${PROJECT_NAME} PRIVATE
         Model/Chunk.cpp
 		Model/GameObject.cpp
 		Model/PlayerControlledMotion.cpp
-		Model/Player.cpp		
+		Model/Player.cpp
+        Model/StaticObject.cpp
+        Model/NPC.cpp
 
         View/Renderer/AssimpMaths.cpp
         View/Renderer/Shader.cpp
@@ -29,6 +31,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/InputManagerGLFW.cpp
 		Controller/Layer.cpp
 		Controller/GameStack.cpp
+        Controller/Factory/GameAssetFactory.cpp
         )
 
 # Include project header files.

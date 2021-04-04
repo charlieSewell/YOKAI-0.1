@@ -11,7 +11,16 @@ Player::Player()
 	registerAllMovement(m_position, m_frontDirection, m_upDirection);
 }
 
-Player::~Player()
-{
+Player::~Player() {}
 
-}
+void Player::draw(Shader &shader) {}
+
+glm::mat4 Player::getViewMatrix() 
+{
+    return Camera::getViewMatrix();
+};
+
+glm::vec3 Player::getPosition() 
+{
+    return m_position;
+};
