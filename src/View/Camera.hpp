@@ -11,7 +11,7 @@ public:
 
     glm::mat4 getViewMatrix();
 
-	glm::vec3 m_position = glm::vec3(0.0f, 0.0f, 90.0f);			//this should not be here	
+	glm::vec3 m_position = glm::vec3(0.0f, 0.0f, 0.0f);	
     glm::vec3 m_frontDirection = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 m_upDirection = glm::vec3(0.0f, 1.0f, 0.0f);
 };

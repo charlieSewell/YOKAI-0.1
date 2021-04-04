@@ -15,9 +15,13 @@ Player::Player()
 	registerBoundingSphere(&m_position, 1.0);
 }
 
-Player::~Player()
-{
+Player::~Player() {}
 
+void Player::draw(Shader &shader) {}
+
+glm::mat4 Player::getViewMatrix() 
+{
+    return Camera::getViewMatrix();
 }
 
 void Player::update()

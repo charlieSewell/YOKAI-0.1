@@ -8,6 +8,7 @@ TerrainFactory &TerrainFactory::getInstance()
     static TerrainFactory instance;
     return instance;
 }
+
 void TerrainFactory::Init()
 {
     this->terrainSize = 512;

@@ -15,8 +15,11 @@ public:
 	Player();
 	~Player();
 
-	void update() override;
-
 	glm::vec3 getPosition() const override;
 	void setPosition(glm::vec3 position);
+    
+	void draw(Shader &shader);
+    glm::mat4 getViewMatrix();
+
+	void update() override;
 };

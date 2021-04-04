@@ -3,6 +3,12 @@
 //
 
 #include "ModelManager.hpp"
+
+ModelManager &ModelManager::getInstance() {
+    static ModelManager instance;
+    return instance;
+}
+
 ModelManager::ModelManager() {
     models.resize(100);
 }
@@ -20,7 +26,6 @@ auto ModelManager::GetModelID(std::string filename) -> size_t {
 Model* ModelManager::GetModel(size_t modelID) {
     return &models[modelID];
 }
-void ModelManager::DrawModel(size_t id, Shader &shader) {
-    models[id].Draw(shader);
+void ModelManager::DrawModel(size_t id, Shader &shader, glm::vec3 position) {
+    models[id].Draw(shader, position);
 }
-
