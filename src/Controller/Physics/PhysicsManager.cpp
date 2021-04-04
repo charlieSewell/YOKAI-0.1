@@ -17,18 +17,31 @@ void PhysicsManager::setTerrainCollider(std::vector<std::vector<float>> terrain)
 	m_terrain = terrain;
 }
 
-int PhysicsManager::addBoundingSphere(glm::vec3 *position, double radius)
+/*int PhysicsManager::addBoundingSphere(glm::vec3 *position, double radius)
 {
 	++m_mapCount;
-	m_boundingSpheres[m_mapCount] = BoundingSphere(position, radius);
+	m_colliders[m_mapCount] = BoundingSphere(position, radius);
+	return m_mapCount;
+}*/
+
+int PhysicsManager::addAABB(glm::vec3* position, float width, float length, float height)
+{
+	++m_mapCount;
+	m_colliders[m_mapCount] = AABB(position, width, length, height);
 	return m_mapCount;
 }
 
-double PhysicsManager::checkTerrainCollision(int colliderID)
+AABB PhysicsManager::getCollider(int colliderID)
 {
-	int colliderX = (int)m_boundingSpheres[colliderID].m_position->x;
-	double colliderY = m_boundingSpheres[colliderID].m_position->y;
-	int colliderZ = (int)m_boundingSpheres[colliderID].m_position->z;
+	return m_colliders[colliderID];
+}
+
+// returns distance from collider to terrain
+float PhysicsManager::checkTerrainCollision(int colliderID)
+{
+	int colliderX = (int)m_colliders[colliderID].getPosition()->x;
+	float colliderY = m_colliders[colliderID].getPosition()->y;
+	int colliderZ = (int)m_colliders[colliderID].getPosition()->z;
 
 	//stop the vecotr from going out of index
 	if(colliderX < 0 || colliderX > m_terrain.size()-1)
@@ -38,4 +51,19 @@ double PhysicsManager::checkTerrainCollision(int colliderID)
 
 
 	return(colliderY - m_terrain[colliderX][colliderZ]);
+}
+
+bool PhysicsManager::checkCollisions(int colliderID)
+{
+	std::map<int, AABB>::iterator it;
+	
+	for(it = m_colliders.begin(); it != m_colliders.end(); ++it)
+	{
+		if(it->first != colliderID)
+		{
+			if(m_colliders[colliderID].checkCollision(it->second))
+				return true;
+		}
+	}
+	return false;
 }

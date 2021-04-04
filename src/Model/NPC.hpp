@@ -4,8 +4,10 @@
 #include "Controller/ModelManager.hpp"
 #include "GameObject.hpp"
 #include "View/Renderer/Shader.hpp"
+#include "Controller/Physics/PhysicsComponent.hpp"
 
-class NPC : public GameObject {
+class NPC : public GameObject, public PhysicsComponent
+{
   public:
     NPC(std::string modelName);
     void draw(Shader &shader);

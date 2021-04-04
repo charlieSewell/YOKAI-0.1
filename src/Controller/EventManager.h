@@ -12,12 +12,7 @@ enum class InputEvent
 	jump, 
 	moveDown,
 	increaseSpeed,
-	xyLook
-};
-
-enum class PhysicsEvent
-{
-	PlayerTerrainCollision
+	xyLook,
 };
 
 class EMS 
