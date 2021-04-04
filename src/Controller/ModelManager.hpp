@@ -14,6 +14,7 @@
 
 class ModelManager {
   public:
+    static ModelManager &getInstance();
     ModelManager();
     auto GetModelID(std::string filename) -> size_t;
     Model* GetModel(size_t modelID);

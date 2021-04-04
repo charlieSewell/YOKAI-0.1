@@ -10,4 +10,8 @@
     {
         return std::shared_ptr<GameObject>(new NPC(modelName));
     } 
+    else if (type == GameObjectType::player) 
+    {
+        return std::shared_ptr<GameObject>(new Player);
+    } 
  }

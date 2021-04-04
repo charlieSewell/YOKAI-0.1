@@ -3,6 +3,12 @@
 //
 
 #include "ModelManager.hpp"
+
+ModelManager &ModelManager::getInstance() {
+    static ModelManager instance;
+    return instance;
+}
+
 ModelManager::ModelManager() {
     models.resize(100);
 }

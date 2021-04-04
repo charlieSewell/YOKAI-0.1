@@ -22,7 +22,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height){
 }
 
 int main() {
-    Player player;
+    //Player player;
     ModelManager modelManager;
     ModelLoader modelLoader;
     auto &engine = Yokai::getInstance();
@@ -53,8 +53,18 @@ int main() {
     // TESTING FOR ASSET FACTORY
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     GameAssetFactory GF;
+    std::vector<std::shared_ptr<GameObject>> npcs;
+
+    std::shared_ptr<GameObject> player = GF.Create(GameObjectType::player, "");
     std::shared_ptr<GameObject> pineTree = GF.Create(GameObjectType::staticObject, "content/Models/pine.fbx");
     std::shared_ptr<GameObject> zombie = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
+    //std::shared_ptr<GameObject> zombie2 = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
+    pineTree->setPosition(glm::vec3(0.0f, 0.0f, -5.0f));
+    zombie->setPosition(glm::vec3(0.0f, 0.0f, 50.0f));
+
+    npcs.push_back(zombie);
+    //npcs.push_back(zombie2);
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
@@ -67,14 +77,14 @@ int main() {
 
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 10000.0f);
-        glm::mat4 view = player.getViewMatrix();
+        glm::mat4 view = player->getViewMatrix();
 
         testShader.useShader();
         testShader.setMat4("projection", projection);
         testShader.setMat4("view", view);
         glm::mat4 model = glm::mat4(1.0f);
         testShader.setMat4("model", model);
-        testShader.setVec3("viewPos", player.getPos());
+        testShader.setVec3("viewPos", player->getPos());
 
         modelShader.useShader();
         modelShader.setMat4("projection", projection);
@@ -82,8 +92,18 @@ int main() {
         modelShader.setMat4("model", model);
         // render the loaded model
         //modelManager.DrawModel(modelID,modelShader);
-        pineTree->draw(modelShader, glm::vec3(0.0f, 0.0f, -5.0f));
-        zombie->draw(modelShader, glm::vec3(0.0f, 0.0f, 50.0f));
+        pineTree->draw(modelShader);
+        
+        
+        for (int i = 0; i < npcs.size(); i++) 
+        {
+            npcs[i]->draw(modelShader);
+        }
+        
+
+        //zombie->draw(modelShader);
+        //zombie2->draw(modelShader, glm::vec3(0.0f, 0.0f, 100.0f));
+
         //Renderer::ToggleWireFrame();
         testChunk.DrawChunk(testShader);
         //Renderer::ToggleWireFrame();
