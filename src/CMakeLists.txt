@@ -30,6 +30,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/Layer.cpp
 		Controller/GameStack.cpp
         Controller/Physics/PhysicsManager.cpp
+		Controller/Physics/PhysicsComponent.cpp
         )
 
 # Include project header files.

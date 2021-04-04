@@ -51,8 +51,7 @@ int main() {
 	//THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
 
 	// PHYSICS TEST
-	PhysicsManager testPhysics;
-	testPhysics.test(player);
+
 	// END PHYSICS TEST
 
 	while (!glfwWindowShouldClose(window))
@@ -62,8 +61,7 @@ int main() {
 		Renderer::Clear();
 
 		// PHYSICS TEST
-		//std::cout << player.getPosition().x << ", " << player.getPosition().y << ", " << player.getPosition().z << "\n";
-		testPhysics.update(player);
+		player.update();
 		// END PHYSICS TEST
 
 		// view/projection transformations

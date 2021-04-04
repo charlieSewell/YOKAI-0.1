@@ -13,6 +13,9 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
+	// can't move mid aiu
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		EMS::getInstance().fire(InputEvent::jump);
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		EMS::getInstance().fire(InputEvent::moveForward);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -21,8 +24,6 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 		EMS::getInstance().fire(InputEvent::moveLeft);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		EMS::getInstance().fire(InputEvent::moveRight);
-	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-		EMS::getInstance().fire(InputEvent::moveUp);
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 		EMS::getInstance().fire(InputEvent::moveDown);
 

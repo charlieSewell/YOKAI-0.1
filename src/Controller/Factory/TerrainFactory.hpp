@@ -12,22 +12,20 @@
 
 #include "View/Renderer/DataTypes.hpp"
 #include "Model/Chunk.hpp"
+#include "Controller/Physics/PhysicsManager.hpp"
 
 class TerrainFactory {
   public:
     static TerrainFactory & getInstance();
     void Init();
     void SetupChunk(Chunk &Chunk,unsigned int xStart,unsigned int zStart,int size);
-	//temporary
-	int terrainSize;
-	std::vector<std::vector<float>> heightVals = {};
 
   private:
     TerrainFactory() = default;
     ~TerrainFactory() = default;
     TerrainFactory(const TerrainFactory &) = delete;
     TerrainFactory &operator =(const TerrainFactory &);
-    //int terrainSize;
+    int terrainSize;
 
 
     void GenerateFlatMap(std::vector<Vertex> &terrain,unsigned int xStart,unsigned int zStart,int xSize, int zSize);
@@ -36,7 +34,7 @@ class TerrainFactory {
     void GenerateNormals(std::vector<Vertex> &terrain, std::vector<unsigned int> &indices);
     void GeneratePerlinMap(int xSize,int ySize);
     void LoadHeightMap(std::string filename);
-    //std::vector<std::vector<float>> heightVals = {};
+    std::vector<std::vector<float>> heightVals = {};
 };
 
 #endif // ICT397_GAME_ENGINE_TERRAINFACTORY_HPP

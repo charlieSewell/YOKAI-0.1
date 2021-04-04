@@ -1,35 +1,43 @@
+//PhysicsManager.hpp - manages physics
+
 #pragma once
 
-#include <reactphysics3d/reactphysics3d.h>
-#include "Model/Player.hpp"		// player will not be here - just for testing
-#include "Controller/Factory/TerrainFactory.hpp"
+#include <vector>
+#include <map>
+
+#include <glm/glm.hpp>
+
+struct BoundingSphere
+{
+	glm::vec3 *m_position;
+	double m_radius;
+
+	BoundingSphere() {};
+	BoundingSphere(glm::vec3 *position, double radius)
+		: m_position(position), m_radius(radius) {}
+};
 
 class PhysicsManager
 {
-  public:
-    PhysicsManager();
-    ~PhysicsManager();
+public:
+	static PhysicsManager& getInstance();
+	PhysicsManager(PhysicsManager const&) = delete;
+	void operator=(PhysicsManager const&) = delete;
 
-    void update(Player player);
+	void setTerrainCollider(std::vector<std::vector<float>> terrain);
 
-	//these wont be here
-	void test(Player player);
-	void addPlayer(Player player);
-	void addTerrain();
+	// returns difference of object height and terrain height
+	double checkTerrainCollision(int colliderID);
 
-  private:
-    rp3d::PhysicsCommon physicsCommon;
-    rp3d::PhysicsWorld *physicsWorld;
-	rp3d::decimal timeStep;
+	//will be map soon 
+	int addBoundingSphere(glm::vec3 *position, double radius);
 
-	rp3d::CollisionBody *playerCollision;
-	rp3d::CollisionBody *terrainCollision;
-	rp3d::Collider *terrainCollider;
-	rp3d::Collider *playerCollider;
-	rp3d::Collider* colider;
 
-	rp3d::HeightFieldShape *heightField;
+private:
+	PhysicsManager();
 
-	float *heightFieldArray = new float[512*512];
-	//std::vector<float> heightFieldArray;
+	std::vector<std::vector<float>> m_terrain;
+
+	int m_mapCount;
+	std::map<int, BoundingSphere> m_boundingSpheres;
 };
