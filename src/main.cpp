@@ -58,9 +58,10 @@ int main() {
     std::shared_ptr<GameObject> player = GF.Create(GameObjectType::player, "");
     std::shared_ptr<GameObject> pineTree = GF.Create(GameObjectType::staticObject, "content/Models/pine.fbx");
     std::shared_ptr<GameObject> zombie = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
-    //std::shared_ptr<GameObject> zombie2 = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
-    pineTree->setPosition(glm::vec3(0.0f, 0.0f, -5.0f));
+    std::shared_ptr<GameObject> rock = GF.Create(GameObjectType::staticObject, "content/Models/rock.fbx");
+    pineTree->setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
     zombie->setPosition(glm::vec3(0.0f, 0.0f, 50.0f));
+    rock->setPosition(glm::vec3(0.0f, 0.0f, 100.0f));
 
     npcs.push_back(zombie);
     //npcs.push_back(zombie2);
@@ -93,6 +94,7 @@ int main() {
         // render the loaded model
         //modelManager.DrawModel(modelID,modelShader);
         pineTree->draw(modelShader);
+        rock->draw(modelShader);
         
         
         for (int i = 0; i < npcs.size(); i++) 
