@@ -3,8 +3,6 @@
 NPC::NPC(std::string modelName)
 {
     modelID = ModelManager::getInstance().GetModelID(modelName);
-
-	registerAABB(&m_position, 5, 5, 40);
 }
 
 void NPC::draw() {
@@ -17,4 +15,9 @@ glm::mat4 NPC::getViewMatrix() {
 
 glm::vec3 NPC::getPosition() {
     return two;
+}
+
+void NPC::setCollider(float width, float length, float height)
+{
+	registerAABB(&m_position, width, length, height);
 }

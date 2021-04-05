@@ -29,12 +29,12 @@ public:
 	void setTerrainCollider(std::vector<std::vector<float>> terrain);
 
 	// returns difference of object height and terrain height
-	float checkTerrainCollision(int colliderID);
-	bool checkCollisions(int colliderID);
+	float checkTerrainCollision(AABB* collider);
+	AABB* checkCollisions(AABB* collider);
 
 	// easy to implement if needed
 	//int addBoundingSphere(glm::vec3 *position, double radius);
-	int addAABB(glm::vec3 *position, float width, float length, float height);
+	AABB* addAABB(glm::vec3 *position, float width, float length, float height);
 
 	AABB getCollider(int colliderID);
 

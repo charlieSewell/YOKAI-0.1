@@ -13,6 +13,7 @@ class NPC : public GameObject, public PhysicsComponent
     void draw();
     glm::mat4 getViewMatrix();
     glm::vec3 getPosition();
+	void setCollider(float width, float length, float height);
 
   private:
     int modelID;

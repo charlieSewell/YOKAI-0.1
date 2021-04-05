@@ -16,6 +16,9 @@ public:
     static void registerClass();
     virtual glm::vec3 getPosition() const;
 	virtual void setPosition(glm::vec3 position);
+
+	virtual void setCollider(float width, float length, float height) = 0;
+
 	virtual void update();
     virtual void draw() = 0;
 
