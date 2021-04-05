@@ -34,6 +34,7 @@ target_sources(${PROJECT_NAME} PRIVATE
         Controller/Physics/PhysicsManager.cpp
 		Controller/Physics/PhysicsComponent.cpp
         Controller/Factory/GameAssetFactory.cpp
+        Controller/GameObjectManager.cpp
         )
 
 # Include project header files.
