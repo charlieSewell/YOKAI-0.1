@@ -1,6 +1,8 @@
 #include "Camera.hpp"
 #include "Controller/EventManager.h"
-Camera::Camera() {}
+Camera::Camera() {
+    registerViewMatrix();
+}
 
 glm::mat4 Camera::getViewMatrix()
 {
@@ -8,7 +10,7 @@ glm::mat4 Camera::getViewMatrix()
 }
 void Camera::registerViewMatrix()
 {
-    auto viewMatrix = [&](void)
+    auto viewMatrix = [&]()
     {
       return glm::lookAt(m_position, m_position + m_frontDirection, m_upDirection);
     };

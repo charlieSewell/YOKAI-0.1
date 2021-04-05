@@ -18,7 +18,7 @@ class TerrainManager {
     void CreateTerrain();
     void LoadChunk();
     int chunkSize,maxKey;
-    std::shared_ptr<Shader> terrainShader;
+    Shader* terrainShader;
     std::map<std::pair<int,int>,Chunk> chunks;
 };
 

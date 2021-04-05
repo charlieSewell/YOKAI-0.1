@@ -33,7 +33,7 @@ class EMS
 
 
 	void add(InputEvent event, std::function<void()> func);
-    void add(RenderEvent event, std::function<glm::mat4(void)> func);
+    void add(RenderEvent event, std::function<glm::mat4()> func);
 	void add(InputEvent event, std::function<void(double x, double)> func);
 
 	void fire(InputEvent event);

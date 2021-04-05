@@ -73,25 +73,8 @@ int main() {
 		InputManagerGLFW::getInstance().processKeyboard(window);
 		InputManagerGLFW::getInstance().processMouse(window);
 		Renderer::Clear();
-
-		// view/projection transformations
-		glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 10000.0f);
-		glm::mat4 view = player->getViewMatrix();
 		player->update();
 
-		testShader.useShader();
-		testShader.setMat4("projection", projection);
-		testShader.setMat4("view", view);
-		glm::mat4 model = glm::mat4(1.0f);
-		testShader.setMat4("model", model);
-		testShader.setVec3("viewPos", player->getPosition());
-
-		modelShader.useShader();
-		modelShader.setMat4("projection", projection);
-		modelShader.setMat4("view", view);
-		modelShader.setMat4("model", model);
-		// render the loaded model
-		//modelManager.DrawModel(modelID,modelShader);
 		pineTree->draw(modelShader);
 		rock->draw(modelShader);
 
@@ -100,17 +83,7 @@ int main() {
 		{
 			npcs[i]->draw(modelShader);
 		}
-
-
-		//zombie->draw(modelShader);
-		//zombie2->draw(modelShader, glm::vec3(0.0f, 0.0f, 100.0f));
-
-		//Renderer::ToggleWireFrame();
 		terrainManager.Draw(player->getPosition());
-		//Renderer::ToggleWireFrame();
-
-
-		/* Poll for and process events  NEEDS TO BE ABSTRACTED*/
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
