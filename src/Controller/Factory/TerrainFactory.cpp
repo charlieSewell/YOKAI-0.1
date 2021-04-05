@@ -49,8 +49,8 @@ Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int siz
     GenerateTerrainIndices(indices,size,size);
     //TODO: Come Up with better solution as currently just stretching over terrain
     GenerateTexCoords(vertices,size,size);
-    int x =xStart;
-    int z=zStart;
+    int x = xStart;
+    int z = zStart;
     for(auto& vert: vertices)
     {
         if(vert.position.x != x)
@@ -62,6 +62,8 @@ Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int siz
         z++;
     }
     GenerateNormals(vertices,indices);
+    //TODO: Discuss better location for this
+    PhysicsManager::getInstance().setTerrainCollider(heightVals);
     chunk.SetupChunk(vertices,indices);
     return chunk;
 }

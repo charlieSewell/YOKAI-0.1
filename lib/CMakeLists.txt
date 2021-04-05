@@ -1,4 +1,6 @@
 # Library build options.
+option(ASSIMP_BUILD_TESTS OFF)
+option(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
 option(OPTION_BUILD_TESTS OFF)
 
 # Build libraries.
@@ -25,6 +27,9 @@ option(GLFW_BUILD_TESTS OFF)
 option(GLFW_BUILD_EXAMPLES OFF)
 add_subdirectory(glfw)
 
+# DLL caused issues
+
+
 # Puts a stop to the endlessly irritating practise postfixing 'd' onto debug libraries.
 set_target_properties(assimp PROPERTIES DEBUG_POSTFIX "")
 set_target_properties(glfw PROPERTIES DEBUG_POSTFIX "")
@@ -40,4 +45,5 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE
         LuaBridge/Source
         lua/src
 	imgui/imgui
+
 )

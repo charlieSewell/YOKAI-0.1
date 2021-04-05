@@ -14,7 +14,7 @@ class GameObject
 {
 public:
     virtual glm::vec3 getPosition() const;
-	void setPosition(glm::vec3 position){m_position = position;};
+	void setPosition(glm::vec3 position);
     virtual glm::mat4 getViewMatrix() = 0;
 	virtual void update();
     virtual void draw(Shader &shader) = 0; 

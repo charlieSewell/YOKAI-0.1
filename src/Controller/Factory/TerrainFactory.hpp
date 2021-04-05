@@ -12,7 +12,9 @@
 
 #include "View/Renderer/DataTypes.hpp"
 #include "Model/Chunk.hpp"
+
 #include "Controller/LuaManager.hpp"
+#include "Controller/Physics/PhysicsManager.hpp"
 class TerrainFactory {
   public:
     static TerrainFactory & getInstance();
