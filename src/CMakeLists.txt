@@ -33,6 +33,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/GameStack.cpp
         Controller/Physics/PhysicsManager.cpp
 		Controller/Physics/PhysicsComponent.cpp
+		Controller/Physics/AABB.cpp
         Controller/Factory/GameAssetFactory.cpp
         )
 

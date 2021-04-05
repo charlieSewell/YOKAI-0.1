@@ -6,15 +6,19 @@ StaticObject::StaticObject(std::string modelName)
 
 }
     
-void StaticObject::draw(Shader &shader) {
+void StaticObject::draw(Shader &shader)
+{
     ModelManager::getInstance().DrawModel(modelID, shader, m_position);
 }
 
 
-glm::mat4 StaticObject::getViewMatrix() {
-    return one;
+glm::mat4 StaticObject::getViewMatrix()
+{
+	return one;
 }
-glm::vec3 StaticObject::getPosition() {
+
+glm::vec3 StaticObject::getPosition()
+{
     return two;
 }
 

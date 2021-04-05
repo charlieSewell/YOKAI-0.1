@@ -57,13 +57,20 @@ int main() {
 
 	std::shared_ptr<GameObject> player = GF.Create(GameObjectType::player, "");
 	std::shared_ptr<GameObject> pineTree = GF.Create(GameObjectType::staticObject, "content/Models/pine.fbx");
-	std::shared_ptr<GameObject> zombie = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
+	std::shared_ptr<GameObject> zombie1 = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
+	std::shared_ptr<GameObject> zombie2 = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
+	std::shared_ptr<GameObject> zombie3 = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
 	std::shared_ptr<GameObject> rock = GF.Create(GameObjectType::staticObject, "content/Models/rock.fbx");
 	pineTree->setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
-	zombie->setPosition(glm::vec3(255.0f, 10.0f, 255.0f));
+	zombie1->setPosition(glm::vec3(255.0f, 5.0f, 255.0f));
+	zombie2->setPosition(glm::vec3(270.0f, 5.0f, 240.0f));
+	zombie3->setPosition(glm::vec3(240.0f, 5.0f, 270.0f));
 	rock->setPosition(glm::vec3(0.0f, 0.0f, 100.0f));
+	player->setPosition(glm::vec3(225.0f, 10.0f, 225.0f));
 
-	npcs.push_back(zombie);
+	npcs.push_back(zombie1);
+	npcs.push_back(zombie2);
+	npcs.push_back(zombie3);
 	//npcs.push_back(zombie2);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////

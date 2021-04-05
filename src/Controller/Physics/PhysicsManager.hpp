@@ -4,8 +4,10 @@
 
 #include <vector>
 #include <map>
+//PhysicsManager.hpp - manges physics
 
 #include <glm/glm.hpp>
+#include "Controller/Physics/AABB.hpp"
 
 struct BoundingSphere
 {
@@ -27,11 +29,14 @@ public:
 	void setTerrainCollider(std::vector<std::vector<float>> terrain);
 
 	// returns difference of object height and terrain height
-	double checkTerrainCollision(int colliderID);
+	float checkTerrainCollision(int colliderID);
+	bool checkCollisions(int colliderID);
 
-	//will be map soon 
-	int addBoundingSphere(glm::vec3 *position, double radius);
+	// easy to implement if needed
+	//int addBoundingSphere(glm::vec3 *position, double radius);
+	int addAABB(glm::vec3 *position, float width, float length, float height);
 
+	AABB getCollider(int colliderID);
 
 private:
 	PhysicsManager();
@@ -39,5 +44,5 @@ private:
 	std::vector<std::vector<float>> m_terrain;
 
 	int m_mapCount;
-	std::map<int, BoundingSphere> m_boundingSpheres;
+	std::map<int, AABB> m_colliders;	//TODO: make colliders so can add spheres
 };
