@@ -33,6 +33,7 @@ protected:
 	float m_jumpHeight;
 	bool m_canJump;
 	bool m_jump;
+	float m_jumpSpeed;
 
 private:
 	float m_jumpTarget;

@@ -4,27 +4,23 @@
 #include <map>
 #include <glm/glm.hpp>
 enum class InputEvent
-{ 
-	moveForward, 
-	moveBackward, 
-	moveLeft, 
-	moveRight, 
-	jump, 
+{
+	moveForward,
+	moveBackward,
+	moveLeft,
+	moveRight,
+	jump,
 	moveDown,
 	increaseSpeed,
 	xyLook,
+
 };
 enum class RenderEvent
 {
     getViewMatrix
 };
 
-enum class PhysicsEvent
-{
-	PlayerTerrainCollision
-};
-
-class EMS 
+class EMS
 {
   public:
     static EMS& getInstance();

@@ -6,13 +6,15 @@
 
 Player::Player()
 {
-	m_movementSpeed = 0.15f;
+	m_movementSpeed = 0.2f;
 	m_lookSensitivity = 0.05f;
 	m_jumpHeight = 8.0f;
-	m_gravityValue = 0.125f;
+	m_jumpSpeed = 0.15f;
+	m_mass = 0.125f;
 	registerAllMovement(m_position, m_frontDirection, m_upDirection);
 	
-	registerBoundingSphere(&m_position, 1.0);
+	registerAABB(&m_position, 4, 4, 4);
+	m_resolvingCollision = false;
 }
 
 Player::~Player() {}
@@ -27,7 +29,7 @@ glm::mat4 Player::getViewMatrix()
 void Player::update()
 {
 	m_canJump = m_onGround;
-	updatePhysics(&m_position, m_movementSpeed);
+	updatePhysics(m_colliderID, m_movementSpeed, m_jumpSpeed);
 	updateJump(m_position, m_upDirection);
 
 }

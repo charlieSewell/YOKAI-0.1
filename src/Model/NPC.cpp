@@ -1,7 +1,10 @@
 #include "NPC.hpp"
 
-NPC::NPC(std::string modelName) {
+NPC::NPC(std::string modelName)
+{
     modelID = ModelManager::getInstance().GetModelID(modelName);
+
+	registerAABB(&m_position, 5, 5, 40);
 }
 
 void NPC::draw(Shader &shader) {

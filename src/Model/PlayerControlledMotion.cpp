@@ -77,11 +77,11 @@ void PlayerControlledMotion::registerJump(glm::vec3& position, glm::vec3& upDire
 
 void PlayerControlledMotion::updateJump(glm::vec3& position, glm::vec3& upDirection)
 {
-	m_jumpDecay = (m_jumpTarget - position.y)*m_movementSpeed;
+	m_jumpDecay = (m_jumpTarget - position.y)*m_jumpSpeed;
 	if(m_jump)
 	{
 		if(position.y < m_jumpTarget)
-			position += (m_movementSpeed+m_jumpDecay/4) * upDirection;
+			position += (m_jumpSpeed + m_jumpDecay/3) * upDirection;
 		else
 			m_jump = false;
 	}
