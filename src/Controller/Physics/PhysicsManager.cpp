@@ -24,11 +24,11 @@ void PhysicsManager::setTerrainCollider(std::vector<std::vector<float>> terrain)
 	return m_mapCount;
 }*/
 
-int PhysicsManager::addAABB(glm::vec3* position, float width, float length, float height)
+AABB* PhysicsManager::addAABB(glm::vec3* position, float width, float length, float height)
 {
 	++m_mapCount;
 	m_colliders[m_mapCount] = AABB(position, width, length, height);
-	return m_mapCount;
+	return &m_colliders[m_mapCount];
 }
 
 AABB PhysicsManager::getCollider(int colliderID)
@@ -37,11 +37,11 @@ AABB PhysicsManager::getCollider(int colliderID)
 }
 
 // returns distance from collider to terrain
-float PhysicsManager::checkTerrainCollision(int colliderID)
+float PhysicsManager::checkTerrainCollision(AABB* collider)
 {
-	int colliderX = (int)m_colliders[colliderID].getPosition()->x;
-	float colliderY = m_colliders[colliderID].getPosition()->y;
-	int colliderZ = (int)m_colliders[colliderID].getPosition()->z;
+	int colliderX = (int)collider->getPosition()->x;
+	float colliderY = (int)collider->getPosition()->y;
+	int colliderZ = (int)collider->getPosition()->z;
 
 	//stop the vecotr from going out of index
 	if(colliderX < 0 || colliderX > m_terrain.size()-1)
@@ -53,17 +53,14 @@ float PhysicsManager::checkTerrainCollision(int colliderID)
 	return(colliderY - m_terrain[colliderX][colliderZ]);
 }
 
-bool PhysicsManager::checkCollisions(int colliderID)
+AABB* PhysicsManager::checkCollisions(AABB* collider)
 {
 	std::map<int, AABB>::iterator it;
 	
 	for(it = m_colliders.begin(); it != m_colliders.end(); ++it)
 	{
-		if(it->first != colliderID)
-		{
-			if(m_colliders[colliderID].checkCollision(it->second))
-				return true;
-		}
+		if(collider->checkCollision(it->second) && &it->second != collider)		//check it's colliding and that it's not colliding with itself
+			return &it->second;
 	}
 	return false;
 }

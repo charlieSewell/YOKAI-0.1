@@ -3,7 +3,6 @@
 StaticObject::StaticObject(std::string modelName) 
 {
     modelID = ModelManager::getInstance().GetModelID(modelName);
-
 }
     
 void StaticObject::draw(Shader &shader)
@@ -20,5 +19,10 @@ glm::mat4 StaticObject::getViewMatrix()
 glm::vec3 StaticObject::getPosition()
 {
     return two;
+}
+
+void StaticObject::setCollider(float width, float length, float height)
+{
+	registerAABB(&m_position, width, length, height);
 }
 
