@@ -1,7 +1,7 @@
 -- Configurable Terrain Properties
 
 -- Only for Dynamically Generated Terrains
-TerrainFactory.terrainSize = 4096
+TerrainFactory.terrainSize = 1024
 TerrainFactory.useHeightMap = true
 
 --Height map Path
