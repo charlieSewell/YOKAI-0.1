@@ -26,5 +26,5 @@ void Mesh::SetupMesh(){
          shader.setFloat(("material." + name + number).c_str(), i);
      }
      // draw mesh
-     Renderer::Draw(*VAO,indices.size());
+     Renderer::Draw(shader,*VAO,indices.size());
 }

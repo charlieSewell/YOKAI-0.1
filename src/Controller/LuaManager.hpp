@@ -3,19 +3,15 @@
 // Version 1
 
 #include <lua.hpp>
+#include <LuaBridge/LuaBridge.h>
 #include <iostream>
 
 class LuaManager
 {
 	public: 
-        static LuaManager &getInstance()
-        {
-            static LuaManager instance;
-            return instance;
-        }
-
+        static LuaManager &getInstance();
         lua_State *getState();
-        static void runScript(std::string &scriptName);
+        static void runScript(std::string scriptName);
 
 	private:
         LuaManager();

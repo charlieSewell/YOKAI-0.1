@@ -32,6 +32,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/Layer.cpp
 		Controller/GameStack.cpp
         Controller/Factory/GameAssetFactory.cpp
+		Controller/DemoScene.cpp
         )
 
 # Include project header files.

@@ -3,7 +3,7 @@
 //
 #pragma once
 #include "OpenGLRenderer.hpp"
-
+#include <glm/gtc/matrix_transform.hpp>
 
 
 OpenGLRenderer::OpenGLRenderer() {
@@ -37,7 +37,10 @@ void OpenGLRenderer::ToggleWireFrame() {
         isWireFrame = true;
     }
 }
-void OpenGLRenderer::Draw(VertexArrayBuffer& VAO, size_t indicesSize) {
+void OpenGLRenderer::Draw(Shader& shader,VertexArrayBuffer& VAO, size_t indicesSize) {
+    shader.useShader();
+    shader.setMat4("projection",glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 10000.0f));
+    shader.setMat4("view",);
     VAO.Bind();
     glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
     VAO.UnBind();

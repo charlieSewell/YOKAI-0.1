@@ -22,10 +22,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height){
 }
 
 int main() {
-    //Player player;
     ModelManager modelManager;
     ModelLoader modelLoader;
     auto &engine = Yokai::getInstance();
+    engine.Init();
     GLFWwindow* window;
     if (!glfwInit()){
         return 0;
@@ -37,21 +37,14 @@ int main() {
         return 0;
     }
     glfwMakeContextCurrent(window);
-    engine.Init();
 
-    //Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/testShader.frag");
-    Shader testShader("content/Shaders/terrainVertex.vert","content/Shaders/terrainFragment.frag");
     Shader modelShader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     //glfwSetCursorPosCallback(window, InputManagerGLFW::processMouse);     // move to input engine
-    Chunk testChunk;
 
-    TerrainFactory::getInstance().Init();
-    TerrainFactory::getInstance().SetupChunk(testChunk,0,0,512);
     //int modelID = modelManager.GetModelID("content/Models/pine.fbx");
 
     // TESTING FOR ASSET FACTORY
-    /////////////////////////////////////////////////////////////////////////////////////////////////////
     GameAssetFactory GF;
     std::vector<std::shared_ptr<GameObject>> npcs;
 
@@ -66,11 +59,15 @@ int main() {
     npcs.push_back(zombie);
     //npcs.push_back(zombie2);
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    TerrainManager terrainManager;
+    terrainManager.Init();
 
+    //TerrainFactory::getInstance().SetupChunk(testChunk,0,0,512);
+    int modelID = modelManager.GetModelID("content/Models/pine.fbx");
     //THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
     while (!glfwWindowShouldClose(window))
     {
+        player->update();
         //will be moved to input engine later
         InputManagerGLFW::getInstance().processKeyboard(window);
         InputManagerGLFW::getInstance().processMouse(window);
@@ -80,13 +77,8 @@ int main() {
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 10000.0f);
         glm::mat4 view = player->getViewMatrix();
 
-        testShader.useShader();
-        testShader.setMat4("projection", projection);
-        testShader.setMat4("view", view);
-        glm::mat4 model = glm::mat4(1.0f);
-        testShader.setMat4("model", model);
-        testShader.setVec3("viewPos", player->getPosition());
 
+        glm::mat4 model = glm::mat4(1.0);
         modelShader.useShader();
         modelShader.setMat4("projection", projection);
         modelShader.setMat4("view", view);
@@ -107,7 +99,7 @@ int main() {
         //zombie2->draw(modelShader, glm::vec3(0.0f, 0.0f, 100.0f));
 
         //Renderer::ToggleWireFrame();
-        testChunk.DrawChunk(testShader);
+        terrainManager.Draw(player->getPosition());
         //Renderer::ToggleWireFrame();
 
 

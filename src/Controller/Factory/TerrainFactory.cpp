@@ -11,12 +11,37 @@ TerrainFactory &TerrainFactory::getInstance()
 
 void TerrainFactory::Init()
 {
-    this->terrainSize = 512;
-    //GeneratePerlinMap(terrainSize,terrainSize);
+    luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+            .beginNamespace("TerrainFactory")
+                .addProperty("terrainSize",&terrainSize)
+                .addProperty("mapPath",&mapPath)
+                .addProperty("useHeightMap",&useHeightMap)
+                .addProperty("sandTexture",&sandTexture)
+                .addProperty("snowTexture",&snowTexture)
+                .addProperty("grassTexture",&grassTexture)
+                .addProperty("detailTexture",&detailTexture)
+                .addProperty("sandHeight",&sandHeight)
+                .addProperty("snowHeight",&snowHeight)
+                .addProperty("grassHeight",&grassHeight)
+            .endNamespace();
 
+    LuaManager::getInstance().runScript("content/Scripts/terrainConfig.lua");
+    terrainTextures.push_back(Texture::Create(grassTexture));
+    terrainTextures.push_back(Texture::Create(sandTexture));
+    terrainTextures.push_back(Texture::Create(snowTexture));
+    terrainTextures.push_back(Texture::Create(detailTexture));
+    if(useHeightMap)
+    {
+        LoadHeightMap(mapPath);
+    }
+    else
+    {
+        GeneratePerlinMap(terrainSize,terrainSize);
+    }
 }
-void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zStart,int size)
+Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int size)
 {
+    Chunk chunk(terrainTextures.at(0),terrainTextures.at(1),terrainTextures.at(2),terrainTextures.at(3),sandHeight,grassHeight,snowHeight);
     size+=1;
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
@@ -24,7 +49,6 @@ void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zS
     GenerateTerrainIndices(indices,size,size);
     //TODO: Come Up with better solution as currently just stretching over terrain
     GenerateTexCoords(vertices,size,size);
-    LoadHeightMap("content/Heightmap.png");
     int x =xStart;
     int z=zStart;
     for(auto& vert: vertices)
@@ -39,6 +63,7 @@ void TerrainFactory::SetupChunk(Chunk &chunk,unsigned int xStart,unsigned int zS
     }
     GenerateNormals(vertices,indices);
     chunk.SetupChunk(vertices,indices);
+    return chunk;
 }
 void TerrainFactory::GenerateFlatMap(std::vector<Vertex> &terrain,unsigned int xStart,unsigned int zStart, int xSize, int zSize) {
     Vertex vertex;
@@ -101,8 +126,10 @@ void TerrainFactory::GenerateNormals(std::vector<Vertex> &terrain, std::vector<u
 }
 void TerrainFactory::LoadHeightMap(std::string filename)
 {
+    //File Must be square to produce the map e.g. 512x512
     int width,height,nrComponents;
     float* data = stbi_loadf(filename.c_str(),&width,&height,&nrComponents,1);
+    terrainSize = width;
     heightVals.resize(static_cast<size_t>(width)+1);
     for (auto &e : heightVals) {
         e.resize(static_cast<size_t>(height)+1);
@@ -119,10 +146,10 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
     for (auto &e : heightVals) {
         e.resize(static_cast<size_t>(ySize));
     }
-    float xFactor = 1.0f / (150 - 1);
-    float yFactor = 1.0f / (150 - 1);
-    float a       = 1.7; //Tuning variables
-    float b       = 0.6;  //Tuning variables
+    float xFactor = 1.0f / (250 - 1);
+    float yFactor = 1.0f / (250 - 1);
+    float a       = 0.3; //Tuning variables
+    float b       = 0.2;  //Tuning variables
 
     for( int row = 0; row < ySize; row++ ) {
         for( int col = 0 ; col < xSize; col++ ) {
@@ -150,7 +177,7 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
                 result =0 ;
             }
             // Store in Vector of Vectors
-            heightVals.at(static_cast<size_t>(row)).at(static_cast<size_t>(col)) = result*10;
+            heightVals.at(static_cast<size_t>(row)).at(static_cast<size_t>(col)) = result*255;
         }
     }
 }
