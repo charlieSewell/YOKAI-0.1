@@ -1,14 +1,13 @@
 # Add source files.
 target_sources(${PROJECT_NAME} PRIVATE
         main.cpp
-
-		Model/ObjectLoading/ModelLoader.cpp
-		Model/Mesh.cpp
+		    Model/ObjectLoading/ModelLoader.cpp
+	     	Model/Mesh.cpp
         Model/Model.cpp
         Model/Chunk.cpp
-		Model/GameObject.cpp
-		Model/PlayerControlledMotion.cpp
-		Model/Player.cpp
+	      Model/GameObject.cpp
+		    Model/PlayerControlledMotion.cpp
+		    Model/Player.cpp
         Model/StaticObject.cpp
         Model/NPC.cpp
 
@@ -21,20 +20,20 @@ target_sources(${PROJECT_NAME} PRIVATE
         View/Renderer/OpenGL/OpenGLDataTypes.cpp
         View/Camera.cpp
         View/Renderer/OpenGL/FileIO.cpp
-
         Controller/Yokai.cpp
         Controller/ModelManager.cpp
         Controller/TerrainManager.cpp
         Controller/Factory/TerrainFactory.cpp
-		Controller/LuaManager.cpp
-		Controller/EventManager.cpp
-		Controller/InputManagerGLFW.cpp
-		Controller/Layer.cpp
-		Controller/GameStack.cpp
+		    Controller/LuaManager.cpp
+		    Controller/EventManager.cpp
+		    Controller/InputManagerGLFW.cpp
+		    Controller/Layer.cpp
+		    Controller/GameStack.cpp
         Controller/Physics/PhysicsManager.cpp
-		Controller/Physics/PhysicsComponent.cpp
+		    Controller/Physics/PhysicsComponent.cpp
         Controller/Factory/GameAssetFactory.cpp
-		Controller/DemoScene.cpp
+		    Controller/DemoScene.cpp
+        Controller/GameObjectManager.cpp
         )
 
 # Include project header files.

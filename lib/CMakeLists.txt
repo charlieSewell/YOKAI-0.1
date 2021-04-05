@@ -44,6 +44,5 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE
         assimp/include
         LuaBridge/Source
         lua/src
-	imgui/imgui
-
+	      imgui/imgui
 )

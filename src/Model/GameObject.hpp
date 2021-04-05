@@ -17,7 +17,7 @@ public:
 	void setPosition(glm::vec3 position);
     virtual glm::mat4 getViewMatrix() = 0;
 	virtual void update();
-    virtual void draw(Shader &shader) = 0; 
+    virtual void draw(Shader &shader) = 0;
 
 protected:
 	GameObjectType m_EntityType;
