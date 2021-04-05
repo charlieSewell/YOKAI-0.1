@@ -18,6 +18,11 @@ void EMS::add(InputEvent event, std::function<void(double, double)> func)
 	if(event == InputEvent::xyLook)
 		m_xyLook = func;
 }
+void EMS::add(RenderEvent event, std::function<glm::mat4(void)> func)
+{
+    if(event == RenderEvent::getViewMatrix)
+        m_viewMatrix = func;
+}
 
 void EMS::fire(InputEvent event) 
 {
@@ -32,4 +37,9 @@ void EMS::fire(InputEvent event, double x, double y)
 {
 	if (event == InputEvent::xyLook)
 		m_xyLook(x, y);
+}
+glm::mat4 EMS::fire(RenderEvent event)
+{
+    if (event == RenderEvent::getViewMatrix)
+        return m_viewMatrix();
 }

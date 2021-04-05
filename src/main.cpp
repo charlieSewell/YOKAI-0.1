@@ -56,6 +56,7 @@ int main() {
 	std::shared_ptr<GameObject> pineTree = GF.Create(GameObjectType::staticObject, "content/Models/pine.fbx");
 	std::shared_ptr<GameObject> zombie = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
 	std::shared_ptr<GameObject> rock = GF.Create(GameObjectType::staticObject, "content/Models/rock.fbx");
+
 	pineTree->setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 	zombie->setPosition(glm::vec3(255.0f, 10.0f, 255.0f));
 	rock->setPosition(glm::vec3(0.0f, 0.0f, 100.0f));

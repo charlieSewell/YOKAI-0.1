@@ -29,6 +29,7 @@ void Player::update()
 	m_canJump = m_onGround;
 	updatePhysics(&m_position, m_movementSpeed);
 	updateJump(m_position, m_upDirection);
+
 }
 
 glm::vec3 Player::getPosition() const
