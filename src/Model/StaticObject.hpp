@@ -9,8 +9,7 @@ class StaticObject : public GameObject
 {
   public:
     StaticObject(std::string modelName);
-    void draw(Shader &shader);
-    glm::mat4 getViewMatrix();
+    void draw();
     glm::vec3 getPosition();
 
   private:

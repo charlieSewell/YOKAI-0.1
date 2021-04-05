@@ -19,12 +19,7 @@ Player::Player()
 
 Player::~Player() {}
 
-void Player::draw(Shader &shader) {}
-
-glm::mat4 Player::getViewMatrix() 
-{
-    return Camera::getViewMatrix();
-}
+void Player::draw() {}
 
 void Player::update()
 {

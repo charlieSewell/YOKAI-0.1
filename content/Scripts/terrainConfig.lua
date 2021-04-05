@@ -1,11 +1,11 @@
 -- Configurable Terrain Properties
 
 -- Only for Dynamically Generated Terrains
-TerrainFactory.terrainSize = 1024
-TerrainFactory.useHeightMap = true
+TerrainFactory.terrainSize = 1000
+TerrainFactory.useHeightMap = true; 
 
 --Height map Path
-TerrainFactory.mapPath = "content/HeightMap.png"
+TerrainFactory.mapPath = "content/HeightMaps/1000Map.png"
 
 --Terrain Textures
 TerrainFactory.grassTexture = "content/Textures/grass.jpg"

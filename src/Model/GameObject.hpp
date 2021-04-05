@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "View/Renderer/Shader.hpp"
-
+#include "Controller/LuaManager.hpp"
 enum class GameObjectType
 {
 	player, staticObject, npc
@@ -13,11 +13,11 @@ enum class GameObjectType
 class GameObject
 {
 public:
+    static void registerClass();
     virtual glm::vec3 getPosition() const;
 	virtual void setPosition(glm::vec3 position);
-    virtual glm::mat4 getViewMatrix() = 0;
 	virtual void update();
-    virtual void draw(Shader &shader) = 0;
+    virtual void draw() = 0;
 
 protected:
 	GameObjectType m_EntityType;

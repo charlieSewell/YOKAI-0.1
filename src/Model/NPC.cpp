@@ -7,8 +7,8 @@ NPC::NPC(std::string modelName)
 	registerAABB(&m_position, 5, 5, 40);
 }
 
-void NPC::draw(Shader &shader) {
-    ModelManager::getInstance().DrawModel(modelID, shader, m_position);
+void NPC::draw() {
+    ModelManager::getInstance().DrawModel(modelID, m_position);
 }
 
 glm::mat4 NPC::getViewMatrix() {

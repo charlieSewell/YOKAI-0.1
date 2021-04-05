@@ -2,6 +2,7 @@
 // Vladislav Kennebury 11/03/2021
 // Version 1
 
+#pragma once
 #include <lua.hpp>
 #include <LuaBridge/LuaBridge.h>
 #include <iostream>

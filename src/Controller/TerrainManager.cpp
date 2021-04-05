@@ -17,7 +17,7 @@ void TerrainManager::Init() {
 }
 void TerrainManager::CreateTerrain() {
     for( int x =0; x < maxKey;x++){
-        for( int y =0; y < maxKey;y++){
+        for (int y = 0; y < maxKey; y++) {
             std::pair<int,int> key(x,y);
             chunks.emplace(key,TerrainFactory::getInstance().SetupChunk(x*100,y*100,100));
         }
@@ -25,10 +25,11 @@ void TerrainManager::CreateTerrain() {
 
 }
 void TerrainManager::Draw(glm::vec3 viewpos) {
+
     terrainShader->useShader();
     terrainShader->setVec3("viewPos",viewpos);
-    for( int x =0; x < maxKey;x++) {
-        for( int y =0; y < maxKey;y++){
+    for (int x = 0; x < maxKey; x++) {
+        for (int y = 0; y < maxKey; y++) {
             std::pair<int, int> key(x, y);
             chunks.at(key).DrawChunk(*terrainShader);
         }

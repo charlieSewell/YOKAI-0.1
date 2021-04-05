@@ -59,7 +59,7 @@ void main(){
     vec3 specular = specularStrength * spec * lightColor;
 
     //final results
-    vec4 texResult = FragColor*detail;
+    vec4 texResult = FragColor;
     vec3 result = (ambient + diffuse + specular);
 
     FragColor = texResult * vec4(result,1.0);

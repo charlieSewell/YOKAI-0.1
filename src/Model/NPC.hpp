@@ -10,7 +10,7 @@ class NPC : public GameObject, public PhysicsComponent
 {
   public:
     NPC(std::string modelName);
-    void draw(Shader &shader);
+    void draw();
     glm::mat4 getViewMatrix();
     glm::vec3 getPosition();
 
