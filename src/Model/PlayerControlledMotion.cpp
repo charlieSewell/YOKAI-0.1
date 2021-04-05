@@ -12,11 +12,6 @@ float PlayerControlledMotion::getMovementSpeed() const
 	return m_movementSpeed;
 }
 
-void PlayerControlledMotion::setJumpHeight(float jumpHeight)
-{
-	m_jumpHeight = jumpHeight;
-}
-
 #include <iostream>
 void PlayerControlledMotion::registerAllMovement(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection)
 {
@@ -24,28 +19,20 @@ void PlayerControlledMotion::registerAllMovement(glm::vec3& position, glm::vec3&
 	registerMoveBackward(position, frontDirection);
 	registerMoveLeft(position, frontDirection, upDirection);
 	registerMoveRight(position, frontDirection, upDirection);
-	registerJump(position, upDirection);
+	registerMoveUp(position, upDirection);
 	registerMoveDown(position, upDirection);
 	registerXYLook(frontDirection);
 }
 
 void PlayerControlledMotion::registerMoveForward(glm::vec3& position, glm::vec3& frontDirection)
 {
-	auto moveForward = [&]()
-	{
-		position.x += m_movementSpeed * frontDirection.x; 
-		position.z += m_movementSpeed * frontDirection.z;
-	};
+	auto moveForward = [&]() {position += m_movementSpeed * frontDirection; };
 	EMS::getInstance().add(InputEvent::moveForward, moveForward);
 };
 
 void PlayerControlledMotion::registerMoveBackward(glm::vec3& position, glm::vec3& frontDirection)
 {
-	auto moveBackward = [&]()
-	{
-		position.x -= m_movementSpeed * frontDirection.x;
-		position.z -= m_movementSpeed * frontDirection.z;
-	};
+	auto moveBackward = [&]() {position -= m_movementSpeed * frontDirection; };
 	EMS::getInstance().add(InputEvent::moveBackward, moveBackward);
 };
 
@@ -61,30 +48,10 @@ void PlayerControlledMotion::registerMoveRight(glm::vec3& position, glm::vec3& f
 	EMS::getInstance().add(InputEvent::moveRight, moveRight);
 };
 
-void PlayerControlledMotion::registerJump(glm::vec3& position, glm::vec3& upDirection)
+void PlayerControlledMotion::registerMoveUp(glm::vec3& position, glm::vec3& upDirection)
 {
-	auto jump = [&]()
-	{
-		if(m_canJump)
-		{
-			m_jumpTarget = position.y + m_jumpHeight;
-			m_jump = true;
-			m_canJump = false;
-		}
-	};
-	EMS::getInstance().add(InputEvent::jump, jump);
-}
-
-void PlayerControlledMotion::updateJump(glm::vec3& position, glm::vec3& upDirection)
-{
-	m_jumpDecay = (m_jumpTarget - position.y)*m_movementSpeed;
-	if(m_jump)
-	{
-		if(position.y < m_jumpTarget)
-			position += (m_movementSpeed+m_jumpDecay/4) * upDirection;
-		else
-			m_jump = false;
-	}
+	auto moveUp = [&]() {position += m_movementSpeed * upDirection; };
+	EMS::getInstance().add(InputEvent::moveUp, moveUp);
 }
 
 void PlayerControlledMotion::registerMoveDown(glm::vec3& position, glm::vec3& upDirection)

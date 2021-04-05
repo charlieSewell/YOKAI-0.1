@@ -9,15 +9,15 @@ enum class InputEvent
 	moveBackward, 
 	moveLeft, 
 	moveRight, 
-	jump, 
+	moveUp, 
 	moveDown,
 	increaseSpeed,
 	xyLook
 };
 
-enum class PhysicsEvent
+enum class ExampleEvent
 {
-	PlayerTerrainCollision
+	example
 };
 
 class EMS 

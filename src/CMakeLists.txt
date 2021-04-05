@@ -31,8 +31,6 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/InputManagerGLFW.cpp
 		Controller/Layer.cpp
 		Controller/GameStack.cpp
-        Controller/Physics/PhysicsManager.cpp
-		Controller/Physics/PhysicsComponent.cpp
         Controller/Factory/GameAssetFactory.cpp
         )
 

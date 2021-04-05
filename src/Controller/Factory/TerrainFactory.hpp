@@ -12,14 +12,12 @@
 
 #include "View/Renderer/DataTypes.hpp"
 #include "Model/Chunk.hpp"
-#include "Controller/Physics/PhysicsManager.hpp"
 
 class TerrainFactory {
   public:
     static TerrainFactory & getInstance();
     void Init();
     void SetupChunk(Chunk &Chunk,unsigned int xStart,unsigned int zStart,int size);
-
   private:
     TerrainFactory() = default;
     ~TerrainFactory() = default;

@@ -46,7 +46,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE  ${PROJECT_BINARY_DIR}/lib)
 
 
 # Define the executable.
-add_executable(${PROJECT_NAME} src/main.cpp )
+add_executable(${PROJECT_NAME} src/main.cpp "src/Model/NPC.hpp" "src/Model/NPC.cpp")
 
 # Set C++ standard.
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -103,7 +103,7 @@ target_link_options(${PROJECT_NAME} PRIVATE
 )
 
 # Include and link against dependencies.
-target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL assimp lua LuaBridge glfw glm glad imgui reactphysics3d${CMAKE_DL_LIBS})
+target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL assimp lua LuaBridge glfw glm glad ${CMAKE_DL_LIBS})
 
 if (NOT DisablePostBuild)
     if (NOT CopyResources)
