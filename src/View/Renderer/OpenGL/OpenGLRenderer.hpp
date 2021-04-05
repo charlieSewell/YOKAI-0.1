@@ -28,7 +28,6 @@ class OpenGLRenderer : public RenderAPI {
 
   private:
     bool isWireFrame = false;
-    glm::mat4 viewMatrix;
 };
 
 
