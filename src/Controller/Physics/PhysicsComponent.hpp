@@ -7,7 +7,7 @@
 class PhysicsComponent
 {
 public:
-	void updatePhysics(int colliderID, float &movementSpeed, float jumpSpeed);
+	void updatePhysics(float &movementSpeed, float jumpSpeed);
 
 protected:
 	PhysicsComponent() {}
@@ -16,7 +16,7 @@ protected:
 	//void registerBoundingSphere(glm::vec3 *position, double radius);
 	void registerAABB(glm::vec3* position, float width, float length, float height);
 
-	int m_colliderID;
+	AABB* m_collider;
 	float m_mass;
 
 	bool m_onGround;
@@ -25,6 +25,6 @@ protected:
 	bool m_physicsActive;
 
 private:
-	void updateGravity(int colliderID, float jumpSpeed);
-	void resolveCollisions(int colliderID, float &movementSpeed);
+	void updateGravity(float jumpSpeed);
+	void resolveCollisions(float &movementSpeed);
 };

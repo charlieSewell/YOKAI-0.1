@@ -3,31 +3,33 @@
 #include "PhysicsComponent.hpp"
 
 #include <iostream>
-void PhysicsComponent::updatePhysics(int colliderID, float &movementSpeed, float jumpSpeed)
+void PhysicsComponent::updatePhysics(float &movementSpeed, float jumpSpeed)
 {
-	updateGravity(colliderID, jumpSpeed);
-	resolveCollisions(colliderID, movementSpeed);
+	updateGravity(jumpSpeed);
+	resolveCollisions(movementSpeed);
 }
 
-void PhysicsComponent::resolveCollisions(int colliderID, float &movementSpeed)
+void PhysicsComponent::resolveCollisions(float &movementSpeed)
 {
-	bool collision = PhysicsManager::getInstance().checkCollisions(colliderID);
-	if(!m_resolvingCollision && collision)
+	AABB* otherCollider = nullptr;
+	otherCollider = PhysicsManager::getInstance().checkCollisions(m_collider);
+	m_collisionDetected = (otherCollider != nullptr);
+
+	if(m_collisionDetected)
 	{
-		movementSpeed = -movementSpeed*2;
-		m_mass = 0;
-		m_resolvingCollision = true;
-	}
-	else
-		if(m_resolvingCollision && !collision)
+		if(m_collider->getPosition()-> y > otherCollider->getAABBPoints().ymax)		//on top of hit box
 		{
-			movementSpeed = -movementSpeed/2;
-			m_mass = 0.125f;
-			m_resolvingCollision = false;
+			m_onGround = true;
+			m_mass = 0;
 		}
 		else
-			if(!collision)
-				m_resolvingCollision=false;
+		{
+			m_collider->getPosition()->x += (m_collider->getPosition()->x - otherCollider->getPosition()->x) * movementSpeed;
+			m_collider->getPosition()->z += (m_collider->getPosition()->z - otherCollider->getPosition()->z) * movementSpeed;
+		}
+	}
+	else
+		m_mass = 0.125f;		//TODO unhardcode this cuntc
 }
 
 //easy to implement if needed
@@ -38,23 +40,22 @@ void PhysicsComponent::resolveCollisions(int colliderID, float &movementSpeed)
 
 void PhysicsComponent::registerAABB(glm::vec3* position, float width, float length, float height)
 {
-	m_colliderID = PhysicsManager::getInstance().addAABB(position, width, length, height);
+	m_collider = PhysicsManager::getInstance().addAABB(position, width, length, height);
 }
 
 
-void PhysicsComponent::updateGravity(int colliderID, float jumpSpeed)
+void PhysicsComponent::updateGravity(float jumpSpeed)
 {
-	float distanceFromGround = PhysicsManager::getInstance().checkTerrainCollision(m_colliderID);
+	float distanceFromGround = PhysicsManager::getInstance().checkTerrainCollision(m_collider);
 
-	AABB collider = PhysicsManager::getInstance().getCollider(colliderID);
 
-	if(distanceFromGround < collider.getHeight()/2)
-		collider.getPosition()->y += jumpSpeed;	// move up with the terrain
+	if(distanceFromGround < m_collider->getHeight()/2)
+		m_collider->getPosition()->y += jumpSpeed;	// move up with the terrain
 	else
 	{
-		if(distanceFromGround > collider.getHeight() / 2 + 1)		//+1 buffer
+		if(distanceFromGround > m_collider->getHeight() / 2 + 1)		//+1 buffer
 		{
-			collider.getPosition()->y -= m_mass;	//apply gravity
+			m_collider->getPosition()->y -= m_mass;	//apply gravity
 			m_onGround = false;
 		}
 		else
