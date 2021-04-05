@@ -7,7 +7,7 @@ StaticObject::StaticObject(std::string modelName)
 
 void StaticObject::draw()
 {
-    ModelManager::getInstance().DrawModel(modelID,m_position);
+    ModelManager::getInstance().DrawModel(modelID,m_transform);
 }
 
 glm::vec3 StaticObject::getPosition()

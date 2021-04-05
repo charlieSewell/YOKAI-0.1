@@ -48,9 +48,7 @@ int main() {
 	// TESTING FOR ASSET FACTORY
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	GameAssetFactory GF;
-    std::shared_ptr<GameObject> player = GF.Create(GameObjectType::player, "");
-    std::shared_ptr<GameObject> tree = GF.Create(GameObjectType::staticObject, "content/Models/zombie.fbx");
-
+    std::vector<std::shared_ptr<GameObject>> npcs;
 	std::shared_ptr<GameObject> player = GF.Create(GameObjectType::player);
 	std::shared_ptr<GameObject> pineTree = GF.Create(GameObjectType::staticObject, "content/Models/pine.fbx");
 	std::shared_ptr<GameObject> zombie1 = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
@@ -63,7 +61,16 @@ int main() {
 	zombie2->setPosition(glm::vec3(270.0f, 5.0f, 240.0f));
 	zombie3->setPosition(glm::vec3(240.0f, 5.0f, 270.0f));
 	rock->setPosition(glm::vec3(270.0f, 8, 270.0f));
-	player->setPosition(glm::vec3(225.0f, 2.0f, 225.0f));
+	player->setPosition(glm::vec3(10, 2.0f, 10));
+
+    pineTree->setScale(glm::vec3(0.05f, 0.05f, 0.05f));
+    zombie1->setScale(glm::vec3(0.02f, 0.02f, 0.02f));
+    zombie2->setScale(glm::vec3(0.02f, 0.02f, 0.02f));
+    zombie3->setScale(glm::vec3(0.02f, 0.02f, 0.02f));
+    rock->setScale(glm::vec3(0.02f, 0.02f, 0.02f));
+    player->setScale(glm::vec3(0.02f, 0.02f, 0.02f));
+
+
 
 	pineTree->setCollider(10, 10, 80);
 	zombie1->setCollider(10, 10, 50);
@@ -88,6 +95,7 @@ int main() {
 		Renderer::Clear();
 		player->update();
 
+        pineTree->draw();
         GameObjectManager::update();
 		terrainManager.Draw(player->getPosition());
 		glfwSwapBuffers(window);

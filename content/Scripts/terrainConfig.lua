@@ -5,7 +5,7 @@ TerrainFactory.terrainSize = 1000
 TerrainFactory.useHeightMap = true; 
 
 --Height map Path
-TerrainFactory.mapPath = "content/HeightMaps/1000Map.png"
+TerrainFactory.mapPath = "content/HeightMaps/HeightMap.png"
 
 --Terrain Textures
 TerrainFactory.grassTexture = "content/Textures/grass.jpg"

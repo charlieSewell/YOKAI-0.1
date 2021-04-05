@@ -27,6 +27,6 @@ auto ModelManager::GetModelID(std::string filename) -> size_t {
 Model* ModelManager::GetModel(size_t modelID) {
     return &models[modelID];
 }
-void ModelManager::DrawModel(size_t id, glm::vec3 position) {
-    models[id].Draw(*modelShader, position);
+void ModelManager::DrawModel(size_t id, glm::mat4 transform) {
+    models[id].Draw(*modelShader, transform);
 }

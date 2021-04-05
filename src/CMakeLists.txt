@@ -36,7 +36,6 @@ target_sources(${PROJECT_NAME} PRIVATE
 		    Controller/DemoScene.cpp
         Controller/GameObjectManager.cpp
 		Controller/LuaTypes.cpp
-		Model/Transform.cpp
         )
 
 # Include project header files.
