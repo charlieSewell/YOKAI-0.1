@@ -42,6 +42,7 @@ glm::vec3 Player::getPosition() const
 
 void Player::setPosition(glm::vec3 position)
 {
+    std::cout <<"hi" <<std::endl;
 	m_position = position;
 }
 

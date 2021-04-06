@@ -25,7 +25,8 @@ void OpenGLRenderer::Init()
     }
 
     glEnable(GL_DEPTH_TEST);
-    std::cout << "Using OpenGL" << std::endl;
+    std::cout << "Renderer Initialised: Using OpenGL" << std::endl;
+
 }
 
 void OpenGLRenderer::DeInit() 

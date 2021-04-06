@@ -5,7 +5,7 @@ TerrainSettings.terrainSize = 1000
 TerrainSettings.useHeightMap = true;
 
 --Height map Path
-TerrainSettings.mapPath = "content/HeightMaps/HeightMap.png"
+TerrainSettings.mapPath = "content/HeightMaps/1000Map.png"
 
 --Terrain Textures
 TerrainSettings.grassTexture = "content/Textures/grass.jpg"

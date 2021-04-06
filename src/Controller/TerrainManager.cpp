@@ -16,6 +16,7 @@ void TerrainManager::Init()
     terrainShader->setVec3("lightColor",glm::vec3(1.0,1.0,1.0));
     terrainShader->setVec3("lightPos",glm::vec3(maxKey*chunkSize/2,200.0,maxKey*chunkSize/2));
     terrainShader->setMat4("model",glm::mat4(1.0));
+    std::cout << "Initialised Terrain Factory" << std::endl;
 }
 
 void TerrainManager::CreateTerrain() 
