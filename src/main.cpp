@@ -58,9 +58,11 @@ int main()
     std::vector<std::shared_ptr<GameObject>> npcs;
 	std::shared_ptr<GameObject> player = GF.Create(GameObjectType::player);
 	std::shared_ptr<GameObject> pineTree = GF.Create(GameObjectType::staticObject, "content/Models/pine.fbx");
+
 	std::shared_ptr<GameObject> zombie1 = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
 	std::shared_ptr<GameObject> zombie2 = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
 	std::shared_ptr<GameObject> zombie3 = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
+
 	std::shared_ptr<GameObject> rock = GF.Create(GameObjectType::staticObject, "content/Models/rock.fbx");
 
 	pineTree->setPosition(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -88,6 +90,7 @@ int main()
 	npcs.push_back(zombie2);
 	npcs.push_back(zombie3);
 
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//THIS IS ALL TEST CODE AND SUBJECT TO CHANGE DO NOT ADD RENDERING FUNCTIONS HERE
@@ -98,6 +101,9 @@ int main()
 		InputManagerGLFW::getInstance().processMouse(window);
 		Renderer::Clear();
 		player->update();
+
+		for(int i = 0; i<npcs.size(); ++i)
+			npcs[i]->draw();
 
         pineTree->draw();
         GameObjectManager::update();

@@ -12,6 +12,7 @@ Player::Player()
 	m_jumpSpeed = 0.15f;
 	m_mass = 0.025f;
 	registerAllMovement(m_position, m_frontDirection, m_upDirection);
+	registerPhysicsToggle(m_physicsActive);
 
 	m_resolvingCollision = false;
 }
@@ -22,10 +23,15 @@ void Player::draw() {}
 
 void Player::update()
 {
-	m_canJump = m_onGround;
-	updatePhysics(m_movementSpeed, m_jumpSpeed);
+	if(m_physicsActive)
+	{
+		m_canJump = m_onGround;
+		updatePhysics(m_movementSpeed, m_jumpSpeed);
+	}
+	else
+		m_canJump = true;
+	
 	updateJump(m_position, m_upDirection);
-
 }
 
 glm::vec3 Player::getPosition() const
