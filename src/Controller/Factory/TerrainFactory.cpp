@@ -145,6 +145,7 @@ void TerrainFactory::LoadHeightMap(std::string filename)
     float* data = stbi_loadf(filename.c_str(),&width,&height,&nrComponents,1);
 
     terrainSize = width;
+    terrainSize = floor(terrainSize/100)*100;
     heightVals.resize(static_cast<size_t>(width)+1);
     for (auto &e : heightVals) 
     {

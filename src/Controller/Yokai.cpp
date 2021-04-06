@@ -23,7 +23,6 @@ void Yokai::Init()
     
     layers.push_back(new DemoScene());
     for(int i =0;i < layers.size(); i++){
-        std::cout <<"test\n";
         layers[i]->Init();
     }
     GameObjectManager::init();
