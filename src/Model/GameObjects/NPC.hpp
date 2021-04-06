@@ -1,10 +1,12 @@
 #pragma once
 #include <iostream>
+
 #include <glm/glm.hpp>
+
 #include "Controller/ModelManager.hpp"
 #include "GameObject.hpp"
+#include "Model/Components/PhysicsComponent.hpp"
 #include "View/Renderer/Shader.hpp"
-#include "Controller/Physics/PhysicsComponent.hpp"
 
 class NPC : public GameObject, public PhysicsComponent
 {

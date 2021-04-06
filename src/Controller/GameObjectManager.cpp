@@ -7,6 +7,7 @@ GameObjectManager& GameObjectManager::getInstance()
 
 GameObjectManager::GameObjectManager() 
 {
+
 }
 
 void GameObjectManager::init() 

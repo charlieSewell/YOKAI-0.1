@@ -4,8 +4,8 @@
 
 #ifndef ICT397_GAME_ENGINE_LUATYPES_HPP
 #define ICT397_GAME_ENGINE_LUATYPES_HPP
-#include "Model/GameObject.hpp"
 #include "Controller/LuaManager.hpp"
+#include "Model/GameObjects/GameObject.hpp"
 namespace LuaTypes {
     GameObjectType getNPCType();
     GameObjectType getStaticType();

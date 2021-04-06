@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "PhysicsManager.hpp"
+#include "Controller/Physics/PhysicsManager.hpp"
 
 class PhysicsComponent
 {

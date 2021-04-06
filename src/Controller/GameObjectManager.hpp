@@ -1,9 +1,10 @@
 #include <iostream>
 #include <map>
-#include "Model/GameObject.hpp"
+
 #include "Controller/Factory/GameAssetFactory.hpp"
 #include "Controller/LuaManager.hpp"
 #include "Controller/LuaTypes.hpp"
+#include "Model/GameObjects/GameObject.hpp"
 class GameObjectManager 
 {
   public:

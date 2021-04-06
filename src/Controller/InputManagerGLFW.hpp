@@ -3,8 +3,9 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
-#include  "../View/Camera.hpp"
+
 #include "EventManager.h"
+#include "Model/Components/Camera.hpp"
 
 class InputManagerGLFW
 {

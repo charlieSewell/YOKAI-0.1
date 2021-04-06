@@ -4,14 +4,13 @@
 #include <iostream>
 
 #include "Controller/EventManager.h"
-
-#include "Controller/Yokai.hpp"
-#include "View/Camera.hpp"
-#include "Controller/InputManagerGLFW.hpp"
-#include "Model/Player.hpp"
 #include "Controller/Factory/TerrainFactory.hpp"
-#include "Controller/ModelManager.hpp"
 #include "Controller/GameObjectManager.hpp"
+#include "Controller/InputManagerGLFW.hpp"
+#include "Controller/ModelManager.hpp"
+#include "Controller/Yokai.hpp"
+#include "Model/Components/Camera.hpp"
+#include "Model/Player.hpp"
 
 void error_callback(int error, const char* description)
 {

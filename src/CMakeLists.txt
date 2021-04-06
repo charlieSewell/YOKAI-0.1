@@ -5,11 +5,11 @@ target_sources(${PROJECT_NAME} PRIVATE
 	     	Model/Mesh.cpp
         Model/Model.cpp
         Model/Chunk.cpp
-	      Model/GameObject.cpp
-		    Model/PlayerControlledMotion.cpp
+		Model/GameObjects/GameObject.cpp
+        Model/Components/PlayerControlledMotion.cpp
 		    Model/Player.cpp
-        Model/StaticObject.cpp
-        Model/NPC.cpp
+		Model/GameObjects/StaticObject.cpp
+		Model/GameObjects/NPC.cpp
 
         View/Renderer/AssimpMaths.cpp
         View/Renderer/Shader.cpp
@@ -18,7 +18,7 @@ target_sources(${PROJECT_NAME} PRIVATE
         View/Renderer/RenderAPI.cpp
         View/Renderer/OpenGL/OpenGLRenderer.cpp
         View/Renderer/OpenGL/OpenGLDataTypes.cpp
-        View/Camera.cpp
+		Model/Components/Camera.cpp
         View/Renderer/OpenGL/FileIO.cpp
         Controller/Yokai.cpp
         Controller/ModelManager.cpp
@@ -30,7 +30,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 		    Controller/Layer.cpp
 		    Controller/GameStack.cpp
         Controller/Physics/PhysicsManager.cpp
-		    Controller/Physics/PhysicsComponent.cpp
+		Model/Components/PhysicsComponent.cpp
 		    Controller/Physics/AABB.cpp
         Controller/Factory/GameAssetFactory.cpp
 		    Controller/DemoScene.cpp
