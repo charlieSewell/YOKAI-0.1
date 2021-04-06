@@ -32,6 +32,29 @@ void PhysicsComponent::resolveCollisions(float &movementSpeed)
 		m_mass = 0.125f;		//TODO unhardcode this cuntc
 }
 
+void PhysicsComponent::registerPhysicsToggle(bool &physicsActivce)
+{
+	auto togglePhysicsReleased = [&]()
+	{	
+		if(m_physicsTogglePressed)
+		{
+			//std::cout << "release\n";
+			m_physicsTogglePressed = false;
+		}
+	};
+	EMS::getInstance().add(InputEvent::togglePhysicsReleased, togglePhysicsReleased);
+
+	auto togglePhysicsPressed = [&]()
+	{
+		if(!m_physicsTogglePressed)
+		{
+			m_physicsActive = !m_physicsActive;
+			m_physicsTogglePressed = true;
+		}
+	};
+	EMS::getInstance().add(InputEvent::togglePhysicsPressed, togglePhysicsPressed);
+}
+
 //easy to implement if needed
 /*void PhysicsComponent::registerBoundingSphere(glm::vec3 *position, double radius)
 {

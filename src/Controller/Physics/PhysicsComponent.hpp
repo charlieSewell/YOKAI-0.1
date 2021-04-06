@@ -3,6 +3,7 @@
 #pragma once
 
 #include "PhysicsManager.hpp"
+#include "Controller/EventManager.h"
 
 class PhysicsComponent
 {
@@ -15,6 +16,7 @@ protected:
 
 	//void registerBoundingSphere(glm::vec3 *position, double radius);
 	void registerAABB(glm::vec3* position, float width, float length, float height);
+	void registerPhysicsToggle(bool &physicsActive);
 
 	AABB* m_collider;
 	float m_mass;
@@ -27,4 +29,5 @@ protected:
 private:
 	void updateGravity(float jumpSpeed);
 	void resolveCollisions(float &movementSpeed);
+	bool m_physicsTogglePressed;
 };
