@@ -7,6 +7,7 @@
 
 #include "View/Renderer/RenderAPI.hpp"
 #include "View/Renderer/DataTypes.hpp"
+#include "Controller/EventManager.hpp"
 
 #include <memory>
 
@@ -15,7 +16,7 @@ class Renderer
   public:
     static void Init();
     static void DeInit();
-    static void ToggleWireFrame();
+    static void registerToggleWireframe();
     static void Draw(Shader &shader,VertexArrayBuffer& VAO,size_t indiceSize);
     static void Clear();
 

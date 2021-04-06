@@ -13,7 +13,7 @@ Player::Player()
 	m_jumpSpeed = 0.15f;
 	m_mass = 0.025f;
 	registerAllMovement(m_position, m_frontDirection, m_upDirection);
-	registerPhysicsToggle(m_physicsActive);
+	registerPhysicsToggle();
 
 	m_resolvingCollision = false;
 }

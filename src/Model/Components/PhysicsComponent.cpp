@@ -32,15 +32,12 @@ void PhysicsComponent::resolveCollisions(float &movementSpeed)
 		m_mass = 0.125f;		//TODO unhardcode this cuntc
 }
 
-void PhysicsComponent::registerPhysicsToggle(bool &physicsActivce)
+void PhysicsComponent::registerPhysicsToggle()
 {
 	auto togglePhysicsReleased = [&]()
 	{	
 		if(m_physicsTogglePressed)
-		{
-			//std::cout << "release\n";
 			m_physicsTogglePressed = false;
-		}
 	};
 	EMS::getInstance().add(InputEvent::togglePhysicsReleased, togglePhysicsReleased);
 
