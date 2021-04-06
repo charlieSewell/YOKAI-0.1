@@ -9,17 +9,17 @@
 #include "Model/Mesh.hpp"
 #include <glm/glm.hpp>
 
-class Model {
+class Model
+{
   public:
     Model(){};
-    Model(std::vector<Mesh> meshes){
+    Model(std::vector<Mesh> meshes)
+    {
         this->meshes = meshes;
     }
     void Draw(Shader &shader, glm::mat4 transform);
 
-
   private:
     std::vector<Mesh> meshes;
-
 };
 

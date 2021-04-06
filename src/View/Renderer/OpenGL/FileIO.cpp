@@ -4,10 +4,14 @@
 #include "View/Renderer/OpenGL/FileIO.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-unsigned char* TextureFromFile(std::string filename, int &width,int &height, int &nrComponents,int reqComponents){
+
+unsigned char* TextureFromFile(std::string filename, int &width,int &height, int &nrComponents,int reqComponents)
+{
     unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, reqComponents);
     return data;
 }
-void FreeTextureData(unsigned char* data){
+
+void FreeTextureData(unsigned char* data)
+{
     stbi_image_free(data);
 }

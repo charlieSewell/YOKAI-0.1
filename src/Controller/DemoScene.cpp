@@ -3,10 +3,12 @@
 //
 
 #include "DemoScene.hpp"
-void DemoScene::Init() {
+
+void DemoScene::Init() 
+{
     terrainManager.Init();
-
 }
-void DemoScene::Update() {
 
+void DemoScene::Update() 
+{
 }

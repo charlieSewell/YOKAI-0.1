@@ -4,13 +4,17 @@
 
 #ifndef ICT397_GAME_ENGINE_LUATYPES_HPP
 #define ICT397_GAME_ENGINE_LUATYPES_HPP
+
 #include "Model/GameObject.hpp"
 #include "Controller/LuaManager.hpp"
-namespace LuaTypes {
+
+namespace LuaTypes 
+{
     GameObjectType getNPCType();
     GameObjectType getStaticType();
     GameObjectType getPlayerType();
 };
+
 template <typename T>
 struct EnumWrapper
 {
@@ -24,6 +28,7 @@ struct EnumWrapper
         return static_cast <T> (lua_tointeger (L, index));
     }
 };
+
 namespace luabridge {
 
     template <>

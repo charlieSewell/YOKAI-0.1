@@ -7,7 +7,9 @@
 
 #include "View/Renderer/DataTypes.hpp"
 #include "View/Renderer/Shader.hpp"
-class RenderAPI {
+
+class RenderAPI 
+{
   public:
     virtual ~RenderAPI()= default;
     virtual void Init()=0;

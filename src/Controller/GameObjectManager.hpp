@@ -4,6 +4,7 @@
 #include "Controller/Factory/GameAssetFactory.hpp"
 #include "Controller/LuaManager.hpp"
 #include "Controller/LuaTypes.hpp"
+
 class GameObjectManager 
 {
   public:

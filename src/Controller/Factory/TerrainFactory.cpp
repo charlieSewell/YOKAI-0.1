@@ -40,6 +40,7 @@ void TerrainFactory::Init()
         GeneratePerlinMap(terrainSize,terrainSize);
     }
 }
+
 Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int size)
 {
     Chunk chunk(terrainTextures.at(0),terrainTextures.at(1),terrainTextures.at(2),terrainTextures.at(3),sandHeight,grassHeight,snowHeight);
@@ -68,7 +69,9 @@ Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int siz
     chunk.SetupChunk(vertices,indices);
     return chunk;
 }
-void TerrainFactory::GenerateFlatMap(std::vector<Vertex> &terrain,unsigned int xStart,unsigned int zStart, int xSize, int zSize) {
+
+void TerrainFactory::GenerateFlatMap(std::vector<Vertex> &terrain,unsigned int xStart,unsigned int zStart, int xSize, int zSize) 
+{
     Vertex vertex;
     for (unsigned x = xStart; x < xSize+xStart; x ++)
     {
@@ -81,6 +84,7 @@ void TerrainFactory::GenerateFlatMap(std::vector<Vertex> &terrain,unsigned int x
         }
     }
 }
+
 void TerrainFactory::GenerateTerrainIndices(std::vector<unsigned int> &terrain, int xSize, int zSize)
 {
     for(int x =0; x < xSize-1; x++)
@@ -99,6 +103,7 @@ void TerrainFactory::GenerateTerrainIndices(std::vector<unsigned int> &terrain, 
         }
     }
 }
+
 void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain, int xSize, int zSize)
 {
     for(auto& vert: terrain)
@@ -106,7 +111,9 @@ void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain, int xSize, 
         vert.textureCoords = glm::vec2((float)vert.position.x,(float)vert.position.z);
     }
 }
-void TerrainFactory::GenerateNormals(std::vector<Vertex> &terrain, std::vector<unsigned int> &indices) {
+
+void TerrainFactory::GenerateNormals(std::vector<Vertex> &terrain, std::vector<unsigned int> &indices) 
+{
     for(int i=0; i < indices.size(); i += 3)
     {
         Vertex &vert = terrain[indices[i]];
@@ -127,6 +134,7 @@ void TerrainFactory::GenerateNormals(std::vector<Vertex> &terrain, std::vector<u
         terrain[i].normal = glm::normalize(terrain[i].normal);
     }
 }
+
 void TerrainFactory::LoadHeightMap(std::string filename)
 {
     //File Must be square to produce the map e.g. 512x512
@@ -135,16 +143,21 @@ void TerrainFactory::LoadHeightMap(std::string filename)
 
     terrainSize = width;
     heightVals.resize(static_cast<size_t>(width)+1);
-    for (auto &e : heightVals) {
+    for (auto &e : heightVals) 
+    {
         e.resize(static_cast<size_t>(height)+1);
     }
-    for(int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
+    for(int x = 0; x < width; x++) 
+    {
+        for (int y = 0; y < height; y++) 
+        {
             heightVals.at((x)).at((y)) = data[((x * width) + y)]*255;
         }
     }
-    for (int x = 1; x < width-1; x++) {
-        for (int y = 1; y < height-1; y++) {
+    for (int x = 1; x < width-1; x++) 
+    {
+        for (int y = 1; y < height-1; y++) 
+        {
             //Average the imediate neighbours to smooth
             float average =0;
             average += heightVals.at((x)).at((y));
@@ -158,6 +171,7 @@ void TerrainFactory::LoadHeightMap(std::string filename)
 
     std::cout << width << std::endl;
 }
+
 void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
 {
     heightVals.resize(static_cast<size_t>(xSize));
@@ -169,8 +183,10 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
     float a       = 0.3; //Tuning variables
     float b       = 0.2;  //Tuning variables
 
-    for( int row = 0; row < ySize; row++ ) {
-        for( int col = 0 ; col < xSize; col++ ) {
+    for( int row = 0; row < ySize; row++ ) 
+    {
+        for( int col = 0 ; col < xSize; col++ ) 
+        {
             float x = xFactor * col;
             float y = yFactor * row;
             float sum = 0.0f;
@@ -178,7 +194,8 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
             float scale = b;
             float result =0.0f;
             // Compute the sum for each octave
-            for( int oct = 1; oct <= 4; oct++ ) {
+            for( int oct = 1; oct <= 4; oct++ ) 
+            {
                 glm::vec2 p(x * freq, y * freq);
                 float val = glm::simplex(p) * 1/oct;
                 sum += val;     // Sum of octaves

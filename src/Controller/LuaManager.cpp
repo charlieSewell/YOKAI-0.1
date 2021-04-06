@@ -10,11 +10,13 @@ LuaManager::LuaManager()
     luaL_openlibs(L);
 
 }
+
 LuaManager & LuaManager::getInstance()
 {
     static LuaManager instance;
     return instance;
 }
+
 LuaManager::~LuaManager() 
 {
     //lua_close(L);

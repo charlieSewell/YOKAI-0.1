@@ -43,11 +43,9 @@ void PhysicsComponent::registerAABB(glm::vec3* position, float width, float leng
 	m_collider = PhysicsManager::getInstance().addAABB(position, width, length, height);
 }
 
-
 void PhysicsComponent::updateGravity(float jumpSpeed)
 {
 	float distanceFromGround = PhysicsManager::getInstance().checkTerrainCollision(m_collider);
-
 
 	if(distanceFromGround < m_collider->getHeight()/2)
 		m_collider->getPosition()->y += jumpSpeed;	// move up with the terrain

@@ -12,10 +12,10 @@
 
 #include <glm/glm.hpp>
 #include "View/Renderer/DataTypes.hpp"
-
 #include "View/Renderer/Shader.hpp"
 
-class OpenGLRenderer : public RenderAPI {
+class OpenGLRenderer : public RenderAPI 
+{
   public:
     OpenGLRenderer();
     ~OpenGLRenderer() override;
@@ -25,10 +25,8 @@ class OpenGLRenderer : public RenderAPI {
     virtual void Draw(Shader &shader,VertexArrayBuffer& VAO,size_t indiceSize) override;
     virtual void Clear() override;
 
-
   private:
     bool isWireFrame = false;
 };
-
 
 #endif // ICT397_GAME_ENGINE_OPENGLRENDERER_HPP

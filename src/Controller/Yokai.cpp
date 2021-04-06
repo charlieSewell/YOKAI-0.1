@@ -4,10 +4,13 @@
 
 #include "Yokai.hpp"
 
-Yokai &Yokai::getInstance() {
+Yokai &Yokai::getInstance() 
+{
     static Yokai instance;
     return instance;
 }
-void Yokai::Init() {
+
+void Yokai::Init() 
+{
     Renderer::Init();
 }

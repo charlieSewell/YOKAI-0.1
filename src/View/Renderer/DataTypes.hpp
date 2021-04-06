@@ -8,7 +8,9 @@
 #include <string>
 #include <vector>
 #include <memory>
-struct Vertex {
+
+struct Vertex
+{
     glm::vec3 position = {};
     glm::vec3 normal = {};
     glm::vec2 textureCoords = {};
@@ -16,7 +18,8 @@ struct Vertex {
     glm::vec3 biTangent = {};
 };
 
-class Texture{
+class Texture
+{
   public:
     virtual ~Texture() = default;
     virtual void Bind(size_t slot) = 0;
@@ -24,13 +27,16 @@ class Texture{
 
     static std::shared_ptr<Texture> Create(std::string fileName);
 };
-struct ModelTexture {
+
+struct ModelTexture 
+{
     std::shared_ptr<Texture> texture;
     std::string type = {};
     std::string path = {};
 };
 
-class VertexBuffer{
+class VertexBuffer
+{
   public:
     virtual ~VertexBuffer() = default;
     virtual void Bind() = 0;
@@ -39,7 +45,8 @@ class VertexBuffer{
     static std::shared_ptr<VertexBuffer> Create(std::vector<Vertex> vertices);
 };
 
-class IndexBuffer{
+class IndexBuffer
+{
   public:
     virtual ~IndexBuffer() = default;
     virtual void Bind() = 0;
@@ -48,7 +55,8 @@ class IndexBuffer{
     static std::shared_ptr<IndexBuffer> Create(std::vector<unsigned int> indices);
 };
 
-class VertexArrayBuffer{
+class VertexArrayBuffer
+{
   public:
     virtual ~VertexArrayBuffer() =default;
     virtual void Bind() = 0;
