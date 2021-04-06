@@ -9,7 +9,8 @@
     else if (type == GameObjectType::npc) 
     {
         return std::shared_ptr<GameObject>(new NPC(modelName));
-    } 
+    }
+
  }
 
  std::shared_ptr<GameObject> GameAssetFactory::Create(GameObjectType type)

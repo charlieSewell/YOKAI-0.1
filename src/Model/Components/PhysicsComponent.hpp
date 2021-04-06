@@ -2,8 +2,9 @@
 
 #pragma once
 
-#include "PhysicsManager.hpp"
-#include "Controller/EventManager.h"
+#include "Controller/Physics/PhysicsManager.hpp"
+#include "Controller/EventManager.hpp"
+
 
 class PhysicsComponent
 {

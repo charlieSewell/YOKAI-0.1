@@ -1,10 +1,12 @@
 #pragma once
-#include <glm/glm.hpp>
-#include "GameObject.hpp"
-#include "Controller/ModelManager.hpp"
-#include "View/Renderer/Shader.hpp"
-#include "Controller/Physics/PhysicsComponent.hpp"
 #include <iostream>
+
+#include <glm/glm.hpp>
+
+#include "Controller/ModelManager.hpp"
+#include "GameObject.hpp"
+#include "Model/Components/PhysicsComponent.hpp"
+#include "View/Renderer/Shader.hpp"
 
 class StaticObject : public GameObject, public PhysicsComponent
 {

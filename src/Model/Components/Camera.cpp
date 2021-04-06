@@ -1,9 +1,11 @@
 #include "Camera.hpp"
-#include "Controller/EventManager.h"
+
+#include "Controller/EventManager.hpp"
 
 Camera::Camera() 
 {
     registerViewMatrix();
+    registerPerspective();
 }
 
 glm::mat4 Camera::getViewMatrix()
@@ -19,4 +21,13 @@ void Camera::registerViewMatrix()
     };
 
     EMS::getInstance().add(RenderEvent::getViewMatrix, viewMatrix);
+}
+void Camera::registerPerspective()
+{
+    auto perspective = [&]()
+    {
+        return m_perspective;
+    };
+
+    EMS::getInstance().add(RenderEvent::getPerspective, perspective);
 }

@@ -4,6 +4,7 @@
 
 #include "TerrainManager.hpp"
 
+#include "EventManager.hpp"
 void TerrainManager::Init() 
 {
     TerrainFactory::getInstance().Init();
@@ -35,6 +36,8 @@ void TerrainManager::Draw(glm::vec3 viewpos)
 
     terrainShader->useShader();
     terrainShader->setVec3("viewPos",viewpos);
+    terrainShader->setMat4("projection",EMS::getInstance().fire(RenderEvent::getPerspective));
+    terrainShader->setMat4("view",EMS::getInstance().fire(RenderEvent::getViewMatrix));
     for (int x = 0; x < maxKey; x++) 
     {
         for (int y = 0; y < maxKey; y++) 

@@ -26,11 +26,13 @@ auto ModelManager::GetModelID(std::string filename) -> size_t
         modelCount++;
         return modelCount-1;
     }
+    std::cout << "Getting ModelID " <<filename <<std::endl;
     return(id->second);
 }
 
 Model* ModelManager::GetModel(size_t modelID) 
 {
+
     return &models[modelID];
 }
 

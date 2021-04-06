@@ -12,7 +12,7 @@ TerrainFactory &TerrainFactory::getInstance()
 void TerrainFactory::Init()
 {
     luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
-            .beginNamespace("TerrainFactory")
+            .beginNamespace("TerrainSettings")
                 .addProperty("terrainSize",&terrainSize)
                 .addProperty("mapPath",&mapPath)
                 .addProperty("useHeightMap",&useHeightMap)
@@ -23,8 +23,11 @@ void TerrainFactory::Init()
                 .addProperty("sandHeight",&sandHeight)
                 .addProperty("snowHeight",&snowHeight)
                 .addProperty("grassHeight",&grassHeight)
-            .endNamespace();
-
+            .endNamespace()
+            .beginClass<TerrainFactory>("TerrainFactory")
+                .addStaticFunction("getInstance",&TerrainFactory::getInstance)
+                .addFunction("getHeight",&TerrainFactory::heightAt)
+            .endClass();
     LuaManager::getInstance().runScript("content/Scripts/terrainConfig.lua");
     terrainTextures.push_back(Texture::Create(grassTexture));
     terrainTextures.push_back(Texture::Create(sandTexture));
@@ -171,7 +174,13 @@ void TerrainFactory::LoadHeightMap(std::string filename)
 
     std::cout << width << std::endl;
 }
-
+float TerrainFactory::heightAt(int x,int z)
+{
+    if(x > 0 && x < terrainSize && z > 0 && z < terrainSize)
+    {
+        return heightVals.at(x).at(z);
+    }
+}
 void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
 {
     heightVals.resize(static_cast<size_t>(xSize));
