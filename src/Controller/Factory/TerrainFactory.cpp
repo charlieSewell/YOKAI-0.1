@@ -172,8 +172,6 @@ void TerrainFactory::LoadHeightMap(std::string filename)
             heightVals.at((x)).at((y)) = average / 5;
         }
     }
-
-    std::cout << width << std::endl;
 }
 float TerrainFactory::heightAt(int x,int z)
 {

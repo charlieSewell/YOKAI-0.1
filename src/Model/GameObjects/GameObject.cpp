@@ -25,7 +25,6 @@ void GameObject::setPosition(glm::vec3 position)
 }
 void GameObject::setLuaPosition(float x,float y,float z)
 {
-    std::cout << "SetPosition" <<std::endl;
     setPosition(glm::vec3(x,y,z));
     m_transform = glm::mat4(1.0);
     m_transform = glm::translate(m_transform,m_position);
