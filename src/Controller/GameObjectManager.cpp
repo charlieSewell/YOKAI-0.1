@@ -27,16 +27,16 @@ void GameObjectManager::init()
             .addFunction("player",LuaTypes::getPlayerType)
             .addFunction("static",LuaTypes::getStaticType)
         .endNamespace();
-    playerID = CreateObject(GameObjectType::player,"");
-    getPlayer()->setPosition(glm::vec3(10, 2.0f, 10));
-    getPlayer()->setCollider(4, 4, 4.0);
+
     LuaManager::getInstance().runScript("content/Scripts/createObjects.lua");
+    std::cout << "Game Object Manager Initialised" << std::endl;
 }
 
 int GameObjectManager::CreateObject(GameObjectType type,std::string model)
 {
     if(type == GameObjectType::player){
         gameObjects[objectCount] = GameAssetFactory::Create(type);
+        playerID = objectCount;
     }
     else
     {
@@ -82,7 +82,6 @@ std::shared_ptr<GameObject> GameObjectManager::getObject(int id)
 
     if(gameObjects[id] != nullptr)
     {
-        std::cout << "ObjReturned" <<std::endl;
         return gameObjects[id];
     }
 
@@ -92,7 +91,6 @@ GameObject* GameObjectManager::luaGet(int id)
 
     if(gameObjects[id] != nullptr)
     {
-        std::cout << "ObjReturned" <<std::endl;
         return gameObjects[id].get();
     }
 
