@@ -9,18 +9,19 @@
 #include <glm/gtc/noise.hpp>
 #include <glm/gtx/normal.hpp>
 #include <math.h>
-
 #include "View/Renderer/DataTypes.hpp"
 #include "Model/Chunk.hpp"
-
 #include "Controller/LuaManager.hpp"
 #include "Controller/Physics/PhysicsManager.hpp"
-class TerrainFactory {
+
+class TerrainFactory 
+{
   public:
     static TerrainFactory & getInstance();
     void Init();
     Chunk SetupChunk(unsigned int xStart,unsigned int zStart,int size);
     int getTerrainSize(){return terrainSize;}
+
   private:
     TerrainFactory() = default;
     ~TerrainFactory() = default;

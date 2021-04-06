@@ -5,19 +5,27 @@
 //Initialises the selected runtime Render API
 std::shared_ptr<RenderAPI> Renderer::renderApi = RenderAPI::Create();
 
-void Renderer::Init() {
+void Renderer::Init() 
+{
     renderApi->Init();
-
 }
-void Renderer::Draw(Shader &shader,VertexArrayBuffer& VAO,size_t indiceSize){
+
+void Renderer::Draw(Shader &shader,VertexArrayBuffer& VAO,size_t indiceSize)
+{
     renderApi->Draw(shader,VAO,indiceSize);
 }
-void Renderer::ToggleWireFrame() {
+
+void Renderer::ToggleWireFrame() 
+{
     renderApi->ToggleWireFrame();
 }
-void Renderer::Clear() {
+
+void Renderer::Clear() 
+{
     renderApi->Clear();
 }
-void Renderer::DeInit() {
+
+void Renderer::DeInit() 
+{
     renderApi->DeInit();
 }

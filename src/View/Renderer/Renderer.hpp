@@ -9,16 +9,18 @@
 #include "View/Renderer/DataTypes.hpp"
 
 #include <memory>
-class Renderer {
+
+class Renderer 
+{
   public:
     static void Init();
     static void DeInit();
     static void ToggleWireFrame();
     static void Draw(Shader &shader,VertexArrayBuffer& VAO,size_t indiceSize);
     static void Clear();
+
   private:
     static std::shared_ptr<RenderAPI> renderApi;
-
 };
 
 #endif // ICT397_GAME_ENGINE_RENDERER_HPP

@@ -21,5 +21,4 @@ class InputManagerGLFW
 
 	  bool mouseInit;
 	  double lastX, lastY;
-
 };

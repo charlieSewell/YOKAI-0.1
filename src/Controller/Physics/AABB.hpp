@@ -1,4 +1,4 @@
-//AABB.hpp - Axis Alligne Bounding Box
+//AABB.hpp - Axis Alligned Bounding Box
 
 #pragma once
 

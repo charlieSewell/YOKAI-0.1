@@ -4,12 +4,16 @@
 
 #ifndef ICT397_GAME_ENGINE_DEMOSCENE_HPP
 #define ICT397_GAME_ENGINE_DEMOSCENE_HPP
+
 #include "Controller/Layer.hpp"
 #include "Controller/TerrainManager.hpp"
-class DemoScene : public Layer{
+
+class DemoScene : public Layer
+{
   public:
     void Init() override;
     void Update() override;
+
   private:
     TerrainManager terrainManager = {};
 };

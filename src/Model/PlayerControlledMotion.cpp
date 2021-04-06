@@ -1,5 +1,6 @@
 //PlayerControlledMotion.cpp
 
+#include <iostream>
 #include "PlayerControlledMotion.hpp"
 
 void PlayerControlledMotion::setMovementSpeed(float movementSpeed)
@@ -17,7 +18,6 @@ void PlayerControlledMotion::setJumpHeight(float jumpHeight)
 	m_jumpHeight = jumpHeight;
 }
 
-#include <iostream>
 void PlayerControlledMotion::registerAllMovement(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection)
 {
 	registerMoveForward(position, frontDirection);

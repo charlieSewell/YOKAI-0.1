@@ -1,6 +1,5 @@
 #include "GameAssetFactory.hpp"
 
-
  std::shared_ptr<GameObject> GameAssetFactory::Create(GameObjectType type, std::string modelName) 
  {
     if (type == GameObjectType::staticObject) 

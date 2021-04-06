@@ -3,6 +3,7 @@
 //
 
 #include "AssimpMaths.hpp"
+
 glm::mat4 Maths::ai4x4ToGLM(const aiMatrix4x4 &src)
 {
     glm::mat4 dest;

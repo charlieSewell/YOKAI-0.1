@@ -4,16 +4,20 @@
 
 #include "ModelManager.hpp"
 
-ModelManager &ModelManager::getInstance() {
+ModelManager &ModelManager::getInstance() 
+{
     static ModelManager instance;
     return instance;
 }
 
-ModelManager::ModelManager() {
+ModelManager::ModelManager() 
+{
     modelShader = new Shader("content/Shaders/vertexShader.vert", "content/Shaders/fragmentShader.frag");
     models.resize(100);
 }
-auto ModelManager::GetModelID(std::string filename) -> size_t {
+
+auto ModelManager::GetModelID(std::string filename) -> size_t 
+{
     auto id = modelIDtoName.find(filename);
     //stops files being loaded more then once
     if(id == modelIDtoName.end()){
@@ -24,9 +28,13 @@ auto ModelManager::GetModelID(std::string filename) -> size_t {
     }
     return(id->second);
 }
-Model* ModelManager::GetModel(size_t modelID) {
+
+Model* ModelManager::GetModel(size_t modelID) 
+{
     return &models[modelID];
 }
-void ModelManager::DrawModel(size_t id, glm::mat4 transform) {
+
+void ModelManager::DrawModel(size_t id, glm::mat4 transform) 
+{
     models[id].Draw(*modelShader, transform);
 }
