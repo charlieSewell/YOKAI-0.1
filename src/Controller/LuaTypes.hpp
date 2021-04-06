@@ -12,7 +12,7 @@ namespace LuaTypes {
     GameObjectType getPlayerType();
 };
 //Wrapper found online to make Enums work in Lua
-//https://github.com/vinniefalco/LuaBridge/blob/baba8b6a95a7aa92996e86a0846750aac9a57274/Tests/Source/IssueTests.cpp#L147 
+//https://github.com/vinniefalco/LuaBridge/blob/baba8b6a95a7aa92996e86a0846750aac9a57274/Tests/Source/IssueTests.cpp#L147
 template <typename T>
 struct EnumWrapper
 {
