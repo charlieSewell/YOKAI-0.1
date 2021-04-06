@@ -1,7 +1,14 @@
 //EventManager.cpp
 
-#include "EventManager.h"
+#include "EventManager.hpp"
+void EMS::Init() {
+    luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+        .beginClass<EMS>("EMS")
+            .addStaticFunction("getInstance",&EMS::getInstance)
+            .addFunction("fire",&EMS::luaFire)
+        .endClass();
 
+}
 EMS& EMS::getInstance() 
 {
 	static EMS instance;
@@ -22,6 +29,8 @@ void EMS::add(RenderEvent event, std::function<glm::mat4()> func)
 {
     if(event == RenderEvent::getViewMatrix)
         m_viewMatrix = func;
+    if(event == RenderEvent::getPerspective)
+        m_perspective = func;
 }
 
 void EMS::fire(InputEvent event) 
@@ -38,8 +47,14 @@ void EMS::fire(InputEvent event, double x, double y)
 	if (event == InputEvent::xyLook)
 		m_xyLook(x, y);
 }
+void EMS::luaFire(InputEvent event, float)
+{
+
+}
 glm::mat4 EMS::fire(RenderEvent event)
 {
     if (event == RenderEvent::getViewMatrix)
         return m_viewMatrix();
+    if (event == RenderEvent::getPerspective)
+        return m_perspective();
 }

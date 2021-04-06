@@ -4,7 +4,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include "EventManager.h"
+#include "EventManager.hpp"
 #include "Model/Components/Camera.hpp"
 
 class InputManagerGLFW

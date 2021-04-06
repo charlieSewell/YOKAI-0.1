@@ -3,8 +3,10 @@
 //
 #pragma once
 #include "OpenGLRenderer.hpp"
+
 #include <glm/gtc/matrix_transform.hpp>
-#include "Controller/EventManager.h"
+
+#include "Controller/EventManager.hpp"
 
 OpenGLRenderer::OpenGLRenderer() 
 {
@@ -52,11 +54,7 @@ void OpenGLRenderer::ToggleWireFrame()
 
 void OpenGLRenderer::Draw(Shader& shader,VertexArrayBuffer& VAO, size_t indicesSize) 
 {
-    shader.useShader();
-    glm::mat4 viewMatrix = EMS::getInstance().fire(RenderEvent::getViewMatrix);
-    shader.setMat4("projection",glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 10000.0f));
-    shader.setMat4("view",viewMatrix);
     VAO.Bind();
     glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
-    VAO.UnBind();
+
 }

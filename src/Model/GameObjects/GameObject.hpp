@@ -18,6 +18,8 @@ public:
     virtual glm::vec3 getPosition() const;
     virtual glm::mat4 getTransform() const;
 	virtual void setPosition(glm::vec3 position);
+    virtual void setLuaPosition(float x,float y,float z);
+    virtual void setLuaScale(float x,float y,float z);
     virtual void setScale(glm::vec3 scale);
 	virtual void setCollider(float width, float length, float height) = 0;
 	virtual void update();

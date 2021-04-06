@@ -18,5 +18,6 @@ public:
 	void setPosition(glm::vec3 position) override;
 	void setCollider(float width, float length, float height) override;
 	void draw();
+    float test;
 	void update() override;
 };

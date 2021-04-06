@@ -3,6 +3,8 @@
 StaticObject::StaticObject(std::string modelName)
 {
     modelID = ModelManager::getInstance().GetModelID(modelName);
+    setPosition(glm::vec3(0,0,0));
+    setScale(glm::vec3(0,0,0));
 }
 
 void StaticObject::draw()

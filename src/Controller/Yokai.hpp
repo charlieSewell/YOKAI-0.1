@@ -7,23 +7,29 @@
 
 #include "Controller/TerrainManager.hpp"
 #include "View/Renderer/Renderer.hpp"
-#include "Controller/GameStack.hpp"
+#include "View/Window.hpp"
 
-class Yokai 
+class Layer;
+class Yokai
 {
   public:
     static Yokai & getInstance();
-    static void Init();
+    void Init();
+    void Run();
     Renderer renderer = {};
-    GameStack layers = {};
+    Window window = {};
     //TerrainManager terrainManager = {};
 
   private:
     //Singleton pattern requires that all constructors,destructors and copy constructors be private
+    void registerClose();
     Yokai() = default;
     ~Yokai() = default;
     Yokai(const Yokai &) = delete;
     Yokai &operator =(const Yokai &);
+    bool isRunning = true;
+    std::vector<Layer*> layers;
+
 };
 
 #endif // ICT397_GAME_ENGINE_YOKAI_HPP

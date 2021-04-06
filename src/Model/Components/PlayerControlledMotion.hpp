@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "Controller/EventManager.h"
+#include "Controller/EventManager.hpp"
 
 class PlayerControlledMotion
 {

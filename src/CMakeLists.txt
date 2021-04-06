@@ -20,15 +20,15 @@ target_sources(${PROJECT_NAME} PRIVATE
         View/Renderer/OpenGL/OpenGLDataTypes.cpp
 		Model/Components/Camera.cpp
         View/Renderer/OpenGL/FileIO.cpp
+		View/Window.cpp
         Controller/Yokai.cpp
         Controller/ModelManager.cpp
         Controller/TerrainManager.cpp
-        Controller/Factory/TerrainFactory.cpp
+        	Controller/Factory/TerrainFactory.cpp
 		    Controller/LuaManager.cpp
 		    Controller/EventManager.cpp
 		    Controller/InputManagerGLFW.cpp
 		    Controller/Layer.cpp
-		    Controller/GameStack.cpp
         Controller/Physics/PhysicsManager.cpp
 		Model/Components/PhysicsComponent.cpp
 		    Controller/Physics/AABB.cpp

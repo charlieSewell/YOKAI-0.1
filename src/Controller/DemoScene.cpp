@@ -7,8 +7,24 @@
 void DemoScene::Init() 
 {
     terrainManager.Init();
+
 }
 
-void DemoScene::Update() 
+void DemoScene::Update() {
+
+    GameObjectManager::update();
+    // Draw Object
+}
+void DemoScene::Draw()
 {
+    GameObjectManager::draw();
+    terrainManager.Draw(GameObjectManager::getPlayer()->getPosition());
+}
+void DemoScene::Enable()
+{
+    isEnabled = true;
+}
+void DemoScene::Disable()
+{
+    isEnabled = false;
 }

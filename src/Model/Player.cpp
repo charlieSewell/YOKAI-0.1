@@ -6,6 +6,7 @@
 
 Player::Player()
 {
+
 	m_movementSpeed = 0.075f;
 	m_lookSensitivity = 0.05f;
 	m_jumpHeight = 8.0f;

@@ -33,7 +33,7 @@ class TerrainFactory
     void GenerateNormals(std::vector<Vertex> &terrain, std::vector<unsigned int> &indices);
     void GeneratePerlinMap(int xSize,int ySize);
     void LoadHeightMap(std::string filename);
-
+    float heightAt(int x,int z);
     std::vector<std::vector<float>> heightVals = {};
     std::vector<std::shared_ptr<Texture>> terrainTextures;
     std::string sandTexture;
