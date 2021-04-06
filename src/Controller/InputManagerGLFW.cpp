@@ -27,6 +27,11 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 		EMS::getInstance().fire(InputEvent::moveDown);
 
+	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+		EMS::getInstance().fire(InputEvent::togglePhysicsPressed);
+	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_RELEASE)
+		EMS::getInstance().fire(InputEvent::togglePhysicsReleased);
+
 	//not implemented yet
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		EMS::getInstance().fire(InputEvent::increaseSpeed);

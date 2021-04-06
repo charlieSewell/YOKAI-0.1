@@ -13,6 +13,7 @@ EMS& EMS::getInstance()
 {
 	static EMS instance;
 	return instance;
+
 }
 
 void EMS::add(InputEvent event, std::function<void()> func)

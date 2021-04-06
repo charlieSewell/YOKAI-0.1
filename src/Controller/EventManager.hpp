@@ -14,7 +14,9 @@ enum class InputEvent
 	moveDown,
 	increaseSpeed,
 	xyLook,
-    close
+    close,
+	togglePhysicsPressed,
+	togglePhysicsReleased
 
 };
 
