@@ -10,8 +10,7 @@ class StaticObject : public GameObject, public PhysicsComponent
 {
   public:
     StaticObject(std::string modelName);
-    void draw(Shader &shader);
-    glm::mat4 getViewMatrix();
+    void draw();
     glm::vec3 getPosition();
 
 	void setCollider(float width, float length, float height);

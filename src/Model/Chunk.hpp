@@ -13,7 +13,7 @@
 
 class Chunk {
   public:
-    Chunk();
+    Chunk(std::shared_ptr<Texture> &grass, std::shared_ptr<Texture> &sand, std::shared_ptr<Texture> &snow, std::shared_ptr<Texture> &detail,int sandHeight,int grassHeight,int snowHeight);
     void SetupChunk(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices);
     void DrawChunk(Shader &shader);
     //void SetShader(Shader shader){this->shader = shader;}
@@ -23,7 +23,7 @@ class Chunk {
     size_t indicesSize;
     std::vector<std::shared_ptr<Texture>> textures;
     unsigned int chunkID;
-
+    int sandHeight,grassHeight,snowHeight;
 
 };
 

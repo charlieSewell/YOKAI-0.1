@@ -10,6 +10,7 @@ ModelManager &ModelManager::getInstance() {
 }
 
 ModelManager::ModelManager() {
+    modelShader = new Shader("content/Shaders/vertexShader.vert", "content/Shaders/fragmentShader.frag");
     models.resize(100);
 }
 auto ModelManager::GetModelID(std::string filename) -> size_t {
@@ -26,6 +27,6 @@ auto ModelManager::GetModelID(std::string filename) -> size_t {
 Model* ModelManager::GetModel(size_t modelID) {
     return &models[modelID];
 }
-void ModelManager::DrawModel(size_t id, Shader &shader, glm::vec3 position) {
-    models[id].Draw(shader, position);
+void ModelManager::DrawModel(size_t id, glm::mat4 transform) {
+    models[id].Draw(*modelShader, transform);
 }

@@ -15,7 +15,7 @@ class Model {
     Model(std::vector<Mesh> meshes){
         this->meshes = meshes;
     }
-    void Draw(Shader &shader, glm::vec3 position);
+    void Draw(Shader &shader, glm::mat4 transform);
 
 
   private:

@@ -5,8 +5,8 @@ NPC::NPC(std::string modelName)
     modelID = ModelManager::getInstance().GetModelID(modelName);
 }
 
-void NPC::draw(Shader &shader) {
-    ModelManager::getInstance().DrawModel(modelID, shader, m_position);
+void NPC::draw() {
+    ModelManager::getInstance().DrawModel(modelID, m_transform);
 }
 
 glm::mat4 NPC::getViewMatrix() {

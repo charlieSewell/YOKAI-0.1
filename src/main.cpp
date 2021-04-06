@@ -11,7 +11,7 @@
 #include "Model/Player.hpp"
 #include "Controller/Factory/TerrainFactory.hpp"
 #include "Controller/ModelManager.hpp"
-#include "Controller/Factory/GameAssetFactory.hpp"
+#include "Controller/GameObjectManager.hpp"
 
 void error_callback(int error, const char* description)
 {
@@ -23,8 +23,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 
 int main() {
 	//Player player;
-	ModelManager modelManager;
-	ModelLoader modelLoader;
+    TerrainManager terrainManager;
+
+
 	auto& engine = Yokai::getInstance();
 	GLFWwindow* window;
 	if (!glfwInit()) {
@@ -39,22 +40,15 @@ int main() {
 	glfwMakeContextCurrent(window);
 	engine.Init();
 
-	//Shader testShader("content/Shaders/vertexShader.vert","content/Shaders/testShader.frag");
-	Shader testShader("content/Shaders/terrainVertex.vert", "content/Shaders/terrainFragment.frag");
-	Shader modelShader("content/Shaders/vertexShader.vert", "content/Shaders/fragmentShader.frag");
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	//glfwSetCursorPosCallback(window, InputManagerGLFW::processMouse);     // move to input engine
-	Chunk testChunk;
 
-	TerrainFactory::getInstance().Init();
-	TerrainFactory::getInstance().SetupChunk(testChunk, 0, 0, 512);
-	//int modelID = modelManager.GetModelID("content/Models/pine.fbx");
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    GameObjectManager::init();
+    terrainManager.Init();
 
 	// TESTING FOR ASSET FACTORY
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	GameAssetFactory GF;
-	std::vector<std::shared_ptr<GameObject>> npcs;
-
+    std::vector<std::shared_ptr<GameObject>> npcs;
 	std::shared_ptr<GameObject> player = GF.Create(GameObjectType::player);
 	std::shared_ptr<GameObject> pineTree = GF.Create(GameObjectType::staticObject, "content/Models/pine.fbx");
 	std::shared_ptr<GameObject> zombie1 = GF.Create(GameObjectType::npc, "content/Models/zombie.fbx");
@@ -67,7 +61,16 @@ int main() {
 	zombie2->setPosition(glm::vec3(270.0f, 5.0f, 240.0f));
 	zombie3->setPosition(glm::vec3(240.0f, 5.0f, 270.0f));
 	rock->setPosition(glm::vec3(270.0f, 8, 270.0f));
-	player->setPosition(glm::vec3(225.0f, 2.0f, 225.0f));
+	player->setPosition(glm::vec3(10, 2.0f, 10));
+
+    pineTree->setScale(glm::vec3(0.05f, 0.05f, 0.05f));
+    zombie1->setScale(glm::vec3(0.02f, 0.02f, 0.02f));
+    zombie2->setScale(glm::vec3(0.02f, 0.02f, 0.02f));
+    zombie3->setScale(glm::vec3(0.02f, 0.02f, 0.02f));
+    rock->setScale(glm::vec3(0.02f, 0.02f, 0.02f));
+    player->setScale(glm::vec3(0.02f, 0.02f, 0.02f));
+
+
 
 	pineTree->setCollider(10, 10, 80);
 	zombie1->setCollider(10, 10, 50);
@@ -90,44 +93,11 @@ int main() {
 		InputManagerGLFW::getInstance().processKeyboard(window);
 		InputManagerGLFW::getInstance().processMouse(window);
 		Renderer::Clear();
-
-		// view/projection transformations
-		glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 10000.0f);
-		glm::mat4 view = player->getViewMatrix();
 		player->update();
 
-		testShader.useShader();
-		testShader.setMat4("projection", projection);
-		testShader.setMat4("view", view);
-		glm::mat4 model = glm::mat4(1.0f);
-		testShader.setMat4("model", model);
-		testShader.setVec3("viewPos", player->getPosition());
-
-		modelShader.useShader();
-		modelShader.setMat4("projection", projection);
-		modelShader.setMat4("view", view);
-		modelShader.setMat4("model", model);
-		// render the loaded model
-		//modelManager.DrawModel(modelID,modelShader);
-		pineTree->draw(modelShader);
-		rock->draw(modelShader);
-
-
-		for (int i = 0; i < npcs.size(); i++)
-		{
-			npcs[i]->draw(modelShader);
-		}
-
-
-		//zombie->draw(modelShader);
-		//zombie2->draw(modelShader, glm::vec3(0.0f, 0.0f, 100.0f));
-
-		//Renderer::ToggleWireFrame();
-		testChunk.DrawChunk(testShader);
-		//Renderer::ToggleWireFrame();
-
-
-		/* Poll for and process events  NEEDS TO BE ABSTRACTED*/
+        pineTree->draw();
+        GameObjectManager::update();
+		terrainManager.Draw(player->getPosition());
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

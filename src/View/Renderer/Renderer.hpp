@@ -7,13 +7,14 @@
 
 #include "View/Renderer/RenderAPI.hpp"
 #include "View/Renderer/DataTypes.hpp"
+
 #include <memory>
 class Renderer {
   public:
     static void Init();
     static void DeInit();
     static void ToggleWireFrame();
-    static void Draw(VertexArrayBuffer& VAO,size_t indiceSize);
+    static void Draw(Shader &shader,VertexArrayBuffer& VAO,size_t indiceSize);
     static void Clear();
   private:
     static std::shared_ptr<RenderAPI> renderApi;

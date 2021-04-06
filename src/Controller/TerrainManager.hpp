@@ -8,11 +8,17 @@
 #include <vector>
 #include <map>
 #include "Model/Chunk.hpp"
+#include "Controller/Factory/TerrainFactory.hpp"
 class TerrainManager {
   public:
-
+    void Init();
+    void Draw(glm::vec3 viewpos);
 
   private:
+    void CreateTerrain();
+    void LoadChunk();
+    int chunkSize,maxKey;
+    Shader* terrainShader;
     std::map<std::pair<int,int>,Chunk> chunks;
 };
 

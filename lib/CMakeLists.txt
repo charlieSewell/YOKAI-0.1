@@ -21,7 +21,6 @@ add_subdirectory(assimp)
 add_subdirectory(LuaBridge)
 add_subdirectory(lua)
 add_subdirectory(imgui)
-add_subdirectory(reactphysics3d)
 
 option(GLFW_BUILD_DOCS OFF)
 option(GLFW_BUILD_TESTS OFF)
@@ -29,8 +28,7 @@ option(GLFW_BUILD_EXAMPLES OFF)
 add_subdirectory(glfw)
 
 # DLL caused issues
-set_target_properties(reactphysics3d PROPERTIES ENABLE_EXPORTS ON)
-set_target_properties(reactphysics3d PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
 
 # Puts a stop to the endlessly irritating practise postfixing 'd' onto debug libraries.
 set_target_properties(assimp PROPERTIES DEBUG_POSTFIX "")
@@ -46,6 +44,5 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE
         assimp/include
         LuaBridge/Source
         lua/src
-	imgui/imgui
-	reactphysics3d/src
+	      imgui/imgui
 )

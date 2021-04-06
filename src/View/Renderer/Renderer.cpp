@@ -9,8 +9,8 @@ void Renderer::Init() {
     renderApi->Init();
 
 }
-void Renderer::Draw(VertexArrayBuffer& VAO,size_t indiceSize){
-    renderApi->Draw(VAO,indiceSize);
+void Renderer::Draw(Shader &shader,VertexArrayBuffer& VAO,size_t indiceSize){
+    renderApi->Draw(shader,VAO,indiceSize);
 }
 void Renderer::ToggleWireFrame() {
     renderApi->ToggleWireFrame();

@@ -12,24 +12,20 @@ Player::Player()
 	m_jumpSpeed = 0.15f;
 	m_mass = 0.025f;
 	registerAllMovement(m_position, m_frontDirection, m_upDirection);
-	
+
 	m_resolvingCollision = false;
 }
 
 Player::~Player() {}
 
-void Player::draw(Shader &shader) {}
-
-glm::mat4 Player::getViewMatrix() 
-{
-    return Camera::getViewMatrix();
-}
+void Player::draw() {}
 
 void Player::update()
 {
 	m_canJump = m_onGround;
 	updatePhysics(m_movementSpeed, m_jumpSpeed);
 	updateJump(m_position, m_upDirection);
+
 }
 
 glm::vec3 Player::getPosition() const
