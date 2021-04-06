@@ -11,7 +11,9 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-class Shader {
+
+class Shader 
+{
   public:
     ///
     /// @param vertexPath
@@ -28,6 +30,7 @@ class Shader {
 
     //shaders ID
     unsigned int getShaderID(){return shaderID;}
+
   private:
     unsigned int shaderID;
 };

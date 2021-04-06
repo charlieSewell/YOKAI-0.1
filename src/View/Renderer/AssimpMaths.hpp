@@ -11,7 +11,8 @@
 
 #include <glm/glm.hpp>
 
-class Maths {
+class Maths 
+{
   public:
     static glm::mat4 ai4x4ToGLM(const aiMatrix4x4 &src);
 };

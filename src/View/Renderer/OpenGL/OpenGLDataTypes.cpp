@@ -3,7 +3,9 @@
 //
 #include "OpenGLDataTypes.hpp"
 #include "View/Renderer/OpenGL/FileIO.hpp"
-OpenGLTexture::OpenGLTexture(std::string path) {
+
+OpenGLTexture::OpenGLTexture(std::string path) 
+{
     std::string filename = std::string(path);
     glGenTextures(1, &textureID);
     int width, height, nrComponents;
@@ -37,50 +39,70 @@ OpenGLTexture::OpenGLTexture(std::string path) {
         FreeTextureData(data);
     }
 }
-OpenGLTexture::~OpenGLTexture(){
+
+OpenGLTexture::~OpenGLTexture()
+{
     glDeleteTextures(1,&textureID);
 }
-void OpenGLTexture::Bind(size_t slot) {
+
+void OpenGLTexture::Bind(size_t slot) 
+{
     glActiveTexture(GL_TEXTURE0 + slot);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
 }
-void OpenGLTexture::UnBind() {
+
+void OpenGLTexture::UnBind() 
+{
     glBindTexture(GL_TEXTURE_2D,0);
 }
 
-
-OpenGLVertexBuffer::OpenGLVertexBuffer(std::vector<Vertex> vertices) {
+OpenGLVertexBuffer::OpenGLVertexBuffer(std::vector<Vertex> vertices) 
+{
     glGenBuffers(1,&bufferID);
     glBindBuffer(GL_ARRAY_BUFFER,bufferID);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 }
-OpenGLVertexBuffer::~OpenGLVertexBuffer(){
+
+OpenGLVertexBuffer::~OpenGLVertexBuffer()
+{
     glDeleteBuffers(1,&bufferID);
 }
-void OpenGLVertexBuffer::Bind() {
+
+void OpenGLVertexBuffer::Bind() 
+{
     glBindBuffer(GL_ARRAY_BUFFER,bufferID);
 }
-void OpenGLVertexBuffer::UnBind() {
+
+void OpenGLVertexBuffer::UnBind() 
+{
     glBindBuffer(GL_ARRAY_BUFFER,0);
 }
 
-OpenGLIndexBuffer::OpenGLIndexBuffer(std::vector<unsigned int> indices) {
+OpenGLIndexBuffer::OpenGLIndexBuffer(std::vector<unsigned int> indices) 
+{
     glGenBuffers(1,&bufferID);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,bufferID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 }
-OpenGLIndexBuffer::~OpenGLIndexBuffer(){
+
+OpenGLIndexBuffer::~OpenGLIndexBuffer()
+{
     glDeleteBuffers(1,&bufferID);
 }
-void OpenGLIndexBuffer::Bind() {
+
+void OpenGLIndexBuffer::Bind() 
+{
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,bufferID);
 }
-void OpenGLIndexBuffer::UnBind() {
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 
+void OpenGLIndexBuffer::UnBind() 
+{
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 }
-OpenGLVertexArrayBuffer::OpenGLVertexArrayBuffer(std::vector<Vertex> vertices, std::vector<unsigned int> indices){
+
+OpenGLVertexArrayBuffer::OpenGLVertexArrayBuffer(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
+{
     glGenVertexArrays(1,&bufferID);
     glBindVertexArray(bufferID);
     vertexBuffer = std::shared_ptr<OpenGLVertexBuffer>(new OpenGLVertexBuffer(vertices));
@@ -96,14 +118,19 @@ OpenGLVertexArrayBuffer::OpenGLVertexArrayBuffer(std::vector<Vertex> vertices, s
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, textureCoords));
 
     glBindVertexArray(0);
-
 }
-OpenGLVertexArrayBuffer::~OpenGLVertexArrayBuffer(){
+
+OpenGLVertexArrayBuffer::~OpenGLVertexArrayBuffer()
+{
     glDeleteBuffers(1,&bufferID);
 }
-void OpenGLVertexArrayBuffer::Bind() {
+
+void OpenGLVertexArrayBuffer::Bind() 
+{
     glBindVertexArray(bufferID);
 }
-void OpenGLVertexArrayBuffer::UnBind() {
+
+void OpenGLVertexArrayBuffer::UnBind() 
+{
     glBindVertexArray(0);
 }

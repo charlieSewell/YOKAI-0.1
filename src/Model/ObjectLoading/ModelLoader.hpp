@@ -7,13 +7,14 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 #include <glm/gtc/type_ptr.hpp>
-
 #include "Model/Mesh.hpp"
 #include "View/Renderer/AssimpMaths.hpp"
 
-class ModelLoader {
+class ModelLoader 
+{
   public:
     std::vector<Mesh> loadModel(std::string filename);
+
   private:
     std::string directory;
     void processNode(std::vector<Mesh> &meshes,aiNode *node, const aiScene *scene,glm::mat4 transform);

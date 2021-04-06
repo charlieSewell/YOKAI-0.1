@@ -1,8 +1,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#define GLFW_INCLUDE_NONE
-#include <iostream>
 
+#define GLFW_INCLUDE_NONE
+
+#include <iostream>
 #include "Controller/EventManager.h"
 #include "Controller/Factory/TerrainFactory.hpp"
 #include "Controller/GameObjectManager.hpp"
@@ -16,26 +17,33 @@ void error_callback(int error, const char* description)
 {
 	std::cout << "Error:" << error << " " << description << std::endl;
 }
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
 	glViewport(0, 0, width, height);
 }
 
-int main() {
-	//Player player;
+int main()
+{
     TerrainManager terrainManager;
-
 
 	auto& engine = Yokai::getInstance();
 	GLFWwindow* window;
-	if (!glfwInit()) {
+
+	if (!glfwInit())
+	{
 		return 0;
 	}
+
 	window = glfwCreateWindow(800, 600, "ICT397 Game Engine", NULL, NULL);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetErrorCallback(error_callback);
-	if (!window) {
+
+	if (!window)
+	{
 		return 0;
 	}
+
 	glfwMakeContextCurrent(window);
 	engine.Init();
 
@@ -69,8 +77,6 @@ int main() {
     rock->setScale(glm::vec3(0.02f, 0.02f, 0.02f));
     player->setScale(glm::vec3(0.02f, 0.02f, 0.02f));
 
-
-
 	pineTree->setCollider(10, 10, 80);
 	zombie1->setCollider(10, 10, 50);
 	zombie2->setCollider(10, 10, 50);
@@ -81,7 +87,6 @@ int main() {
 	npcs.push_back(zombie1);
 	npcs.push_back(zombie2);
 	npcs.push_back(zombie3);
-	//npcs.push_back(zombie2);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -100,7 +105,9 @@ int main() {
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+
 	glfwDestroyWindow(window);
 	glfwTerminate();
+
 	return 0;
 }

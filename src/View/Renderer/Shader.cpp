@@ -4,11 +4,12 @@
 
 #include "Shader.hpp"
 
-Shader::Shader(const char *vertexPath, const char *fragmentPath) {
-
+Shader::Shader(const char *vertexPath, const char *fragmentPath) 
+{
     std::string vertexShaderSource;
     std::string fragmentShaderSource;
-    try{
+    try
+    {
         std::stringstream vertexShaderSS;
         std::stringstream fragmentShaderSS;
         std::ifstream vertexShaderFile;
@@ -24,10 +25,10 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath) {
         vertexShaderSource = vertexShaderSS.str();
         fragmentShaderSource = fragmentShaderSS.str();
     }
-    catch(std::ifstream::failure& e){
+    catch(std::ifstream::failure& e)
+    {
         std::cout << "File failed to read" << std::endl;
     }
-
 
     const char* vertexShaderCode = vertexShaderSource.c_str();
     const char* fragmentShaderCode = fragmentShaderSource.c_str();
@@ -67,25 +68,32 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath) {
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 }
-void Shader::useShader(){
-    glUseProgram(shaderID);
 
+void Shader::useShader()
+{
+    glUseProgram(shaderID);
 }
 
-void Shader::setBool(const std::string &name, bool value) const{
+void Shader::setBool(const std::string &name, bool value) const
+{
     glUniform1i(glGetUniformLocation(shaderID, name.c_str()), (int)value);
 }
 
-void Shader::setInt(const std::string &name, int value) const{
+void Shader::setInt(const std::string &name, int value) const
+{
     glUniform1i(glGetUniformLocation(shaderID, name.c_str()), value);
 }
 
-void Shader::setFloat(const std::string &name, float value) const{
+void Shader::setFloat(const std::string &name, float value) const
+{
     glUniform1f(glGetUniformLocation(shaderID, name.c_str()), value);
 }
-void Shader::setMat4(const std::string &name, const glm::mat4 &mat)const {
+void Shader::setMat4(const std::string &name, const glm::mat4 &mat)const 
+{
     glUniformMatrix4fv(glGetUniformLocation(shaderID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
-void Shader::setVec3(const std::string &name, const glm::vec3 &vec) const {
+
+void Shader::setVec3(const std::string &name, const glm::vec3 &vec) const 
+{
     glUniform3fv(glGetUniformLocation(shaderID, name.c_str()), 1, &vec[0]);
 }

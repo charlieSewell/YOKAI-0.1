@@ -3,6 +3,7 @@
 #include <functional>
 #include <map>
 #include <glm/glm.hpp>
+
 enum class InputEvent
 {
 	moveForward,
@@ -15,6 +16,7 @@ enum class InputEvent
 	xyLook,
 
 };
+
 enum class RenderEvent
 {
     getViewMatrix
@@ -27,7 +29,6 @@ class EMS
 	EMS(EMS const&)			 = delete;
 	void operator=(EMS const&) = delete;
 
-
 	void add(InputEvent event, std::function<void()> func);
     void add(RenderEvent event, std::function<glm::mat4()> func);
 	void add(InputEvent event, std::function<void(double x, double)> func);
@@ -36,12 +37,10 @@ class EMS
     glm::mat4 fire(RenderEvent event);
 	void fire(InputEvent event, double x, double y);
 
-
   private:
 	  EMS() {}
 
 	  std::multimap<InputEvent, std::function<void()>> m_inputEventList;
 	  std::function<void(double, double)> m_xyLook;
       std::function<glm::mat4(void)> m_viewMatrix;
-
 };

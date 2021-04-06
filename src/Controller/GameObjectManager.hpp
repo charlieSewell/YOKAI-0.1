@@ -5,7 +5,8 @@
 #include "Controller/LuaManager.hpp"
 #include "Controller/LuaTypes.hpp"
 #include "Model/GameObjects/GameObject.hpp"
-class GameObjectManager 
+
+class GameObjectManager
 {
   public:
     static GameObjectManager &getInstance();

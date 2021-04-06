@@ -3,9 +3,10 @@
 //
 
 #include "Chunk.hpp"
-
 #include "View/Renderer/OpenGL/OpenGLRenderer.hpp"
-Chunk::Chunk(std::shared_ptr<Texture> &grass, std::shared_ptr<Texture> &sand, std::shared_ptr<Texture> &snow, std::shared_ptr<Texture> &detail,int sandHeight,int grassHeight,int snowHeight){
+
+Chunk::Chunk(std::shared_ptr<Texture> &grass, std::shared_ptr<Texture> &sand, std::shared_ptr<Texture> &snow, std::shared_ptr<Texture> &detail,int sandHeight,int grassHeight,int snowHeight)
+{
     textures.push_back(grass);
     textures.push_back(sand);
     textures.push_back(snow);
@@ -14,12 +15,15 @@ Chunk::Chunk(std::shared_ptr<Texture> &grass, std::shared_ptr<Texture> &sand, st
     this->sandHeight = sandHeight;
     this->snowHeight = snowHeight;
 }
-void Chunk::SetupChunk(const std::vector<Vertex>& vertices, const std::vector<unsigned int> &indices) {
+
+void Chunk::SetupChunk(const std::vector<Vertex>& vertices, const std::vector<unsigned int> &indices)
+{
     VAO = VertexArrayBuffer::Create(vertices,indices);
     indicesSize = indices.size();
 }
-void Chunk::DrawChunk(Shader &shader) {
 
+void Chunk::DrawChunk(Shader &shader) 
+{
     shader.useShader();
     shader.setInt("grassTexture",0);
     shader.setInt("sandTexture",1);
@@ -29,7 +33,6 @@ void Chunk::DrawChunk(Shader &shader) {
     shader.setFloat("sandHeight",sandHeight);
     shader.setFloat("grassHeight",grassHeight);
     shader.setFloat("snowHeight",snowHeight);
-
 
     textures[0]->Bind(0);
     textures[1]->Bind(1);

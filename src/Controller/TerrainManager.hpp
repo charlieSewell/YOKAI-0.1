@@ -9,7 +9,9 @@
 #include <map>
 #include "Model/Chunk.hpp"
 #include "Controller/Factory/TerrainFactory.hpp"
-class TerrainManager {
+
+class TerrainManager 
+{
   public:
     void Init();
     void Draw(glm::vec3 viewpos);

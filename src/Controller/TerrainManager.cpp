@@ -4,7 +4,8 @@
 
 #include "TerrainManager.hpp"
 
-void TerrainManager::Init() {
+void TerrainManager::Init() 
+{
     TerrainFactory::getInstance().Init();
     chunkSize = 100;
     maxKey = floor(TerrainFactory::getInstance().getTerrainSize()/100);
@@ -15,21 +16,29 @@ void TerrainManager::Init() {
     terrainShader->setVec3("lightPos",glm::vec3(maxKey*chunkSize/2,200.0,maxKey*chunkSize/2));
     terrainShader->setMat4("model",glm::mat4(1.0));
 }
-void TerrainManager::CreateTerrain() {
-    for( int x =0; x < maxKey;x++){
-        for (int y = 0; y < maxKey; y++) {
+
+void TerrainManager::CreateTerrain() 
+{
+    for( int x =0; x < maxKey;x++)
+    {
+        for (int y = 0; y < maxKey; y++) 
+        {
             std::pair<int,int> key(x,y);
             chunks.emplace(key,TerrainFactory::getInstance().SetupChunk(x*100,y*100,100));
         }
     }
 
 }
-void TerrainManager::Draw(glm::vec3 viewpos) {
+
+void TerrainManager::Draw(glm::vec3 viewpos) 
+{
 
     terrainShader->useShader();
     terrainShader->setVec3("viewPos",viewpos);
-    for (int x = 0; x < maxKey; x++) {
-        for (int y = 0; y < maxKey; y++) {
+    for (int x = 0; x < maxKey; x++) 
+    {
+        for (int y = 0; y < maxKey; y++) 
+        {
             std::pair<int, int> key(x, y);
             chunks.at(key).DrawChunk(*terrainShader);
         }

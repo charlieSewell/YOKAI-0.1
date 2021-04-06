@@ -9,7 +9,8 @@
 #include "View/Renderer/DataTypes.hpp"
 #include <memory>
 
-class OpenGLTexture : public Texture{
+class OpenGLTexture : public Texture
+{
   public:
     virtual ~OpenGLTexture();
     OpenGLTexture(std::string fileName);
@@ -20,7 +21,8 @@ class OpenGLTexture : public Texture{
     unsigned int textureID;
 };
 
-class OpenGLVertexBuffer : public VertexBuffer{
+class OpenGLVertexBuffer : public VertexBuffer
+{
   public:
     virtual ~OpenGLVertexBuffer();
     OpenGLVertexBuffer(std::vector<Vertex> vertices);
@@ -30,7 +32,9 @@ class OpenGLVertexBuffer : public VertexBuffer{
   private:
     unsigned int bufferID;
 };
-class OpenGLIndexBuffer : public IndexBuffer{
+
+class OpenGLIndexBuffer : public IndexBuffer
+{
   public:
     virtual ~OpenGLIndexBuffer();
     OpenGLIndexBuffer(std::vector<unsigned int> indices);
@@ -40,7 +44,9 @@ class OpenGLIndexBuffer : public IndexBuffer{
   private:
     unsigned int bufferID;
 };
-class OpenGLVertexArrayBuffer : public VertexArrayBuffer{
+
+class OpenGLVertexArrayBuffer : public VertexArrayBuffer
+{
   public:
     virtual ~OpenGLVertexArrayBuffer();
     OpenGLVertexArrayBuffer(std::vector<Vertex> vertices,std::vector<unsigned int> indices);

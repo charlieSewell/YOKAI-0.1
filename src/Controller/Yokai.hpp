@@ -9,7 +9,8 @@
 #include "View/Renderer/Renderer.hpp"
 #include "Controller/GameStack.hpp"
 
-class Yokai {
+class Yokai 
+{
   public:
     static Yokai & getInstance();
     static void Init();
@@ -23,7 +24,6 @@ class Yokai {
     ~Yokai() = default;
     Yokai(const Yokai &) = delete;
     Yokai &operator =(const Yokai &);
-
 };
 
 #endif // ICT397_GAME_ENGINE_YOKAI_HPP

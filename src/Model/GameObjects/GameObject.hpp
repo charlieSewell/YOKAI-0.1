@@ -1,10 +1,11 @@
-//Entity.hpp
+//GameObject.hpp
 
 #pragma once
 #include <glm/glm.hpp>
 
 #include "View/Renderer/Shader.hpp"
 #include "Controller/LuaManager.hpp"
+
 enum class GameObjectType
 {
 	player, staticObject, npc

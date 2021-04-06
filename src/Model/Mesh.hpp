@@ -13,7 +13,8 @@
 #include "View/Renderer/Shader.hpp"
 #include "View/Renderer/Renderer.hpp"
 
-class Mesh{
+class Mesh
+{
   public:
     Mesh(){}
     Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, const std::vector<ModelTexture> &textures,glm::mat4 &transform);
@@ -23,12 +24,11 @@ class Mesh{
     glm::mat4 getTransform(){return transform;}
     const void Draw(Shader &shader);
     void SetupMesh();
+
   private:
     std::shared_ptr<VertexArrayBuffer> VAO;
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<ModelTexture> textures;
     glm::mat4 transform;
-
-
 };

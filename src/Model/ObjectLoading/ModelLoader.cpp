@@ -3,13 +3,16 @@
 //
 
 #include "ModelLoader.hpp"
-static auto to_glm(aiMatrix4x4t<float> m) -> glm::mat4 {
+
+static auto to_glm(aiMatrix4x4t<float> m) -> glm::mat4 
+{
     return glm::mat4{m.a1, m.b1, m.c1, m.d1,
                      m.a2, m.b2, m.c2, m.d2,
                      m.a3, m.b3, m.c3, m.d3,
                      m.a4, m.b4, m.c4, m.d4};
 }
-std::vector<Mesh> ModelLoader::loadModel(std::string filename){
+std::vector<Mesh> ModelLoader::loadModel(std::string filename)
+{
     std::vector<Mesh> meshes;
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
@@ -28,7 +31,9 @@ std::vector<Mesh> ModelLoader::loadModel(std::string filename){
     }
     return(meshes);
 }
-void ModelLoader::processNode(std::vector<Mesh> &meshes,aiNode *node, const aiScene *scene,glm::mat4 transform){
+
+void ModelLoader::processNode(std::vector<Mesh> &meshes,aiNode *node, const aiScene *scene,glm::mat4 transform)
+{
     // process each mesh located at the current node
     for(unsigned int i = 0; i < node->mNumMeshes; i++)
     {
@@ -43,7 +48,9 @@ void ModelLoader::processNode(std::vector<Mesh> &meshes,aiNode *node, const aiSc
         processNode(meshes,node->mChildren[i], scene, transform * to_glm(node->mTransformation));
     }
 }
-Mesh ModelLoader::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 transform){
+
+Mesh ModelLoader::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 transform)
+{
     // data to fill
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
@@ -67,7 +74,8 @@ Mesh ModelLoader::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 trans
             vertex.normal = vector;
         }
         // texture coordinates
-        if(mesh->mTextureCoords[0]) {
+        if(mesh->mTextureCoords[0]) 
+        {
             // does the mesh contain texture coordinates?
             glm::vec2 vec;
             // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't
@@ -88,7 +96,8 @@ Mesh ModelLoader::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 trans
         }
         else
             vertex.textureCoords = glm::vec2(0.0f, 0.0f);
-        if (mesh->HasTangentsAndBitangents()) {
+        if (mesh->HasTangentsAndBitangents()) 
+        {
             vector.x       = mesh->mTangents[i].x;
             vector.y       = mesh->mTangents[i].y;
             vector.z       = mesh->mTangents[i].z;
@@ -134,24 +143,28 @@ Mesh ModelLoader::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 trans
     return Mesh(vertices, indices, textures,transform);
 }
 
-
 // checks all material textures of a given type and loads the textures if they're not loaded yet.
 // the required info is returned as a Texture struct.
-std::vector<ModelTexture> ModelLoader::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName){
+std::vector<ModelTexture> ModelLoader::loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
+{
     std::vector<ModelTexture> textures;
-    for(unsigned int i = 0; i < mat->GetTextureCount(type); i++){
+    for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+    {
         aiString str;
         mat->GetTexture(type, i, &str);
         // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
         bool skip = false;
-        for(unsigned int j = 0; j < textures_loaded.size(); j++){
-            if(std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0){
+        for(unsigned int j = 0; j < textures_loaded.size(); j++)
+        {
+            if(std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
+            {
                 textures.push_back(textures_loaded[j]);
                 skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
                 break;
             }
         }
-        if(!skip){   // if texture hasn't been loaded already, load it
+        if(!skip)
+        {   // if texture hasn't been loaded already, load it
             ModelTexture texture;
             std::string fileName = this->directory +"/" + str.C_Str();
             texture.texture = Texture::Create(fileName);
