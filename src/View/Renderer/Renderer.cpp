@@ -7,6 +7,7 @@ std::shared_ptr<RenderAPI> Renderer::renderApi = RenderAPI::Create();
 
 void Renderer::Init() 
 {
+	registerToggleWireframe();
     renderApi->Init();
 }
 
@@ -15,9 +16,26 @@ void Renderer::Draw(Shader &shader,VertexArrayBuffer& VAO,size_t indiceSize)
     renderApi->Draw(shader,VAO,indiceSize);
 }
 
-void Renderer::ToggleWireFrame() 
+void Renderer::registerToggleWireframe()
 {
-    renderApi->ToggleWireFrame();
+	static bool wireFrameActive = false;
+
+	auto toggleWireFrameReleased = [&]()
+	{
+		if (wireFrameActive)
+			wireFrameActive = false;
+	};
+	EMS::getInstance().add(InputEvent::toggleWireFrameReleased, toggleWireFrameReleased);
+
+	auto toggleWireFramePressed = [&]()
+	{
+		if (!wireFrameActive)
+		{
+			renderApi->ToggleWireFrame();
+			wireFrameActive = true;
+		}
+	};
+	EMS::getInstance().add(InputEvent::toggleWireFramePressed, toggleWireFramePressed);
 }
 
 void Renderer::Clear() 

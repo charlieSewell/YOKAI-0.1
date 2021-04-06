@@ -16,8 +16,9 @@ enum class InputEvent
 	xyLook,
     close,
 	togglePhysicsPressed,
-	togglePhysicsReleased
-
+	togglePhysicsReleased,
+	toggleWireFramePressed,
+	toggleWireFrameReleased
 };
 
 enum class RenderEvent
