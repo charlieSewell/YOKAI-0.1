@@ -14,7 +14,7 @@ void StaticObject::draw()
 
 glm::vec3 StaticObject::getPosition()
 {
-    return two;
+    return position;
 }
 
 void StaticObject::setCollider(float width, float length, float height)
