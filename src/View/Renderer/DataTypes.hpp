@@ -24,6 +24,7 @@ class Texture
     virtual ~Texture() = default;
     virtual void Bind(size_t slot) = 0;
     virtual void UnBind() =0;
+    virtual int getID()=0;
 
     static std::shared_ptr<Texture> Create(std::string fileName);
 };

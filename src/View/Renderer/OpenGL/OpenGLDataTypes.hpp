@@ -16,6 +16,7 @@ class OpenGLTexture : public Texture
     OpenGLTexture(std::string fileName);
     virtual void Bind(size_t slot) override;
     virtual void UnBind() override;
+    virtual int getID() override;
 
   private:
     unsigned int textureID;

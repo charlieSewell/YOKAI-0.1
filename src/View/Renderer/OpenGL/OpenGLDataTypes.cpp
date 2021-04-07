@@ -56,6 +56,10 @@ void OpenGLTexture::UnBind()
 {
     glBindTexture(GL_TEXTURE_2D,0);
 }
+int OpenGLTexture::getID()
+{
+    return textureID;
+}
 
 OpenGLVertexBuffer::OpenGLVertexBuffer(std::vector<Vertex> vertices) 
 {
