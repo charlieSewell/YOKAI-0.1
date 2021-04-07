@@ -13,3 +13,6 @@
 [submodule "lib/reactphysics3d"]
 	path = lib/reactphysics3d
 	url = https://github.com/DanielChappuis/reactphysics3d
+[submodule "lib/imgui"]
+	path = lib/imgui
+	url = https://github.com/MajorArkwolf/imgui
