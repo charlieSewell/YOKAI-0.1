@@ -18,9 +18,12 @@
 * Windows: [vcpkg][vcpkg-dl], [Visual Studio 2019][VS2019-dl]
 
 ### Dependencies
-* Linux: `sudo apt-get install cmake libsdl2-dev libsdl2-image-dev
-    libsdl2-ttf-dev libsdl2-mixer-dev libglm-dev assimp-utils`
-* macOS: `brew install cmake ninja llvm --with-toolchain`
+* Linux: `apt install build-essential clang ninja-build clang-9 \
+  libstdc++-9-dev ninja-build libgl1-mesa-dev libx11-dev \
+  libxrandr-dev libudev-dev libfreetype6-dev \
+  libopenal-dev libflac++-dev libvorbis-dev \
+  libxinerama-dev libxcursor-dev libxi-dev`
+* macOS: `brew install cmake ninja llvm`
 * Windows: `None` 
 
 ### GIT LFS
@@ -38,19 +41,14 @@ git submodule update --init --recursive --depth 1
 ```
 
 ### Building
-#### Linux:
-```
-cmake -S . -B build && cmake --build build && ./build/game-engine
-```
 
-#### macOS:
-Replace X with compiler built types for example 'debug', 'release' or 'RelWithDebInfo'
+#### Linux & macOS:
 ```
-CXX=/usr/local/opt/llvm/bin/clang++ cmake -S . -B build/X -G Ninja -D CMAKE_BUILD_TYPE=X
+CXX=clang++ cmake -S . -B build -G Ninja -D CMAKE_BUILD_TYPE=Release
 ```
 Change directory to whatever you specified X as.
 ```
-ninja && ./game-engine
+cmake --build . && ./ICT397-Game-Engine
 ```
 
 #### Windows:
