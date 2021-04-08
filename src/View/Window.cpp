@@ -21,18 +21,9 @@ bool Window::Init(){
     {
         return false;
     }
-    glfwWindowHint(GLFW_OPENGL_API, GLFW_OPENGL_API);
-    glfwWindowHint(GLFW_NATIVE_CONTEXT_API, GLFW_NATIVE_CONTEXT_API);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
-    glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
-    glfwWindowHint(GLFW_FOCUS_ON_SHOW, GLFW_TRUE);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-    #ifndef __APPLE__
-        glfwWindowHint(GLFW_SAMPLES,4);
-    #endif
+
     window = glfwCreateWindow(1920, 1080, "ICT397 Game Engine", glfwGetPrimaryMonitor(), NULL);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetErrorCallback(error_callback);

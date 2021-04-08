@@ -174,6 +174,7 @@ void TerrainFactory::LoadHeightMap(std::string filename)
             heightVals.at((x)).at((y)) = average / 5;
         }
     }
+    stbi_image_free(data);
 }
 float TerrainFactory::heightAt(int x,int z)
 {
@@ -212,10 +213,8 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
                 freq *= 2.0f;   // Double the frequency
                 scale *= b;     // Next power of b
             }
-            //clamping filter
             result = pow((sum + 1.0f)/ 2.0f,1.3);
-            //Step filter for nodes
-            //result = round(sum*32)/32;
+
 
             if(isnan(result))
             {
