@@ -12,7 +12,10 @@
 #include "View/Renderer/DataTypes.hpp"
 #include "View/Renderer/Shader.hpp"
 #include "View/Renderer/Renderer.hpp"
-
+/**
+ * @class Mesh
+ * @brief Class that defines a mesh
+ */
 class Mesh
 {
   public:

@@ -1,9 +1,3 @@
-//
-// Created by charl on 6/04/2021.
-//
-
-#ifndef ICT397_GAME_ENGINE_WINDOW_HPP
-#define ICT397_GAME_ENGINE_WINDOW_HPP
 #define GLFW_INCLUDE_NONE
 
 #include <GLFW/glfw3.h>
@@ -41,4 +35,3 @@ class Window {
     GLFWwindow* window;
 };
 
-#endif // ICT397_GAME_ENGINE_WINDOW_HPP

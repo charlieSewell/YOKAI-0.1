@@ -18,18 +18,18 @@ void Yokai::Init()
         return;
 
     Renderer::Init();
-    
+    //Add layers to layer stack
     layers.push_back(new DemoScene());
     for(int i =0;i < layers.size(); i++)
         layers[i]->Init();
 
     GameObjectManager::init();
-    splashScreen = new SplashScreen("content/Textures/help_menu.png");
+    endScreen = new SplashScreen("content/Textures/exit_screen.png");
 
 }
 void Yokai::Run()
 {
-	const double frameRate = 1.0f / 120;	// 120 fps
+	const double frameRate = 1.0f / 400;	// 120 fps
 	double leastUPdate = 0;
 	double lastFrame = 0;
 
@@ -50,17 +50,49 @@ void Yokai::Run()
 			for(int i =0;i < layers.size(); i++)
 				layers[i]->Draw();
 
+            if(endScreen->isActive()){
+                endScreen->draw();
+            }
 			window.endFrame();
 
 			lastFrame = currentTime;
 		}
     }
+    Renderer::DeInit();
+    window.DeInit();
 }
 
 void Yokai::registerClose()
 {
-    auto close = [&]() {
-        isRunning = false;
+    static bool isPressed = false;
+    auto closeReleased = [&]()
+    {
+        isPressed = false;
     };
-    EMS::getInstance().add(InputEvent::close, close);
+    EMS::getInstance().add(InputEvent::closeReleased, closeReleased);
+
+    auto closePressed = [&]()
+    {
+      if (!isPressed){
+          if (endScreen->isActive())
+          {
+              endScreen->setInactive();
+              isPressed = true;
+          }
+          else{
+              endScreen->setActive();
+              isPressed = true;
+          }
+      }
+    };
+    EMS::getInstance().add(InputEvent::closePressed, closePressed);
+
+    auto close = [&]() {
+        if(endScreen->isActive())
+        {
+            isRunning = false;
+        }
+
+    };
+    EMS::getInstance().add(InputEvent::mouseClicked, close);
 };

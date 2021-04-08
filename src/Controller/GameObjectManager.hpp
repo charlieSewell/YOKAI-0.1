@@ -1,5 +1,4 @@
 
-/// Dependencies
 #include <iostream>
 #include <map>
 #include "Controller/Factory/GameAssetFactory.hpp"

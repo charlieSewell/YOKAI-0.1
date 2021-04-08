@@ -48,3 +48,12 @@ void SplashScreen::setupPanel(){
     std::vector<unsigned int> indices = {0,1,2,1,3,2};
     vao = VertexArrayBuffer::Create(verts,indices);
 }
+void SplashScreen::setActive() {
+    active = true;
+}
+void SplashScreen::setInactive() {
+    active = false;
+}
+bool SplashScreen::isActive() {
+    return active;
+}

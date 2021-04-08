@@ -2,7 +2,7 @@
 
 #pragma once
 
-/// Dependecies
+
 #include <glm/glm.hpp>
 #include "View/Renderer/Shader.hpp"
 #include "Controller/LuaManager.hpp"

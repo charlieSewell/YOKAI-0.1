@@ -1,11 +1,4 @@
-//
-// Created by Charlie Sewell on 4/03/2021.
-//
 
-#ifndef ICT397_GAME_ENGINE_TERRAINFACTORY_HPP
-#define ICT397_GAME_ENGINE_TERRAINFACTORY_HPP
-
-/// Dependecies
 #include <vector>
 #include <glm/gtc/noise.hpp>
 #include <glm/gtx/normal.hpp>
@@ -155,4 +148,3 @@ class TerrainFactory
 
 };
 
-#endif // ICT397_GAME_ENGINE_TERRAINFACTORY_HPP

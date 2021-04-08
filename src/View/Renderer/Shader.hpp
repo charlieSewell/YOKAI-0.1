@@ -1,9 +1,6 @@
-//
-// Created by Charlie Sewell on 13/01/2021.
-//
+
 #pragma once
-#ifndef ICT397_GAME_ENGINE_SHADER_HPP
-#define ICT397_GAME_ENGINE_SHADER_HPP
+
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
@@ -70,4 +67,3 @@ class Shader
     unsigned int shaderID;
 };
 
-#endif // ICT397_GAME_ENGINE_SHADER_HPP

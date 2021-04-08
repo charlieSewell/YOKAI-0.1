@@ -5,7 +5,6 @@
 #ifndef ICT397_GAME_ENGINE_TERRAINMANAGER_HPP
 #define ICT397_GAME_ENGINE_TERRAINMANAGER_HPP
 
-/// Dependecies
 #include <vector>
 #include <map>
 #include "Model/Chunk.hpp"

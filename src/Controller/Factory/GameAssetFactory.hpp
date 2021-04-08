@@ -1,5 +1,4 @@
-
-/// Dependencies
+#pragma once
 #include <iostream>
 #include "Controller/ModelManager.hpp"
 #include "Model/GameObjects/GameObject.hpp"

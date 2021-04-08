@@ -1,6 +1,4 @@
 #pragma once
-
-/// Dependecies
 #include <iostream>
 #include <glm/glm.hpp>
 #include "Controller/ModelManager.hpp"
