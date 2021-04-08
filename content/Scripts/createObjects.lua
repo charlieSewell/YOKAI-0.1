@@ -10,7 +10,7 @@ skyBox = ObjectManager.GetObject(skyBoxID);
 skyBox:setPosition(TerrainSettings.terrainSize/2, 0, TerrainSettings.terrainSize/2);
 skyBox:setScale(0.08, 0.08, 0.08);
 --Creating Rocks in random places
-for i=0,30 do
+for i=0,50 do
         x = math.random(0,TerrainSettings.terrainSize);
         z = math.random(0,TerrainSettings.terrainSize);
         val = terrFac:getHeight(x,z)
@@ -32,7 +32,7 @@ for i=0,30 do
         gameObj:setPosition(x,val,z);
 end
 --Creating Trees in random places
-for i=0,30 do
+for i=0,50 do
         x = math.random(0,TerrainSettings.terrainSize);
         z = math.random(0,TerrainSettings.terrainSize);
         val = terrFac:getHeight(x,z)

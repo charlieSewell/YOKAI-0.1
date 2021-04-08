@@ -8,7 +8,6 @@
 #include <assimp/scene.h>
 #include <glm/gtc/type_ptr.hpp>
 #include "Model/Mesh.hpp"
-#include "View/Renderer/AssimpMaths.hpp"
 /** @class ModelLoader
  *  @brief Class that loads models
  */

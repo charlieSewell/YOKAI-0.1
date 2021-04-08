@@ -18,7 +18,9 @@ enum class InputEvent
 	togglePhysicsPressed,
 	togglePhysicsReleased,
 	toggleWireFramePressed,
-	toggleWireFrameReleased
+	toggleWireFrameReleased,
+    toggleMenuPressed,
+    toggleMenuReleased
 };
 
 enum class RenderEvent

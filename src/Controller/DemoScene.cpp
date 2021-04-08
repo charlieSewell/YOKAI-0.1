@@ -13,7 +13,6 @@ void DemoScene::Init()
 void DemoScene::Update() {
 
     GameObjectManager::update();
-    // Draw Object
 }
 void DemoScene::Draw()
 {

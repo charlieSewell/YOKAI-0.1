@@ -38,5 +38,5 @@ void Chunk::DrawChunk(Shader &shader)
     textures[1]->Bind(1);
     textures[2]->Bind(2);
     textures[3]->Bind(3);
-    Renderer::Draw(shader,*VAO,indicesSize);
+    Renderer::Draw(*VAO,indicesSize);
 }

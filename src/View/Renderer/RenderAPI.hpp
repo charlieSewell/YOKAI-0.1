@@ -2,22 +2,46 @@
 // Created by Charlie Sewell on 10/03/2021.
 //
 
-#ifndef ICT397_GAME_ENGINE_RENDERAPI_HPP
-#define ICT397_GAME_ENGINE_RENDERAPI_HPP
-
+#pragma once
 #include "View/Renderer/DataTypes.hpp"
 #include "View/Renderer/Shader.hpp"
-
+/**
+ * @class RenderAPI
+ * @brief Interface for a renderAPI
+ */
 class RenderAPI 
 {
   public:
+    /**
+     * @brief Destructor for RenderAPI
+     */
     virtual ~RenderAPI()= default;
+    /**
+     * @brief Initialises the RenderAPI
+     */
     virtual void Init()=0;
+    /**
+     * @brief Deinitialises the RenderAPI
+     */
     virtual void DeInit()=0;
+    /**
+     * @brief Toggles Wireframe
+     */
     virtual void ToggleWireFrame()=0;
-    virtual void Draw(Shader &shader,VertexArrayBuffer& VAO,size_t indiceSize) = 0;
+    /**
+     * @brief Draws a mesh to the screen
+     * @param VertexArrayBuffer& - VAO
+     * @param size_t - indiceSize
+     */
+    virtual void Draw(VertexArrayBuffer& VAO,size_t indiceSize) = 0;
+    /**
+     * @brief Clears the screen
+     */
     virtual void Clear() =0;
+    /**
+     * @brief Creates a specific rendering API
+     * @return shared_ptr<RenderAPI> - renderAPI
+     */
     static std::shared_ptr<RenderAPI> Create();
 };
 
-#endif // ICT397_GAME_ENGINE_RENDERAPI_HPP

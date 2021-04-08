@@ -37,6 +37,10 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_RELEASE)
 		EMS::getInstance().fire(InputEvent::toggleWireFrameReleased);
 
+    if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+        EMS::getInstance().fire(InputEvent::toggleMenuPressed);
+    if (glfwGetKey(window, GLFW_KEY_M) == GLFW_RELEASE)
+        EMS::getInstance().fire(InputEvent::toggleMenuReleased);
 	//not implemented yet
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		EMS::getInstance().fire(InputEvent::increaseSpeed);

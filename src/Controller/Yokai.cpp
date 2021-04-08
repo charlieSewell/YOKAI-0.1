@@ -4,7 +4,7 @@
 
 #include "Yokai.hpp"
 #include "DemoScene.hpp"
-#include "Controller/Layer.hpp"
+
 Yokai &Yokai::getInstance() 
 {
     static Yokai instance;
@@ -24,6 +24,7 @@ void Yokai::Init()
         layers[i]->Init();
 
     GameObjectManager::init();
+    splashScreen = new SplashScreen("content/Textures/help_menu.png");
 
 }
 void Yokai::Run()

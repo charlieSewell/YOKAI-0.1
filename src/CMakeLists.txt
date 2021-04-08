@@ -11,7 +11,6 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Model/GameObjects/StaticObject.cpp
 		Model/GameObjects/NPC.cpp
 
-        View/Renderer/AssimpMaths.cpp
         View/Renderer/Shader.cpp
         View/Renderer/DataTypes.cpp
         View/Renderer/Renderer.cpp

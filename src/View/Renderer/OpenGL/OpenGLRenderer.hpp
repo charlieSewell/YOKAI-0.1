@@ -22,7 +22,7 @@ class OpenGLRenderer : public RenderAPI
     virtual void Init() override;
     virtual void DeInit() override;
     virtual void ToggleWireFrame() override;
-    virtual void Draw(Shader &shader,VertexArrayBuffer& VAO,size_t indiceSize) override;
+    virtual void Draw(VertexArrayBuffer& VAO,size_t indiceSize) override;
     virtual void Clear() override;
 
   private:

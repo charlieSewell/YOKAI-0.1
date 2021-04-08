@@ -8,7 +8,7 @@
 #include "Controller/TerrainManager.hpp"
 #include "View/Renderer/Renderer.hpp"
 #include "View/Window.hpp"
-
+#include "Model/SplashScreen.hpp"
 class Layer;
 class Yokai
 {
@@ -29,7 +29,7 @@ class Yokai
     Yokai &operator =(const Yokai &);
     bool isRunning = true;
     std::vector<Layer*> layers;
-
+    SplashScreen* splashScreen;
 };
 
 #endif // ICT397_GAME_ENGINE_YOKAI_HPP
