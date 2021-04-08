@@ -8,7 +8,10 @@
 #include <glad/glad.h>
 #include "View/Renderer/DataTypes.hpp"
 #include <memory>
-
+/**
+ * @class OpenGlTexture
+ * @brief holds a texture to be rendered by OpenGL
+ */
 class OpenGLTexture : public Texture
 {
   public:
