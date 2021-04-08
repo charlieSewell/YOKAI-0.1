@@ -44,7 +44,7 @@ git submodule update --init --recursive --depth 1
 
 #### Linux:
 ```
-cmake -S . -B build && cmake --build build && ./build/project-blue
+cmake -S . -B build && cmake --build build && ./build/ICT397-Game-Engine
 ```
 #### macOS:
 ```
