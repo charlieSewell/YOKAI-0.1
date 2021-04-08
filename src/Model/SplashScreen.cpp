@@ -6,11 +6,6 @@
 #include "Controller/Yokai.hpp"
 SplashScreen::SplashScreen()
 {
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGui::StyleColorsDark();
-    ImGui_ImplGlfw_InitForOpenGL(Yokai::getInstance().window.getWindow(), true);
-    ImGui_ImplOpenGL3_Init("#version 150");
     std::vector<Vertex> verts;
     verts.resize(4);
     verts[0].position= glm::vec3(400,200,1);
@@ -28,7 +23,5 @@ void SplashScreen::setTexture(std::string texturePath)
 }
 void SplashScreen::draw()
 {
-    ImGui::Begin("Thanks For Playing");
-    ImGui::Image((void*)(intptr_t)texture->getID(),ImVec2(1920, 1080));
-    ImGui::End();
+
 }
