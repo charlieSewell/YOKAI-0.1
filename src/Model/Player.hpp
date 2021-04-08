@@ -51,10 +51,6 @@ public:
      */
 	void draw();
 
-	// IDK what this is or what it does, and why is it public?
-    // Commenting this crashes the game
-    float test;
-
     /*!
      * @brief Update call for the player
      */

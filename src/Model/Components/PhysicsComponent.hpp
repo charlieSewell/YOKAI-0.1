@@ -52,7 +52,7 @@ protected:
     ///is collision resolved
 	bool m_resolvingCollision;
     ///is physics active
-	bool m_physicsActive;
+	bool m_physicsActive = true;
 
 private:
   /**

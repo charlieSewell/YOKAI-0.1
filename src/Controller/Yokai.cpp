@@ -29,7 +29,7 @@ void Yokai::Init()
 }
 void Yokai::Run()
 {
-	const double frameRate = 1.0f / 400;	// 120 fps
+	const double frameRate = 1.0f / 120;	// 120 fps
 	double leastUPdate = 0;
 	double lastFrame = 0;
 
