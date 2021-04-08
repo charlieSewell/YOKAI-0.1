@@ -1,5 +1,5 @@
 # Set cmake minimum version.
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.16)
 if(APPLE)
   set(CMAKE_MACOSX_RPATH ON)
 endif(APPLE)
