@@ -38,19 +38,14 @@ git submodule update --init --recursive --depth 1
 ```
 
 ### Building
-#### Linux:
-```
-cmake -S . -B build && cmake --build build && ./build/game-engine
-```
 
-#### macOS:
-Replace X with compiler built types for example 'debug', 'release' or 'RelWithDebInfo'
+#### Linux & macOS:
 ```
-CXX=/usr/local/opt/llvm/bin/clang++ cmake -S . -B build/X -G Ninja -D CMAKE_BUILD_TYPE=X
+CXX=clang++ cmake -S . -B build -G Ninja -D CMAKE_BUILD_TYPE=Release
 ```
 Change directory to whatever you specified X as.
 ```
-ninja && ./game-engine
+cmake --build . && ./ICT397-Game-Engine
 ```
 
 #### Windows:
