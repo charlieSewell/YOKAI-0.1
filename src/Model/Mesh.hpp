@@ -16,6 +16,9 @@
 class Mesh
 {
   public:
+    /**
+     * @brief Constructor for mesh
+     */
     Mesh(){}
     Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, const std::vector<ModelTexture> &textures,glm::mat4 &transform);
     std::vector<Vertex> getVertices(){return vertices;}
