@@ -42,7 +42,11 @@ git submodule update --init --recursive --depth 1
 
 ### Building
 
-#### Linux & macOS:
+#### Linux:
+```
+cmake -S . -B build && cmake --build build && ./build/project-blue
+```
+#### macOS:
 ```
 CXX=clang++ cmake -S . -B build -G Ninja -D CMAKE_BUILD_TYPE=Release
 ```
@@ -50,10 +54,10 @@ Change directory to whatever you specified X as.
 ```
 cmake --build . && ./ICT397-Game-Engine
 ```
-
 #### Windows:
     * Open Visual Studio as Administrator (required to make symbolic links)
-    * In Visual Studio, select Open → CMake, select `CMakeLists.txt`
+    * Press Continue without Code
+    * In Visual Studio, select Open → CMake, Navigate to the project folder and select `CMakeLists.txt`
     * From the "Select Startup Item" menu, select `ICT397-Game-Engine.exe`
 
 ## License
