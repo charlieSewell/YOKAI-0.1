@@ -11,7 +11,9 @@ InputManagerGLFW& InputManagerGLFW::getInstance()
 void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        EMS::getInstance().fire(InputEvent::close);
+        EMS::getInstance().fire(InputEvent::closePressed);
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_RELEASE)
+        EMS::getInstance().fire(InputEvent::closeReleased);
 	// can't move mid aiu
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		EMS::getInstance().fire(InputEvent::jump);
@@ -37,6 +39,10 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_RELEASE)
 		EMS::getInstance().fire(InputEvent::toggleWireFrameReleased);
 
+    if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+        EMS::getInstance().fire(InputEvent::toggleMenuPressed);
+    if (glfwGetKey(window, GLFW_KEY_M) == GLFW_RELEASE)
+        EMS::getInstance().fire(InputEvent::toggleMenuReleased);
 	//not implemented yet
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		EMS::getInstance().fire(InputEvent::increaseSpeed);
@@ -56,6 +62,8 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 
 void InputManagerGLFW::processMouse(GLFWwindow* window)
 {
+    if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_1) == GLFW_PRESS)
+        EMS::getInstance().fire(InputEvent::mouseClicked);
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
 

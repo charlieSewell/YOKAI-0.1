@@ -53,7 +53,7 @@ void OpenGLRenderer::ToggleWireFrame()
     }
 }
 
-void OpenGLRenderer::Draw(Shader& shader,VertexArrayBuffer& VAO, size_t indicesSize) 
+void OpenGLRenderer::Draw(VertexArrayBuffer& VAO, size_t indicesSize)
 {
     VAO.Bind();
     glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);

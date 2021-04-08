@@ -1,12 +1,6 @@
-//
-// Created by Charlie Sewell on 23/02/2021.
-//
+
 #pragma once
 
-#ifndef ICT397_GAME_ENGINE_MODELMANAGER_HPP
-#define ICT397_GAME_ENGINE_MODELMANAGER_HPP
-
-/// Dependecies
 #include "Model/Model.hpp"
 #include "Model/ObjectLoading/ModelLoader.hpp"
 #include <map>
@@ -68,5 +62,3 @@ class ModelManager
     /// Shader pointer
     Shader *modelShader;
 };
-
-#endif // ICT397_GAME_ENGINE_MODELMANAGER_HPP

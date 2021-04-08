@@ -1,8 +1,6 @@
 //Player.hpp
 
 #pragma once
-
-/// Dependecies
 #include "Model/Components/Camera.hpp"
 #include "Model/Components/PhysicsComponent.hpp"
 #include "Model/Components/PlayerControlledMotion.hpp"
@@ -52,10 +50,6 @@ public:
      * @brief Draw call for the player model
      */
 	void draw();
-
-	// IDK what this is or what it does, and why is it public?
-    // Commenting this crashes the game
-    float test;
 
     /*!
      * @brief Update call for the player

@@ -62,5 +62,5 @@ AABB* PhysicsManager::checkCollisions(AABB* collider)
 		if(collider->checkCollision(it->second) && &it->second != collider)		//check it's colliding and that it's not colliding with itself
 			return &it->second;
 	}
-	return false;
+	return nullptr;
 }

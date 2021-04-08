@@ -1,9 +1,6 @@
-//
-// Created by Charlie Sewell on 13/01/2021.
-//
+
 #pragma once
-#ifndef ICT397_GAME_ENGINE_SHADER_HPP
-#define ICT397_GAME_ENGINE_SHADER_HPP
+
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
@@ -11,28 +8,62 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-
+/**
+ * @class Shader
+ * @brief class used for createing GLSL shaders
+ */
 class Shader 
 {
   public:
-    ///
-    /// @param vertexPath
-    /// @param fragmentPath
+    /**
+     * @brief Constructor for a shader
+     * @param const char* - vertexPath
+     * @param const char* - fragmentPath
+     */
     Shader(const char* vertexPath, const char* fragmentPath);
-
+    /**
+     * @brief Binds the Shader for use
+     */
     void useShader();
-    //set uniforms
-    void setBool(const std::string &name, bool value) const;
-    void setInt(const std::string &name, int value) const;
-    void setFloat(const std::string &name, float value) const;
-    void setMat4(const std::string &name, const glm::mat4 &mat) const;
-    void setVec3(const std::string &name, const glm::vec3 &vec) const;
+    /**
+     * @brief Sets a Bool uniform in the shader
+     * @param string& - uniformName
+     * @param bool - value
+     */
+    void setBool(const std::string &uniformName, bool value) const;
+    /**
+     * @brief Sets an Int uniform in the shader
+     * @param string& - uniformName
+     * @param int - value
+     */
+    void setInt(const std::string &uniformName, int value) const;
+    /**
+     * @brief Sets a Float uniform in the shader
+     * @param string& - uniformName
+     * @param float - value
+     */
+    void setFloat(const std::string &uniformName, float value) const;
+    /**
+     * @brief Sets a mat4 uniform in the shader
+     * @param string& - uniformName
+     * @param mat4& - value
+     */
+    void setMat4(const std::string &uniformName, const glm::mat4 &mat) const;
+    /**
+     * @brief Sets a vec3 uniform in the shader
+     * @param string& - uniformName
+     * @param vec3& - value
+     */
+    void setVec3(const std::string &uniformName, const glm::vec3 &vec) const;
 
-    //shaders ID
+    /**
+     * Returns the shadersID
+     * @return unsigned int
+     */
     unsigned int getShaderID(){return shaderID;}
 
   private:
+    ///Shaders ID
     unsigned int shaderID;
 };
 
-#endif // ICT397_GAME_ENGINE_SHADER_HPP
