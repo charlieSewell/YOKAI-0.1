@@ -1,12 +1,14 @@
 # Set cmake minimum version.
 cmake_minimum_required(VERSION 3.17)
-
+if(APPLE)
+  set(CMAKE_MACOSX_RPATH ON)
+endif(APPLE)
 # Set the project details.
 set(PROJECT_NAME ICT397-Game-Engine)
 project(${PROJECT_NAME} LANGUAGES CXX)
 
 # If enabled, the post build symlink will copy instead.
-option(CopyResources "CopyResources" OFF)
+option(CopyResources "CopyResources" ON)
 
 # Clang sanitizer settings.
 set(SANITIZER_OS "Darwin,Linux")
