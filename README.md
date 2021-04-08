@@ -56,19 +56,7 @@ ninja && ./game-engine
 #### Windows:
     * Open Visual Studio as Administrator (required to make symbolic links)
     * In Visual Studio, select Open → CMake, select `CMakeLists.txt`
-    * From the "Select Startup Item" menu, select `Project-Blue.exe`
-
-## Contributing
-* Ensure your editor uses Unix line endings
-    * Use the [Line Endings Unifier][leu-dl]
-      plugin for Visual Studio
-    * Here's the [suggested configuration][leu-config]
-* Use **clang-format** to format your source code to the project standard
-    * Install a clang-format extension to your text editor:
-        * [vim][clang-format-vim]
-        * [Atom][clang-format-atom]
-        * [Visual Studio][clang-format-vs]
-        * [Visual Studio Code][clang-format-vsc]
+    * From the "Select Startup Item" menu, select `ICT397-Game-Engine.exe`
 
 ## License
 This project is licensed under the MIT license. Please see the [LICENSE](LICENSE) file
