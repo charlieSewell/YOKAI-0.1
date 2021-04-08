@@ -9,7 +9,7 @@ Player::Player()
 
 	m_movementSpeed = 0.075f;
 	m_lookSensitivity = 0.05f;
-	m_jumpHeight = 8.0f;
+	m_jumpHeight = 4.0f;
 	m_jumpSpeed = 0.15f;
 	m_mass = 0.025f;
 	registerAllMovement(m_position, m_frontDirection, m_upDirection);
