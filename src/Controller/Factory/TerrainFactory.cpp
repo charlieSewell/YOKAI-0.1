@@ -1,6 +1,7 @@
 //
 // Created by Charlie Sewell on 4/03/2021.
 //
+#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "TerrainFactory.hpp"
 TerrainFactory &TerrainFactory::getInstance()
@@ -29,10 +30,6 @@ void TerrainFactory::Init()
                 .addFunction("getHeight",&TerrainFactory::heightAt)
             .endClass();
     LuaManager::getInstance().runScript("content/Scripts/terrainConfig.lua");
-    terrainTextures.push_back(Texture::Create(grassTexture));
-    terrainTextures.push_back(Texture::Create(sandTexture));
-    terrainTextures.push_back(Texture::Create(snowTexture));
-    terrainTextures.push_back(Texture::Create(detailTexture));
     if(useHeightMap)
     {
         LoadHeightMap(mapPath);
@@ -42,6 +39,11 @@ void TerrainFactory::Init()
         terrainSize += 1;
         GeneratePerlinMap(terrainSize,terrainSize);
     }
+    terrainTextures.push_back(Texture::Create(grassTexture));
+    terrainTextures.push_back(Texture::Create(sandTexture));
+    terrainTextures.push_back(Texture::Create(snowTexture));
+    terrainTextures.push_back(Texture::Create(detailTexture));
+
 }
 
 Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int size)
