@@ -30,9 +30,9 @@ bool Window::Init(){
     glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
     glfwWindowHint(GLFW_FOCUS_ON_SHOW, GLFW_TRUE);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-#ifndef __APPLE__
-    glfwWindowHint(GLFW_SAMPLES,4);
-#endif
+    #ifndef __APPLE__
+        glfwWindowHint(GLFW_SAMPLES,4);
+    #endif
     window = glfwCreateWindow(1920, 1080, "ICT397 Game Engine", glfwGetPrimaryMonitor(), NULL);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetErrorCallback(error_callback);
