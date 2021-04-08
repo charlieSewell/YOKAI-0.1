@@ -42,7 +42,7 @@ struct EnumWrapper
 namespace luabridge {
 
     template <>
-    struct luabridge::Stack <GameObjectType> : EnumWrapper <GameObjectType>
+    struct Stack <GameObjectType> : EnumWrapper <GameObjectType>
     {
 
     };
