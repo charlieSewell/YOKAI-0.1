@@ -1,12 +1,14 @@
 # Set cmake minimum version.
-cmake_minimum_required(VERSION 3.17)
-
+cmake_minimum_required(VERSION 3.16)
+if(APPLE)
+  set(CMAKE_MACOSX_RPATH ON)
+endif(APPLE)
 # Set the project details.
 set(PROJECT_NAME ICT397-Game-Engine)
 project(${PROJECT_NAME} LANGUAGES CXX)
 
 # If enabled, the post build symlink will copy instead.
-option(CopyResources "CopyResources" OFF)
+option(CopyResources "CopyResources" ON)
 
 # Clang sanitizer settings.
 set(SANITIZER_OS "Darwin,Linux")
@@ -69,8 +71,6 @@ add_subdirectory(src)
 # Remove the default warning level from MSVC.
 if (MSVC)
     string(REGEX REPLACE "/W[0-4]" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    # Libraries for Win32 native and MinGW // Disabled as it breaks linux and is no longer needed
-    # list(APPEND EXTRA_LIBS vcruntime user32 gdi32 winmm imm32 ole32 oleaut32 version uuid)
 endif()
 
 # Treat warnings as errors if enabled.
@@ -103,8 +103,9 @@ target_link_options(${PROJECT_NAME} PRIVATE
 )
 
 # Include and link against dependencies.
-target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL assimp lua LuaBridge glfw glm glad${CMAKE_DL_LIBS})
+target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL glad assimp lua LuaBridge glfw glm ${CMAKE_DL_LIBS})
 
+# Create a SymLink or Copy resources into build folder
 if (NOT DisablePostBuild)
     if (NOT CopyResources)
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD

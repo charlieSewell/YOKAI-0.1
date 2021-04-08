@@ -1,4 +1,4 @@
-
+#pragma once
 #include <vector>
 #include <glm/gtc/noise.hpp>
 #include <glm/gtx/normal.hpp>
