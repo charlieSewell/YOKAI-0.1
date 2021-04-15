@@ -23,6 +23,10 @@ struct Vertex
     glm::vec3 tangent = {};
     ///biTangent of vertex
     glm::vec3 biTangent = {};
+    ///bone IDs
+    std::vector<unsigned int> boneIDs;
+    ///bone weights
+    std::vector<float> boneWeights;
 };
 /**
  * @class Texture

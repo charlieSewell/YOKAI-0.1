@@ -7,10 +7,11 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 #include <glm/gtc/type_ptr.hpp>
-#include "Model/Mesh.hpp"
+#include "Model/Model.hpp"
 /** @class ModelLoader
  *  @brief Class that loads models
  */
+
 class ModelLoader 
 {
   public:
@@ -48,6 +49,8 @@ class ModelLoader
      * @return vector<ModelTexture>
      */
     std::vector<ModelTexture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
+    void addBoneData(unsigned int BoneID, float Weight);
+    void loadBones(std::vector<Mesh> &meshes, std::vector<Bone> &bones,std::map<std::string,unsigned int> &boneMap, unsigned int meshIndex, const aiMesh *mesh);
     ///List of textures currently loaded for a model
     std::vector<ModelTexture> textures_loaded;
 };

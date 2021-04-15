@@ -176,3 +176,31 @@ std::vector<ModelTexture> ModelLoader::loadMaterialTextures(aiMaterial *mat, aiT
     }
     return textures;
 }
+
+void ModelLoader::loadBones(std::vector<Mesh> &meshes, std::vector<Bone> &bones,std::map<std::string,unsigned int> &boneMap, unsigned int meshIndex, const aiMesh *mesh)
+{
+    int numBones = mesh->mNumBones;
+    for (unsigned i = 0 ; i < mesh->mNumBones; ++i) {
+        unsigned boneIndex = 0;
+        std::string boneName(mesh->mBones[i]->mName.data);
+
+        if (boneMap.find(boneName) == boneMap.end()) {
+            boneIndex = numBones;
+            ++numBones;
+            Bone bi;
+            bones.push_back(bi);
+        }
+        else {
+            boneIndex = boneMap[boneName];
+        }
+
+        boneMap[boneName] = boneIndex;
+        bones[boneIndex].offset = to_glm(mesh->mBones[i]->mOffsetMatrix);
+
+        for (unsigned j = 0 ; j < mesh->mBones[i]->mNumWeights; ++j) {
+            unsigned VertexID = mesh->mBones[i]->mWeights[j].mVertexId;
+            float Weight = mesh->mBones[i]->mWeights[j].mWeight;
+            meshes.at(meshIndex).addBoneData(VertexID, boneIndex, Weight);
+        }
+    }
+}

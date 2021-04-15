@@ -1,12 +1,16 @@
 
 #include "Model.hpp"
+Model::Model(std::vector<Mesh> meshes)
+{
+    this->meshes = meshes;
 
-#include <GLFW/glfw3.h>
-#include <glm/ext.hpp>
-#include <glm/gtx/matrix_decompose.hpp>
-#include <glm/gtx/string_cast.hpp>
-
-#include "Controller/EventManager.hpp"
+}
+Model::Model(std::vector<Mesh> meshes,std::vector<Bone> bones,Joint rootJoint)
+{
+    this->meshes = meshes;
+    this->bones = bones;
+    this->rootJoint = rootJoint;
+}
 void Model::Draw(Shader &shader, glm::mat4 transform) 
 {
     shader.useShader();
