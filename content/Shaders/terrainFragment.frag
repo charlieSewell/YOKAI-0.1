@@ -9,6 +9,8 @@ in vec3 FragPos;
 uniform vec3 lightPos;
 uniform vec3 viewPos;
 uniform vec3 lightColor;
+uniform float lightLinear;
+uniform float lightQuadratic;
 
 uniform sampler2D sandTexture;
 uniform sampler2D grassTexture;
@@ -40,7 +42,9 @@ void main(){
     else{
         FragColor = sand;
     }
-
+    //Light Drop off
+    float distance = length(lightPos - FragPos);
+    float attenuation = 1.0 / (1.0 + lightLinear * distance + lightQuadratic * (distance * distance));    
     //Ambient
     float ambientStrength = 0.1;
     vec3 ambient = ambientStrength * lightColor;
