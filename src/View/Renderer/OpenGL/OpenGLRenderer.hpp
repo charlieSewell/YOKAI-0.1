@@ -25,25 +25,25 @@ class OpenGLRenderer : public RenderAPI
     /**
      * @brief Initialises OpenGL
      */
-    virtual void Init() override;
+    void Init() override;
     /**
      * @brief Deinitialises OpenGL
      */
-    virtual void DeInit() override;
+    void DeInit() override;
     /**
      * @brief Toggles Wireframe
      */
-    virtual void ToggleWireFrame() override;
+    void ToggleWireFrame() override;
     /**
      * @brief Draws a mesh
      * @param VertexArrayBuffer& - VAO
      * @param size_t - indiceSize
      */
-    virtual void Draw(VertexArrayBuffer& VAO,size_t indiceSize) override;
+    void Draw(VertexArrayBuffer& VAO,size_t indiceSize) override;
     /**
      * @brief Clears the Screen after Rendering
      */
-    virtual void Clear() override;
+    void Clear() override;
 
   private:
     ///Boolean to check whether it is in wireframe

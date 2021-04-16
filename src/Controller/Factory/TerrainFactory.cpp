@@ -182,6 +182,7 @@ float TerrainFactory::heightAt(int x,int z)
     {
         return heightVals.at(x).at(z);
     }
+    return(0);
 }
 void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
 {
@@ -189,8 +190,8 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
     for (auto &e : heightVals) {
         e.resize(static_cast<size_t>(ySize));
     }
-    float xFactor = 1.0f / (250 - 1);
-    float yFactor = 1.0f / (250 - 1);
+    float xFactor = 1.0f / (500 - 1);
+    float yFactor = 1.0f / (500 - 1);
     float a       = 0.3; //Tuning variables
     float b       = 0.2;  //Tuning variables
 
