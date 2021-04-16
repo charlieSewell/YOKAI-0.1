@@ -43,8 +43,8 @@ void main(){
         FragColor = sand;
     }
     //Light Drop off
-    float distance = length(lightPos - FragPos);
-    float attenuation = 1.0 / (1.0 + lightLinear * distance + lightQuadratic * (distance * distance));    
+    float dist = length(lightPos - FragPos);
+    float attenuation = 1.0 / (1.0 + lightLinear * dist + lightQuadratic * (dist * dist));    
     //Ambient
     float ambientStrength = 0.1;
     vec3 ambient = ambientStrength * lightColor;
