@@ -42,3 +42,5 @@ for i=0,300 do
         gameObj:setCollider(1,1,50);
         gameObj:setPosition(x,val-1,z);
 end
+--Lab 7
+

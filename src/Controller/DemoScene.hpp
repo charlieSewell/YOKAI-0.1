@@ -37,4 +37,7 @@ class DemoScene : public Layer
      * @brief Registers Menu Buttons
      */
     void registerMenuButtons();
+
+	// Lab 7 Connor
+	int test;
 };

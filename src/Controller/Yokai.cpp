@@ -41,6 +41,7 @@ void Yokai::Run()
 		if((currentTime - lastFrame) >= frameRate)
 		{
 			Renderer::Clear();
+
 			InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
 			InputManagerGLFW::getInstance().processMouse(window.getWindow());
 
