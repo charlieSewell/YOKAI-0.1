@@ -10,7 +10,7 @@
     {
         return std::shared_ptr<GameObject>(new NPC(modelName));
     }
-
+    return nullptr;
  }
 
  std::shared_ptr<GameObject> GameAssetFactory::Create(GameObjectType type)
@@ -19,6 +19,7 @@
 	 {
 		 return std::shared_ptr<GameObject>(new Player);
 	 }
+     return nullptr;
  }
 
 /*std::shared_ptr<GameObject> GameAssetFactory::Create(GameObjectType type, std::string modelName, glm::vec3 position)

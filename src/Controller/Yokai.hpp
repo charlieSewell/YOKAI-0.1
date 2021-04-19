@@ -57,7 +57,7 @@ class Yokai
     ///Is engine Running
     bool isRunning = true;
     ///Vector of Scene layers
-    std::vector<Layer*> layers;
+    std::vector<std::shared_ptr<Layer>> layers;
     SplashScreen* endScreen;
 
 };

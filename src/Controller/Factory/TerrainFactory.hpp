@@ -86,7 +86,7 @@ class TerrainFactory
      * @param int - xSize
      * @param int - zSize
      */
-    void GenerateTexCoords(std::vector<Vertex> &terrain,int xSize, int zSize);
+    void GenerateTexCoords(std::vector<Vertex> &terrain);
 
     /*!
      * @brief Generates normals for terrain

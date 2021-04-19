@@ -55,7 +55,7 @@ Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int siz
     GenerateFlatMap(vertices,xStart,zStart,size,size);
     GenerateTerrainIndices(indices,size,size);
     //TODO: Come Up with better solution as currently just stretching over terrain
-    GenerateTexCoords(vertices,size,size);
+    GenerateTexCoords(vertices);
     int x = xStart;
     int z = zStart;
     for(auto& vert: vertices)
@@ -109,7 +109,7 @@ void TerrainFactory::GenerateTerrainIndices(std::vector<unsigned int> &terrain, 
     }
 }
 
-void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain, int xSize, int zSize)
+void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain)
 {
     for(auto& vert: terrain)
     {
@@ -119,7 +119,7 @@ void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain, int xSize, 
 
 void TerrainFactory::GenerateNormals(std::vector<Vertex> &terrain, std::vector<unsigned int> &indices) 
 {
-    for(int i=0; i < indices.size(); i += 3)
+    for(size_t i=0; i < indices.size(); i += 3)
     {
         Vertex &vert = terrain[indices[i]];
         Vertex &vert2 = terrain[indices[i+1]];
@@ -134,9 +134,9 @@ void TerrainFactory::GenerateNormals(std::vector<Vertex> &terrain, std::vector<u
         vert2.normal += normal;
         vert3.normal += normal;
     }
-    for(int i=0; i < terrain.size();i++)
+    for(auto& vertex: terrain)
     {
-        terrain[i].normal = glm::normalize(terrain[i].normal);
+        vertex.normal = glm::normalize(vertex.normal);
     }
 }
 
@@ -147,7 +147,7 @@ void TerrainFactory::LoadHeightMap(std::string filename)
     float* data = stbi_loadf(filename.c_str(),&width,&height,&nrComponents,1);
 
     terrainSize = width;
-    terrainSize = floor(terrainSize/100)*100;
+    terrainSize = static_cast<int>(floor(terrainSize/100)*100);
     heightVals.resize(static_cast<size_t>(width)+1);
     for (auto &e : heightVals) 
     {
@@ -214,7 +214,7 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
                 freq *= 2.0f;   // Double the frequency
                 scale *= b;     // Next power of b
             }
-            result = pow((sum + 1.0f)/ 2.0f,1.3);
+            result = static_cast<float>(pow((sum + 1.0f)/ 2.0f,1.3));
 
 
             if(isnan(result))

@@ -2,7 +2,7 @@
 // Created by Charlie Sewell on 12/01/2021.
 //
 #include "Mesh.hpp"
-
+#include "Controller/Yokai.hpp"
 Mesh::Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, const std::vector<ModelTexture> &textures, glm::mat4 &transform)
 {
     this->vertices = vertices;
@@ -31,10 +31,11 @@ void Mesh::SetupMesh()
          else if(name == "texture_specular")
              number = std::to_string(specularNr++);
 
-         shader.setFloat(("material." + name + number).c_str(), i);
+         shader.setFloat(("material." + name + number).c_str(), static_cast<float>(i));
      }
      // draw mesh
-     Renderer::Draw(*VAO,indices.size());
+     auto& engine = Yokai::getInstance();
+     engine.renderer.Draw(*VAO,indices.size());
 }
 void Mesh::addBoneData(unsigned int vertexID,unsigned int boneID, float weight)
 {

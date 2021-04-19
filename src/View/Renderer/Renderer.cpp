@@ -2,11 +2,16 @@
 // Created by Charlie Sewell on 10/03/2021.
 //
 #include "View/Renderer/Renderer.hpp"
-//Initialises the selected runtime Render API
-std::shared_ptr<RenderAPI> Renderer::renderApi = RenderAPI::Create();
+
 
 void Renderer::Init() 
 {
+    try
+    {
+        renderApi = RenderAPI::Create();
+    } catch (const std::exception& e) {
+        std::cout << "Exception: "<<e.what() << std::endl;
+    }
     renderApi->Init();
     registerToggleWireframe();
 }
