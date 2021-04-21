@@ -1,9 +1,9 @@
 [![Build Status](https://github.com/charlieSewell/ICT397-Game-Engine/workflows/Windows/badge.svg)](https://github.com/charlieSewell/ICT397-Game-Engine/actions/workflows/Windows.yml)
 [![Build Status](https://github.com/charlieSewell/ICT397-Game-Engine/workflows/macOS/badge.svg)](https://github.com/charlieSewell/ICT397-Game-Engine/actions/workflows/macOS.yml)
 [![Build Status](https://github.com/charlieSewell/ICT397-Game-Engine/workflows/Linux/badge.svg)](https://github.com/charlieSewell/ICT397-Game-Engine/actions/workflows/Linux.yml)
-# ICT397-Game-Engine
+# Yokai-Game-Engine
 <p align=center>
-  <b> ICT397 Game Engine </b>
+  <b> Yokai Game Engine </b>
 </p>
 
 <p align="center">
