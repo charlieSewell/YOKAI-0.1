@@ -5,7 +5,7 @@
 #include "OpenGLRenderer.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
-
+#include "GLFW/glfw3.h"
 #include "Controller/EventManager.hpp"
 
 OpenGLRenderer::OpenGLRenderer() 
@@ -18,7 +18,7 @@ OpenGLRenderer::~OpenGLRenderer()
 
 void OpenGLRenderer::Init() 
 {
-    if (!gladLoadGL())
+    if ((!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) )
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return;

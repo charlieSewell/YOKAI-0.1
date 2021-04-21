@@ -27,7 +27,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     }
     catch(std::ifstream::failure& e)
     {
-        std::cout << "File failed to read" << std::endl;
+        std::cout << "File failed to read" << e.what()<< std::endl;
     }
 
     const char* vertexShaderCode = vertexShaderSource.c_str();

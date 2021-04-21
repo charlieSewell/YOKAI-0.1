@@ -24,7 +24,7 @@ void PlayerControlledMotion::registerAllMovement(glm::vec3& position, glm::vec3&
 	registerMoveBackward(position, frontDirection);
 	registerMoveLeft(position, frontDirection, upDirection);
 	registerMoveRight(position, frontDirection, upDirection);
-	registerJump(position, upDirection);
+	registerJump(position);
 	registerMoveDown(position, upDirection);
 	registerXYLook(frontDirection);
 }
@@ -61,7 +61,7 @@ void PlayerControlledMotion::registerMoveRight(glm::vec3& position, glm::vec3& f
 	EMS::getInstance().add(InputEvent::moveRight, moveRight);
 };
 
-void PlayerControlledMotion::registerJump(glm::vec3& position, glm::vec3& upDirection)
+void PlayerControlledMotion::registerJump(glm::vec3& position)
 {
 	auto jump = [&]()
 	{

@@ -12,13 +12,19 @@ OpenGLTexture::OpenGLTexture(std::string path)
     unsigned char *data = TextureFromFile(filename,width,height,nrComponents,0);
     if (data)
     {
-        GLenum format;
-        if (nrComponents == 1)
-            format = GL_RED;
-        else if (nrComponents == 3)
-            format = GL_RGB;
-        else if (nrComponents == 4)
-            format = GL_RGBA;
+        GLenum format = 0;
+        try{
+            if (nrComponents == 1)
+                format = GL_RED;
+            else if (nrComponents == 3)
+                format = GL_RGB;
+            else if (nrComponents == 4)
+                format = GL_RGBA;
+
+        }
+        catch (std::exception& e) {
+            std::cout << "Error:" <<e.what() << std::endl;
+        }
 
         glBindTexture(GL_TEXTURE_2D, textureID);
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

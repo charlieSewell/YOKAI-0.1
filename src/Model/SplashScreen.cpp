@@ -23,7 +23,8 @@ void SplashScreen::draw()
     glDisable(GL_DEPTH_TEST);
     splashShader->useShader();
     texture->Bind(1);
-    Renderer::Draw(*vao,6);
+    auto& engine = Yokai::getInstance();
+    engine.renderer.Draw(*vao,6);
     glEnable(GL_DEPTH_TEST);
 }
 void SplashScreen::setupShader(){

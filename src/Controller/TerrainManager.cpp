@@ -9,7 +9,7 @@ void TerrainManager::Init()
 {
     TerrainFactory::getInstance().Init();
     chunkSize = 100;
-    maxKey = floor(TerrainFactory::getInstance().getTerrainSize()/100);
+    maxKey = static_cast<int>(floor(TerrainFactory::getInstance().getTerrainSize()/100));
     CreateTerrain();
     terrainShader = new Shader("content/Shaders/terrainVertex.vert","content/Shaders/terrainFragment.frag");
     terrainShader->useShader();

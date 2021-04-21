@@ -18,32 +18,32 @@ class Renderer
     /**
      * @brief Initialises the Renderer
      */
-    static void Init();
+    void Init();
     /**
      * @brief Deinitialises the renderer
      */
-    static void DeInit();
+    void DeInit();
     /**
      * @brief Toggles Wireframe
      */
-    static void ToggleWireFrame();
+    void ToggleWireFrame();
     /**
      * @brief Draws a mesh to the screen
      * @param VertexArrayBuffer& - VAO
      * @param size_t - indiceSize
      */
-    static void Draw(VertexArrayBuffer& VAO,size_t indiceSize);
+    void Draw(VertexArrayBuffer& VAO,size_t indiceSize);
     /**
      * @brief Clears the screen
      */
-    static void Clear();
+    void Clear();
 
   private:
     /**
      * @brief Registers button to wireframe toggle
      */
-    static void registerToggleWireframe();
+    void registerToggleWireframe();
     ///Pointer to chosen RenderAPI
-    static std::shared_ptr<RenderAPI> renderApi;
+    std::shared_ptr<RenderAPI> renderApi;
 };
 

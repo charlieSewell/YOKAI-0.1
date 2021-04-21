@@ -58,4 +58,5 @@ glm::mat4 EMS::fire(RenderEvent event)
         return m_viewMatrix();
     if (event == RenderEvent::getPerspective)
         return m_perspective();
+    return glm::mat4(1.0);
 }
