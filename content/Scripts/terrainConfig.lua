@@ -2,7 +2,7 @@
 
 -- Only for Dynamically Generated Terrains
 TerrainSettings.terrainSize = 1000
-TerrainSettings.useHeightMap = false;
+TerrainSettings.useHeightMap = true;
 
 --Height map Path
 TerrainSettings.mapPath = "content/HeightMaps/1000Map.png"
