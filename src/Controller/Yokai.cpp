@@ -39,7 +39,7 @@ void Yokai::Run()
 	Shader testShader = Shader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
 	animator.attachModel(std::make_shared<Model>(test));
 	glm::mat4 transform(1.0);
-    transform = glm::translate(transform,glm::vec3(0,0,0));
+    transform = glm::translate(transform,glm::vec3(500,30,500));
     testShader.useShader();
     
     while(isRunning)
