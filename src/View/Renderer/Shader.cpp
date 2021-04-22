@@ -3,7 +3,7 @@
 //
 
 #include "Shader.hpp"
-
+#include <glm/gtc/type_ptr.hpp>
 Shader::Shader(const char *vertexPath, const char *fragmentPath) 
 {
     std::string vertexShaderSource;
@@ -92,7 +92,12 @@ void Shader::setMat4(const std::string &name, const glm::mat4 &mat)const
 {
     glUniformMatrix4fv(glGetUniformLocation(shaderID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
-
+void Shader::setVecMat4(const std::string &name, const std::vector<glm::mat4> &mat) const
+{
+    if (!mat.empty()) {
+        glUniformMatrix4fv(glGetUniformLocation(shaderID, name.c_str()), mat.size(), GL_FALSE, glm::value_ptr(mat[0]));
+    }
+}
 void Shader::setVec3(const std::string &name, const glm::vec3 &vec) const 
 {
     glUniform3fv(glGetUniformLocation(shaderID, name.c_str()), 1, &vec[0]);

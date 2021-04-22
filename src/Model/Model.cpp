@@ -1,15 +1,20 @@
 
 #include "Model.hpp"
+
+#include <utility>
 Model::Model(std::vector<Mesh> meshes)
 {
-    this->meshes = meshes;
+    this->meshes = std::move(meshes);
 
 }
-Model::Model(std::vector<Mesh> meshes,std::vector<Bone> bones,Joint rootJoint)
+Model::Model(std::vector<Mesh> meshes,std::vector<Bone> bones,std::map<std::string, unsigned int> boneMap,Joint rootJoint, std::vector<Animation> animations,glm::mat4 globalInverseTransformation)
 {
-    this->meshes = meshes;
-    this->bones = bones;
-    this->rootJoint = rootJoint;
+    this->meshes = std::move(meshes);
+    this->bones = std::move(bones);
+    this->rootJoint = std::move(rootJoint);
+    this->boneMap = std::move(boneMap);
+    this->animations = std::move(animations);
+    this->globalInverseTransform = globalInverseTransformation;
 }
 void Model::Draw(Shader &shader, glm::mat4 transform) 
 {
@@ -20,11 +25,26 @@ void Model::Draw(Shader &shader, glm::mat4 transform)
     {
         glm::mat4 model(1.0);
         //multiply parent by child transform
-        model = transform * mesh.getTransform();
+        //model = transform * mesh.getTransform();
 
         shader.setMat4("model", model);
         mesh.Draw(shader);
     }
+}
+Animation* Model::getAnimation(std::string name)
+{
+    for(auto& anim : animations)
+    {
+        if(anim.getName() == name)
+        {
+            return &anim;
+        }
+    }
+    return nullptr;
+}
+Joint Model::getRootJoint()
+{
+    return rootJoint;
 }
 
 

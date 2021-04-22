@@ -24,9 +24,9 @@ struct Vertex
     ///biTangent of vertex
     glm::vec3 biTangent = {};
     ///bone IDs
-    std::vector<unsigned int> boneIDs;
+    glm::ivec4 boneIDs;
     ///bone weights
-    std::vector<float> boneWeights;
+    glm::vec4 boneWeights;
 };
 /**
  * @class Texture

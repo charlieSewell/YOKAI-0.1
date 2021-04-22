@@ -39,8 +39,6 @@ void Mesh::SetupMesh()
 }
 void Mesh::addBoneData(unsigned int vertexID,unsigned int boneID, float weight)
 {
-    vertices.at(vertexID).boneIDs.resize(4);
-    vertices.at(vertexID).boneWeights.resize(4);
     for (int i = 0 ; i < 4 ; i++)
     {
         if (vertices.at(vertexID).boneWeights[i] == 0.0)

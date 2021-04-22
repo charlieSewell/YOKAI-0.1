@@ -4,7 +4,7 @@
 
 #include "Yokai.hpp"
 #include "DemoScene.hpp"
-
+#include "Animator.hpp"
 Yokai &Yokai::getInstance() 
 {
     static Yokai instance;
@@ -32,12 +32,22 @@ void Yokai::Run()
 	const double frameRate = 1.0f / 120;	// 120 fps
 
 	double lastFrame = 0;
-
-	
+    double lastTime = 0;
+	ModelLoader modelLoader;
+	Model test = modelLoader.loadModel("content/Models/test/AnimatedHuman.gltf");
+	Animator animator;
+	Shader testShader = Shader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
+	animator.attachModel(std::make_shared<Model>(test));
+	glm::mat4 transform(1.0);
+    transform = glm::translate(transform,glm::vec3(0,0,0));
+    testShader.useShader();
+    
     while(isRunning)
 	{
-		double currentTime = glfwGetTime();
 
+		double currentTime = glfwGetTime();
+        double frameTime = currentTime - lastTime;
+          lastTime = currentTime;
 		if((currentTime - lastFrame) >= frameRate)
 		{
 			renderer.Clear();
@@ -53,6 +63,14 @@ void Yokai::Run()
             if(endScreen->isActive()){
                 endScreen->draw();
             }
+            animator.BoneTransform(frameTime);
+            testShader.useShader();
+            testShader.setMat4("projection", EMS::getInstance().fire(RenderEvent::getPerspective));
+            testShader.setMat4("view", EMS::getInstance().fire(RenderEvent::getViewMatrix));
+            testShader.setBool("isAnimated", true);
+            testShader.setVecMat4("boneMatrices",animator.finalTransforms);
+
+            test.Draw(testShader,transform);
 			window.endFrame();
 
 			lastFrame = currentTime;

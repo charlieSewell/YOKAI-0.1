@@ -8,7 +8,7 @@ set(PROJECT_NAME ICT397-Game-Engine)
 project(${PROJECT_NAME} LANGUAGES CXX)
 
 # If enabled, the post build symlink will copy instead.
-option(CopyResources "CopyResources" ON)
+option(CopyResources "CopyResources" OFF)
 
 # Clang sanitizer settings.
 set(SANITIZER_OS "Darwin,Linux")

@@ -3,11 +3,11 @@
 //
 #pragma once
 #include <iostream>
-#include <vector>
-
+#include <glm/glm.hpp>
 #include "View/Renderer/Shader.hpp"
 #include "Model/Mesh.hpp"
-#include <glm/glm.hpp>
+#include "Model/Animation.hpp"
+
 /**
  * @struct Joint
  * @brief Struct to hold info about a joint
@@ -20,6 +20,8 @@ struct Joint
     std::string name;
     ///Children of that joint
     std::vector<Joint> children = {};
+    ///Count of children
+    int childrenCount;
 };
 /**
  * @struct Bone
@@ -52,17 +54,26 @@ class Model
      * @brief Constructor for a model that is animated
      * @param vector<Mesh> - meshes
      * @param vector<Bone> - bones
+     * @param map<string,unsigned int> - boneMap
      * @param Joint - rootJoint
+     * @param vector<Animation> - animations
      */
-    Model(std::vector<Mesh> meshes,std::vector<Bone> bones,Joint rootJoint);
+    Model(std::vector<Mesh> meshes,std::vector<Bone> bones,std::map<std::string, unsigned int> boneMap,Joint rootJoint, std::vector<Animation> animations,glm::mat4 globalInverseTransform);
     /**
      * @brief Draws a mesh
      * @param Shader& - shader
      * @param mat4 - transform
      */
     void Draw(Shader &shader, glm::mat4 transform);
-
+    Animation* getAnimation(std::string name);
+    int getBonesSize(){return bones.size();}
+    Joint getRootJoint();
+    std::map<std::string, unsigned int>* getBoneMap(){return &boneMap;}
+    std::vector<Bone>* getBones(){return &bones;}
+    glm::mat4 getGlobalInverseTransform(){return globalInverseTransform;}
   private:
+    ///Global transform
+    glm::mat4 globalInverseTransform;
     ///list of models meshes
     std::vector<Mesh> meshes;
     ///map of bone names to index
@@ -71,5 +82,7 @@ class Model
     std::vector<Bone> bones;
     ///Root joint
     Joint rootJoint;
+    ///Animations
+    std::vector<Animation> animations;
 };
 
