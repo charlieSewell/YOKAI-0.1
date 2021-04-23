@@ -12,7 +12,9 @@ void Animator::BoneTransform(float TimeInSeconds)
     float AnimationTime = fmod(TimeInTicks, modelToAnimate->getAnimation("Working")->getDuration());
 
     ReadNodeHeirarchy(AnimationTime, modelToAnimate->getRootJoint(), identity);
-
+    for (unsigned i = 0; i < animatedModel->numBones; i++) {
+                Transforms[i] = modelToAnimate->boneInfo[i].FinalTransformation;
+            }
 }
 void Animator::ReadNodeHeirarchy(float AnimationTime, const Joint& node, const glm::mat4& parentTransform)
 {
