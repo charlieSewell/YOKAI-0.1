@@ -12,7 +12,7 @@ void Animator::BoneTransform(float TimeInSeconds)
     float AnimationTime = fmod(TimeInTicks, modelToAnimate->getAnimation("Working")->getDuration());
 
     ReadNodeHeirarchy(AnimationTime, modelToAnimate->getRootJoint(), identity);
-    for (unsigned i = 0; i < animatedModel->numBones; i++) {
+    for (unsigned i = 0; i < animatedModel->getBonesSize(); i++) {
                 finalTransforms[i] = modelToAnimate->bones[i].transform;
             }
 }
