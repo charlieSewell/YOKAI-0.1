@@ -71,6 +71,8 @@ class Model
     std::map<std::string, unsigned int>* getBoneMap(){return &boneMap;}
     std::vector<Bone>* getBones(){return &bones;}
     glm::mat4 getGlobalInverseTransform(){return globalInverseTransform;}
+    ///list of models bones
+    std::vector<Bone> bones;
   private:
     ///Global transform
     glm::mat4 globalInverseTransform;
@@ -78,8 +80,8 @@ class Model
     std::vector<Mesh> meshes;
     ///map of bone names to index
     std::map<std::string, unsigned int> boneMap;
-    ///list of models bones
-    std::vector<Bone> bones;
+    
+    
     ///Root joint
     Joint rootJoint;
     ///Animations
