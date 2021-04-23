@@ -13,7 +13,7 @@ void Animator::BoneTransform(float TimeInSeconds)
 
     ReadNodeHeirarchy(AnimationTime, modelToAnimate->getRootJoint(), identity);
     for (unsigned i = 0; i < animatedModel->numBones; i++) {
-                Transforms[i] = modelToAnimate->bones[i].transform;
+                finalTransforms[i] = modelToAnimate->bones[i].transform;
             }
 }
 void Animator::ReadNodeHeirarchy(float AnimationTime, const Joint& node, const glm::mat4& parentTransform)
