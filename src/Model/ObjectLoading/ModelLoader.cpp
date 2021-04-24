@@ -32,7 +32,7 @@ Model ModelLoader::loadModel(std::string filename)
     for(auto& mesh: meshes){
         mesh.SetupMesh();
     }
-    std::cout <<boneMap.size() <<std::endl;
+    std::cout << filename <<boneMap.size() <<std::endl;
 
     return Model(meshes,bones,boneMap,rootJoint,animations,globalInverseTransform);
 }
@@ -277,6 +277,7 @@ void ModelLoader::loadBones(std::vector<Mesh> &meshes, std::vector<Bone> &bones,
         std::string boneName(mesh->mBones[i]->mName.data);
 
         if (boneMap.find(boneName) == boneMap.end()) {
+            std::cout << boneName <<std::endl;
             boneIndex = numBones;
             ++numBones;
             Bone bi;
