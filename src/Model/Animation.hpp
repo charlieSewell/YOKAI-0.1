@@ -28,4 +28,5 @@ class Animation {
         double duration;
         double TPS;
         std::string name;
+
 };

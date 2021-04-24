@@ -16,7 +16,6 @@ Model ModelLoader::loadModel(std::string filename)
     std::vector<Bone> bones;
     std::vector<Animation> animations;
     std::map<std::string,unsigned int> boneMap;
-    Joint rootJoint;
     Assimp::Importer importer;
     const aiScene *scene = importer.ReadFile(
         filename, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_LimitBoneWeights | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
@@ -29,15 +28,16 @@ Model ModelLoader::loadModel(std::string filename)
     directory = filename.substr(0, filename.find_last_of('/'));
     glm::mat4 globalInverseTransform = glm::inverse(to_glm(scene->mRootNode->mTransformation));
     // process ASSIMP's root node recursively
-    processNode(rootJoint,animations,meshes,bones,boneMap,scene->mRootNode, scene,to_glm(scene->mRootNode->mTransformation));
+    processNode(animations,meshes,bones,boneMap,scene->mRootNode, scene,to_glm(scene->mRootNode->mTransformation));
     for(auto& mesh: meshes){
         mesh.SetupMesh();
     }
+    std::cout <<boneMap.size() <<std::endl;
 
     return Model(meshes,bones,boneMap,rootJoint,animations,globalInverseTransform);
 }
 
-void ModelLoader::processNode(Joint &rootJoint, std::vector<Animation> &animations,std::vector<Mesh> &meshes, std::vector<Bone> &bones,
+void ModelLoader::processNode(std::vector<Animation> &animations,std::vector<Mesh> &meshes, std::vector<Bone> &bones,
                               std::map<std::string, unsigned int> &boneMap, aiNode *node,
                               const aiScene *scene, glm::mat4 transform) {
     // process each mesh located at the current node
@@ -51,13 +51,13 @@ void ModelLoader::processNode(Joint &rootJoint, std::vector<Animation> &animatio
         {
             loadBones(meshes, bones, boneMap, i, mesh);
             loadAnimations(animations, scene);
-            loadJoints(rootJoint, mesh, scene->mRootNode);
+            loadJoints(mesh,scene->mRootNode);
         }
     }
     // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
     for(unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        processNode(rootJoint,animations,meshes,bones,boneMap,node->mChildren[i], scene, transform * to_glm(node->mTransformation));
+        processNode(animations,meshes,bones,boneMap,node->mChildren[i], scene, transform * to_glm(node->mTransformation));
     }
 }
 
@@ -203,7 +203,7 @@ void ModelLoader::loadAnimations(std::vector<Animation> &animations, const aiSce
             for(unsigned int k=0;k < boneAnim.numPositions; ++k)
             {
                 //Pushing back the Position at a certain time in the animation
-                boneAnim.posKey.emplace_back(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mTime, vec3_cast(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue));
+                boneAnim.posKey.emplace_back(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mTime, vec3_cast(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue));
             }
             for(unsigned int k=0;k < boneAnim.numRotations; ++k)
             {
@@ -213,6 +213,7 @@ void ModelLoader::loadAnimations(std::vector<Animation> &animations, const aiSce
             //Place it in a map with the name so animation can be called
             animationMap.emplace(name,boneAnim);
         }
+        //std::cout << scene->mAnimations[i]->mName.C_Str() <<std::endl;
         Animation anim = Animation(scene->mAnimations[i]->mName.C_Str(),animationMap, scene->mAnimations[i]->mDuration,scene->mAnimations[i]->mTicksPerSecond);
         animations.push_back(anim);
     }
@@ -242,7 +243,8 @@ static inline aiNode *FindRootJoint(aiMesh *mesh, aiNode *root) {
     }
     return nullptr;
 }
-void ModelLoader::loadJoints(Joint &rootJoint, aiMesh *mesh, aiNode *root) {
+
+void ModelLoader::loadJoints(aiMesh *mesh, aiNode *root) {
     auto rootBone = FindRootJoint(mesh, root);
     if (rootBone == nullptr) {
         std::cerr << "ERROR: ROOT JOINT NOT FOUND";
@@ -251,7 +253,7 @@ void ModelLoader::loadJoints(Joint &rootJoint, aiMesh *mesh, aiNode *root) {
     rootJoint = RecurseJoints(rootBone, root);
 }
 /*
-void ModelLoader::loadJoints(Joint &rootJoint, const aiNode *rootNode){
+void ModelLoader::loadJoints(Joint &rootJoint, aiNode *rootNode){
     if(rootNode == nullptr)
     {
         return;

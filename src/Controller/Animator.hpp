@@ -17,7 +17,8 @@ public:
   private:
     glm::quat CalcInterpolatedRotation(double AnimationTime, const BoneAnimation* pNodeAnim);
     glm::vec3 CalcInterpolatedPosition(double AnimationTime, const BoneAnimation* pNodeAnim);
-    double currTime;
-    
+    double currTime =0;
+    bool ended = false;
     std::shared_ptr<Model> modelToAnimate;
+    int count;
 };

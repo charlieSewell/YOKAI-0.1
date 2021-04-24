@@ -39,7 +39,7 @@ void Mesh::SetupMesh()
 }
 void Mesh::addBoneData(unsigned int vertexID,unsigned int boneID, float weight)
 {
-    for (int i = 0 ; i < 4 ; i++)
+    for (int i = 0 ; i < 4 ; ++i)
     {
         if (vertices.at(vertexID).boneWeights[i] == 0.0)
         {

@@ -17,7 +17,7 @@ Animation::Animation(std::string name,std::map<std::string,BoneAnimation> animat
 
 unsigned int Animation::FindPosition(double currTime,const BoneAnimation* boneAnimation)
 {
-    for (unsigned int i = 0 ; i < boneAnimation->numPositions - 1 ; i++) {
+    for (unsigned int i = 0 ; i < boneAnimation->numPositions; i++) {
         if (currTime < boneAnimation->posKey[i + 1].first) {
             return i;
         }
@@ -26,7 +26,7 @@ unsigned int Animation::FindPosition(double currTime,const BoneAnimation* boneAn
 }
 unsigned int Animation::FindRotation(double currTime,const BoneAnimation* boneAnimation)
 {
-    for (unsigned int i = 0 ; i < boneAnimation->numRotations - 1 ; i++) {
+    for (unsigned int i = 0 ; i < boneAnimation->numRotations; i++) {
         if (currTime < boneAnimation->rotKey[i + 1].first) {
             return i;
         }

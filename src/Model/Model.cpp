@@ -25,7 +25,7 @@ void Model::Draw(Shader &shader, glm::mat4 transform)
     {
         glm::mat4 model(1.0);
         //multiply parent by child transform
-        model = transform * mesh.getTransform();
+        model = transform* mesh.getTransform();
 
         shader.setMat4("model", model);
         mesh.Draw(shader);

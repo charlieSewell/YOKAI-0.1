@@ -73,13 +73,14 @@ class Model
     glm::mat4 getGlobalInverseTransform(){return globalInverseTransform;}
     ///list of models bones
     std::vector<Bone> bones;
+    ///map of bone names to index
+    std::map<std::string, unsigned int> boneMap;
   private:
     ///Global transform
     glm::mat4 globalInverseTransform;
     ///list of models meshes
     std::vector<Mesh> meshes;
-    ///map of bone names to index
-    std::map<std::string, unsigned int> boneMap;
+
     
     
     ///Root joint

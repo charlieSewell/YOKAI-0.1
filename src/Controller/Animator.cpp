@@ -1,27 +1,41 @@
 //
 // Created by charl on 22/04/2021.
 //
-
+#include <glm/gtx/string_cast.hpp>
 #include "Animator.hpp"
 void Animator::BoneTransform(float TimeInSeconds)
 {
+    count =0;
     finalTransforms.resize(modelToAnimate->getBonesSize());
-    glm::mat4 identity(1.0);
-    double TicksPerSecond = modelToAnimate->getAnimation("Working")->getTPS();
-    float TimeInTicks = TimeInSeconds * TicksPerSecond;
-    float AnimationTime = fmod(TimeInTicks, modelToAnimate->getAnimation("Working")->getDuration());
+    currTime += TimeInSeconds;
+    if(modelToAnimate != nullptr){
+        double TicksPerSecond = modelToAnimate->getAnimation("Death")->getTPS();
+        float TimeInTicks = currTime * TicksPerSecond;
+        if(ended)
+        {
+            if(TimeInTicks >= modelToAnimate->getAnimation("Death")->getDuration())
+            {
 
-    ReadNodeHeirarchy(AnimationTime, modelToAnimate->getRootJoint(), identity);
-    for (unsigned i = 0; i < animatedModel->getBonesSize(); i++) {
-                finalTransforms[i] = modelToAnimate->bones[i].transform;
             }
+        }
+        float AnimationTime = fmod(TimeInTicks, modelToAnimate->getAnimation("Death")->getDuration());
+        glm::mat4 identity(1.0);
+        ReadNodeHeirarchy(AnimationTime, modelToAnimate->getRootJoint(), identity);
+
+    }else{
+        for(unsigned int i;i < modelToAnimate->getBonesSize();i++)
+        {
+            finalTransforms[i] = glm::mat4(1.0f);
+        }
+    }
+
 }
 void Animator::ReadNodeHeirarchy(float AnimationTime, const Joint& node, const glm::mat4& parentTransform)
 {
-
+    count++;
     glm::mat4 nodeTransformation(node.transform);
 
-    const auto* pNodeAnim = modelToAnimate->getAnimation("Working")->findBoneAnimation(node.name);
+    const auto* pNodeAnim = modelToAnimate->getAnimation("Death")->findBoneAnimation(node.name);
 
     if (pNodeAnim) {
 
@@ -36,16 +50,14 @@ void Animator::ReadNodeHeirarchy(float AnimationTime, const Joint& node, const g
     }
 
     glm::mat4 GlobalTransformation = parentTransform * nodeTransformation;
-
-    if (modelToAnimate->getBoneMap()->find(node.name) != modelToAnimate->getBoneMap()->end()) {
-        unsigned int BoneIndex = modelToAnimate->getBoneMap()->at(node.name);
-        modelToAnimate->bones[BoneIndex].transform = modelToAnimate->getGlobalInverseTransform() * GlobalTransformation *
-                                                    modelToAnimate->bones[BoneIndex].offset;
+    if (modelToAnimate->boneMap.find(node.name) != modelToAnimate->boneMap.end()) {
+        unsigned int BoneIndex = modelToAnimate->boneMap[node.name];
+        finalTransforms[BoneIndex]= modelToAnimate->getGlobalInverseTransform() * GlobalTransformation * modelToAnimate->bones[BoneIndex].offset;
     }
 
-    for (unsigned int i = 0 ; i < node.childrenCount ; i++) {
-        ReadNodeHeirarchy(AnimationTime, node.children[i], GlobalTransformation);
-    }
+   for(auto& child: node.children){
+       ReadNodeHeirarchy(AnimationTime,child,GlobalTransformation);
+   }
 }
 glm::quat Animator::CalcInterpolatedRotation(double AnimationTime, const BoneAnimation* pNodeAnim)
 {
@@ -56,11 +68,11 @@ glm::quat Animator::CalcInterpolatedRotation(double AnimationTime, const BoneAni
         return rotation;
     }
 
-    unsigned int RotationIndex = modelToAnimate->getAnimation("Working")->FindRotation(AnimationTime, pNodeAnim);
+    unsigned int RotationIndex = modelToAnimate->getAnimation("Death")->FindRotation(AnimationTime, pNodeAnim);
     unsigned int NextRotationIndex = (RotationIndex + 1);
     assert(NextRotationIndex < pNodeAnim->numRotations);
     float DeltaTime = pNodeAnim->rotKey[NextRotationIndex].first - pNodeAnim->rotKey[RotationIndex].first;
-    float Factor = (AnimationTime - (float)pNodeAnim->rotKey[RotationIndex].first) / DeltaTime;
+    float Factor = (AnimationTime - pNodeAnim->rotKey[RotationIndex].first) / DeltaTime;
 
     const glm::quat& StartRotationQ = pNodeAnim->rotKey[RotationIndex].second;
     const glm::quat& EndRotationQ = pNodeAnim->rotKey[NextRotationIndex].second;
@@ -75,7 +87,7 @@ glm::vec3 Animator::CalcInterpolatedPosition(double AnimationTime, const BoneAni
         return result;
     }
 
-    unsigned PositionIndex = modelToAnimate->getAnimation("Working")->FindPosition(AnimationTime, pNodeAnim);
+    unsigned PositionIndex = modelToAnimate->getAnimation("Death")->FindPosition(AnimationTime, pNodeAnim);
     unsigned NextPositionIndex = (PositionIndex + 1);
     assert(NextPositionIndex < pNodeAnim->numPositions);
 

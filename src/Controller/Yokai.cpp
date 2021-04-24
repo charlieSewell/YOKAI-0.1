@@ -34,13 +34,12 @@ void Yokai::Run()
 	double lastFrame = 0;
     double lastTime = 0;
 	ModelLoader modelLoader;
-	Model test = modelLoader.loadModel("content/Models/test/AnimatedHuman.gltf");
+	Model test = modelLoader.loadModel("content/Models/test/ClothedMan.gltf");
 	Animator animator;
 	Shader testShader = Shader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
 	animator.attachModel(std::make_shared<Model>(test));
 	glm::mat4 transform(1.0);
-    transform = glm::translate(transform,glm::vec3(500,30,500));
-    testShader.useShader();
+    transform = glm::translate(transform,glm::vec3(500,20,500));
     
     while(isRunning)
 	{
@@ -60,17 +59,17 @@ void Yokai::Run()
             for(auto& layer: layers)
 				layer->Draw();
 
+            animator.BoneTransform(frameTime);
+            testShader.useShader();
+            testShader.setBool("isAnimated", true);
+            testShader.setVecMat4("boneMatrices",animator.finalTransforms);
+            test.Draw(testShader,transform);
             if(endScreen->isActive()){
                 endScreen->draw();
             }
-            animator.BoneTransform(frameTime);
-            testShader.useShader();
-            testShader.setMat4("projection", EMS::getInstance().fire(RenderEvent::getPerspective));
-            testShader.setMat4("view", EMS::getInstance().fire(RenderEvent::getViewMatrix));
-            testShader.setBool("isAnimated", true);
-            testShader.setVecMat4("boneMatrices",animator.finalTransforms);
 
-            test.Draw(testShader,transform);
+
+
 			window.endFrame();
 
 			lastFrame = currentTime;
