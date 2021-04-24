@@ -8,7 +8,7 @@ layout (location = 4) in vec4 weights;
 
 const int MAX_BONES = 100;
 const int MAX_BONE_INFLUENCE = 4;
-uniform mat4 boneMatrices[MAX_BONES];
+uniform mat4 boneTrans[MAX_BONES];
 
 out vec2 TexCoords;
 
@@ -19,10 +19,10 @@ uniform bool isAnimated;
 void main()
 {
 
-    mat4 BoneTransform = boneMatrices[boneIDs[0]] * weights[0];
-    BoneTransform += boneMatrices[boneIDs[1]] * weights[1];
-    BoneTransform += boneMatrices[boneIDs[2]] * weights[2];
-    BoneTransform += boneMatrices[boneIDs[3]] * weights[3];
+    mat4 BoneTransform = boneTrans[boneIDs[0]] * weights[0];
+    BoneTransform += boneTrans[boneIDs[1]] * weights[1];
+    BoneTransform += boneTrans[boneIDs[2]] * weights[2];
+    BoneTransform += boneTrans[boneIDs[3]] * weights[3];
     vec4 PosL;
     if(isAnimated)
     {

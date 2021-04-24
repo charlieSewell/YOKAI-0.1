@@ -4,6 +4,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "TerrainFactory.hpp"
+#include <cmath>
 TerrainFactory &TerrainFactory::getInstance()
 {
     static TerrainFactory instance;
@@ -176,11 +177,26 @@ void TerrainFactory::LoadHeightMap(std::string filename)
     }
     stbi_image_free(data);
 }
-float TerrainFactory::heightAt(int x,int z)
+float TerrainFactory::heightAt(float x, float z)
 {
     if(x > 0 && x < terrainSize && z > 0 && z < terrainSize)
     {
-        return heightVals.at(x).at(z);
+
+        float fract_x = x - (int) x;
+        float fract_z = z - (int) z;
+
+        float h_00 = heightVals.at((int)x).at((int)z);
+        float h_10 = heightVals.at((int)x).at(ceil(z));
+        float h_01 = heightVals.at(ceil(x)).at((int)z);
+        float h_11 = heightVals.at(ceil(x)).at(ceil(z));
+
+        //Height Lines
+        float hLine1 = h_00 + (h_01 - h_00)*fract_x;
+        float hLine2 = h_10 + (h_11 - h_10) * fract_x;
+        //cross of both heightLines
+        float cross = hLine1 + (hLine2 - hLine1) * fract_z;
+        return (cross);
+
     }
     return(0);
 }

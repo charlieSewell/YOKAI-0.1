@@ -13,7 +13,7 @@ class DemoScene : public Layer
     /**
      * @brief Updates the Scene
      */
-    void Update() override;
+    void Update(double frameRate) override;
     /**
      * @brief Draws the Scene
      */

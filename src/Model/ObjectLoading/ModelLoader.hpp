@@ -60,6 +60,6 @@ class ModelLoader
     ///List of textures currently loaded for a model
     std::vector<ModelTexture> textures_loaded;
     /// Number of bones in current model
-    Joint rootJoint;
+    Node rootJoint;
     int numBones = 0;
 };

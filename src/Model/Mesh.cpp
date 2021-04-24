@@ -13,7 +13,7 @@ Mesh::Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> 
 
 void Mesh::SetupMesh()
 {
-    VAO = VertexArrayBuffer::Create(this->vertices,this->indices);
+     VAO = VertexArrayBuffer::Create(this->vertices,this->indices);
 }
 
  const void Mesh::Draw(Shader &shader)

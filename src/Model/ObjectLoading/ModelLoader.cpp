@@ -18,7 +18,7 @@ Model ModelLoader::loadModel(std::string filename)
     std::map<std::string,unsigned int> boneMap;
     Assimp::Importer importer;
     const aiScene *scene = importer.ReadFile(
-        filename, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_LimitBoneWeights | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+        filename, aiProcess_Triangulate | aiProcess_GenSmoothNormals  |aiProcess_LimitBoneWeights| aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
         std::cout << "Error:" << importer.GetErrorString() << std::endl;
@@ -32,7 +32,6 @@ Model ModelLoader::loadModel(std::string filename)
     for(auto& mesh: meshes){
         mesh.SetupMesh();
     }
-    std::cout << filename <<boneMap.size() <<std::endl;
 
     return Model(meshes,bones,boneMap,rootJoint,animations,globalInverseTransform);
 }
@@ -191,36 +190,37 @@ std::vector<ModelTexture> ModelLoader::loadMaterialTextures(aiMaterial *mat, aiT
 void ModelLoader::loadAnimations(std::vector<Animation> &animations, const aiScene *scene){
     for(unsigned int i=0; i < scene->mNumAnimations;++i)
     {
-        std::map<std::string,BoneAnimation> animationMap;
+        std::map<std::string,Frame> animationMap;
         //Load in all animations from a model
         for(unsigned int j =0; j < scene->mAnimations[i]->mNumChannels; ++j)
         {
             //Animation for a singular bone
-            BoneAnimation boneAnim = {};
+            Frame keyFrame = {};
             std::string name = scene->mAnimations[i]->mChannels[j]->mNodeName.C_Str();
-            boneAnim.numPositions = scene->mAnimations[i]->mChannels[j]->mNumPositionKeys;
-            boneAnim.numRotations = scene->mAnimations[i]->mChannels[j]->mNumRotationKeys;
-            for(unsigned int k=0;k < boneAnim.numPositions; ++k)
+            keyFrame.numPositions = scene->mAnimations[i]->mChannels[j]->mNumPositionKeys;
+            keyFrame.numRotations = scene->mAnimations[i]->mChannels[j]->mNumRotationKeys;
+            for(unsigned int k=0; k < keyFrame.numPositions; ++k)
             {
                 //Pushing back the Position at a certain time in the animation
-                boneAnim.posKey.emplace_back(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mTime, vec3_cast(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue));
+                keyFrame.posKey.emplace_back(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mTime, vec3_cast(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue));
             }
-            for(unsigned int k=0;k < boneAnim.numRotations; ++k)
+            for(unsigned int k=0; k < keyFrame.numRotations; ++k)
             {
                 //Pushing back the Rotation at a certain time in the animation
-                boneAnim.rotKey.emplace_back(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mTime, quat_cast(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue));
+                keyFrame.rotKey.emplace_back(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mTime, quat_cast(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue));
             }
             //Place it in a map with the name so animation can be called
-            animationMap.emplace(name,boneAnim);
+            animationMap.emplace(name, keyFrame);
         }
-        //std::cout << scene->mAnimations[i]->mName.C_Str() <<std::endl;
+
         Animation anim = Animation(scene->mAnimations[i]->mName.C_Str(),animationMap, scene->mAnimations[i]->mDuration,scene->mAnimations[i]->mTicksPerSecond);
+        std::cout <<anim.getName() <<std::endl;
         animations.push_back(anim);
     }
 
 }
-static inline Joint RecurseJoints(aiNode *node, aiNode *rootScene) {
-    Joint parent = {};
+static inline Node RecurseJoints(aiNode *node, aiNode *rootScene) {
+    Node parent = {};
     for (size_t i = 0; i < node->mNumChildren; ++i) {
         parent.children.push_back(
             RecurseJoints(rootScene->FindNode(node->mChildren[i]->mName), rootScene));
@@ -250,23 +250,23 @@ void ModelLoader::loadJoints(aiMesh *mesh, aiNode *root) {
         std::cerr << "ERROR: ROOT JOINT NOT FOUND";
         EXIT_FAILURE;
     }
-    rootJoint = RecurseJoints(rootBone, root);
+    rootJoint = RecurseJoints(rootBone, root); 
 }
 /*
-void ModelLoader::loadJoints(Joint &rootJoint, aiNode *rootNode){
+void ModelLoader::loadJoints(Node &rootNode, aiNode *rootNode){
     if(rootNode == nullptr)
     {
         return;
     }
-    rootJoint.name = rootNode->mName.data;
-    rootJoint.transform = to_glm(rootNode->mTransformation);
-    rootJoint.childrenCount = rootNode->mNumChildren;
+    rootNode.name = rootNode->mName.data;
+    rootNode.transform = to_glm(rootNode->mTransformation);
+    rootNode.childrenCount = rootNode->mNumChildren;
 
     for (int i = 0; i < rootNode->mNumChildren; i++)
     {
-        Joint newData;
+        Node newData;
         loadJoints(newData, rootNode->mChildren[i]);
-        rootJoint.children.push_back(newData);
+        rootNode.children.push_back(newData);
     }
 }
 */
@@ -277,7 +277,6 @@ void ModelLoader::loadBones(std::vector<Mesh> &meshes, std::vector<Bone> &bones,
         std::string boneName(mesh->mBones[i]->mName.data);
 
         if (boneMap.find(boneName) == boneMap.end()) {
-            std::cout << boneName <<std::endl;
             boneIndex = numBones;
             ++numBones;
             Bone bi;
@@ -290,7 +289,7 @@ void ModelLoader::loadBones(std::vector<Mesh> &meshes, std::vector<Bone> &bones,
         boneMap[boneName] = boneIndex;
         bones[boneIndex].offset = to_glm(mesh->mBones[i]->mOffsetMatrix);
 
-        for (unsigned j = 0 ; j < mesh->mBones[i]->mNumWeights; ++j) {
+        for (unsigned int j = 0 ; j < mesh->mBones[i]->mNumWeights; ++j) {
             unsigned VertexID = mesh->mBones[i]->mWeights[j].mVertexId;
             float Weight = mesh->mBones[i]->mWeights[j].mWeight;
             meshes.at(meshIndex).addBoneData(VertexID, boneIndex, Weight);

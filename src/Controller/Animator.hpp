@@ -9,16 +9,20 @@
 #include <vector>
 class Animator {
 public:
+    Animator() = default;
+    Animator(std::shared_ptr<Model> model);
     void BoneTransform(float TimeInSeconds);
-    void ReadNodeHeirarchy(float AnimationTime, const Joint& node, const glm::mat4& ParentTransform);
-    void attachModel(std::shared_ptr<Model> model){modelToAnimate = model;}
+    void ReadNodeHeirarchy(float AnimationTime, const Node& node, const glm::mat4& ParentTransform);
+    void addModel(std::shared_ptr<Model> model){modelToAnimate = model;}
+    void setAnimation(std::string animation){this->animation = animation;}
     std::vector<glm::mat4> finalTransforms;
 
   private:
-    glm::quat CalcInterpolatedRotation(double AnimationTime, const BoneAnimation* pNodeAnim);
-    glm::vec3 CalcInterpolatedPosition(double AnimationTime, const BoneAnimation* pNodeAnim);
+    glm::quat CalcInterpolatedRotation(double AnimationTime, const Frame* pNodeAnim);
+    glm::vec3 CalcInterpolatedPosition(double AnimationTime, const Frame* pNodeAnim);
     double currTime =0;
-    bool ended = false;
+    bool shouldEnd = false;
+    std::string animation;
     std::shared_ptr<Model> modelToAnimate;
-    int count;
+
 };

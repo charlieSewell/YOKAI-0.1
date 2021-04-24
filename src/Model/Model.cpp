@@ -7,11 +7,11 @@ Model::Model(std::vector<Mesh> meshes)
     this->meshes = std::move(meshes);
 
 }
-Model::Model(std::vector<Mesh> meshes,std::vector<Bone> bones,std::map<std::string, unsigned int> boneMap,Joint rootJoint, std::vector<Animation> animations,glm::mat4 globalInverseTransformation)
+Model::Model(std::vector<Mesh> meshes, std::vector<Bone> bones, std::map<std::string, unsigned int> boneMap, Node rootNode, std::vector<Animation> animations, glm::mat4 globalInverseTransformation)
 {
     this->meshes = std::move(meshes);
     this->bones = std::move(bones);
-    this->rootJoint = std::move(rootJoint);
+    this->rootNode = std::move(rootNode);
     this->boneMap = std::move(boneMap);
     this->animations = std::move(animations);
     this->globalInverseTransform = globalInverseTransformation;
@@ -42,9 +42,9 @@ Animation* Model::getAnimation(std::string name)
     }
     return nullptr;
 }
-Joint Model::getRootJoint()
+Node Model::getRootNode()
 {
-    return rootJoint;
+    return rootNode;
 }
 
 
