@@ -87,12 +87,6 @@ class EMS
      * @param double - y
      */
 	void fire(InputEvent event, double x, double y);
-    /**
-     * @brief Allows the fireing of an Input event in lua
-     * @param InputEvent - event
-     * @param float - data
-     */
-    void luaFire(InputEvent event, float data);
   private:
       ///Privatised constructor of EMS
 	  EMS() {}

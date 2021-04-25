@@ -12,23 +12,25 @@ void Animator::BoneTransform(float TimeInSeconds)
     finalTransforms.resize(modelToAnimate->getBonesSize());
     glm::mat4 identity(1.0);
     currTime += TimeInSeconds;
-    if(modelToAnimate != nullptr){
+    if(modelToAnimate != nullptr)
+    {
         double TicksPerSecond = modelToAnimate->getAnimation(animation)->getTPS();
-        float TimeInTicks = currTime * TicksPerSecond;
+        float TimeInTicks = currTime * static_cast<float>(TicksPerSecond);
         if(shouldEnd && TimeInTicks >= modelToAnimate->getAnimation(animation)->getDuration())
         {
             return;
         }
-        float AnimationTime = fmod(TimeInTicks, modelToAnimate->getAnimation(animation)->getDuration());
+        float AnimationTime = static_cast<float>(fmod(TimeInTicks, modelToAnimate->getAnimation(animation)->getDuration()));
 
         ReadNodeHeirarchy(AnimationTime, modelToAnimate->getRootNode(), identity);
-    }else{
-        for(unsigned int i;i < modelToAnimate->getBonesSize();i++)
+    }
+    else
+    {
+        for(int i = 0;i < modelToAnimate->getBonesSize();i++)
         {
             finalTransforms[i] = glm::mat4(1.0f);
         }
     }
-
 }
 void Animator::ReadNodeHeirarchy(float AnimationTime, const Node& node, const glm::mat4& parentTransform)
 {
@@ -36,8 +38,8 @@ void Animator::ReadNodeHeirarchy(float AnimationTime, const Node& node, const gl
 
     const auto* pNodeAnim = modelToAnimate->getAnimation(animation)->findFrame(node.name);
 
-    if (pNodeAnim) {
-
+    if (pNodeAnim)
+    {
         // Interpolate rotation and generate rotation transformation matrix
         glm::mat4 rotation = glm::mat4(CalcInterpolatedRotation(AnimationTime, pNodeAnim));
 
@@ -48,14 +50,16 @@ void Animator::ReadNodeHeirarchy(float AnimationTime, const Node& node, const gl
     }
 
     glm::mat4 GlobalTransformation = parentTransform * nodeTransformation;
-    if (modelToAnimate->getBoneMap()->find(node.name) != modelToAnimate->getBoneMap()->end()) {
+    if (modelToAnimate->getBoneMap()->find(node.name) != modelToAnimate->getBoneMap()->end())
+    {
         unsigned int BoneIndex = modelToAnimate->getBoneMap()->at(node.name);
         finalTransforms[BoneIndex]= modelToAnimate->getGlobalInverseTransform() * GlobalTransformation * modelToAnimate->getBones()->at(BoneIndex).offset;
     }
 
-   for(auto& child: node.children){
+   for(auto& child: node.children)
+   {
        ReadNodeHeirarchy(AnimationTime,child,GlobalTransformation);
-    }
+   }
 }
 glm::quat Animator::CalcInterpolatedRotation(double AnimationTime, const Frame* pNodeAnim)
 {
@@ -70,8 +74,8 @@ glm::quat Animator::CalcInterpolatedRotation(double AnimationTime, const Frame* 
     unsigned int NextRotationIndex = (RotationIndex + 1);
 
 
-    float DeltaTime = pNodeAnim->rotKey[NextRotationIndex].first - pNodeAnim->rotKey[RotationIndex].first;
-    float Factor = (AnimationTime - pNodeAnim->rotKey[RotationIndex].first) / DeltaTime;
+    double DeltaTime = pNodeAnim->rotKey[NextRotationIndex].first - pNodeAnim->rotKey[RotationIndex].first;
+    double Factor = (AnimationTime - pNodeAnim->rotKey[RotationIndex].first) / DeltaTime;
 
     const glm::quat& StartRotationQ = pNodeAnim->rotKey[RotationIndex].second;
     const glm::quat& EndRotationQ = pNodeAnim->rotKey[NextRotationIndex].second;

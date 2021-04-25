@@ -53,13 +53,12 @@ class ModelLoader
      * @return vector<ModelTexture>
      */
     std::vector<ModelTexture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
-    void loadJoints(aiMesh *mesh, aiNode *root);
+    void loadAnimNodes(Node& node, aiNode *root);
     void addBoneData(unsigned int BoneID, float Weight);
     void loadAnimations(std::vector<Animation> &animations, const aiScene *scene);
     void loadBones(std::vector<Mesh> &meshes, std::vector<Bone> &bones,std::map<std::string,unsigned int> &boneMap, unsigned int meshIndex, const aiMesh *mesh);
     ///List of textures currently loaded for a model
     std::vector<ModelTexture> textures_loaded;
     /// Number of bones in current model
-    Node rootJoint;
     int numBones = 0;
 };

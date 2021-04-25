@@ -21,7 +21,7 @@ struct Node
     ///Children Nodes
     std::vector<Node> children = {};
     ///Count of children
-    int childrenCount;
+    unsigned int childrenCount;
 };
 /**
  * @struct Bone

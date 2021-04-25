@@ -5,7 +5,6 @@ void EMS::Init() {
     luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
         .beginClass<EMS>("EMS")
             .addStaticFunction("getInstance",&EMS::getInstance)
-            .addFunction("fire",&EMS::luaFire)
         .endClass();
 
 }
@@ -48,10 +47,7 @@ void EMS::fire(InputEvent event, double x, double y)
 	if (event == InputEvent::xyLook)
 		m_xyLook(x, y);
 }
-void EMS::luaFire(InputEvent event, float)
-{
 
-}
 glm::mat4 EMS::fire(RenderEvent event)
 {
     if (event == RenderEvent::getViewMatrix)

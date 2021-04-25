@@ -186,9 +186,9 @@ float TerrainFactory::heightAt(float x, float z)
         float fract_z = z - (int) z;
 
         float h_00 = heightVals.at((int)x).at((int)z);
-        float h_10 = heightVals.at((int)x).at(ceil(z));
-        float h_01 = heightVals.at(ceil(x)).at((int)z);
-        float h_11 = heightVals.at(ceil(x)).at(ceil(z));
+        float h_10 = heightVals.at((int)x).at((int)ceil(z));
+        float h_01 = heightVals.at((int)ceil(x)).at((int)z);
+        float h_11 = heightVals.at((int)ceil(x)).at((int)ceil(z));
 
         //Height Lines
         float hLine1 = h_00 + (h_01 - h_00)*fract_x;

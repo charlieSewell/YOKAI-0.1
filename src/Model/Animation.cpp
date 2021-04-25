@@ -17,7 +17,7 @@ Animation::Animation(std::string name, std::map<std::string,Frame> frames, float
 
 unsigned int Animation::FindPosition(double currTime,const Frame* frame)
 {
-    for (unsigned int i = 0 ; i < frame->numPositions; i++) {
+    for (int i = 0 ; i < frame->numPositions; i++) {
         if (currTime < frame->posKey[i + 1].first) {
             return i;
         }
@@ -26,17 +26,17 @@ unsigned int Animation::FindPosition(double currTime,const Frame* frame)
 }
 unsigned int Animation::FindRotation(double currTime,const Frame* frame)
 {
-    for (unsigned int i = 0 ; i < frame->numRotations; i++) {
+    for (int i = 0 ; i < frame->numRotations; i++) {
         if (currTime < frame->rotKey[i + 1].first) {
             return i;
         }
     }
     return(0);
 }
-Frame* Animation::findFrame(std::string name)
+Frame* Animation::findFrame(std::string frameName)
 {
-    if (frames.count(name)) {
-        return &frames.at(name);
+    if (frames.count(frameName)) {
+        return &frames.at(frameName);
     }
     return nullptr;
 }

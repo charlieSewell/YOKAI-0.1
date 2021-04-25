@@ -19,7 +19,7 @@ class Animation {
         Animation(std::string name, std::map<std::string,Frame> animations, float duration, float TPS);
         unsigned int FindRotation(double currTime, const Frame* frame);
         unsigned int FindPosition(double currTime, const Frame* frame);
-        Frame* findFrame(std::string name);
+        Frame* findFrame(std::string frameName);
         double getTPS(){return TPS;}
         double getDuration(){return duration;}
         std::string getName(){return name;}
