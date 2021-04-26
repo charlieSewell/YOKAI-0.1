@@ -4,7 +4,7 @@
 
 #include "Chunk.hpp"
 #include "View/Renderer/OpenGL/OpenGLRenderer.hpp"
-
+#include "Controller/Yokai.hpp"
 Chunk::Chunk(std::shared_ptr<Texture> &grass, std::shared_ptr<Texture> &sand, std::shared_ptr<Texture> &snow, std::shared_ptr<Texture> &detail,int sandHeight,int grassHeight,int snowHeight)
 {
     textures.push_back(grass);
@@ -30,13 +30,15 @@ void Chunk::DrawChunk(Shader &shader)
     shader.setInt("snowTexture",2);
     shader.setInt("detailMap",3);
 
-    shader.setFloat("sandHeight",sandHeight);
-    shader.setFloat("grassHeight",grassHeight);
-    shader.setFloat("snowHeight",snowHeight);
+    shader.setFloat("sandHeight",static_cast<float>(sandHeight));
+    shader.setFloat("grassHeight",static_cast<float>(grassHeight));
+    shader.setFloat("snowHeight",static_cast<float>(snowHeight));
 
     textures[0]->Bind(0);
     textures[1]->Bind(1);
     textures[2]->Bind(2);
     textures[3]->Bind(3);
-    Renderer::Draw(*VAO,indicesSize);
+
+    auto& engine = Yokai::getInstance();
+    engine.renderer.Draw(*VAO,indicesSize);
 }

@@ -11,7 +11,7 @@ void DemoScene::Init()
     registerMenuButtons();
 }
 
-void DemoScene::Update()
+void DemoScene::Update(double frameRate)
 {
     GameObjectManager::update();
 }

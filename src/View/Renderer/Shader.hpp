@@ -8,6 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <vector>
 /**
  * @class Shader
  * @brief class used for createing GLSL shaders
@@ -49,6 +50,12 @@ class Shader
      * @param mat4& - value
      */
     void setMat4(const std::string &uniformName, const glm::mat4 &mat) const;
+    /**
+     * @brief Sets a mat4 vec uniform in the shader
+     * @param string& - uniformName
+     * @param vector<mat4>& - value
+     */
+    void setVecMat4(const std::string &uniformName, const std::vector<glm::mat4> &mat) const;
     /**
      * @brief Sets a vec3 uniform in the shader
      * @param string& - uniformName

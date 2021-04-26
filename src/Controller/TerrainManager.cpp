@@ -9,12 +9,14 @@ void TerrainManager::Init()
 {
     TerrainFactory::getInstance().Init();
     chunkSize = 100;
-    maxKey = floor(TerrainFactory::getInstance().getTerrainSize()/100);
+    maxKey = static_cast<int>(floor(TerrainFactory::getInstance().getTerrainSize()/100));
     CreateTerrain();
     terrainShader = new Shader("content/Shaders/terrainVertex.vert","content/Shaders/terrainFragment.frag");
     terrainShader->useShader();
     terrainShader->setVec3("lightColor",glm::vec3(1.0,1.0,1.0));
-    terrainShader->setVec3("lightPos",glm::vec3(maxKey*chunkSize/2,200.0,maxKey*chunkSize/2));
+    terrainShader->setVec3("lightPos",glm::vec3(maxKey*chunkSize/2,30.0,maxKey*chunkSize/2));
+    terrainShader->setFloat("lightLinear",0.007);
+    terrainShader->setFloat("lightQuadratic",0.0002);
     terrainShader->setMat4("model",glm::mat4(1.0));
     std::cout << "Initialised Terrain Factory" << std::endl;
 }

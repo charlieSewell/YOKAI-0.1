@@ -4,6 +4,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "TerrainFactory.hpp"
+#include <cmath>
 TerrainFactory &TerrainFactory::getInstance()
 {
     static TerrainFactory instance;
@@ -55,7 +56,7 @@ Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int siz
     GenerateFlatMap(vertices,xStart,zStart,size,size);
     GenerateTerrainIndices(indices,size,size);
     //TODO: Come Up with better solution as currently just stretching over terrain
-    GenerateTexCoords(vertices,size,size);
+    GenerateTexCoords(vertices);
     int x = xStart;
     int z = zStart;
     for(auto& vert: vertices)
@@ -109,7 +110,7 @@ void TerrainFactory::GenerateTerrainIndices(std::vector<unsigned int> &terrain, 
     }
 }
 
-void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain, int xSize, int zSize)
+void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain)
 {
     for(auto& vert: terrain)
     {
@@ -119,7 +120,7 @@ void TerrainFactory::GenerateTexCoords(std::vector<Vertex> &terrain, int xSize, 
 
 void TerrainFactory::GenerateNormals(std::vector<Vertex> &terrain, std::vector<unsigned int> &indices) 
 {
-    for(int i=0; i < indices.size(); i += 3)
+    for(size_t i=0; i < indices.size(); i += 3)
     {
         Vertex &vert = terrain[indices[i]];
         Vertex &vert2 = terrain[indices[i+1]];
@@ -134,9 +135,9 @@ void TerrainFactory::GenerateNormals(std::vector<Vertex> &terrain, std::vector<u
         vert2.normal += normal;
         vert3.normal += normal;
     }
-    for(int i=0; i < terrain.size();i++)
+    for(auto& vertex: terrain)
     {
-        terrain[i].normal = glm::normalize(terrain[i].normal);
+        vertex.normal = glm::normalize(vertex.normal);
     }
 }
 
@@ -147,7 +148,7 @@ void TerrainFactory::LoadHeightMap(std::string filename)
     float* data = stbi_loadf(filename.c_str(),&width,&height,&nrComponents,1);
 
     terrainSize = width;
-    terrainSize = floor(terrainSize/100)*100;
+    terrainSize = static_cast<int>(floor(terrainSize/100)*100);
     heightVals.resize(static_cast<size_t>(width)+1);
     for (auto &e : heightVals) 
     {
@@ -176,12 +177,28 @@ void TerrainFactory::LoadHeightMap(std::string filename)
     }
     stbi_image_free(data);
 }
-float TerrainFactory::heightAt(int x,int z)
+float TerrainFactory::heightAt(float x, float z)
 {
     if(x > 0 && x < terrainSize && z > 0 && z < terrainSize)
     {
-        return heightVals.at(x).at(z);
+
+        float fract_x = x - (int) x;
+        float fract_z = z - (int) z;
+
+        float h_00 = heightVals.at((int)x).at((int)z);
+        float h_10 = heightVals.at((int)x).at((int)ceil(z));
+        float h_01 = heightVals.at((int)ceil(x)).at((int)z);
+        float h_11 = heightVals.at((int)ceil(x)).at((int)ceil(z));
+
+        //Height Lines
+        float hLine1 = h_00 + (h_01 - h_00)*fract_x;
+        float hLine2 = h_10 + (h_11 - h_10) * fract_x;
+        //cross of both heightLines
+        float cross = hLine1 + (hLine2 - hLine1) * fract_z;
+        return (cross);
+
     }
+    return(0);
 }
 void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
 {
@@ -189,8 +206,8 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
     for (auto &e : heightVals) {
         e.resize(static_cast<size_t>(ySize));
     }
-    float xFactor = 1.0f / (250 - 1);
-    float yFactor = 1.0f / (250 - 1);
+    float xFactor = 1.0f / (500 - 1);
+    float yFactor = 1.0f / (500 - 1);
     float a       = 0.3; //Tuning variables
     float b       = 0.2;  //Tuning variables
 
@@ -213,7 +230,7 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
                 freq *= 2.0f;   // Double the frequency
                 scale *= b;     // Next power of b
             }
-            result = pow((sum + 1.0f)/ 2.0f,1.3);
+            result = static_cast<float>(pow((sum + 1.0f)/ 2.0f,1.3));
 
 
             if(isnan(result))

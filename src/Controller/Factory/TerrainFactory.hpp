@@ -40,7 +40,13 @@ class TerrainFactory
      * @return terrainSize
      */
     int getTerrainSize(){return terrainSize;}
-
+    /*!
+     * @brief Loads terrain data from external height map
+     * @param int - x
+     * @param int - z
+     * @return float height
+     */
+    float heightAt(float x,float z);
   private:
     /*!
      * @brief Constructor
@@ -86,7 +92,7 @@ class TerrainFactory
      * @param int - xSize
      * @param int - zSize
      */
-    void GenerateTexCoords(std::vector<Vertex> &terrain,int xSize, int zSize);
+    void GenerateTexCoords(std::vector<Vertex> &terrain);
 
     /*!
      * @brief Generates normals for terrain
@@ -107,14 +113,6 @@ class TerrainFactory
      * @param string - filename
      */
     void LoadHeightMap(std::string filename);
-
-    /*!
-     * @brief Loads terrain data from external height map
-     * @param int - x
-     * @param int - z
-     * @return float height
-     */
-    float heightAt(int x,int z);
 
     /// 2D vector of floats for terrain height values
     std::vector<std::vector<float>> heightVals = {};

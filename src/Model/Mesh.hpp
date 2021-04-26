@@ -61,6 +61,8 @@ class Mesh
      */
     void SetupMesh();
 
+    void addBoneData(unsigned int vertexID,unsigned int boneID, float weight);
+
   private:
     ///Pointer to the Mesh vertex array
     std::shared_ptr<VertexArrayBuffer> VAO;

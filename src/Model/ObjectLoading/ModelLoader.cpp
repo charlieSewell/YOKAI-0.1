@@ -4,36 +4,41 @@
 
 #include "ModelLoader.hpp"
 
-static auto to_glm(aiMatrix4x4t<float> m) -> glm::mat4 
+static inline glm::mat4 to_glm(aiMatrix4x4t<float> &m){return glm::transpose(glm::make_mat4(&m.a1));}
+static inline glm::vec3 vec3_cast(const aiVector3D &v) { return glm::vec3(v.x, v.y, v.z); }
+static inline glm::quat quat_cast(const aiQuaternion &q) { return glm::quat(q.w, q.x, q.y, q.z); }
+
+Model ModelLoader::loadModel(std::string filename)
 {
-    return glm::mat4{m.a1, m.b1, m.c1, m.d1,
-                     m.a2, m.b2, m.c2, m.d2,
-                     m.a3, m.b3, m.c3, m.d3,
-                     m.a4, m.b4, m.c4, m.d4};
-}
-std::vector<Mesh> ModelLoader::loadModel(std::string filename)
-{
+    numBones = 0;
     std::vector<Mesh> meshes;
+    std::vector<Bone> bones;
+    std::vector<Animation> animations;
+    std::map<std::string,unsigned int> boneMap;
     Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+    const aiScene *scene = importer.ReadFile(
+        filename, aiProcess_Triangulate | aiProcess_GenSmoothNormals  |aiProcess_LimitBoneWeights| aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
     if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
         std::cout << "Error:" << importer.GetErrorString() << std::endl;
-        return meshes;
+        return(Model(meshes));
     }
     // retrieve the directory path of the filepath
     directory = filename.substr(0, filename.find_last_of('/'));
-
+    glm::mat4 globalInverseTransform = glm::inverse(to_glm(scene->mRootNode->mTransformation));
     // process ASSIMP's root node recursively
-    processNode(meshes,scene->mRootNode, scene,to_glm(scene->mRootNode->mTransformation));
+    processNode(animations,meshes,bones,boneMap,scene->mRootNode, scene,to_glm(scene->mRootNode->mTransformation));
+    Node rootAnimNode;
+    loadAnimNodes(rootAnimNode,scene->mRootNode);
     for(auto& mesh: meshes){
         mesh.SetupMesh();
     }
-    return(meshes);
+    return Model(meshes,bones,boneMap,rootAnimNode,animations,globalInverseTransform);
 }
 
-void ModelLoader::processNode(std::vector<Mesh> &meshes,aiNode *node, const aiScene *scene,glm::mat4 transform)
-{
+void ModelLoader::processNode(std::vector<Animation> &animations,std::vector<Mesh> &meshes, std::vector<Bone> &bones,
+                              std::map<std::string, unsigned int> &boneMap, aiNode *node,
+                              const aiScene *scene, glm::mat4 transform) {
     // process each mesh located at the current node
     for(unsigned int i = 0; i < node->mNumMeshes; i++)
     {
@@ -41,11 +46,16 @@ void ModelLoader::processNode(std::vector<Mesh> &meshes,aiNode *node, const aiSc
         // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
         meshes.push_back(processMesh(mesh, scene, transform *to_glm(node->mTransformation)));
+        if(scene->HasAnimations())
+        {
+            loadBones(meshes, bones, boneMap, i, mesh);
+            loadAnimations(animations, scene);
+        }
     }
     // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
     for(unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        processNode(meshes,node->mChildren[i], scene, transform * to_glm(node->mTransformation));
+        processNode(animations,meshes,bones,boneMap,node->mChildren[i], scene, transform * to_glm(node->mTransformation));
     }
 }
 
@@ -154,7 +164,7 @@ std::vector<ModelTexture> ModelLoader::loadMaterialTextures(aiMaterial *mat, aiT
         mat->GetTexture(type, i, &str);
         // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
         bool skip = false;
-        for(unsigned int j = 0; j < textures_loaded.size(); j++)
+        for(size_t j = 0; j < textures_loaded.size(); j++)
         {
             if(std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
             {
@@ -175,4 +185,79 @@ std::vector<ModelTexture> ModelLoader::loadMaterialTextures(aiMaterial *mat, aiT
         }
     }
     return textures;
+}
+void ModelLoader::loadAnimations(std::vector<Animation> &animations, const aiScene *scene){
+    for(unsigned int i=0; i < scene->mNumAnimations;++i)
+    {
+        std::map<std::string,Frame> animationMap;
+        //Load in all animations from a model
+        for(unsigned int j =0; j < scene->mAnimations[i]->mNumChannels; ++j)
+        {
+            //Animation for a singular bone
+            Frame keyFrame = {};
+            std::string name = scene->mAnimations[i]->mChannels[j]->mNodeName.C_Str();
+            keyFrame.numPositions = scene->mAnimations[i]->mChannels[j]->mNumPositionKeys;
+            keyFrame.numRotations = scene->mAnimations[i]->mChannels[j]->mNumRotationKeys;
+            for(int k=0; k < keyFrame.numPositions; ++k)
+            {
+                //Pushing back the Position at a certain time in the animation
+                keyFrame.posKey.emplace_back(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mTime, vec3_cast(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue));
+            }
+            for(int k=0; k < keyFrame.numRotations; ++k)
+            {
+                //Pushing back the Rotation at a certain time in the animation
+                keyFrame.rotKey.emplace_back(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mTime, quat_cast(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue));
+            }
+            //Place it in a map with the name so animation can be called
+            animationMap.emplace(name, keyFrame);
+        }
+
+        Animation anim = Animation(scene->mAnimations[i]->mName.C_Str(),animationMap, static_cast<float>(scene->mAnimations[i]->mDuration),static_cast<float>(scene->mAnimations[i]->mTicksPerSecond));
+        animations.push_back(anim);
+    }
+
+}
+void ModelLoader::loadAnimNodes(Node &node, aiNode *rootNode)
+{
+    if(rootNode == nullptr)
+    {
+        return;
+    }
+    node.name = rootNode->mName.data;
+    node.transform = to_glm(rootNode->mTransformation);
+    node.childrenCount = rootNode->mNumChildren;
+
+    for (unsigned int i = 0; i < rootNode->mNumChildren; i++)
+    {
+        Node newData;
+        loadAnimNodes(newData, rootNode->mChildren[i]);
+        node.children.push_back(newData);
+    }
+}
+
+void ModelLoader::loadBones(std::vector<Mesh> &meshes, std::vector<Bone> &bones,std::map<std::string,unsigned int> &boneMap, unsigned int meshIndex, const aiMesh *mesh)
+{
+    for (unsigned i = 0 ; i < mesh->mNumBones; ++i) {
+        unsigned boneIndex = 0;
+        std::string boneName(mesh->mBones[i]->mName.data);
+
+        if (boneMap.find(boneName) == boneMap.end()) {
+            boneIndex = numBones;
+            ++numBones;
+            Bone bi;
+            bones.push_back(bi);
+        }
+        else {
+            boneIndex = boneMap[boneName];
+        }
+
+        boneMap[boneName] = boneIndex;
+        bones[boneIndex].offset = to_glm(mesh->mBones[i]->mOffsetMatrix);
+
+        for (unsigned int j = 0 ; j < mesh->mBones[i]->mNumWeights; ++j) {
+            unsigned VertexID = mesh->mBones[i]->mWeights[j].mVertexId;
+            float Weight = mesh->mBones[i]->mWeights[j].mWeight;
+            meshes.at(meshIndex).addBoneData(VertexID, boneIndex, Weight);
+        }
+    }
 }

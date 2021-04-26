@@ -57,20 +57,16 @@ int GameObjectManager::add(std::shared_ptr<GameObject>& gameObject)
 
 void GameObjectManager::update() 
 {
-
-    for(int i = 0; i < gameObjects.size(); i++)
+    for(auto& gameObject :gameObjects)
     {
-
-        gameObjects[i]->update();
+        gameObject.second->update();
     }
 }
 void GameObjectManager::draw()
 {
-
-    for(int i = 0; i < gameObjects.size(); i++)
+    for(auto& gameObject :gameObjects)
     {
-
-        gameObjects[i]->draw();
+        gameObject.second->draw();
     }
 }
 std::shared_ptr<GameObject> GameObjectManager::getPlayer()
@@ -84,7 +80,7 @@ std::shared_ptr<GameObject> GameObjectManager::getObject(int id)
     {
         return gameObjects[id];
     }
-
+    return nullptr;
 }
 GameObject* GameObjectManager::luaGet(int id)
 {
@@ -93,7 +89,7 @@ GameObject* GameObjectManager::luaGet(int id)
     {
         return gameObjects[id].get();
     }
-
+    return nullptr;
 }
 //static declaration of member variables
 int GameObjectManager::objectCount = 0;

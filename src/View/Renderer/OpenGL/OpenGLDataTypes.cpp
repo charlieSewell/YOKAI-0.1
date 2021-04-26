@@ -12,13 +12,19 @@ OpenGLTexture::OpenGLTexture(std::string path)
     unsigned char *data = TextureFromFile(filename,width,height,nrComponents,0);
     if (data)
     {
-        GLenum format;
-        if (nrComponents == 1)
-            format = GL_RED;
-        else if (nrComponents == 3)
-            format = GL_RGB;
-        else if (nrComponents == 4)
-            format = GL_RGBA;
+        GLenum format = 0;
+        try{
+            if (nrComponents == 1)
+                format = GL_RED;
+            else if (nrComponents == 3)
+                format = GL_RGB;
+            else if (nrComponents == 4)
+                format = GL_RGBA;
+
+        }
+        catch (std::exception& e) {
+            std::cout << "Error:" <<e.what() << std::endl;
+        }
 
         glBindTexture(GL_TEXTURE_2D, textureID);
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -113,14 +119,19 @@ OpenGLVertexArrayBuffer::OpenGLVertexArrayBuffer(std::vector<Vertex> vertices, s
     indexBuffer = std::shared_ptr<OpenGLIndexBuffer>(new OpenGLIndexBuffer(indices));
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) (0));
     // vertex normals pointer setup
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, normal));
     // vertex coords pointer setup
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, textureCoords));
-
+    // bone pointer setup
+    glEnableVertexAttribArray(3);
+    glVertexAttribIPointer(3, 4, GL_INT, sizeof(Vertex), (void*) offsetof(Vertex, boneIDs));
+    //bone weight setup
+    glEnableVertexAttribArray(4);
+    glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, boneWeights));
     glBindVertexArray(0);
 }
 

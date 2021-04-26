@@ -21,7 +21,7 @@ auto ModelManager::GetModelID(std::string filename) -> size_t
     auto id = modelIDtoName.find(filename);
     //stops files being loaded more then once
     if(id == modelIDtoName.end()){
-        models[modelCount] = Model(modelLoader.loadModel(filename));
+        models[modelCount] = modelLoader.loadModel(filename);
         modelIDtoName.emplace(filename,modelCount);
         modelCount++;
         return modelCount-1;

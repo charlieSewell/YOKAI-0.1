@@ -23,6 +23,10 @@ struct Vertex
     glm::vec3 tangent = {};
     ///biTangent of vertex
     glm::vec3 biTangent = {};
+    ///bone IDs
+    glm::ivec4 boneIDs = {};
+    ///bone weights
+    glm::vec4 boneWeights = {};
 };
 /**
  * @class Texture

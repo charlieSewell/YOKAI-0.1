@@ -75,7 +75,7 @@ protected:
 	 * @param vec3& - position
 	 * @param vec3& - upDirection
 	 */
-    void registerJump(glm::vec3& position, glm::vec3& upDirection);
+    void registerJump(glm::vec3& position);
     /**
      * @brief Registers downward movement with EMS
      * @param vec3& - position

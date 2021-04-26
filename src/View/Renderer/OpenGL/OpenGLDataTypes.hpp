@@ -62,11 +62,11 @@ class OpenGLVertexBuffer : public VertexBuffer
     /**
      * @brief Binds the VertexBuffer
      */
-    virtual void Bind() override;
+    void Bind() override;
     /**
      * @brief Unbinds the VertexBuffer
      */
-    virtual void UnBind() override;
+    void UnBind() override;
 
   private:
     ///Vertex Buffer ID
@@ -91,11 +91,11 @@ class OpenGLIndexBuffer : public IndexBuffer
     /**
      * @brief Binds the IndexBuffer
      */
-    virtual void Bind() override;
+    void Bind() override;
     /**
      * @brief Unbinds the IndexBuffer
      */
-    virtual void UnBind() override;
+    void UnBind() override;
 
   private:
     ///Index Buffer ID
@@ -121,11 +121,11 @@ class OpenGLVertexArrayBuffer : public VertexArrayBuffer
     /**
      * @brief Binds the VertexArrayBuffer
      */
-    virtual void Bind() override;
+    void Bind() override;
     /**
      * @brief Unbinds the VertexArrayBuffer
      */
-    virtual void UnBind() override;
+    void UnBind() override;
 
   private:
     ///Vertex Array Buffer ID
