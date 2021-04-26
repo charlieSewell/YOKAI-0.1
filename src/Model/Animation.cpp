@@ -8,7 +8,8 @@
 Animation::Animation() {
 
 }
-Animation::Animation(std::string name, std::map<std::string,Frame> frames, float duration, float TPS) {
+Animation::Animation(std::string name, std::map<std::string,Frame> frames, float duration, float TPS) 
+{
     this->frames = std::move(frames);
     this->duration = duration;
     this->TPS = TPS;
@@ -17,8 +18,10 @@ Animation::Animation(std::string name, std::map<std::string,Frame> frames, float
 
 unsigned int Animation::FindPosition(double currTime,const Frame* frame)
 {
-    for (int i = 0 ; i < frame->numPositions; i++) {
-        if (currTime < frame->posKey[i + 1].first) {
+    for (int i = 0 ; i < frame->numPositions; i++) 
+    {
+        if (currTime < frame->posKey[i + 1].first) 
+        {
             return i;
         }
     }
@@ -26,8 +29,10 @@ unsigned int Animation::FindPosition(double currTime,const Frame* frame)
 }
 unsigned int Animation::FindRotation(double currTime,const Frame* frame)
 {
-    for (int i = 0 ; i < frame->numRotations; i++) {
-        if (currTime < frame->rotKey[i + 1].first) {
+    for (int i = 0 ; i < frame->numRotations; i++) 
+    {
+        if (currTime < frame->rotKey[i + 1].first) 
+        {
             return i;
         }
     }
@@ -35,7 +40,8 @@ unsigned int Animation::FindRotation(double currTime,const Frame* frame)
 }
 Frame* Animation::findFrame(std::string frameName)
 {
-    if (frames.count(frameName)) {
+    if (frames.count(frameName)) 
+    {
         return &frames.at(frameName);
     }
     return nullptr;

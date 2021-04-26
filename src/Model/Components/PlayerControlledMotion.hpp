@@ -102,7 +102,7 @@ protected:
     ///bool to check if player can jump
 	bool m_canJump;
     ///bool to say whether player is in jump
-	bool m_jump;
+	bool m_jump = false;
     ///player jump speed
 	float m_jumpSpeed;
 
