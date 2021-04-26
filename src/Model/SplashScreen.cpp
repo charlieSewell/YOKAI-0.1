@@ -28,7 +28,7 @@ void SplashScreen::draw()
     glEnable(GL_DEPTH_TEST);
 }
 void SplashScreen::setupShader(){
-    splashShader = new Shader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
+    splashShader = new Shader("content/Shaders/vertexShader.vert","content/Shaders/splashFragment.frag");
     splashShader->useShader();
     splashShader->setMat4("model",glm::mat4(1.0));
     splashShader->setMat4("view",glm::mat4(1.0));

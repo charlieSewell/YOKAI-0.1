@@ -5,7 +5,7 @@ in vec2 TexCoord;
 in float HeightPoint;
 in vec3 Normal;
 in vec3 FragPos;
-
+in float visibility;
 uniform vec3 lightPos;
 uniform vec3 viewPos;
 uniform vec3 lightColor;
@@ -20,7 +20,7 @@ uniform sampler2D detailMap;
 uniform float sandHeight;
 uniform float grassHeight;
 uniform float snowHeight;
-
+vec4 skycolor = vec4(0.82,0.82,0.82,1.0);
 void main(){
     vec4 sand = texture(sandTexture, TexCoord);
     vec4 grass = texture(grassTexture, TexCoord);
@@ -71,4 +71,6 @@ void main(){
     vec3 result = (ambient + diffuse + specular);
 
     FragColor = texResult * vec4(result,1.0);
+
+    FragColor = mix(skycolor,FragColor,visibility);
 }

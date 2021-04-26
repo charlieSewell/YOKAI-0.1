@@ -7,13 +7,21 @@ out vec2 TexCoord;
 out float HeightPoint;
 out vec3 Normal;
 out vec3 FragPos;
-
+out float visibility;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
+const float density = 0.002;
+const float gradient = 1.5;
+
 void main()
 {
+    vec4 worldPosition = model * vec4(aPos,1.0);
+    vec4 positionRelToCamera = view * worldPosition;
+    float distance = length(positionRelToCamera.xyz);
+    visibility = exp(-pow((distance*density),gradient));
+
     TexCoord = vec2(aTexCoords.x, aTexCoords.y);
     HeightPoint = aPos[1];
     Normal = mat3(transpose(inverse(model))) * aNormal;
