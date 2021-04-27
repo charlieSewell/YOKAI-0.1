@@ -9,7 +9,6 @@ void DemoScene::Init()
     terrainManager.Init();
     controlsScreen = new SplashScreen("content/Textures/help_menu.png");
     registerMenuButtons();
-    
 }
 
 void DemoScene::Update(double frameRate)

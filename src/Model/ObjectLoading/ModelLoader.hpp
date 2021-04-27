@@ -21,7 +21,7 @@ class ModelLoader
      * @param string - filename
      * @return vector<Mesh>
      */
-    Model loadModel(std::string filename);
+    Model loadModel(const std::string& filename);
 
   private:
     ///string that stores the directory
@@ -52,13 +52,23 @@ class ModelLoader
      * @param string - typeName
      * @return vector<ModelTexture>
      */
-    std::vector<ModelTexture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
-    void loadAnimNodes(Node& node, aiNode *root);
+    std::vector<ModelTexture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, const std::string& typeName);
+    ///Finds the root node of the skeleton
+    aiNode* findRootNode(aiNode* node, aiMesh* mesh);
+    ///Loads in the Node Heirachy
+    void loadAnimNodes(aiNode* node,aiMesh* mesh);
+    ///Creates a node heirachy given a aiNode
+    Node loadNodeHeirachy(aiNode *root);
+    ///Adds the Bone Data
     void addBoneData(unsigned int BoneID, float Weight);
+    ///Loads a models animations
     void loadAnimations(std::vector<Animation> &animations, const aiScene *scene);
+    ///Loads the bones of a mesh
     void loadBones(std::vector<Mesh> &meshes, std::vector<Bone> &bones,std::map<std::string,unsigned int> &boneMap, unsigned int meshIndex, const aiMesh *mesh);
     ///List of textures currently loaded for a model
     std::vector<ModelTexture> textures_loaded;
     /// Number of bones in current model
     int numBones = 0;
+    ///Root animation node
+    Node rootAnimNode;
 };

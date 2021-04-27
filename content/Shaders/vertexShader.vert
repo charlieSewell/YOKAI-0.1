@@ -18,7 +18,7 @@ uniform mat4 view;
 uniform mat4 projection;
 uniform bool isAnimated;
 
-const float density = 0.001;
+const float density = 0.003;
 const float gradient = 1.5;
 void main()
 {

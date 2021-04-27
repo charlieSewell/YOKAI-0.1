@@ -8,8 +8,8 @@
 #include <vector>
 #include <map>
 struct Frame {
-    int numPositions = 0;
-    int numRotations = 0;
+    unsigned int numPositions = 0;
+    unsigned int numRotations = 0;
     std::vector<std::pair<double, glm::vec3>> posKey = {};
     std::vector<std::pair<double, glm::quat>> rotKey = {};
 };

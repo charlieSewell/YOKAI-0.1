@@ -20,7 +20,7 @@ uniform sampler2D detailMap;
 uniform float sandHeight;
 uniform float grassHeight;
 uniform float snowHeight;
-vec4 skycolor = vec4(0.82,0.82,0.82,1.0);
+uniform vec3 skyColor;
 void main(){
     vec4 sand = texture(sandTexture, TexCoord);
     vec4 grass = texture(grassTexture, TexCoord);
@@ -63,14 +63,14 @@ void main(){
     vec3 specular = specularStrength * spec * lightColor;
 
     //final results
-    //ambient  *= attenuation;
-    //diffuse  *= attenuation;
-    //specular *= attenuation;
+    ambient  *= attenuation;
+    diffuse  *= attenuation;
+    specular *= attenuation;
     
     vec4 texResult = FragColor*detail;
     vec3 result = (ambient + diffuse + specular);
 
     FragColor = texResult * vec4(result,1.0);
 
-    FragColor = mix(skycolor,FragColor,visibility);
+    FragColor = mix(vec4(skyColor,1.0),FragColor,visibility);
 }

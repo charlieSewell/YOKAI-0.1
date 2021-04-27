@@ -13,10 +13,11 @@ void TerrainManager::Init()
     CreateTerrain();
     terrainShader = new Shader("content/Shaders/terrainVertex.vert","content/Shaders/terrainFragment.frag");
     terrainShader->useShader();
+    terrainShader->setVec3("skyColor",glm::vec3(0.05,0.05,0.05));
     terrainShader->setVec3("lightColor",glm::vec3(1.0,1.0,1.0));
     terrainShader->setVec3("lightPos",glm::vec3(maxKey*chunkSize/2,200,maxKey*chunkSize/2));
-    terrainShader->setFloat("lightLinear",0.007);
-    terrainShader->setFloat("lightQuadratic",0.0002);
+    terrainShader->setFloat("lightLinear",0.002);
+    terrainShader->setFloat("lightQuadratic",0.000004);
     terrainShader->setMat4("model",glm::mat4(1.0));
     std::cout << "Initialised Terrain Factory" << std::endl;
 }

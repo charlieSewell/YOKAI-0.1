@@ -4,7 +4,7 @@ out vec4 FragColor;
 in vec2 TexCoords;
 in float visibility;
 uniform sampler2D texture_diffuse1;
-vec3 skyColor = vec3(0.82, 0.82, 0.82);
+uniform vec3 skyColor;
 void main()
 {
     vec4 texColor = texture(texture_diffuse1, TexCoords);
