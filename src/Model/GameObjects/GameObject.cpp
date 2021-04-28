@@ -1,7 +1,6 @@
 //GameObject.cpp
 
 #include "GameObject.hpp"
-#include <LuaBridge/LuaBridge.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 glm::vec3 GameObject::getPosition() const

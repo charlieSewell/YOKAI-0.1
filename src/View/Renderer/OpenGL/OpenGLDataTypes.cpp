@@ -2,9 +2,11 @@
 // Created by Charlie Sewell on 9/03/2021.
 //
 #include "OpenGLDataTypes.hpp"
+
+#include <memory>
 #include "View/Renderer/OpenGL/FileIO.hpp"
 
-OpenGLTexture::OpenGLTexture(std::string path) 
+OpenGLTexture::OpenGLTexture(const std::string& path)
 {
     std::string filename = std::string(path);
     glGenTextures(1, &textureID);
@@ -111,12 +113,12 @@ void OpenGLIndexBuffer::UnBind()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 }
 
-OpenGLVertexArrayBuffer::OpenGLVertexArrayBuffer(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
+OpenGLVertexArrayBuffer::OpenGLVertexArrayBuffer(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)
 {
     glGenVertexArrays(1,&bufferID);
     glBindVertexArray(bufferID);
-    vertexBuffer = std::shared_ptr<OpenGLVertexBuffer>(new OpenGLVertexBuffer(vertices));
-    indexBuffer = std::shared_ptr<OpenGLIndexBuffer>(new OpenGLIndexBuffer(indices));
+    vertexBuffer = std::make_shared<OpenGLVertexBuffer>(vertices);
+    indexBuffer = std::make_shared<OpenGLIndexBuffer>(indices);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) (0));

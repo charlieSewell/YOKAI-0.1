@@ -5,9 +5,6 @@
 #include "Yokai.hpp"
 #include "DemoScene.hpp"
 #include "Animator.hpp"
-#include <glm/gtx/transform.hpp>
-#include <glm/gtx/string_cast.hpp>
-
 Yokai &Yokai::getInstance() 
 {
     static Yokai instance;

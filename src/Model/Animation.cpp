@@ -38,7 +38,7 @@ unsigned int Animation::FindRotation(double currTime,const Frame* frame)
     }
     return(0);
 }
-Frame* Animation::findFrame(std::string frameName)
+Frame* Animation::findFrame(const std::string& frameName)
 {
     if (frames.count(frameName)) 
     {

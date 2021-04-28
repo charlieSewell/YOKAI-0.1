@@ -4,7 +4,6 @@
 #pragma once
 #include "OpenGLRenderer.hpp"
 
-#include <glm/gtc/matrix_transform.hpp>
 #include "GLFW/glfw3.h"
 #include "Controller/EventManager.hpp"
 

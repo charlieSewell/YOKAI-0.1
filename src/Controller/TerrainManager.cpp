@@ -3,8 +3,6 @@
 //
 
 #include "TerrainManager.hpp"
-
-#include "EventManager.hpp"
 void TerrainManager::Init() 
 {
     TerrainFactory::getInstance().Init();
