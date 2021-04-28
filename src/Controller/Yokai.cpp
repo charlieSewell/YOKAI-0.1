@@ -43,7 +43,7 @@ void Yokai::Run()
     Shader testShader = Shader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
 
     Animator animator(std::make_shared<Model>(test));
-    animator.setAnimation("Shoot");
+    animator.setAnimation("Run");
     while(isRunning)
 	{
 		double currentTime = glfwGetTime();
