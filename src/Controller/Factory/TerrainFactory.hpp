@@ -7,7 +7,7 @@
 #include "Model/Chunk.hpp"
 #include "Controller/LuaManager.hpp"
 #include "Controller/Physics/PhysicsManager.hpp"
-
+#include "Controller/TextureManager.hpp"
 /**
  * @class TerrainFactory
  * @brief Responsible for the creation of terrain
@@ -47,6 +47,26 @@ class TerrainFactory
      * @return float height
      */
     float heightAt(float x,float z);
+    /**
+     * @brief returns the height of the sand texture
+     * @return int - sandHeight
+     */
+    int getSandHeight(){return sandHeight;}
+    /**
+     * @brief returns the height of the grass texture
+     * @return int - grassHeight
+     */
+    int getGrassHeight(){return grassHeight;}
+    /**
+     * @brief returns the height of the snow texture
+     * @return int - snowHeight
+     */
+    int getSnowHeight(){return snowHeight;}
+    /**
+     * @brief returns the vector of texture IDs
+     * @return vector<unsigned int> - textureIDs
+     */
+    std::vector<unsigned int> getTextures(){return terrainTextures;}
   private:
     /*!
      * @brief Constructor
@@ -118,7 +138,7 @@ class TerrainFactory
     std::vector<std::vector<float>> heightVals = {};
 
     /// Vector of Texture smart pointers for terrain textures
-    std::vector<std::shared_ptr<Texture>> terrainTextures;
+    std::vector<unsigned int> terrainTextures;
 
     /// String for the path to specified texture
     std::string sandTexture;

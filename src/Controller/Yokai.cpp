@@ -20,9 +20,9 @@ void Yokai::Init()
     renderer.Init();
     //Add layers to layer stack
     layers.push_back(std::shared_ptr<Layer>(new DemoScene()));
+    TerrainFactory::getInstance().Init();
     for(auto& layer: layers)
         layer->Init();
-
     GameObjectManager::init();
     endScreen = new SplashScreen("content/Textures/exit_screen.png");
 

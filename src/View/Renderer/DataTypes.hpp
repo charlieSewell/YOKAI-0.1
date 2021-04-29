@@ -67,7 +67,7 @@ class Texture
 struct ModelTexture 
 {
     ///Texture for model
-    std::shared_ptr<Texture> texture;
+    unsigned int texture;
     ///Type of texture
     std::string type = {};
     ///Path of texture

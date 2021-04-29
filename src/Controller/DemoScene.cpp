@@ -6,6 +6,11 @@
 
 void DemoScene::Init() 
 {
+    auto& terrainFactory = TerrainFactory::getInstance();
+    terrainManager.setTerrainTexture(terrainFactory.getTextures());
+    terrainManager.setGrassHeight(terrainFactory.getGrassHeight());
+    terrainManager.setSandHeight(terrainFactory.getSandHeight());
+    terrainManager.setSnowHeight(terrainFactory.getSnowHeight());
     terrainManager.Init();
     controlsScreen = new SplashScreen("content/Textures/help_menu.png");
     registerMenuButtons();

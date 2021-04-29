@@ -177,7 +177,7 @@ std::vector<ModelTexture> ModelLoader::loadMaterialTextures(aiMaterial *mat, aiT
         {   // if texture hasn't been loaded already, load it
             ModelTexture texture;
             std::string fileName = this->directory +"/" + str.C_Str();
-            texture.texture = Texture::Create(fileName);
+            texture.texture = TextureManager::getInstance().loadTexture(fileName);
             texture.type = typeName;
             texture.path = str.C_Str();
             textures.push_back(texture);
@@ -213,7 +213,6 @@ void ModelLoader::loadAnimations(std::vector<Animation> &animations, const aiSce
         }
 
         Animation anim = Animation(scene->mAnimations[i]->mName.C_Str(),animationMap, static_cast<float>(scene->mAnimations[i]->mDuration),static_cast<float>(scene->mAnimations[i]->mTicksPerSecond));
-        std::cout << anim.getName() <<std::endl;
         animations.push_back(anim);
     }
 

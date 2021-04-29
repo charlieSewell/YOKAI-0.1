@@ -40,16 +40,17 @@ void TerrainFactory::Init()
         terrainSize += 1;
         GeneratePerlinMap(terrainSize,terrainSize);
     }
-    terrainTextures.push_back(Texture::Create(grassTexture));
-    terrainTextures.push_back(Texture::Create(sandTexture));
-    terrainTextures.push_back(Texture::Create(snowTexture));
-    terrainTextures.push_back(Texture::Create(detailTexture));
-
+    auto& textureManager = TextureManager::getInstance();
+    terrainTextures.push_back(textureManager.loadTexture(grassTexture));
+    terrainTextures.push_back(textureManager.loadTexture(sandTexture));
+    terrainTextures.push_back(textureManager.loadTexture(snowTexture));
+    terrainTextures.push_back(textureManager.loadTexture(detailTexture));
+    std::cout << "Terrain Factory Initialised" <<std::endl;
 }
 
 Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int size)
 {
-    Chunk chunk(terrainTextures.at(0),terrainTextures.at(1),terrainTextures.at(2),terrainTextures.at(3),sandHeight,grassHeight,snowHeight);
+    Chunk chunk;
     size+=1;
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
