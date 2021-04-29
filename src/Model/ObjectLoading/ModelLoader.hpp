@@ -64,7 +64,9 @@ class ModelLoader
     ///Loads a models animations
     void loadAnimations(std::vector<Animation> &animations, const aiScene *scene);
     ///Loads the bones of a mesh
-    void loadBones(std::vector<Mesh> &meshes, std::vector<Bone> &bones,std::map<std::string,unsigned int> &boneMap, unsigned int meshIndex, const aiMesh *mesh);
+    void loadBones(std::vector<Mesh> &meshes, std::vector<Bone> &bones,
+                   std::map<std::string,unsigned int> &boneMap,
+                   unsigned int meshIndex, const aiMesh *mesh);
     ///List of textures currently loaded for a model
     std::vector<ModelTexture> textures_loaded;
     /// Number of bones in current model
