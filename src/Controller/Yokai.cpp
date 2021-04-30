@@ -5,8 +5,6 @@
 #include "Yokai.hpp"
 #include "DemoScene.hpp"
 #include "Animator.hpp"
-#include <glm/gtx/transform.hpp>
-#include <glm/gtx/string_cast.hpp>
 Yokai &Yokai::getInstance() 
 {
     static Yokai instance;
@@ -28,14 +26,21 @@ void Yokai::Init()
     GameObjectManager::init();
     endScreen = new SplashScreen("content/Textures/exit_screen.png");
 
+
 }
 void Yokai::Run()
 {
-	const double frameRate = 1.0f / 120;	// 120 fps
+	const double frameRate = 1.0f / 300;	// 120 fps
 
 	double lastFrame = 0;
     double lastTime = 0;
 
+    ModelLoader modelLoader;
+    Model test = modelLoader.loadModel("content/Models/Mike.gltf");
+    Shader testShader = Shader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
+
+    Animator animator(std::make_shared<Model>(test));
+    animator.setAnimation("Run");
     while(isRunning)
 	{
 		double currentTime = glfwGetTime();
@@ -45,6 +50,8 @@ void Yokai::Run()
 
 		if((currentTime - lastFrame) >= frameRate)
 		{
+            glm::mat4 model(1.0);
+            model = glm::translate(model,glm::vec3(500,20,500));
 			renderer.Clear();
 			InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
 			InputManagerGLFW::getInstance().processMouse(window.getWindow());
@@ -59,7 +66,13 @@ void Yokai::Run()
                 layer->Draw();
             }
 
+            animator.BoneTransform(frameRate);
 
+            testShader.useShader();
+            testShader.setBool("isAnimated",true);
+            testShader.setVecMat4("boneTrans",animator.finalTransforms);
+
+            test.Draw(testShader,model);
             if(endScreen->isActive()){
                 endScreen->draw();
             }

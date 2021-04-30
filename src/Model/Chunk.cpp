@@ -7,6 +7,7 @@
 #include "Controller/Yokai.hpp"
 Chunk::Chunk(std::shared_ptr<Texture> &grass, std::shared_ptr<Texture> &sand, std::shared_ptr<Texture> &snow, std::shared_ptr<Texture> &detail,int sandHeight,int grassHeight,int snowHeight)
 {
+    indicesSize = 0;
     textures.push_back(grass);
     textures.push_back(sand);
     textures.push_back(snow);

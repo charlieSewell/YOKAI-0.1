@@ -23,7 +23,7 @@ class OpenGLTexture : public Texture
      * @brief Constructor for OpenGLTexture
      * @param string - fileName
      */
-    OpenGLTexture(std::string fileName);
+    OpenGLTexture(const std::string& fileName);
     /**
      * @brief Binds the texture
      * @param size_t - slot
@@ -117,7 +117,7 @@ class OpenGLVertexArrayBuffer : public VertexArrayBuffer
      * @param vector<Vertex> - vertices
      * @param vector<unisigned int> - indices
      */
-    OpenGLVertexArrayBuffer(std::vector<Vertex> vertices,std::vector<unsigned int> indices);
+    OpenGLVertexArrayBuffer(const std::vector<Vertex>& vertices,const std::vector<unsigned int>& indices);
     /**
      * @brief Binds the VertexArrayBuffer
      */

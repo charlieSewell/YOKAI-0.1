@@ -2,7 +2,6 @@
 
 #include "PhysicsComponent.hpp"
 
-#include <iostream>
 void PhysicsComponent::updatePhysics(float &movementSpeed, float jumpSpeed)
 {
 	updateGravity(jumpSpeed);

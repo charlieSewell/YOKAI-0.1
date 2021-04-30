@@ -15,8 +15,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
 }
-bool Window::Init(){
-
+bool Window::Init()
+{
+    glfwSetErrorCallback(error_callback);
     if (!glfwInit())
     {
         return false;
@@ -25,14 +26,16 @@ bool Window::Init(){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 
     window = glfwCreateWindow(1920, 1080, "ICT397 Game Engine", glfwGetPrimaryMonitor(), NULL);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSetErrorCallback(error_callback);
 
     if (!window)
     {
         return false;
     }
+
     glfwMakeContextCurrent(window);
+    
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     return true;
 }

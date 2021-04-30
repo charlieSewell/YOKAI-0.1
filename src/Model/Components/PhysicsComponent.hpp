@@ -46,7 +46,7 @@ protected:
     ///Objects Mass
 	float m_mass;
     ///is on ground
-	bool m_onGround;
+	bool m_onGround = false;
     ///is collision detected
 	bool m_collisionDetected;
     ///is collision resolved
@@ -66,5 +66,5 @@ private:
      */
 	void resolveCollisions(float &movementSpeed);
     ///is physics toggle pressed
-	bool m_physicsTogglePressed;
+	bool m_physicsTogglePressed = false;
 };

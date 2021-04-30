@@ -11,13 +11,23 @@ const int MAX_BONE_INFLUENCE = 4;
 uniform mat4 boneTrans[MAX_BONES];
 
 out vec2 TexCoords;
+out float visibility;
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 uniform bool isAnimated;
+
+const float density = 0.003;
+const float gradient = 1.5;
 void main()
 {
+
+    vec4 worldPosition = model * vec4(aPos,1.0);
+    vec4 positionRelToCamera = view * worldPosition;
+    float distance = length(positionRelToCamera.xyz);
+
+    visibility = exp(-pow((distance*density),gradient));
 
     mat4 BoneTransform = boneTrans[boneIDs[0]] * weights[0];
     BoneTransform += boneTrans[boneIDs[1]] * weights[1];

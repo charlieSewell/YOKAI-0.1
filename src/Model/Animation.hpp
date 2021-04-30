@@ -8,8 +8,8 @@
 #include <vector>
 #include <map>
 struct Frame {
-    int numPositions = 0;
-    int numRotations = 0;
+    unsigned int numPositions = 0;
+    unsigned int numRotations = 0;
     std::vector<std::pair<double, glm::vec3>> posKey = {};
     std::vector<std::pair<double, glm::quat>> rotKey = {};
 };
@@ -19,7 +19,7 @@ class Animation {
         Animation(std::string name, std::map<std::string,Frame> animations, float duration, float TPS);
         unsigned int FindRotation(double currTime, const Frame* frame);
         unsigned int FindPosition(double currTime, const Frame* frame);
-        Frame* findFrame(std::string frameName);
+        Frame* findFrame(const std::string& frameName);
         double getTPS(){return TPS;}
         double getDuration(){return duration;}
         std::string getName(){return name;}

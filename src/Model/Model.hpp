@@ -21,7 +21,7 @@ struct Node
     ///Children Nodes
     std::vector<Node> children = {};
     ///Count of children
-    unsigned int childrenCount;
+    unsigned int childrenCount = 0;
 };
 /**
  * @struct Bone
@@ -44,7 +44,7 @@ class Model
     /**
      * @brief Default constructor for a model
      */
-    Model(){};
+    Model() = default;
     /**
      * @brief Constructor for a model that takes in a list of meshes
      * @param vector<Mesh> - meshes
