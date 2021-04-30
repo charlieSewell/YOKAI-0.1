@@ -41,6 +41,9 @@ class TerrainFactory
      */
     int getTerrainSize(){return terrainSize;}
 
+	/// 2D vector of floats for terrain height values
+	std::vector<std::vector<float>> heightVals = {};
+
   private:
     /*!
      * @brief Constructor
@@ -115,9 +118,6 @@ class TerrainFactory
      * @return float height
      */
     float heightAt(int x,int z);
-
-    /// 2D vector of floats for terrain height values
-    std::vector<std::vector<float>> heightVals = {};
 
     /// Vector of Texture smart pointers for terrain textures
     std::vector<std::shared_ptr<Texture>> terrainTextures;

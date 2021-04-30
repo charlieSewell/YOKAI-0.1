@@ -1,4 +1,8 @@
 #include "Controller/Layer.hpp"
+//included for lab 7
+#include "ModelManager.hpp"
+#include "Factory/TerrainFactory.hpp"
+
 /**
  * @class DemoScene
  * @brief A demo Scene for Assignment 1
@@ -39,5 +43,12 @@ class DemoScene : public Layer
     void registerMenuButtons();
 
 	// Lab 7 Connor
-	int test;
+	void zombieInit();
+	void zombieUpdate();
+	float zombieAngle;
+	glm::vec3 zombieHeading;
+	float zombieRotationSpeed;
+	float zombieMovementSpeed;
+	glm::mat4 zombieTransform;
+	bool isWalking;
 };

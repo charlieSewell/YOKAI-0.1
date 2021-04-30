@@ -23,7 +23,11 @@ enum class InputEvent
 	toggleWireFrameReleased,
     toggleMenuPressed,
     toggleMenuReleased,
-    mouseClicked
+    mouseClicked,
+	zombieRotateLeft,
+	zombieRotateRight,
+	zombieMoveForward,
+	zombieStopped
 };
 
 enum class RenderEvent

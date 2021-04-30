@@ -8,6 +8,13 @@
 #include <assimp/scene.h>
 #include <glm/gtc/type_ptr.hpp>
 #include "Model/Mesh.hpp"
+#include <fstream>
+#include <sstream>
+#include <string>
+
+//for lab 7
+#include "Model/Model.hpp"
+
 /** @class ModelLoader
  *  @brief Class that loads models
  */
@@ -20,6 +27,9 @@ class ModelLoader
      * @return vector<Mesh>
      */
     std::vector<Mesh> loadModel(std::string filename);
+
+	//For lab 7 - Connor
+	std::vector<Model> loadAnimatedModel(std::string filename);
 
   private:
     ///string that stores the directory
@@ -50,4 +60,11 @@ class ModelLoader
     std::vector<ModelTexture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
     ///List of textures currently loaded for a model
     std::vector<ModelTexture> textures_loaded;
+
+	// added for lab 7 - Connor
+	std::vector<std::map<std::string, aiMatrix4x4>> keyFrames;
+	//std::vector<std::map<std::string, glm::vec3>> scalingKeys;
+	//std::vector<std::map<std::string, glm::quat>> rotationKeys;
+	//std::vector<std::map<std::string, glm::vec3>> positionKeys;
+	std::map<int, aiString> boneNames;
 };

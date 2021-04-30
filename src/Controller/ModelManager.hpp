@@ -46,6 +46,10 @@ class ModelManager
      */
     void DrawModel(size_t id, glm::mat4 transform);
 
+	//for lab 7 - connor
+	void loadAnimation(std::string filename);
+	void DrawAnimatedModel(glm::mat4 transform, bool isWalking);
+
   private:
     /// Model loader
     ModelLoader modelLoader;
@@ -58,7 +62,11 @@ class ModelManager
 
     /// Vector of models
     std::vector<Model> models;
+	int frameCount = 30;	// frame that looks idle
+	std::vector<Model> animatedModel;
 
     /// Shader pointer
     Shader *modelShader;
+
+	bool update = false;
 };

@@ -11,6 +11,18 @@ static auto to_glm(aiMatrix4x4t<float> m) -> glm::mat4
                      m.a3, m.b3, m.c3, m.d3,
                      m.a4, m.b4, m.c4, m.d4};
 }
+
+static auto to_glm(aiVector3D m) -> glm::vec3
+{
+	return glm::vec3{m.x, m.y, m.z};
+}
+
+static auto to_glm(aiQuaternion m) -> glm::quat
+{
+	return glm::quat{m.w, m.x, m.y, m.z};
+}
+
+
 std::vector<Mesh> ModelLoader::loadModel(std::string filename)
 {
     std::vector<Mesh> meshes;
@@ -32,20 +44,55 @@ std::vector<Mesh> ModelLoader::loadModel(std::string filename)
     return(meshes);
 }
 
+std::vector<Model> ModelLoader::loadAnimatedModel(std::string filename)
+{
+	std::vector<Model> model;
+	std::ifstream infile(filename);
+	std::string keyframe;
+
+	while(std::getline(infile, keyframe))
+	{
+		// retrieve the directory path of the filepath
+		directory = filename.substr(0, filename.find_last_of('/'));
+		keyframe = directory + "/" + keyframe;
+
+		std::vector<Mesh> meshes;
+
+		Assimp::Importer importer;
+		const aiScene* scene = importer.ReadFile(keyframe, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+		{
+			std::cout << "Error:" << importer.GetErrorString() << std::endl;
+			return model;
+		}
+
+		int frame = 0;
+		// process ASSIMP's root node recursively
+		processNode(meshes, scene->mRootNode, scene, to_glm(scene->mRootNode->mTransformation));
+		for (auto& mesh : meshes) {
+			mesh.SetupMesh();
+		}
+		model.push_back(Model(meshes));
+	}
+
+	return(model);
+}
+
 void ModelLoader::processNode(std::vector<Mesh> &meshes,aiNode *node, const aiScene *scene,glm::mat4 transform)
 {
-    // process each mesh located at the current node
-    for(unsigned int i = 0; i < node->mNumMeshes; i++)
+	// process each mesh located at the current node
+     for(unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         // the node object only contains indices to index the actual objects in the scene.
         // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(processMesh(mesh, scene, transform *to_glm(node->mTransformation)));
+		meshes.push_back(processMesh(mesh, scene, transform * to_glm(node->mTransformation)));
     }
+
     // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
     for(unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        processNode(meshes,node->mChildren[i], scene, transform * to_glm(node->mTransformation));
+		processNode(meshes,node->mChildren[i], scene, transform * to_glm(node->mTransformation));
     }
 }
 
@@ -140,7 +187,7 @@ Mesh ModelLoader::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 trans
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
     // return a mesh object created from the extracted mesh data
-    return Mesh(vertices, indices, textures,transform);
+    return Mesh(vertices, indices, textures, transform);
 }
 
 // checks all material textures of a given type and loads the textures if they're not loaded yet.
