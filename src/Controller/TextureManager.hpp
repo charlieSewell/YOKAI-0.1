@@ -11,6 +11,6 @@ public:
     void replaceTexture(size_t slot,const std::string& newTexturePath);
 private:
     TextureManager();
-    std::map<unsigned int,std::shared_ptr<Texture>> textures;
+    std::map<unsigned int,std::pair<std::string,std::shared_ptr<Texture>>> textures;
     unsigned int textureCount;
 };
