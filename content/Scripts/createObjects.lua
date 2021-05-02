@@ -33,9 +33,9 @@ for i=0,180 do
         x = math.random(0,TerrainSettings.terrainSize);
         z = math.random(0,TerrainSettings.terrainSize);
         val = terrFac:getHeight(x,z)
-        asset = ObjectManager.Create(Types.static(),"content/Models/zombie.fbx");
+        asset = ObjectManager.Create(Types.static(),"content/Models/Zombie/ZombieSmooth.gltf");
         gameObj = ObjectManager.GetObject(asset);
-        gameObj:setScale(0.003,0.003,0.003);
+        gameObj:setScale(0.5,0.5,0.5);
         gameObj:setCollider(4,1,25);
         gameObj:setPosition(x,val,z);
 end
