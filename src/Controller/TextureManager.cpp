@@ -10,19 +10,26 @@ TextureManager& TextureManager::getInstance()
 }
 std::shared_ptr<Texture> TextureManager::getTexture(unsigned int textureID)
 {
-    return textures.at(textureID);
+    return textures.at(textureID).second;
 }
 void TextureManager::unBindTexture(unsigned int textureID)
 {
-    textures.at(textureID)->UnBind();
+    textures.at(textureID).second->UnBind();
 }
 unsigned int TextureManager::loadTexture(const std::string &textureName)
 {
-    textures.emplace(textureCount,Texture::Create(textureName));
+    for(auto& texture : textures)
+    {
+        if(texture.second.first == textureName)
+        {
+            return texture.first;
+        }
+    }
+    textures.emplace(textureCount,std::pair(textureName,Texture::Create(textureName)));
     textureCount++;
     return(textureCount -1);
 }
 void TextureManager::replaceTexture(size_t slot, const std::string &newTexturePath)
 {
-    textures.at(slot) = Texture::Create(newTexturePath);
+    textures.at(slot) = std::pair(newTexturePath,Texture::Create(newTexturePath));
 }

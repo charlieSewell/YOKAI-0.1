@@ -36,7 +36,7 @@ void Yokai::Run()
     double lastTime = 0;
 
     ModelLoader modelLoader;
-    Model test = modelLoader.loadModel("content/Models/Mike.gltf");
+    Model test = modelLoader.loadModel("content/Models/test/AnimatedHuman.gltf");
     Shader testShader = Shader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
 
     Animator animator(std::make_shared<Model>(test));
