@@ -132,7 +132,7 @@ class TerrainFactory
      * @brief Loads terrain data from external height map
      * @param string - filename
      */
-    void LoadHeightMap(std::string filename);
+    void LoadHeightMap(const std::string& filename);
 
     /// 2D vector of floats for terrain height values
     std::vector<std::vector<float>> heightVals = {};

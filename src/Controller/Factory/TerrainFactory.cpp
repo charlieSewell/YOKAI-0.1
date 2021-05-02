@@ -58,11 +58,11 @@ Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int siz
     GenerateTerrainIndices(indices,size,size);
     //TODO: Come Up with better solution as currently just stretching over terrain
     GenerateTexCoords(vertices);
-    int x = xStart;
-    int z = zStart;
+    unsigned int x = xStart;
+    unsigned int z = zStart;
     for(auto& vert: vertices)
     {
-        if(vert.position.x != x)
+        if(vert.position.x != static_cast<float>(x))
         {
             x ++;
             z=zStart;
@@ -71,8 +71,6 @@ Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int siz
         z++;
     }
     GenerateNormals(vertices,indices);
-    //TODO: Discuss better location for this
-    PhysicsManager::getInstance().setTerrainCollider(heightVals);
     chunk.SetupChunk(vertices,indices);
     return chunk;
 }
@@ -142,7 +140,7 @@ void TerrainFactory::GenerateNormals(std::vector<Vertex> &terrain, std::vector<u
     }
 }
 
-void TerrainFactory::LoadHeightMap(std::string filename)
+void TerrainFactory::LoadHeightMap(const std::string& filename)
 {
     //File Must be square to produce the map e.g. 512x512
     int width,height,nrComponents;
@@ -216,17 +214,17 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
     {
         for( int col = 0 ; col < xSize; col++ ) 
         {
-            float x = xFactor * col;
-            float y = yFactor * row;
+            float x = xFactor * static_cast<float>(col);
+            float y = yFactor * static_cast<float>(row);
             float sum = 0.0f;
             float freq = a;
             float scale = b;
             float result =0.0f;
             // Compute the sum for each octave
-            for( int oct = 1; oct <= 4; oct++ ) 
+            for(unsigned int oct = 1; oct <= 4; oct++ )
             {
                 glm::vec2 p(x * freq, y * freq);
-                float val = glm::simplex(p) * 1/oct;
+                float val = glm::simplex(p) * 1/static_cast<float>(oct);
                 sum += val;     // Sum of octaves
                 freq *= 2.0f;   // Double the frequency
                 scale *= b;     // Next power of b
