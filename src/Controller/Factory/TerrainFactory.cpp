@@ -1,6 +1,3 @@
-//
-// Created by Charlie Sewell on 4/03/2021.
-//
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "TerrainFactory.hpp"

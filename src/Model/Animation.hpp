@@ -1,6 +1,3 @@
-//
-// Created by charl on 22/04/2021.
-//
 #pragma once
 #include <glm/gtc/quaternion.hpp>
 #include <glm/glm.hpp>
@@ -10,8 +7,8 @@
 struct Frame {
     unsigned int numPositions = 0;
     unsigned int numRotations = 0;
-    std::vector<std::pair<double, glm::vec3>> posKey = {};
-    std::vector<std::pair<double, glm::quat>> rotKey = {};
+    std::vector<std::pair<double, glm::vec3>> position = {};
+    std::vector<std::pair<double, glm::quat>> rotation = {};
 };
 class Animation {
     public:

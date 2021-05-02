@@ -15,14 +15,17 @@ void Yokai::Init()
 {
     registerClose();
     if(!window.Init())
+    {
         return;
-
+    }
     renderer.Init();
     //Add layers to layer stack
     layers.push_back(std::shared_ptr<Layer>(new DemoScene()));
     TerrainFactory::getInstance().Init();
     for(auto& layer: layers)
+    {
         layer->Init();
+    }
     GameObjectManager::init();
     endScreen = new SplashScreen("content/Textures/exit_screen.png");
 
@@ -36,7 +39,7 @@ void Yokai::Run()
     double lastTime = 0;
 
     ModelLoader modelLoader;
-    Model test = modelLoader.loadModel("content/Models/test/AnimatedHuman.gltf");
+    Model test = modelLoader.loadModel("content/Models/Mike.gltf");
     Shader testShader = Shader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
 
     Animator animator(std::make_shared<Model>(test));
@@ -73,7 +76,8 @@ void Yokai::Run()
             testShader.setVecMat4("boneTrans",animator.finalTransforms);
 
             test.Draw(testShader,model);
-            if(endScreen->isActive()){
+            if(endScreen->isActive())
+            {
                 endScreen->draw();
             }
 

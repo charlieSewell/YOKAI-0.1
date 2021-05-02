@@ -1,10 +1,8 @@
-//
-// Created by charl on 22/04/2021.
-//
 #include <glm/gtx/string_cast.hpp>
 #include <utility>
 #include "Animator.hpp"
-Animator::Animator(std::shared_ptr<Model> model) {
+Animator::Animator(std::shared_ptr<Model> model)
+{
     this->modelToAnimate = std::move(model);
 }
 void Animator::BoneTransform(float TimeInSeconds)
@@ -65,8 +63,9 @@ glm::quat Animator::CalcInterpolatedRotation(double AnimationTime, const Frame* 
 {
     glm::quat rotation;
     // we need at least two values to interpolate...
-    if (pNodeAnim->numRotations == 1) {
-        rotation = pNodeAnim->rotKey[0].second;
+    if (pNodeAnim->numRotations == 1)
+    {
+        rotation = pNodeAnim->rotation[0].second;
         return rotation;
     }
 
@@ -74,30 +73,32 @@ glm::quat Animator::CalcInterpolatedRotation(double AnimationTime, const Frame* 
     unsigned int NextRotationIndex = (RotationIndex + 1);
 
 
-    double DeltaTime = pNodeAnim->rotKey[NextRotationIndex].first - pNodeAnim->rotKey[RotationIndex].first;
-    double Factor = (AnimationTime - pNodeAnim->rotKey[RotationIndex].first) / DeltaTime;
+    double DeltaTime = pNodeAnim->rotation[NextRotationIndex].first - pNodeAnim->rotation[RotationIndex].first;
+    double Factor = (AnimationTime - pNodeAnim->rotation[RotationIndex].first) / DeltaTime;
 
-    const glm::quat& StartRotationQ = pNodeAnim->rotKey[RotationIndex].second;
-    const glm::quat& EndRotationQ = pNodeAnim->rotKey[NextRotationIndex].second;
+    const glm::quat& StartRotationQ = pNodeAnim->rotation[RotationIndex].second;
+    const glm::quat& EndRotationQ = pNodeAnim->rotation[NextRotationIndex].second;
     rotation = glm::slerp(StartRotationQ, EndRotationQ, static_cast<float>(Factor));
     rotation = glm::normalize(rotation);
     return rotation;
 }
-glm::vec3 Animator::CalcInterpolatedPosition(double AnimationTime, const Frame *pNodeAnim) {
+glm::vec3 Animator::CalcInterpolatedPosition(double AnimationTime, const Frame *pNodeAnim)
+{
     glm::vec3 result;
-    if (pNodeAnim->numPositions == 1) {
-        result = pNodeAnim->posKey[0].second;
+    if (pNodeAnim->numPositions == 1)
+    {
+        result = pNodeAnim->position[0].second;
         return result;
     }
 
     unsigned PositionIndex = modelToAnimate->getAnimation(animation)->FindPosition(AnimationTime, pNodeAnim);
     unsigned NextPositionIndex = (PositionIndex + 1);
 
-    double DeltaTime = pNodeAnim->posKey[NextPositionIndex].first - pNodeAnim->posKey[PositionIndex].first;
-    double Factor = (AnimationTime - pNodeAnim->posKey[PositionIndex].first) / DeltaTime;
+    double DeltaTime = pNodeAnim->position[NextPositionIndex].first - pNodeAnim->position[PositionIndex].first;
+    double Factor = (AnimationTime - pNodeAnim->position[PositionIndex].first) / DeltaTime;
 
-    const glm::vec3& Start = pNodeAnim->posKey[PositionIndex].second;
-    const glm::vec3& End = pNodeAnim->posKey[NextPositionIndex].second;
+    const glm::vec3& Start = pNodeAnim->position[PositionIndex].second;
+    const glm::vec3& End = pNodeAnim->position[NextPositionIndex].second;
     glm::vec3 Delta = End - Start;
     result = Start + static_cast<float>(Factor) * Delta;
     return result;

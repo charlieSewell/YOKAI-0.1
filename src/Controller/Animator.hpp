@@ -1,14 +1,10 @@
-//
-// Created by charl on 22/04/2021.
-//
-
 #pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include "Model/Model.hpp"
 #include <utility>
 #include <vector>
-class Animator {
+class Animator{
     public:
         Animator() = default;
         Animator(std::shared_ptr<Model> model);

@@ -1,7 +1,3 @@
-//
-// Created by charl on 5/04/2021.
-//
-
 #include "DemoScene.hpp"
 
 void DemoScene::Init() 
@@ -24,7 +20,8 @@ void DemoScene::Draw()
 {
     GameObjectManager::draw();
     terrainManager.Draw(GameObjectManager::getPlayer()->getPosition());
-    if(controlsScreen->isActive()){
+    if(controlsScreen->isActive())
+    {
         controlsScreen->draw();
     }
 }
@@ -54,7 +51,8 @@ void DemoScene::registerMenuButtons()
                 controlsScreen->setInactive();
                 isPressed = true;
             }
-            else{
+            else
+            {
                 controlsScreen->setActive();
                 isPressed = true;
             }

@@ -28,7 +28,8 @@ Model ModelLoader::loadModel(const std::string& filename)
     glm::mat4 globalInverseTransform = glm::inverse(to_glm(scene->mRootNode->mTransformation));
     // process ASSIMP's root node recursively
     processNode(animations,meshes,bones,boneMap,scene->mRootNode, scene,to_glm(scene->mRootNode->mTransformation));
-    for(auto& mesh: meshes){
+    for(auto& mesh: meshes)
+    {
         mesh.SetupMesh();
     }
     //loadAnimNodes(rootAnimNode,scene->mRootNode);
@@ -37,7 +38,8 @@ Model ModelLoader::loadModel(const std::string& filename)
 
 void ModelLoader::processNode(std::vector<Animation> &animations,std::vector<Mesh> &meshes, std::vector<Bone> &bones,
                               std::map<std::string, unsigned int> &boneMap, aiNode *node,
-                              const aiScene *scene, glm::mat4 transform) {
+                              const aiScene *scene, glm::mat4 transform)
+{
     // process each mesh located at the current node
     for(unsigned int i = 0; i < node->mNumMeshes; i++)
     {
@@ -77,7 +79,8 @@ Mesh ModelLoader::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 trans
         vector.z = mesh->mVertices[i].z;
         vertex.position = vector;
         // normals
-        if (mesh->HasNormals()){
+        if (mesh->HasNormals())
+        {
             vector.x = mesh->mNormals[i].x;
             vector.y = mesh->mNormals[i].y;
             vector.z = mesh->mNormals[i].z;
@@ -105,7 +108,9 @@ Mesh ModelLoader::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 trans
             vertex.biTangent = vector;
         }
         else
+        {
             vertex.textureCoords = glm::vec2(0.0f, 0.0f);
+        }
         if (mesh->HasTangentsAndBitangents()) 
         {
             vector.x       = mesh->mTangents[i].x;
@@ -121,7 +126,8 @@ Mesh ModelLoader::processMesh(aiMesh *mesh, const aiScene *scene,glm::mat4 trans
         vertices.push_back(vertex);
     }
     // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
-    for(unsigned int i = 0; i < mesh->mNumFaces; i++){
+    for(unsigned int i = 0; i < mesh->mNumFaces; i++)
+    {
         aiFace face = mesh->mFaces[i];
         // retrieve all indices of the face and store them in the indices vector
         for(unsigned int j = 0; j < face.mNumIndices; j++)
@@ -189,8 +195,8 @@ std::vector<ModelTexture> ModelLoader::loadMaterialTextures(aiMaterial *mat, aiT
 void ModelLoader::loadAnimations(std::vector<Animation> &animations, const aiScene *scene){
     for(unsigned int i=0; i < scene->mNumAnimations;++i)
     {
+        //Stores Each frame against the bone/node name
         std::map<std::string,Frame> animationMap;
-        //Load in all animations from a model
         for(unsigned int j =0; j < scene->mAnimations[i]->mNumChannels; ++j)
         {
             //Animation for a singular bone
@@ -201,12 +207,12 @@ void ModelLoader::loadAnimations(std::vector<Animation> &animations, const aiSce
             for(unsigned int k=0; k < keyFrame.numPositions; ++k)
             {
                 //Pushing back the Position at a certain time in the animation
-                keyFrame.posKey.emplace_back(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mTime, vec3_cast(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue));
+                keyFrame.position.emplace_back(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mTime, vec3_cast(scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue));
             }
             for(unsigned int k=0; k < keyFrame.numRotations; ++k)
             {
                 //Pushing back the Rotation at a certain time in the animation
-                keyFrame.rotKey.emplace_back(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mTime, quat_cast(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue));
+                keyFrame.rotation.emplace_back(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mTime, quat_cast(scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue));
             }
             //Place it in a map with the name so animation can be called
             animationMap.emplace(name, keyFrame);
@@ -218,7 +224,8 @@ void ModelLoader::loadAnimations(std::vector<Animation> &animations, const aiSce
 
 }
 
-aiNode* ModelLoader::findRootNode(aiNode* node, aiMesh* mesh){
+aiNode* ModelLoader::findRootNode(aiNode* node, aiMesh* mesh)
+{
     std::vector<aiString> boneNames;
     boneNames.reserve(mesh->mNumBones);
     for(unsigned int i=0; i < mesh->mNumBones; ++i)
@@ -228,7 +235,8 @@ aiNode* ModelLoader::findRootNode(aiNode* node, aiMesh* mesh){
     for(auto& boneName : boneNames)
     {
         aiNode* parent = node->FindNode(boneName)->mParent;
-        if(!std::count(boneNames.begin(),boneNames.end(),parent->mName)){
+        if(!std::count(boneNames.begin(),boneNames.end(),parent->mName))
+        {
             return parent;
         }
     }
@@ -248,7 +256,8 @@ Node ModelLoader::loadNodeHeirachy(aiNode *rootNode)
     return node;
 }
 
-void ModelLoader::loadAnimNodes(aiNode* node,aiMesh* mesh){
+void ModelLoader::loadAnimNodes(aiNode* node,aiMesh* mesh)
+{
     auto rootNode = findRootNode(node,mesh);
     if(rootNode == nullptr)
     {
@@ -262,20 +271,23 @@ void ModelLoader::loadBones(std::vector<Mesh> &meshes, std::vector<Bone> &bones,
         unsigned boneIndex;
         std::string boneName(mesh->mBones[i]->mName.data);
 
-        if (boneMap.find(boneName) == boneMap.end()) {
+        if (boneMap.find(boneName) == boneMap.end())
+        {
             boneIndex = numBones;
             ++numBones;
             Bone bi;
             bones.push_back(bi);
         }
-        else {
+        else
+        {
             boneIndex = boneMap[boneName];
         }
 
         boneMap[boneName] = boneIndex;
         bones[boneIndex].offset = to_glm(mesh->mBones[i]->mOffsetMatrix);
 
-        for (unsigned int j = 0 ; j < mesh->mBones[i]->mNumWeights; ++j) {
+        for (unsigned int j = 0 ; j < mesh->mBones[i]->mNumWeights; ++j)
+        {
             unsigned VertexID = mesh->mBones[i]->mWeights[j].mVertexId;
             float Weight = mesh->mBones[i]->mWeights[j].mWeight;
             meshes.at(meshIndex).addBoneData(VertexID, boneIndex, Weight);
