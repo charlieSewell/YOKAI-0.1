@@ -217,7 +217,7 @@ void ModelLoader::loadAnimations(std::vector<Animation> &animations, const aiSce
             //Place it in a map with the name so animation can be called
             animationMap.emplace(name, keyFrame);
         }
-
+        std::cout << scene->mAnimations[i]->mName.C_Str() << std::endl;
         Animation anim = Animation(scene->mAnimations[i]->mName.C_Str(),animationMap, static_cast<float>(scene->mAnimations[i]->mDuration),static_cast<float>(scene->mAnimations[i]->mTicksPerSecond));
         animations.push_back(anim);
     }

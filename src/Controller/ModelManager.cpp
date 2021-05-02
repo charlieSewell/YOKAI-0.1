@@ -14,6 +14,7 @@ ModelManager::ModelManager()
 {
     modelShader = new Shader("content/Shaders/vertexShader.vert", "content/Shaders/fragmentShader.frag");
     modelShader->setVec3("skyColor",glm::vec3(0.05,0.05,0.05));
+    modelShader->setBool("isAnimated",false);
     models.resize(100);
 }
 
