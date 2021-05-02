@@ -6,7 +6,6 @@
 glm::vec3 GameObject::getPosition() const
 {
 	return m_position;
-
 }
 
 glm::mat4 GameObject::getTransform() const

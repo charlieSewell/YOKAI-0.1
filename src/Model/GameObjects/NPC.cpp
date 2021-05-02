@@ -1,6 +1,7 @@
 #include "NPC.hpp"
 
 NPC::NPC(std::string modelName)
+	: GameObject(), PhysicsComponent(), AutomatedBehaviours(&m_transform)
 {
     modelID = ModelManager::getInstance().GetModelID(modelName);
     setPosition(glm::vec3(0,0,0));
@@ -9,12 +10,16 @@ NPC::NPC(std::string modelName)
 
 void NPC::draw() 
 {
-    ModelManager::getInstance().DrawModel(modelID, m_transform);
-}
+	// SUDO STATE MACHINE
+	glm::vec3 targetPosition = EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition);
+	if(glm::distance(m_position, targetPosition) > 10)
+	{
+		seek(targetPosition);
+		accelerate(0.5f);
+	}
+	// END SUDO STATE MACHINE
 
-glm::vec3 NPC::getPosition() 
-{
-    return position;
+    ModelManager::getInstance().DrawModel(modelID, m_transform);
 }
 
 void NPC::setCollider(float width, float length, float height)

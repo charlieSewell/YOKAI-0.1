@@ -55,4 +55,7 @@ public:
      * @brief Update call for the player
      */
 	void update() override;
+
+private:
+	void registerPosition();
 };

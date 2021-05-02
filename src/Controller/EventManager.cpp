@@ -1,13 +1,7 @@
 //EventManager.cpp
 
 #include "EventManager.hpp"
-void EMS::Init() {
-    luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
-        .beginClass<EMS>("EMS")
-            .addStaticFunction("getInstance",&EMS::getInstance)
-        .endClass();
 
-}
 EMS& EMS::getInstance() 
 {
 	static EMS instance;
@@ -15,44 +9,59 @@ EMS& EMS::getInstance()
 
 }
 
-void EMS::add(InputEvent event, std::function<void()> func)
+void EMS::add(NoReturnEvent event, std::function<void()> func)
 {
-    m_inputEventList.insert(std::pair<InputEvent, std::function<void()>>(event, func));
+    m_NoReturnEventList.insert(std::pair<NoReturnEvent, std::function<void()>>(event, func));
 }
 
-void EMS::add(InputEvent event, std::function<void(double, double)> func)
+void EMS::add(NoReturnEvent event, std::function<void(double, double)> func)
 {
-	if(event == InputEvent::xyLook)
+	if(event == NoReturnEvent::xyLook)
 		m_xyLook = func;
 }
-void EMS::add(RenderEvent event, std::function<glm::mat4()> func)
+
+void EMS::add(ReturnMat4Event event, std::function<glm::mat4()> func)
 {
-    if(event == RenderEvent::getViewMatrix)
-        m_viewMatrix = func;
-    if(event == RenderEvent::getPerspective)
-        m_perspective = func;
+	if (event == ReturnMat4Event::getViewMatrix)
+		m_viewMatrix = func;
+	if (event == ReturnMat4Event::getPerspective)
+		m_perspective = func;
 }
 
-void EMS::fire(InputEvent event) 
+void EMS::add(ReturnVec3Event event, std::function<glm::vec3()> func)
 {
-	for(std::multimap<InputEvent, std::function<void()>>::iterator itr = m_inputEventList.begin(); itr != m_inputEventList.end(); ++itr)
+	if (event == ReturnVec3Event::getPlayerPosition)
+		m_playerPosition = func;
+}
+
+void EMS::fire(NoReturnEvent event) 
+{
+	for(std::multimap<NoReturnEvent, std::function<void()>>::iterator itr = m_NoReturnEventList.begin(); itr != m_NoReturnEventList.end(); ++itr)
 	{
 		if(itr->first == event)
 			(itr->second)();
 	}
 }
 
-void EMS::fire(InputEvent event, double x, double y)
+void EMS::fire(NoReturnEvent event, double x, double y)
 {
-	if (event == InputEvent::xyLook)
+	if (event == NoReturnEvent::xyLook)
 		m_xyLook(x, y);
 }
 
-glm::mat4 EMS::fire(RenderEvent event)
+glm::mat4 EMS::fire(ReturnMat4Event event)
 {
-    if (event == RenderEvent::getViewMatrix)
+    if (event == ReturnMat4Event::getViewMatrix)
         return m_viewMatrix();
-    if (event == RenderEvent::getPerspective)
+    if (event == ReturnMat4Event::getPerspective)
         return m_perspective();
     return glm::mat4(1.0);
+}
+
+glm::vec3 EMS::fire(ReturnVec3Event event)
+{
+	if (event == ReturnVec3Event::getPlayerPosition)
+		return m_playerPosition();
+
+	return glm::vec3(-1,-1,-1);
 }

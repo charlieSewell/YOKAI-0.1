@@ -19,8 +19,8 @@ Model::Model(std::vector<Mesh> meshes, std::vector<Bone> bones, std::map<std::st
 void Model::Draw(Shader &shader, glm::mat4 transform) 
 {
     shader.useShader();
-    shader.setMat4("projection",EMS::getInstance().fire(RenderEvent::getPerspective));
-    shader.setMat4("view",EMS::getInstance().fire(RenderEvent::getViewMatrix));
+    shader.setMat4("projection",EMS::getInstance().fire(ReturnMat4Event::getPerspective));
+    shader.setMat4("view",EMS::getInstance().fire(ReturnMat4Event::getViewMatrix));
     for(auto& mesh: meshes)
     {
         glm::mat4 model(1.0);

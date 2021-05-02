@@ -5,12 +5,13 @@
 #include "GameObject.hpp"
 #include "Model/Components/PhysicsComponent.hpp"
 #include "View/Renderer/Shader.hpp"
+#include "Model/Components/AutomatedBehaviours.hpp"
 
 /**
  * @class NPC
  * @brief Child of GameObject for all NPC's within the game. Inherits physics component.
  */
-class NPC : public GameObject, public PhysicsComponent
+class NPC : public GameObject, public PhysicsComponent, public AutomatedBehaviours
 {
   public:
     /*!
@@ -41,7 +42,4 @@ class NPC : public GameObject, public PhysicsComponent
   private:
     /// Stores associated model id of the NPC
     int modelID;
-
-    /// Position of the NPC
-    glm::vec3 position;
 };
