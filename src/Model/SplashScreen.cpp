@@ -1,12 +1,10 @@
-//
-// Created by Charlie Sewell on 7/04/2021.
-//
 
 #include "SplashScreen.hpp"
 #include "Controller/Yokai.hpp"
 #include "Controller/EventManager.hpp"
 #include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
+
 SplashScreen::SplashScreen(std::string texturePath)
 {
     texture = Texture::Create(texturePath);
@@ -27,7 +25,8 @@ void SplashScreen::draw()
     engine.renderer.Draw(*vao,6);
     glEnable(GL_DEPTH_TEST);
 }
-void SplashScreen::setupShader(){
+void SplashScreen::setupShader()
+{
     splashShader = new Shader("content/Shaders/vertexShader.vert","content/Shaders/splashFragment.frag");
     splashShader->useShader();
     splashShader->setMat4("model",glm::mat4(1.0));
@@ -35,7 +34,8 @@ void SplashScreen::setupShader(){
     splashShader->setMat4("projection",glm::ortho(0.0f, (float)1920, (float)1080, 0.0f));
     splashShader->setInt("texture_diffuse1", 1);
 }
-void SplashScreen::setupPanel(){
+void SplashScreen::setupPanel()
+{
     std::vector<Vertex> verts;
     verts.resize(4);
     verts[0].position= glm::vec3(400,200,1);
@@ -49,12 +49,15 @@ void SplashScreen::setupPanel(){
     std::vector<unsigned int> indices = {0,1,2,1,3,2};
     vao = VertexArrayBuffer::Create(verts,indices);
 }
-void SplashScreen::setActive() {
+void SplashScreen::setActive()
+{
     active = true;
 }
-void SplashScreen::setInactive() {
+void SplashScreen::setInactive()
+{
     active = false;
 }
-bool SplashScreen::isActive() {
+bool SplashScreen::isActive()
+{
     return active;
 }

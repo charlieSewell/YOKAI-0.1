@@ -23,7 +23,7 @@ void Mesh::SetupMesh()
 
      for(unsigned int i = 0; i < textures.size(); i++)
      {
-         textures[i].texture->Bind(i);
+         TextureManager::getInstance().getTexture(textures[i].texture)->Bind(i);
          std::string number;
          std::string name = textures[i].type;
          if(name == "texture_diffuse")

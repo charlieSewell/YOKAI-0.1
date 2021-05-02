@@ -19,15 +19,8 @@ class Chunk
   public:
     /**
      * @brief Constructs a Chunk Objects
-     * @param shared_ptr<Texture> - grass
-     * @param shared_ptr<Texture> - sand
-     * @param shared_ptr<Texture> - snow
-     * @param shared_ptr<Texture> - detail
-     * @param int - sandHeight
-     * @param int - grassHeight
-     * @param int - snowHeight
      */
-    Chunk(std::shared_ptr<Texture> &grass, std::shared_ptr<Texture> &sand, std::shared_ptr<Texture> &snow, std::shared_ptr<Texture> &detail,int sandHeight,int grassHeight,int snowHeight);
+    Chunk();
     /**
      * @brief Constructs a chunks mesh
      * @param vector<Vertex> - vertices
@@ -50,12 +43,8 @@ class Chunk
     std::shared_ptr<VertexArrayBuffer> VAO;
     ///number of points in the mesh
     size_t indicesSize;
-    ///list of textures for the mesh
-    std::vector<std::shared_ptr<Texture>> textures;
     ///chunk ID
     unsigned int chunkID;
-    ///heights of textures
-    int sandHeight,grassHeight,snowHeight;
 };
 
 #endif // ICT397_GAME_ENGINE_CHUNKDATA_HPP

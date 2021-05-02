@@ -9,6 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Model/Model.hpp"
 #include "Model/Animation.hpp"
+#include "Controller/TextureManager.hpp"
 /** @class ModelLoader
  *  @brief Class that loads models
  */

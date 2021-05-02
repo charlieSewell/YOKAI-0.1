@@ -20,7 +20,7 @@ unsigned int Animation::FindPosition(double currTime,const Frame* frame)
 {
     for (unsigned int i = 0 ; i < frame->numPositions; i++)
     {
-        if (currTime < frame->posKey[i + 1].first) 
+        if (currTime < frame->position[i + 1].first)
         {
             return i;
         }
@@ -31,7 +31,7 @@ unsigned int Animation::FindRotation(double currTime,const Frame* frame)
 {
     for (unsigned int i = 0 ; i < frame->numRotations; i++)
     {
-        if (currTime < frame->rotKey[i + 1].first) 
+        if (currTime < frame->rotation[i + 1].first)
         {
             return i;
         }

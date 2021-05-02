@@ -1,7 +1,7 @@
 //PhysicsManager.cpp - manages physics
 
 #include "PhysicsManager.hpp"
-
+#include "Controller/Factory/TerrainFactory.hpp"
 PhysicsManager::PhysicsManager()
 	: m_mapCount(0) {}
 
@@ -10,11 +10,6 @@ PhysicsManager& PhysicsManager::getInstance()
 {
 	static PhysicsManager instance;
 	return instance;
-}
-
-void PhysicsManager::setTerrainCollider(std::vector<std::vector<float>> terrain)
-{
-	m_terrain = terrain;
 }
 
 /*int PhysicsManager::addBoundingSphere(glm::vec3 *position, double radius)
@@ -39,18 +34,11 @@ AABB PhysicsManager::getCollider(int colliderID)
 // returns distance from collider to terrain
 float PhysicsManager::checkTerrainCollision(AABB* collider)
 {
-	int colliderX = (int)collider->getPosition()->x;
-	float colliderY = (int)collider->getPosition()->y;
-	int colliderZ = (int)collider->getPosition()->z;
+	float colliderX = collider->getPosition()->x;
+	float colliderY = collider->getPosition()->y;
+	float colliderZ = collider->getPosition()->z;
 
-	//stop the vecotr from going out of index
-	if(colliderX < 0 || colliderX > m_terrain.size()-1)
-		colliderX = 0;
-	if(colliderZ < 0 || colliderZ > m_terrain[colliderX].size()-1)
-		colliderZ = 0;
-
-
-	return(colliderY - m_terrain[colliderX][colliderZ]);
+	return(colliderY - TerrainFactory::getInstance().heightAt(colliderX,colliderZ));
 }
 
 AABB* PhysicsManager::checkCollisions(AABB* collider)

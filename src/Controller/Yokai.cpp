@@ -15,14 +15,17 @@ void Yokai::Init()
 {
     registerClose();
     if(!window.Init())
+    {
         return;
-
+    }
     renderer.Init();
     //Add layers to layer stack
     layers.push_back(std::shared_ptr<Layer>(new DemoScene()));
+    TerrainFactory::getInstance().Init();
     for(auto& layer: layers)
+    {
         layer->Init();
-
+    }
     GameObjectManager::init();
     endScreen = new SplashScreen("content/Textures/exit_screen.png");
 
@@ -30,7 +33,7 @@ void Yokai::Init()
 }
 void Yokai::Run()
 {
-	const double frameRate = 1.0f / 300;	// 120 fps
+	const double frameRate = 1.0f / 144;	// 120 fps
 
 	double lastFrame = 0;
     double lastTime = 0;
@@ -73,7 +76,8 @@ void Yokai::Run()
             testShader.setVecMat4("boneTrans",animator.finalTransforms);
 
             test.Draw(testShader,model);
-            if(endScreen->isActive()){
+            if(endScreen->isActive())
+            {
                 endScreen->draw();
             }
 

@@ -1,5 +1,3 @@
-//player.cpp
-
 #pragma once
 
 #include "Player.hpp"

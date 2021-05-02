@@ -3,9 +3,11 @@
 //
 
 #include "TerrainManager.hpp"
+void TerrainManager::setTerrainTexture(std::vector<unsigned int> texturesToSet) {
+    textures = std::move(texturesToSet);
+}
 void TerrainManager::Init() 
 {
-    TerrainFactory::getInstance().Init();
     chunkSize = 100;
     maxKey = static_cast<int>(floor(TerrainFactory::getInstance().getTerrainSize()/100));
     CreateTerrain();
@@ -16,8 +18,15 @@ void TerrainManager::Init()
     terrainShader->setVec3("lightPos",glm::vec3(maxKey*chunkSize/2,200,maxKey*chunkSize/2));
     terrainShader->setFloat("lightLinear",0.002);
     terrainShader->setFloat("lightQuadratic",0.000004);
-    terrainShader->setMat4("model",glm::mat4(1.0));
-    std::cout << "Initialised Terrain Factory" << std::endl;
+    terrainShader->setInt("grassTexture",0);
+    terrainShader->setInt("sandTexture",1);
+    terrainShader->setInt("snowTexture",2);
+    terrainShader->setInt("detailMap",3);
+    terrainShader->setFloat("sandHeight",static_cast<float>(sandHeight));
+    terrainShader->setFloat("grassHeight",static_cast<float>(grassHeight));
+    terrainShader->setFloat("snowHeight",static_cast<float>(snowHeight));
+
+    std::cout << "Initialised Terrain Manager" << std::endl;
 }
 
 void TerrainManager::CreateTerrain() 
@@ -40,7 +49,14 @@ void TerrainManager::Draw(glm::vec3 viewpos)
     terrainShader->setVec3("viewPos",viewpos);
     terrainShader->setMat4("projection",EMS::getInstance().fire(RenderEvent::getPerspective));
     terrainShader->setMat4("view",EMS::getInstance().fire(RenderEvent::getViewMatrix));
-    for (int x = 0; x < maxKey; x++) 
+    terrainShader->setMat4("model",glm::mat4(1.0));
+
+    auto& textureManager = TextureManager::getInstance();
+    textureManager.getTexture(textures[0])->Bind(0);
+    textureManager.getTexture(textures[1])->Bind(1);
+    textureManager.getTexture(textures[2])->Bind(2);
+    textureManager.getTexture(textures[3])->Bind(3);
+    for (int x = 0; x < maxKey; x++)
     {
         for (int y = 0; y < maxKey; y++) 
         {

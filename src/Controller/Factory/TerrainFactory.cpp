@@ -1,6 +1,3 @@
-//
-// Created by Charlie Sewell on 4/03/2021.
-//
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "TerrainFactory.hpp"
@@ -40,16 +37,17 @@ void TerrainFactory::Init()
         terrainSize += 1;
         GeneratePerlinMap(terrainSize,terrainSize);
     }
-    terrainTextures.push_back(Texture::Create(grassTexture));
-    terrainTextures.push_back(Texture::Create(sandTexture));
-    terrainTextures.push_back(Texture::Create(snowTexture));
-    terrainTextures.push_back(Texture::Create(detailTexture));
-
+    auto& textureManager = TextureManager::getInstance();
+    terrainTextures.push_back(textureManager.loadTexture(grassTexture));
+    terrainTextures.push_back(textureManager.loadTexture(sandTexture));
+    terrainTextures.push_back(textureManager.loadTexture(snowTexture));
+    terrainTextures.push_back(textureManager.loadTexture(detailTexture));
+    std::cout << "Terrain Factory Initialised" <<std::endl;
 }
 
 Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int size)
 {
-    Chunk chunk(terrainTextures.at(0),terrainTextures.at(1),terrainTextures.at(2),terrainTextures.at(3),sandHeight,grassHeight,snowHeight);
+    Chunk chunk;
     size+=1;
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
@@ -57,11 +55,11 @@ Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int siz
     GenerateTerrainIndices(indices,size,size);
     //TODO: Come Up with better solution as currently just stretching over terrain
     GenerateTexCoords(vertices);
-    int x = xStart;
-    int z = zStart;
+    unsigned int x = xStart;
+    unsigned int z = zStart;
     for(auto& vert: vertices)
     {
-        if(vert.position.x != x)
+        if(vert.position.x != static_cast<float>(x))
         {
             x ++;
             z=zStart;
@@ -70,8 +68,6 @@ Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int siz
         z++;
     }
     GenerateNormals(vertices,indices);
-    //TODO: Discuss better location for this
-    PhysicsManager::getInstance().setTerrainCollider(heightVals);
     chunk.SetupChunk(vertices,indices);
     return chunk;
 }
@@ -141,7 +137,7 @@ void TerrainFactory::GenerateNormals(std::vector<Vertex> &terrain, std::vector<u
     }
 }
 
-void TerrainFactory::LoadHeightMap(std::string filename)
+void TerrainFactory::LoadHeightMap(const std::string& filename)
 {
     //File Must be square to produce the map e.g. 512x512
     int width,height,nrComponents;
@@ -215,17 +211,17 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
     {
         for( int col = 0 ; col < xSize; col++ ) 
         {
-            float x = xFactor * col;
-            float y = yFactor * row;
+            float x = xFactor * static_cast<float>(col);
+            float y = yFactor * static_cast<float>(row);
             float sum = 0.0f;
             float freq = a;
             float scale = b;
             float result =0.0f;
             // Compute the sum for each octave
-            for( int oct = 1; oct <= 4; oct++ ) 
+            for(unsigned int oct = 1; oct <= 4; oct++ )
             {
                 glm::vec2 p(x * freq, y * freq);
-                float val = glm::simplex(p) * 1/oct;
+                float val = glm::simplex(p) * 1/static_cast<float>(oct);
                 sum += val;     // Sum of octaves
                 freq *= 2.0f;   // Double the frequency
                 scale *= b;     // Next power of b

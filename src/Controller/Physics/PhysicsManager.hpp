@@ -42,13 +42,6 @@ public:
     ///Deleted = operator
 	void operator=(PhysicsManager const&) = delete;
     /**
-     * @brief Sets the Terrain Collider
-     * @param vector<float> - terrain
-     */
-	void setTerrainCollider(std::vector<std::vector<float>> terrain);
-
-
-    /**
      * @brief Checks terrain Collision
      * @param AABB* - collider
      * @return float
@@ -82,8 +75,6 @@ public:
 private:
     ///Privatised Constructor
 	PhysicsManager();
-    ///Terrain Vertices
-	std::vector<std::vector<float>> m_terrain;
     ///count of map
 	int m_mapCount;
     ///map of colliders
