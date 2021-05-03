@@ -39,14 +39,35 @@ bool Window::Init()
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     return true;
 }
-void Window::DeInit() {
+bool Window::ImguiInit()
+{
+    try{
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+        ImGui::StyleColorsDark();
+
+        ImGui_ImplGlfw_InitForOpenGL(window, true);
+        ImGui_ImplOpenGL3_Init("#version 130");
+        return true;
+    }catch(std::exception e)
+    {
+        std::cout << e.what() <<std::endl;
+    }
+    return false;
+}
+void Window::DeInit()
+{
     glfwDestroyWindow(window);
     glfwTerminate();
 }
-GLFWwindow* Window::getWindow(){
+GLFWwindow* Window::getWindow()
+{
     return window;
 }
-void Window::endFrame() {
+void Window::endFrame()
+{
     glfwSwapBuffers(window);
     glfwPollEvents();
 }

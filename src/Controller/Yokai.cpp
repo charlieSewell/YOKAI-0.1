@@ -19,6 +19,10 @@ void Yokai::Init()
         return;
     }
     renderer.Init();
+    if(!window.ImguiInit())
+    {
+        return;
+    }
     //Add layers to layer stack
     layers.push_back(std::shared_ptr<Layer>(new DemoScene()));
     TerrainFactory::getInstance().Init();

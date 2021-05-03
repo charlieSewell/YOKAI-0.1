@@ -2,6 +2,9 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <imgui.h>
+#include <imgui/backends/imgui_impl_glfw.h>
+#include <imgui/backends/imgui_impl_opengl3.h>
 /**
  * @class Window
  * @brief Creates a window for rendering
@@ -20,7 +23,9 @@ class Window {
     /**
      * @brief Destroys the window
      */
+
     void DeInit();
+    bool ImguiInit();
     /**
      * @brief Returns a pointer to the window
      * @return GLFWwindow*

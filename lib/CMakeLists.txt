@@ -20,6 +20,7 @@ add_subdirectory(assimp)
 add_subdirectory(LuaBridge)
 add_subdirectory(lua)
 add_subdirectory(glad)
+add_subdirectory(imgui)
 
 option(GLFW_BUILD_DOCS OFF)
 option(GLFW_BUILD_TESTS OFF)
@@ -40,4 +41,6 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE
         assimp/include
         LuaBridge/Source
         lua/src
+        imgui/imgui
+        imgui/imgui/backends
 )
