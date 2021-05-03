@@ -30,12 +30,14 @@ void OpenGLRenderer::Init()
 
 void OpenGLRenderer::DeInit() 
 {
+    ImGui_ImplOpenGL3_Shutdown();
 }
 
 void OpenGLRenderer::Clear() 
 {
     glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 }
 
 void OpenGLRenderer::ToggleWireFrame() 
@@ -57,4 +59,8 @@ void OpenGLRenderer::Draw(VertexArrayBuffer& VAO, size_t indicesSize)
     VAO.Bind();
     glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, 0);
 
+}
+void OpenGLRenderer::DrawGui() {
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

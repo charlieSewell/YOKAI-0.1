@@ -59,6 +59,8 @@ bool Window::ImguiInit()
 }
 void Window::DeInit()
 {
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
     glfwDestroyWindow(window);
     glfwTerminate();
 }
@@ -66,8 +68,14 @@ GLFWwindow* Window::getWindow()
 {
     return window;
 }
+void Window::startFrame()
+{
+    glfwPollEvents();
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+}
 void Window::endFrame()
 {
     glfwSwapBuffers(window);
-    glfwPollEvents();
 }

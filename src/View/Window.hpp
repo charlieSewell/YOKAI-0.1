@@ -25,12 +25,20 @@ class Window {
      */
 
     void DeInit();
+    /**
+     * @brief Initialises ImGui
+     * @return bool
+     */
     bool ImguiInit();
     /**
      * @brief Returns a pointer to the window
      * @return GLFWwindow*
      */
     GLFWwindow* getWindow();
+    /**
+     * @brief Starts a frame
+     */
+    void startFrame();
     /**
      * @brief Ends a frame and processes callbacks
      */

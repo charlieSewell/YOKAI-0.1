@@ -16,12 +16,12 @@ std::shared_ptr<IndexBuffer> IndexBuffer::Create(std::vector<unsigned int> indic
     return std::shared_ptr<IndexBuffer>(new OpenGLIndexBuffer(std::move(indices)));
 }
 
-std::shared_ptr<VertexArrayBuffer> VertexArrayBuffer::Create(std::vector<Vertex> vertices, std::vector<unsigned int> indices) 
+std::shared_ptr<VertexArrayBuffer> VertexArrayBuffer::Create(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)
 {
-    return std::shared_ptr<VertexArrayBuffer>(new OpenGLVertexArrayBuffer(std::move(vertices),std::move(indices)));
+    return std::shared_ptr<VertexArrayBuffer>(new OpenGLVertexArrayBuffer(vertices,indices));
 }
 
-std::shared_ptr<Texture> Texture::Create(std::string fileName) 
+std::shared_ptr<Texture> Texture::Create(const std::string& fileName)
 {
-    return std::shared_ptr<Texture>(new OpenGLTexture(std::move(fileName)));
+    return std::shared_ptr<Texture>(new OpenGLTexture(fileName));
 }
