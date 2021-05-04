@@ -5,7 +5,7 @@
 
 glm::vec3 GameObject::getPosition() const
 {
-	return m_position;
+	return m_transform[3];
 }
 
 glm::mat4 GameObject::getTransform() const
@@ -16,16 +16,15 @@ glm::mat4 GameObject::getTransform() const
 
 void GameObject::setPosition(glm::vec3 position)
 {
-    m_position = position;
-    m_transform = glm::mat4(1.0);
-	m_transform = glm::translate(m_transform,m_position);
-    m_transform = glm::scale(m_transform,m_scale);
+	m_transform[3][0] = position.x;
+	m_transform[3][1] = position.y;
+	m_transform[3][2] = position.z;
 }
+
 void GameObject::setLuaPosition(float x,float y,float z)
 {
-    setPosition(glm::vec3(x,y,z));
     m_transform = glm::mat4(1.0);
-    m_transform = glm::translate(m_transform,m_position);
+	setPosition(glm::vec3(x, y, z));
     m_transform = glm::scale(m_transform,m_scale);
 }
 

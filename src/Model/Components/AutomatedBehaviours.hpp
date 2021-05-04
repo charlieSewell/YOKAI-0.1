@@ -12,6 +12,7 @@ protected:
 	AutomatedBehaviours(glm::mat4* transform);
 
 	void accelerate(float topSpeed);
+	void decelerate();
 	void seek(glm::vec3 tartgetPosition);
 
 

@@ -47,6 +47,14 @@ public:
      * @return float
      */
 	float checkTerrainCollision(AABB* collider); 	// returns difference of object height and terrain height
+
+	/**
+	 * @brief Checks terrain height at position
+	 * @param glm::vec3 - position
+	 * @return float
+	 */
+	float checkTerrainHeight(glm::vec3);
+
 	/**
 	 * @brief Checks AABB Collisions
 	 * @param AABB* collider

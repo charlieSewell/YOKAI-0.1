@@ -29,7 +29,7 @@ class NPC : public GameObject, public PhysicsComponent, public AutomatedBehaviou
      * @brief Getter for the position of the NPC
      * @return position
      */
-    glm::vec3 getPosition();
+    //glm::vec3 getPosition();
 
     /*!
      * @brief Setter for the NPC collider
