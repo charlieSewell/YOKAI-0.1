@@ -38,7 +38,7 @@ void PhysicsComponent::registerPhysicsToggle()
 		if(m_physicsTogglePressed)
 			m_physicsTogglePressed = false;
 	};
-	EMS::getInstance().add(InputEvent::togglePhysicsReleased, togglePhysicsReleased);
+	EMS::getInstance().add(NoReturnEvent::togglePhysicsReleased, togglePhysicsReleased);
 
 	auto togglePhysicsPressed = [&]()
 	{
@@ -48,7 +48,7 @@ void PhysicsComponent::registerPhysicsToggle()
 			m_physicsTogglePressed = true;
 		}
 	};
-	EMS::getInstance().add(InputEvent::togglePhysicsPressed, togglePhysicsPressed);
+	EMS::getInstance().add(NoReturnEvent::togglePhysicsPressed, togglePhysicsPressed);
 }
 
 //easy to implement if needed

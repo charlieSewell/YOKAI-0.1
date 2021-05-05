@@ -41,6 +41,12 @@ float PhysicsManager::checkTerrainCollision(AABB* collider)
 	return(colliderY - TerrainFactory::getInstance().heightAt(colliderX,colliderZ));
 }
 
+// returns distance from collider to terrain
+float PhysicsManager::checkTerrainHeight(glm::vec3 position)
+{
+	return(TerrainFactory::getInstance().heightAt(position.x, position.z));
+}
+
 AABB* PhysicsManager::checkCollisions(AABB* collider)
 {
 	std::map<int, AABB>::iterator it;

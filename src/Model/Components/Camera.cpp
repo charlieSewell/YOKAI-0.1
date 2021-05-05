@@ -20,7 +20,7 @@ void Camera::registerViewMatrix()
       return glm::lookAt(m_position, m_position + m_frontDirection, m_upDirection);
     };
 
-    EMS::getInstance().add(RenderEvent::getViewMatrix, viewMatrix);
+    EMS::getInstance().add(ReturnMat4Event::getViewMatrix, viewMatrix);
 }
 void Camera::registerPerspective()
 {
@@ -29,5 +29,5 @@ void Camera::registerPerspective()
         return m_perspective;
     };
 
-    EMS::getInstance().add(RenderEvent::getPerspective, perspective);
+    EMS::getInstance().add(ReturnMat4Event::getPerspective, perspective);
 }

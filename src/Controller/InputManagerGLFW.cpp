@@ -11,39 +11,39 @@ InputManagerGLFW& InputManagerGLFW::getInstance()
 void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
-        EMS::getInstance().fire(InputEvent::closePressed);
+        EMS::getInstance().fire(NoReturnEvent::closePressed);
     if (glfwGetKey(window, GLFW_KEY_X) == GLFW_RELEASE)
-        EMS::getInstance().fire(InputEvent::closeReleased);
+        EMS::getInstance().fire(NoReturnEvent::closeReleased);
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-		EMS::getInstance().fire(InputEvent::jump);
+		EMS::getInstance().fire(NoReturnEvent::jump);
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		EMS::getInstance().fire(InputEvent::moveForward);
+		EMS::getInstance().fire(NoReturnEvent::moveForward);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		EMS::getInstance().fire(InputEvent::moveBackward);
+		EMS::getInstance().fire(NoReturnEvent::moveBackward);
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		EMS::getInstance().fire(InputEvent::moveLeft);
+		EMS::getInstance().fire(NoReturnEvent::moveLeft);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		EMS::getInstance().fire(InputEvent::moveRight);
+		EMS::getInstance().fire(NoReturnEvent::moveRight);
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
-		EMS::getInstance().fire(InputEvent::moveDown);
+		EMS::getInstance().fire(NoReturnEvent::moveDown);
 
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
-		EMS::getInstance().fire(InputEvent::togglePhysicsPressed);
+		EMS::getInstance().fire(NoReturnEvent::togglePhysicsPressed);
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_RELEASE)
-		EMS::getInstance().fire(InputEvent::togglePhysicsReleased);
+		EMS::getInstance().fire(NoReturnEvent::togglePhysicsReleased);
 
 	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-		EMS::getInstance().fire(InputEvent::toggleWireFramePressed);
+		EMS::getInstance().fire(NoReturnEvent::toggleWireFramePressed);
 	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_RELEASE)
-		EMS::getInstance().fire(InputEvent::toggleWireFrameReleased);
+		EMS::getInstance().fire(NoReturnEvent::toggleWireFrameReleased);
 
     if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
-        EMS::getInstance().fire(InputEvent::toggleMenuPressed);
+        EMS::getInstance().fire(NoReturnEvent::toggleMenuPressed);
     if (glfwGetKey(window, GLFW_KEY_M) == GLFW_RELEASE)
-        EMS::getInstance().fire(InputEvent::toggleMenuReleased);
+        EMS::getInstance().fire(NoReturnEvent::toggleMenuReleased);
 	//not implemented yet
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-		EMS::getInstance().fire(InputEvent::increaseSpeed);
+		EMS::getInstance().fire(NoReturnEvent::increaseSpeed);
 
 
 	/*if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
@@ -61,7 +61,7 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 void InputManagerGLFW::processMouse(GLFWwindow* window)
 {
     if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_1) == GLFW_PRESS)
-        EMS::getInstance().fire(InputEvent::mouseClicked);
+        EMS::getInstance().fire(NoReturnEvent::mouseClicked);
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
 
@@ -75,7 +75,7 @@ void InputManagerGLFW::processMouse(GLFWwindow* window)
 	double xoffset = xpos - lastX;
 	double yoffset = ypos - lastY;
 
-	EMS::getInstance().fire(InputEvent::xyLook, xoffset, yoffset);
+	EMS::getInstance().fire(NoReturnEvent::xyLook, xoffset, yoffset);
 
 	lastX = xpos;
 	lastY = ypos;
