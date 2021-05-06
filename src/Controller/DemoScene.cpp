@@ -48,11 +48,13 @@ void DemoScene::registerMenuButtons()
         if (!isPressed){
             if (controlsScreen->isActive())
             {
+                glfwSetInputMode(Yokai::getInstance().window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
                 controlsScreen->setInactive();
                 isPressed = true;
             }
             else
             {
+                glfwSetInputMode(Yokai::getInstance().window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
                 controlsScreen->setActive();
                 isPressed = true;
             }
