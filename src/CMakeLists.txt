@@ -46,6 +46,12 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/LuaTypes.cpp
 		Controller/TextureManager.cpp
 
+		Test/PhysicsManager2.cpp
+		Test/YourEventListener.cpp
+
+
+
+
         )
 
 # Include project header files.
