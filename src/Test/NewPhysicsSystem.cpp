@@ -28,8 +28,9 @@ void NewPhysicsSystem::update(std::shared_ptr<GameObject> player)
 
 void NewPhysicsSystem::test(std::shared_ptr<GameObject> player)
 {
+    addPlayer(player);
     addTerrain();
-	addPlayer(player);
+
 
 }
 

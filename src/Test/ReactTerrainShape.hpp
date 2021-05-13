@@ -10,9 +10,11 @@ class ReactTerrainShape {
     ReactTerrainShape();
     ~ReactTerrainShape();
     void CreateTerrainShape(reactphysics3d::PhysicsCommon &physicsCommon,reactphysics3d::PhysicsWorld *physicsWorld);
+    void DeleteTerrainShape(reactphysics3d::PhysicsCommon &physicsCommon,reactphysics3d::PhysicsWorld *physicsWorld);
     reactphysics3d::CollisionBody* getCollisionBody(){return body;}
   private:
     reactphysics3d::CollisionBody* body;
     reactphysics3d::HeightFieldShape* terrainCollider;
     float *heightFieldArray;
+    unsigned int shapeID;
 };

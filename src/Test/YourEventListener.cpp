@@ -4,5 +4,8 @@
 
 #include "YourEventListener.hpp"
 void YourEventListener::onContact(const CollisionCallback::CallbackData &callbackData) {
-    std::cout << "works" <<std::endl;
+   for(size_t i = 0; i < callbackData.getNbContactPairs();++i)
+   {
+        std::cout << callbackData.getContactPair(i).getBody1()->getEntity().id << " " << callbackData.getContactPair(i).getBody2()->getEntity().id << std::endl;
+   }
 }
