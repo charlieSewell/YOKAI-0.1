@@ -46,8 +46,9 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/LuaTypes.cpp
 		Controller/TextureManager.cpp
 
-		Test/PhysicsManager2.cpp
+        Test/NewPhysicsSystem.cpp
 		Test/YourEventListener.cpp
+		Test/ReactTerrainShape.cpp
 
 
 

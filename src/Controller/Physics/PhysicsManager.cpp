@@ -8,8 +8,8 @@ PhysicsManager::PhysicsManager()
 
 PhysicsManager& PhysicsManager::getInstance()
 {
-	static PhysicsManager instance;
-	return instance;
+    static PhysicsManager instance;
+    return instance;
 }
 
 /*int PhysicsManager::addBoundingSphere(glm::vec3 *position, double radius)
