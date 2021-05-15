@@ -2,8 +2,8 @@
 
 #include "Controller/Physics/AABB.hpp"
 
-AABB::AABB(glm::vec3* position, float width, float length, float height)
-	: m_position(position), m_width(width), m_length(length), m_height(height)
+AABB::AABB(Transform* transform , float width, float length, float height)
+	: m_transform(transform), m_width(width), m_length(length), m_height(height)
 {
 	updatePoints();
 }
@@ -20,14 +20,14 @@ bool AABB::checkCollision(AABB &other)
 
 void AABB::updatePoints()
 {
-	m_points.xmin = m_position->x - m_width / 2;
-	m_points.xmax = m_position->x + m_width / 2;
+	m_points.xmin = m_transform->getPosition().x - m_width / 2;
+	m_points.xmax = m_transform->getPosition().x + m_width / 2;
 
-	m_points.ymin = m_position->y - m_height / 2;
-	m_points.ymax = m_position->y + m_height / 2;
+	m_points.ymin = m_transform->getPosition().y - m_height / 2;
+	m_points.ymax = m_transform->getPosition().y + m_height / 2;
 
-	m_points.zmin = m_position->z - m_length / 2;
-	m_points.zmax = m_position->z + m_length / 2;
+	m_points.zmin = m_transform->getPosition().z - m_length / 2;
+	m_points.zmax = m_transform->getPosition().z + m_length / 2;
 }
 
 Points AABB::getAABBPoints()
@@ -41,7 +41,7 @@ float AABB::getHeight()
 	return m_points.ymax - m_points.ymin;
 }
 
-glm::vec3* AABB::getPosition()
+glm::vec3 AABB::getPosition()
 {
-	return m_position;
+	return m_transform->getPosition();
 }

@@ -3,6 +3,12 @@
 #include <iostream>
 #include "PlayerControlledMotion.hpp"
 
+PlayerControlledMotion::PlayerControlledMotion(Transform& transform)
+	:m_transformPtr(&transform)
+{
+
+}
+
 void PlayerControlledMotion::setMovementSpeed(float movementSpeed)
 {
 	m_movementSpeed = movementSpeed;
@@ -18,56 +24,70 @@ void PlayerControlledMotion::setJumpHeight(float jumpHeight)
 	m_jumpHeight = jumpHeight;
 }
 
-void PlayerControlledMotion::registerAllMovement(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection)
+void PlayerControlledMotion::registerAllMovement(glm::vec3& frontDirection, glm::vec3& upDirection)
 {
-	registerMoveForward(position, frontDirection);
-	registerMoveBackward(position, frontDirection);
-	registerMoveLeft(position, frontDirection, upDirection);
-	registerMoveRight(position, frontDirection, upDirection);
-	registerJump(position);
-	registerMoveDown(position, upDirection);
+	registerMoveForward(frontDirection);
+	registerMoveBackward(frontDirection);
+	registerMoveLeft(frontDirection, upDirection);
+	registerMoveRight(frontDirection, upDirection);
+	registerJump();
+	registerMoveDown(upDirection);
 	registerXYLook(frontDirection);
 }
 
-void PlayerControlledMotion::registerMoveForward(glm::vec3& position, glm::vec3& frontDirection)
+void PlayerControlledMotion::registerMoveForward(glm::vec3& frontDirection)
 {
 	auto moveForward = [&]()
 	{
-		position.x += m_movementSpeed * frontDirection.x; 
-		position.z += m_movementSpeed * frontDirection.z;
+		m_transformPtr->translatePostMultiply(m_movementSpeed * frontDirection);
 	};
 	EMS::getInstance().add(NoReturnEvent::moveForward, moveForward);
 }
 
-void PlayerControlledMotion::registerMoveBackward(glm::vec3& position, glm::vec3& frontDirection)
+void PlayerControlledMotion::registerMoveBackward(glm::vec3& frontDirection)
 {
 	auto moveBackward = [&]()
 	{
-		position.x -= m_movementSpeed * frontDirection.x;
-		position.z -= m_movementSpeed * frontDirection.z;
+		m_transformPtr->translatePostMultiply(-m_movementSpeed * frontDirection);
 	};
 	EMS::getInstance().add(NoReturnEvent::moveBackward, moveBackward);
 }
 
-void PlayerControlledMotion::registerMoveLeft(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection)
+void PlayerControlledMotion::registerMoveLeft(glm::vec3& frontDirection, glm::vec3& upDirection)
 {
-	auto moveLeft = [&]() {position -= glm::normalize(glm::cross(frontDirection, upDirection)) * m_movementSpeed; };
+	auto moveLeft = [&]()
+	{
+		m_transformPtr->translatePostMultiply(glm::normalize(glm::cross(frontDirection, upDirection)) * -m_movementSpeed);
+	};
 	EMS::getInstance().add(NoReturnEvent::moveLeft, moveLeft);
 }
 
-void PlayerControlledMotion::registerMoveRight(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection)
+void PlayerControlledMotion::registerMoveRight(glm::vec3& frontDirection, glm::vec3& upDirection)
 {
-	auto moveRight = [&]() {position += glm::normalize(glm::cross(frontDirection, upDirection)) * m_movementSpeed; };
+	auto moveRight = [&]()
+	{
+		m_transformPtr->translatePostMultiply(glm::normalize(glm::cross(frontDirection, upDirection)) * m_movementSpeed);
+	};
 	EMS::getInstance().add(NoReturnEvent::moveRight, moveRight);
 }
 
-void PlayerControlledMotion::registerJump(glm::vec3& position)
+void PlayerControlledMotion::registerMoveDown(glm::vec3& upDirection)
+{
+	auto moveDown = [&]()
+	{
+		m_transformPtr->translatePostMultiply(-m_movementSpeed * upDirection);
+	};
+	EMS::getInstance().add(NoReturnEvent::moveDown, moveDown);
+}
+
+
+void PlayerControlledMotion::registerJump()
 {
 	auto jump = [&]()
 	{
 		if(m_canJump)
 		{
-			m_jumpTarget = position.y + m_jumpHeight;
+			m_jumpTarget = m_transformPtr->getPosition().y + m_jumpHeight;
 			m_jump = true;
 			m_canJump = false;
 		}
@@ -75,7 +95,7 @@ void PlayerControlledMotion::registerJump(glm::vec3& position)
 	EMS::getInstance().add(NoReturnEvent::jump, jump);
 }
 
-void PlayerControlledMotion::updateJump(glm::vec3& position, glm::vec3& upDirection)
+void PlayerControlledMotion::updateJump(glm::vec3 position, glm::vec3& upDirection)
 {
 	m_jumpDecay = (m_jumpTarget - position.y)*m_jumpSpeed;
 	if(m_jump)
@@ -86,13 +106,6 @@ void PlayerControlledMotion::updateJump(glm::vec3& position, glm::vec3& upDirect
 			m_jump = false;
 	}
 }
-
-void PlayerControlledMotion::registerMoveDown(glm::vec3& position, glm::vec3& upDirection)
-{
-	auto moveDown = [&]() {position -= m_movementSpeed * upDirection; };
-	EMS::getInstance().add(NoReturnEvent::moveDown, moveDown);
-}
-
 void PlayerControlledMotion::registerXYLook(glm::vec3& frontDirection)
 {
 	static double yaw = -90.0f;

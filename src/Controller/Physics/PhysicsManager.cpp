@@ -19,10 +19,10 @@ PhysicsManager& PhysicsManager::getInstance()
 	return m_mapCount;
 }*/
 
-AABB* PhysicsManager::addAABB(glm::vec3* position, float width, float length, float height)
+AABB* PhysicsManager::addAABB(Transform* transform, float width, float length, float height)
 {
 	++m_mapCount;
-	m_colliders[m_mapCount] = AABB(position, width, length, height);
+	m_colliders[m_mapCount] = AABB(transform, width, length, height);
 	return &m_colliders[m_mapCount];
 }
 
@@ -34,9 +34,9 @@ AABB PhysicsManager::getCollider(int colliderID)
 // returns distance from collider to terrain
 float PhysicsManager::checkTerrainCollision(AABB* collider)
 {
-	float colliderX = collider->getPosition()->x;
-	float colliderY = collider->getPosition()->y;
-	float colliderZ = collider->getPosition()->z;
+	float colliderX = collider->getPosition().x;
+	float colliderY = collider->getPosition().y;
+	float colliderZ = collider->getPosition().z;
 
 	return(colliderY - TerrainFactory::getInstance().heightAt(colliderX,colliderZ));
 }

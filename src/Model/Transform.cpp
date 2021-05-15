@@ -21,8 +21,7 @@ Transform::Transform(const Transform &other)
 
 void Transform::decompose()
 {
-	glm::decompose(m_transform, m_scale, m_rotation, m_position, m_skew, m_perspective);
-	m_rotation = glm::conjugate(m_rotation);
+	glm::decompose(m_transform, m_scale, m_rotation, m_position, m_skew, m_perspective);	
 }
 
 void Transform::recompose()
@@ -88,6 +87,11 @@ glm::vec3 Transform::getPosition()
 {
 	decompose();
 	return(m_position);
+}
+
+glm::mat4 Transform::getMatrix()
+{
+	return m_transform;
 }
 
 void Transform::setScale(glm::vec3 scale)

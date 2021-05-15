@@ -10,7 +10,7 @@ class AutomatedBehaviours
 public:
 	
 protected:
-	AutomatedBehaviours(glm::mat4* transform);
+	AutomatedBehaviours(Transform& transform);
 
 	void accelerate(float topSpeed);
 	void decelerate();
@@ -24,7 +24,7 @@ protected:
 	float m_rotationSpeed;
 
 private:
-	glm::mat4* m_pTransform;
+	Transform *m_transformPtr;
 	void updateHeading();
 	float angle_XZ(glm::vec3 vector);
 };

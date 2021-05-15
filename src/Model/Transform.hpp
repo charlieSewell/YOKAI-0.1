@@ -23,6 +23,7 @@ public:
 	glm::vec3 getScale();
 	glm::quat getRotation();
 	glm::vec3 getPosition();
+	glm::mat4 getMatrix();
 
 	void setScale(glm::vec3 scale);
 	void setScale(float x, float y, float z);
