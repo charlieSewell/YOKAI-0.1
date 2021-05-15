@@ -93,7 +93,8 @@ protected:
     /// Scale of the GameObject
 	glm::vec3 m_scale;
 
-    /// Position of the GameObject
+	// Only used for physics, and should be yeeted
+	// in favour for using position inside transform 
     glm::vec3 m_position;
 
     /// Transform of the GameObject
