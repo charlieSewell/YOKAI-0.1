@@ -13,8 +13,11 @@ ModelManager &ModelManager::getInstance()
 ModelManager::ModelManager() 
 {
     modelShader = new Shader("content/Shaders/vertexShader.vert", "content/Shaders/fragmentShader.frag");
+    modelShader->useShader();
     modelShader->setVec3("skyColor",glm::vec3(0.05,0.05,0.05));
     modelShader->setBool("isAnimated",false);
+    modelShader->setVec3("lightColor",glm::vec3(1.0,1.0,1.0));
+    modelShader->setVec3("lightPos",glm::vec3(500,200,500));
     models.resize(100);
 }
 
@@ -39,5 +42,7 @@ Model* ModelManager::GetModel(size_t modelID)
 
 void ModelManager::DrawModel(size_t id, glm::mat4 transform) 
 {
+    modelShader->useShader();
+    modelShader->setVec3("viewPos",GameObjectManager::getInstance().getPlayer()->getPosition());
     models[id].Draw(*modelShader, transform);
 }

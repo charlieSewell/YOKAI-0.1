@@ -91,7 +91,7 @@ class VertexBuffer
     /**
      * @brief Unbinds a Vertex Buffer
      */
-    virtual void UnBind() =0;
+    [[maybe_unused]] virtual void UnBind() =0;
     /**
      * @brief Creates a Vertex buffer in the currently selected RenderAPI
      * @param vector<Vertex> - vertices

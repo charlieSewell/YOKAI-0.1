@@ -42,23 +42,6 @@ void Yokai::Run()
 	double lastFrame = 0;
     double lastTime = 0;
 
-    ModelLoader modelLoader;
-    Model test = modelLoader.loadModel("content/Models/Zombie/ZombieSmooth.gltf");
-    Model test1 = modelLoader.loadModel("content/Models/Zombie/ZombieSmooth.gltf");
-    Model test2 = modelLoader.loadModel("content/Models/Zombie/ZombieSmooth.gltf");
-    Model test3 = modelLoader.loadModel("content/Models/Zombie/ZombieSmooth.gltf");
-
-    Shader testShader = Shader("content/Shaders/vertexShader.vert","content/Shaders/fragmentShader.frag");
-
-    Animator animator(std::make_shared<Model>(test));
-    Animator animator1(std::make_shared<Model>(test1));
-    Animator animator2(std::make_shared<Model>(test2));
-    Animator animator3(std::make_shared<Model>(test3));
-    animator.setAnimation("ZombieBite");
-    animator1.setAnimation("ZombieIdle");
-    animator2.setAnimation("ZombieAttack");
-    animator3.setAnimation("ZombieRun");
-
     while(isRunning)
 	{
 		double currentTime = glfwGetTime();
@@ -93,30 +76,6 @@ void Yokai::Run()
                 layer->Draw();
             }
 
-            animator.BoneTransform(frameRate);
-            animator1.BoneTransform(frameRate);
-            animator2.BoneTransform(frameRate);
-            animator3.BoneTransform(frameRate);
-
-            testShader.useShader();
-            testShader.setBool("isAnimated",true);
-            testShader.setVecMat4("boneTrans",animator.finalTransforms);
-            test.Draw(testShader,model);
-
-            testShader.useShader();
-            testShader.setBool("isAnimated",true);
-            testShader.setVecMat4("boneTrans",animator1.finalTransforms);
-            test1.Draw(testShader,model1);
-
-            testShader.useShader();
-            testShader.setBool("isAnimated",true);
-            testShader.setVecMat4("boneTrans",animator2.finalTransforms);
-            test2.Draw(testShader,model2);
-
-            testShader.useShader();
-            testShader.setBool("isAnimated",true);
-            testShader.setVecMat4("boneTrans",animator3.finalTransforms);
-            test3.Draw(testShader,model3);
             if(endScreen->isActive())
             {
                 endScreen->draw();
@@ -124,10 +83,23 @@ void Yokai::Run()
 
 			lastFrame = currentTime;
 
-            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+            ImGui::Begin("Menu");                          // Create a window called "Hello, world!" and append into it.
 
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+            ImGui::Text("Main Menu");               // Display some text (you can use a format strings too)
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+            if(ImGui::Button("Start Game",ImVec2(500,100)))
+            {
+                std::cout << "Starting Game" <<std::endl;
+            }
+            if(ImGui::Button("Settings",ImVec2(500,100)))
+            {
+                std::cout << "Entering Settings" <<std::endl;
+            }
+            if(ImGui::Button("Quit",ImVec2(500,100)))
+            {
+                std::cout << "Quitting" <<std::endl;
+            }
+
             ImGui::End();
             renderer.DrawGui();
             window.endFrame();
