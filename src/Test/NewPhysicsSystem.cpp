@@ -17,7 +17,7 @@ NewPhysicsSystem::~NewPhysicsSystem()
 
 void NewPhysicsSystem::update(std::shared_ptr<GameObject> player)
 {
-	rp3d::Vector3 position(player->getPosition().x, player->getPosition().y -2, player->getPosition().z);
+	rp3d::Vector3 position(player->getTransform().getPosition().x, player->getTransform().getPosition().y - 2, player->getTransform().getPosition().z);
 	rp3d::Quaternion orientation = rp3d::Quaternion::identity();
 	rp3d::Transform transform(position, orientation);
 
@@ -38,7 +38,7 @@ void NewPhysicsSystem::test(std::shared_ptr<GameObject> player)
 
 void NewPhysicsSystem::addPlayer(std::shared_ptr<GameObject> player)
 {
-	rp3d::Vector3 position(player->getPosition().x, player->getPosition().y, player->getPosition().z);
+	rp3d::Vector3 position(player->getTransform().getPosition().x, player->getTransform().getPosition().y - 2, player->getTransform().getPosition().z);
 	rp3d::Quaternion orientation = rp3d::Quaternion::identity();
 	rp3d::Transform transform(position, orientation);
 	playerCollision = physicsWorld->createCollisionBody(transform);
