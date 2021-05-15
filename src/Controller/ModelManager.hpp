@@ -3,9 +3,11 @@
 
 #include "Model/Model.hpp"
 #include "Model/ObjectLoading/ModelLoader.hpp"
+#include "Controller/GameObjectManager.hpp"
 #include <map>
 #include <array>
 #include <glm/glm.hpp>
+
 
 /**
  * @class ModelManager

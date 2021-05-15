@@ -58,7 +58,7 @@ class Texture
      * @param fileName
      * @return shared_ptr<Texture>
      */
-    static std::shared_ptr<Texture> Create(std::string fileName);
+    static std::shared_ptr<Texture> Create(const std::string& fileName);
 };
 /**
  * @struct ModelTexture
@@ -91,7 +91,7 @@ class VertexBuffer
     /**
      * @brief Unbinds a Vertex Buffer
      */
-    virtual void UnBind() =0;
+    [[maybe_unused]] virtual void UnBind() =0;
     /**
      * @brief Creates a Vertex buffer in the currently selected RenderAPI
      * @param vector<Vertex> - vertices
@@ -147,5 +147,5 @@ class VertexArrayBuffer
      * @param vector<unsigned int> - indices
      * @return shared_ptr<VertexArrayBuffer>
      */
-    static std::shared_ptr<VertexArrayBuffer> Create(std::vector<Vertex> vertices,std::vector<unsigned int> indices);
+    static std::shared_ptr<VertexArrayBuffer> Create(const std::vector<Vertex>& vertices,const std::vector<unsigned int>& indices);
 };

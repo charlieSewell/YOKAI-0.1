@@ -22,7 +22,7 @@ class StaticObject : public GameObject, public PhysicsComponent
     /*!
      * @brief Draw call for the staticObject model
      */
-    void draw();
+    void draw() override;
 
     /*!
      * @brief Setter for the staticObject collider
@@ -30,7 +30,7 @@ class StaticObject : public GameObject, public PhysicsComponent
      * @param float - length
      * @param float - height
      */
-	void setCollider(float width, float length, float height);
+	void setCollider(float width, float length, float height) override;
 
   private:
     /// Stores associated model id of the staticObject

@@ -6,7 +6,10 @@
 #include <glad/glad.h>
 #include "View/Renderer/RenderAPI.hpp"
 #include <glm/glm.hpp>
+#include <imgui/backends/imgui_impl_opengl3.h>
+#include <imgui/imgui.h>
 #include "View/Renderer/DataTypes.hpp"
+
 /**
  * @class OpenGLRenderer
  * @brief OpenGL rendering api implementation
@@ -44,6 +47,10 @@ class OpenGLRenderer : public RenderAPI
      * @brief Clears the Screen after Rendering
      */
     void Clear() override;
+    /**
+     * @brief Draws the GUI
+     */
+    void DrawGui() override;
 
   private:
     ///Boolean to check whether it is in wireframe

@@ -9,9 +9,11 @@ layout (location = 4) in vec4 weights;
 const int MAX_BONES = 100;
 const int MAX_BONE_INFLUENCE = 4;
 uniform mat4 boneTrans[MAX_BONES];
-
+out vec3 FragPos;
 out vec2 TexCoords;
+out vec3 Normal;
 out float visibility;
+
 
 uniform mat4 model;
 uniform mat4 view;
@@ -26,6 +28,8 @@ void main()
     vec4 worldPosition = model * vec4(aPos,1.0);
     vec4 positionRelToCamera = view * worldPosition;
     float distance = length(positionRelToCamera.xyz);
+
+    Normal = mat3(transpose(inverse(model))) * aNormal;
 
     visibility = exp(-pow((distance*density),gradient));
 
@@ -42,6 +46,7 @@ void main()
         PosL = vec4(aPos, 1.0);
     }
 
+    FragPos = vec3(model * vec4(aPos, 1.0));
     TexCoords = aTexCoords;
     gl_Position = projection * view * model* PosL;
 }
