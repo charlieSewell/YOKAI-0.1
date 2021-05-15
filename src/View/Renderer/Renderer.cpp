@@ -16,6 +16,9 @@ void Renderer::Draw(VertexArrayBuffer& VAO,size_t indiceSize)
 {
     renderApi->Draw(VAO,indiceSize);
 }
+void Renderer::DrawGui() {
+    renderApi->DrawGui();
+}
 void Renderer::ToggleWireFrame()
 {
     renderApi->ToggleWireFrame();

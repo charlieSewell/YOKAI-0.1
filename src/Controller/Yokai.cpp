@@ -19,6 +19,10 @@ void Yokai::Init()
         return;
     }
     renderer.Init();
+    if(!window.ImguiInit())
+    {
+        return;
+    }
     //Add layers to layer stack
     layers.push_back(std::shared_ptr<Layer>(new DemoScene()));
     TerrainFactory::getInstance().Init();
@@ -64,6 +68,8 @@ void Yokai::Run()
 
 		if((currentTime - lastFrame) >= frameRate)
 		{
+            renderer.Clear();
+            window.startFrame();
             glm::mat4 model(1.0);
             model = glm::translate(model,glm::vec3(500,20,500));
             glm::mat4 model1(1.0);
@@ -73,7 +79,7 @@ void Yokai::Run()
             glm::mat4 model3(1.0);
             model3 = glm::translate(model3,glm::vec3(510,20,500));
 
-			renderer.Clear();
+
 			InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
 			InputManagerGLFW::getInstance().processMouse(window.getWindow());
 
@@ -116,9 +122,18 @@ void Yokai::Run()
                 endScreen->draw();
             }
 
-			window.endFrame();
 			lastFrame = currentTime;
+
+            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+
+            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+            ImGui::End();
+            renderer.DrawGui();
+            window.endFrame();
+
 		}
+
     }
     renderer.DeInit();
     window.DeInit();

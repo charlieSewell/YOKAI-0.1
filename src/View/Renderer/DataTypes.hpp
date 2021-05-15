@@ -58,7 +58,7 @@ class Texture
      * @param fileName
      * @return shared_ptr<Texture>
      */
-    static std::shared_ptr<Texture> Create(std::string fileName);
+    static std::shared_ptr<Texture> Create(const std::string& fileName);
 };
 /**
  * @struct ModelTexture
@@ -147,5 +147,5 @@ class VertexArrayBuffer
      * @param vector<unsigned int> - indices
      * @return shared_ptr<VertexArrayBuffer>
      */
-    static std::shared_ptr<VertexArrayBuffer> Create(std::vector<Vertex> vertices,std::vector<unsigned int> indices);
+    static std::shared_ptr<VertexArrayBuffer> Create(const std::vector<Vertex>& vertices,const std::vector<unsigned int>& indices);
 };

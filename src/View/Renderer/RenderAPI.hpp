@@ -39,6 +39,10 @@ class RenderAPI
      */
     virtual void Clear() =0;
     /**
+     * @brief Draws GUI to screen
+     */
+    virtual void DrawGui() =0;
+    /**
      * @brief Creates a specific rendering API
      * @return shared_ptr<RenderAPI> - renderAPI
      */

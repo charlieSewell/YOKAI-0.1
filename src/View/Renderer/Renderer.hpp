@@ -34,6 +34,10 @@ class Renderer
      */
     void Draw(VertexArrayBuffer& VAO,size_t indiceSize);
     /**
+     * @brief Draws GUI to screen
+     */
+    void DrawGui();
+    /**
      * @brief Clears the screen
      */
     void Clear();
