@@ -12,8 +12,6 @@
  */
 class Player : public GameObject, public Camera, public PlayerControlledMotion, public PhysicsComponent
 {
-	/// Camera position
-	using Camera::m_position;
 
 public:
     /*!
@@ -25,18 +23,6 @@ public:
      * @brief Deconstructor
      */
 	~Player();
-
-	/*!
-     * @brief Getter for the position of the player
-     * @return position
-     */
-	glm::vec3 getPosition() const override;
-
-    /*!
-     * @brief Setter for the player position
-     * @param vec3 - position
-     */
-	void setPosition(glm::vec3 position) override;
 
 	/*!
      * @brief Setter for the player collider

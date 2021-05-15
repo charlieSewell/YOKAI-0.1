@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include <glm/glm.hpp>
+#include "Model/Transform.hpp"
 /**
  * @struct Points
  * @brief Points that make up an AABB
@@ -40,12 +40,12 @@ public:
      * @param float - length
      * @param float - height
      */
-	AABB(glm::vec3* position, float width, float length, float height);
+	AABB(Transform* position, float width, float length, float height);
     /**
      * Returns position of AABB
      * @return vec3*
      */
-	glm::vec3* getPosition();
+	glm::vec3 getPosition();
     /**
      * @brief Checks collisions between 2 AABBs
      * @param AABB& - other
@@ -69,7 +69,7 @@ private:
    */
 	void updatePoints();
     ///Position of AABB
-	glm::vec3* m_position;
+	Transform* m_transform;
     ///Width of AABB
 	float m_width;
     ///Length of AABB
