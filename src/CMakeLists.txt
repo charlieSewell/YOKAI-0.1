@@ -15,6 +15,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Model/SplashScreen.cpp
 		Model/Components/PhysicsComponent.cpp
 		Model/Animation.cpp
+		Model/Components/AutomatedBehaviours.cpp
 
 
         View/Renderer/Shader.cpp

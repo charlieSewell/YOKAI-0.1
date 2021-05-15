@@ -36,7 +36,7 @@ void PlayerControlledMotion::registerMoveForward(glm::vec3& position, glm::vec3&
 		position.x += m_movementSpeed * frontDirection.x; 
 		position.z += m_movementSpeed * frontDirection.z;
 	};
-	EMS::getInstance().add(InputEvent::moveForward, moveForward);
+	EMS::getInstance().add(NoReturnEvent::moveForward, moveForward);
 }
 
 void PlayerControlledMotion::registerMoveBackward(glm::vec3& position, glm::vec3& frontDirection)
@@ -46,19 +46,19 @@ void PlayerControlledMotion::registerMoveBackward(glm::vec3& position, glm::vec3
 		position.x -= m_movementSpeed * frontDirection.x;
 		position.z -= m_movementSpeed * frontDirection.z;
 	};
-	EMS::getInstance().add(InputEvent::moveBackward, moveBackward);
+	EMS::getInstance().add(NoReturnEvent::moveBackward, moveBackward);
 }
 
 void PlayerControlledMotion::registerMoveLeft(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection)
 {
 	auto moveLeft = [&]() {position -= glm::normalize(glm::cross(frontDirection, upDirection)) * m_movementSpeed; };
-	EMS::getInstance().add(InputEvent::moveLeft, moveLeft);
+	EMS::getInstance().add(NoReturnEvent::moveLeft, moveLeft);
 }
 
 void PlayerControlledMotion::registerMoveRight(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection)
 {
 	auto moveRight = [&]() {position += glm::normalize(glm::cross(frontDirection, upDirection)) * m_movementSpeed; };
-	EMS::getInstance().add(InputEvent::moveRight, moveRight);
+	EMS::getInstance().add(NoReturnEvent::moveRight, moveRight);
 }
 
 void PlayerControlledMotion::registerJump(glm::vec3& position)
@@ -72,7 +72,7 @@ void PlayerControlledMotion::registerJump(glm::vec3& position)
 			m_canJump = false;
 		}
 	};
-	EMS::getInstance().add(InputEvent::jump, jump);
+	EMS::getInstance().add(NoReturnEvent::jump, jump);
 }
 
 void PlayerControlledMotion::updateJump(glm::vec3& position, glm::vec3& upDirection)
@@ -90,7 +90,7 @@ void PlayerControlledMotion::updateJump(glm::vec3& position, glm::vec3& upDirect
 void PlayerControlledMotion::registerMoveDown(glm::vec3& position, glm::vec3& upDirection)
 {
 	auto moveDown = [&]() {position -= m_movementSpeed * upDirection; };
-	EMS::getInstance().add(InputEvent::moveDown, moveDown);
+	EMS::getInstance().add(NoReturnEvent::moveDown, moveDown);
 }
 
 void PlayerControlledMotion::registerXYLook(glm::vec3& frontDirection)
@@ -119,5 +119,5 @@ void PlayerControlledMotion::registerXYLook(glm::vec3& frontDirection)
 		frontDirection = glm::normalize(direction);
 	};
 
-	EMS::getInstance().add(InputEvent::xyLook, xyLook);
+	EMS::getInstance().add(NoReturnEvent::xyLook, xyLook);
 }

@@ -32,7 +32,7 @@ void Renderer::registerToggleWireframe()
 		if (wireFrameActive)
 			wireFrameActive = false;
 	};
-	EMS::getInstance().add(InputEvent::toggleWireFrameReleased, toggleWireFrameReleased);
+	EMS::getInstance().add(NoReturnEvent::toggleWireFrameReleased, toggleWireFrameReleased);
 
 	auto toggleWireFramePressed = [&]()
 	{
@@ -42,7 +42,7 @@ void Renderer::registerToggleWireframe()
 			wireFrameActive = true;
 		}
 	};
-	EMS::getInstance().add(InputEvent::toggleWireFramePressed, toggleWireFramePressed);
+	EMS::getInstance().add(NoReturnEvent::toggleWireFramePressed, toggleWireFramePressed);
 }
 
 void Renderer::Clear() 

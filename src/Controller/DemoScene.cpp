@@ -41,7 +41,7 @@ void DemoScene::registerMenuButtons()
         isPressed = false;
 
     };
-    EMS::getInstance().add(InputEvent::toggleMenuReleased, menuButtonReleased);
+    EMS::getInstance().add(NoReturnEvent::toggleMenuReleased, menuButtonReleased);
 
     auto toggleMenuPressed = [&]()
     {
@@ -60,5 +60,5 @@ void DemoScene::registerMenuButtons()
             }
         }
     };
-    EMS::getInstance().add(InputEvent::toggleMenuPressed, toggleMenuPressed);
+    EMS::getInstance().add(NoReturnEvent::toggleMenuPressed, toggleMenuPressed);
 }

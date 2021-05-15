@@ -118,7 +118,7 @@ void Yokai::registerClose()
     {
         isPressed = false;
     };
-    EMS::getInstance().add(InputEvent::closeReleased, closeReleased);
+    EMS::getInstance().add(NoReturnEvent::closeReleased, closeReleased);
 
     auto closePressed = [&]()
     {
@@ -134,7 +134,7 @@ void Yokai::registerClose()
           }
       }
     };
-    EMS::getInstance().add(InputEvent::closePressed, closePressed);
+    EMS::getInstance().add(NoReturnEvent::closePressed, closePressed);
 
     auto close = [&]() {
         if(endScreen->isActive())
@@ -143,5 +143,5 @@ void Yokai::registerClose()
         }
 
     };
-    EMS::getInstance().add(InputEvent::mouseClicked, close);
+    EMS::getInstance().add(NoReturnEvent::mouseClicked, close);
 }

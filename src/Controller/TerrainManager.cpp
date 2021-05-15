@@ -47,8 +47,8 @@ void TerrainManager::Draw(glm::vec3 viewpos)
 
     terrainShader->useShader();
     terrainShader->setVec3("viewPos",viewpos);
-    terrainShader->setMat4("projection",EMS::getInstance().fire(RenderEvent::getPerspective));
-    terrainShader->setMat4("view",EMS::getInstance().fire(RenderEvent::getViewMatrix));
+    terrainShader->setMat4("projection",EMS::getInstance().fire(ReturnMat4Event::getPerspective));
+    terrainShader->setMat4("view",EMS::getInstance().fire(ReturnMat4Event::getViewMatrix));
     terrainShader->setMat4("model",glm::mat4(1.0));
 
     auto& textureManager = TextureManager::getInstance();

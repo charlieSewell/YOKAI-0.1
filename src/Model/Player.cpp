@@ -10,10 +10,11 @@ Player::Player()
 	m_jumpHeight = 4.0f;
 	m_jumpSpeed = 0.15f;
 	m_mass = 0.025f;
+	registerPosition();
 	registerAllMovement(m_position, m_frontDirection, m_upDirection);
 	registerPhysicsToggle();
 
-	m_resolvingCollision = false;
+	m_resolvingCollision = false;	
 }
 
 Player::~Player() {}
@@ -46,4 +47,14 @@ void Player::setPosition(glm::vec3 position)
 void Player::setCollider(float width, float length, float height)
 {
 	registerAABB(&m_position, width, length, height);
+}
+
+void Player::registerPosition()
+{
+	auto getPlayerPosition = [&]()
+	{
+		return m_position;
+	};
+
+	EMS::getInstance().add(ReturnVec3Event::getPlayerPosition, getPlayerPosition);
 }
