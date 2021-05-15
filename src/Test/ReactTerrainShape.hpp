@@ -4,7 +4,6 @@
 #pragma once
 #include "Controller/Factory/TerrainFactory.hpp"
 #include <reactphysics3d/reactphysics3d.h>
-class NewPhysicsSystem;
 class ReactTerrainShape {
   public:
     ReactTerrainShape();

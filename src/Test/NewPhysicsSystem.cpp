@@ -20,6 +20,8 @@ void NewPhysicsSystem::update(std::shared_ptr<GameObject> player)
 	rp3d::Vector3 position(player->getPosition().x, player->getPosition().y -2, player->getPosition().z);
 	rp3d::Quaternion orientation = rp3d::Quaternion::identity();
 	rp3d::Transform transform(position, orientation);
+
+
 	playerCollision->setTransform(transform);
 
     physicsWorld->update(timeStep);
