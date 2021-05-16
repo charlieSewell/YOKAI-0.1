@@ -96,42 +96,36 @@ glm::mat4 Transform::getMatrix()
 
 void Transform::setScale(glm::vec3 scale)
 {
-	decompose();
 	m_scale = scale;
 	recompose();
 }
 
 void Transform::setScale(float x, float y, float z)
 {
-	decompose();
 	m_scale = glm::vec3(x, y, z);
 	recompose();
 }
 
 void Transform::setScale(float scale)
 {
-	decompose();
 	m_scale = glm::vec3(scale, scale, scale);
 	recompose();
 }
 
 void Transform::setRotation(glm::quat rotation)
 {
-	decompose();
 	m_rotation - rotation;
 	recompose();
 }
 
 void Transform::setPosition(glm::vec3 position)
 {
-	decompose();
 	m_position = position;
 	recompose();
 }
 
 void Transform::setPosition(float x, float y, float z)
 {
-	decompose();
 	m_position = glm::vec3(x, y, z);
 	recompose();
 }
