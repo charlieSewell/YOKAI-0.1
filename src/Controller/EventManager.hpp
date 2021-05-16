@@ -22,7 +22,9 @@ enum class NoReturnEvent
 	toggleWireFrameReleased,
     toggleMenuPressed,
     toggleMenuReleased,
-    mouseClicked
+    mouseClicked,
+    uiPressed,
+    uiReleased
 };
 
 enum class ReturnMat4Event

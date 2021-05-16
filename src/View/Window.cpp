@@ -25,7 +25,8 @@ bool Window::Init()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 
-    window = glfwCreateWindow(1920, 1080, "ICT397 Game Engine", glfwGetPrimaryMonitor(), NULL);
+    //window = glfwCreateWindow(1920, 1080, "ICT397 Game Engine", NULL, NULL);
+    //window = glfwCreateWindow(1920, 1080, "ICT397 Game Engine", glfwGetPrimaryMonitor(), NULL);
 
     if (!window)
     {

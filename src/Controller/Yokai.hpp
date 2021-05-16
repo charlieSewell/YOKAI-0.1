@@ -38,6 +38,8 @@ class Yokai
      * @brief Registers Engine close event with EMS
      */
     void registerClose();
+
+    void registerUI();
     /**
      * @brief Privatised Default Constructor
      */
@@ -60,4 +62,5 @@ class Yokai
     std::vector<std::shared_ptr<Layer>> layers;
     SplashScreen* endScreen;
 
+    int frame;
 };
