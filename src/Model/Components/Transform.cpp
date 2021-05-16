@@ -21,17 +21,11 @@ Transform::Transform(const Transform &other)
 
 void Transform::decompose()
 {
-	glm::vec3 test;
-	glm::decompose(m_transform, test, m_rotation, test, m_skew, m_perspective);
+	glm::decompose(m_transform, m_scale, m_rotation, m_position, m_skew, m_perspective);
 }
 
 void Transform::recompose()
 {
-	bool foo = false;
-	glm::quat test = m_rotation;
-	//decompose();
-	if(test != m_rotation)
-		foo = true;
 	m_transform = glm::translate(m_position) * glm::mat4_cast(m_rotation) * glm::scale(m_scale);
 }
 
@@ -49,7 +43,6 @@ void Transform::translatePostMultiply(glm::vec3 translation)
 {
 	glm::mat4 translationMatrix = glm::translate(glm::mat4(1.f), translation);
 	m_transform = translationMatrix * m_transform;
-	//decompose();
 }
 
 void Transform::translatePostMultiply(float x, float y, float z)
@@ -92,7 +85,6 @@ glm::quat Transform::getRotation()
 
 glm::vec3 Transform::getPosition()
 {
-	//decompose();
 	return(m_transform[3]);
 }
 
@@ -103,36 +95,42 @@ glm::mat4 Transform::getMatrix()
 
 void Transform::setScale(glm::vec3 scale)
 {
+	decompose();
 	m_scale = scale;
 	recompose();
 }
 
 void Transform::setScale(float x, float y, float z)
 {
+	decompose();
 	m_scale = glm::vec3(x, y, z);
 	recompose();
 }
 
 void Transform::setScale(float scale)
 {
+	decompose();
 	m_scale = glm::vec3(scale, scale, scale);
 	recompose();
 }
 
 void Transform::setRotation(glm::quat rotation)
 {
+	decompose();
 	m_rotation = rotation;
 	recompose();
 }
 
 void Transform::setPosition(glm::vec3 position)
 {
+	decompose();
 	m_position = position;
 	recompose();
 }
 
 void Transform::setPosition(float x, float y, float z)
 {
+	decompose();
 	m_position = glm::vec3(x, y, z);
 	recompose();
 }

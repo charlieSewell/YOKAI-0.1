@@ -20,8 +20,8 @@ void NPC::draw()
 		decelerate();
 
 	// END SUDO STATE MACHINE
-	m_transform.setPosition(m_transform.getPosition());
-	//m_transform.setPosition(glm::vec3(m_transform.getPosition().x, PhysicsManager::getInstance().checkTerrainHeight(m_transform.getPosition()), m_transform.getPosition().z));
+	//m_transform.setPosition(m_transform.getPosition());
+	m_transform.setPosition(glm::vec3(m_transform.getPosition().x, PhysicsManager::getInstance().checkTerrainHeight(m_transform.getPosition()), m_transform.getPosition().z));
 	
 	ModelManager::getInstance().DrawModel(modelID, m_transform.getMatrix());
 }
