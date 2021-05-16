@@ -21,7 +21,7 @@ Player::~Player() {}
 
 void Player::draw() {}
 
-void Player::update()
+void Player::update(float dt)
 {
 	if(m_physicsActive)
 	{

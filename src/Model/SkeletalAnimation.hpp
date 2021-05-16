@@ -10,10 +10,10 @@ struct Frame {
     std::vector<std::pair<double, glm::vec3>> position = {};
     std::vector<std::pair<double, glm::quat>> rotation = {};
 };
-class Animation {
+class SkeletalAnimation {
     public:
-        Animation();
-        Animation(std::string name, std::map<std::string,Frame> animations, float duration, float TPS);
+        SkeletalAnimation();
+        SkeletalAnimation(std::string name, std::map<std::string,Frame> animations, float duration, float TPS);
         unsigned int FindRotation(double currTime, const Frame* frame);
         unsigned int FindPosition(double currTime, const Frame* frame);
         Frame* findFrame(const std::string& frameName);

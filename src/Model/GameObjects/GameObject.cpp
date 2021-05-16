@@ -43,7 +43,7 @@ void GameObject::setLuaScale(float x,float y,float z)
     m_transform = glm::translate(m_transform,m_position);
     m_transform = glm::scale(m_transform,m_scale);
 }
-void GameObject::update()
+void GameObject::update(float dt)
 {
 
 }

@@ -14,7 +14,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Model/GameObjects/NPC.cpp
 		Model/SplashScreen.cpp
 		Model/Components/PhysicsComponent.cpp
-		Model/Animation.cpp
+        Model/SkeletalAnimation.cpp
 		Model/Components/AutomatedBehaviours.cpp
 
 

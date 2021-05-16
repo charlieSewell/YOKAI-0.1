@@ -8,7 +8,7 @@
 #include <assimp/scene.h>
 #include <glm/gtc/type_ptr.hpp>
 #include "Model/Model.hpp"
-#include "Model/Animation.hpp"
+#include "Model/SkeletalAnimation.hpp"
 #include "Controller/TextureManager.hpp"
 /** @class ModelLoader
  *  @brief Class that loads models
@@ -34,7 +34,7 @@ class ModelLoader
      * @param const aiScene* - scene
      * @param mat4 - transform
      */
-    void processNode(std::vector<Animation> &animations, std::vector<Mesh> &meshes,
+    void processNode(std::vector<SkeletalAnimation> &animations, std::vector<Mesh> &meshes,
                      std::vector<Bone> &bones,
                      std::map<std::string, unsigned int> &boneMap, aiNode *node,
                      const aiScene *scene, glm::mat4 transform);
@@ -63,7 +63,7 @@ class ModelLoader
     ///Adds the Bone Data
     void addBoneData(unsigned int BoneID, float Weight);
     ///Loads a models animations
-    void loadAnimations(std::vector<Animation> &animations, const aiScene *scene);
+    void loadAnimations(std::vector<SkeletalAnimation> &animations, const aiScene *scene);
     ///Loads the bones of a mesh
     void loadBones(std::vector<Mesh> &meshes, std::vector<Bone> &bones,
                    std::map<std::string,unsigned int> &boneMap,

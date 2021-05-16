@@ -1,7 +1,7 @@
 #include "AutomatedBehaviours.hpp"
 
 AutomatedBehaviours::AutomatedBehaviours(glm::mat4* transform)
-	: m_heading(glm::vec3(0)), m_angle(0), m_acceleration(0), m_topSpeed(0.005),		
+	: m_heading(glm::vec3(0)), m_angle(0), m_acceleration(0), m_topSpeed(0.005),
 	m_pTransform(transform), m_rotationSpeed(0.05)
 {
 

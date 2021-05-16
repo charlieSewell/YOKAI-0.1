@@ -79,7 +79,7 @@ public:
     /*!
      * @brief Virtual update call for the GameObject
      */
-	virtual void update();
+	virtual void update(float dt);
 
     /*!
      * @brief Pure virtual draw call for the GameObject

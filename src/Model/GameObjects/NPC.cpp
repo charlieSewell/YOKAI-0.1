@@ -6,6 +6,8 @@ NPC::NPC(std::string modelName)
     modelID = ModelManager::getInstance().GetModelID(modelName);
     setPosition(glm::vec3(0,0,0));
     setScale(glm::vec3(0,0,0));
+    animator.addModel(ModelManager::getInstance().GetModel(modelID));
+    animator.setAnimation("ZombieIdle");
 }
 
 void NPC::draw() 
@@ -27,11 +29,14 @@ void NPC::draw()
 	m_position = getPosition();
 	setPosition(glm::vec3(m_position.x, PhysicsManager::getInstance().checkTerrainHeight(m_position), m_position.z));
 
-	ModelManager::getInstance().DrawModel(modelID, m_transform);
+	ModelManager::getInstance().DrawModel(modelID, m_transform,animator.finalTransforms);
 }
 
 void NPC::setCollider(float width, float length, float height)
 {
 	registerAABB(&m_position, width, length, height);
 }
-
+void NPC::update(float dt)
+{
+    animator.BoneTransform(dt);
+}

@@ -17,7 +17,7 @@ skyBox:setPosition(TerrainSettings.terrainSize/2, 0, TerrainSettings.terrainSize
 skyBox:setScale(0.03, 0.03, 0.03);
 
 --Creating Rocks in random places
-for i=0,300 do
+for i=0,200 do
         x = math.random(0,TerrainSettings.terrainSize);
         z = math.random(0,TerrainSettings.terrainSize);
         val = terrFac:getHeight(x,z)
@@ -29,7 +29,7 @@ for i=0,300 do
 end
 
 --Creating Zombies in random places
-for i=0, 180 do
+for i=0, 50 do
         x = math.random(0,TerrainSettings.terrainSize);
         z = math.random(0,TerrainSettings.terrainSize);
         val = terrFac:getHeight(x,z)
@@ -40,7 +40,7 @@ for i=0, 180 do
         gameObj:setPosition(x,val,z);
 end
 --Creating Trees in random places
-for i=0,300 do
+for i=0,200 do
         x = math.random(0,TerrainSettings.terrainSize);
         z = math.random(0,TerrainSettings.terrainSize);
         val = terrFac:getHeight(x,z)
