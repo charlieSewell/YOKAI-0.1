@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Model/Transform.hpp"
+#include "Model/Components/Transform.hpp"
 /**
  * @struct Points
  * @brief Points that make up an AABB

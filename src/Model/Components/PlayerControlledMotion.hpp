@@ -1,7 +1,7 @@
 //PlayerControlledMotion.hpp - Abstract class
 #pragma once
 
-#include "Model/Transform.hpp"
+#include "Model/Components/Transform.hpp"
 #include "Controller/EventManager.hpp"
 /**
  * @class PlayerControlledMotion

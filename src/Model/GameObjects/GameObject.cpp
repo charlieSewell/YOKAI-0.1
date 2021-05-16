@@ -3,6 +3,12 @@
 #include "GameObject.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
+GameObject::GameObject()
+	: m_transform()
+{
+
+}
+
 Transform GameObject::getTransform()
 {
     return m_transform;

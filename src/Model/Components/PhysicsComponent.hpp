@@ -4,7 +4,7 @@
 
 #include "Controller/Physics/PhysicsManager.hpp"
 #include "Controller/EventManager.hpp"
-#include "Model/Transform.hpp"
+#include "Model/Components/Transform.hpp"
 
 /**
  * @class PhysicsComponent

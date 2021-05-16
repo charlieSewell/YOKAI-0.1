@@ -4,8 +4,7 @@
 #include <map>
 #include <glm/glm.hpp>
 #include "Controller/Physics/AABB.hpp"
-#include "Model/Transform.hpp"
-
+#include "Model/Components/Transform.hpp"
 /**
  * @struct BoundingSphere
  * @brief Stores Data related to bounding sphere

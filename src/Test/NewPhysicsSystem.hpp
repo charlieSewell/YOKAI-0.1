@@ -2,7 +2,7 @@
 
 #include <reactphysics3d/reactphysics3d.h>
 
-#include "Model/Player.hpp" // player will not be here - just for testing
+#include "Model/GameObjects/Player.hpp" // player will not be here - just for testing
 #include "YourEventListener.hpp"
 #include "ReactTerrainShape.hpp"
 

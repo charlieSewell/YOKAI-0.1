@@ -2,11 +2,9 @@
 
 #pragma once
 
-
-#include <glm/glm.hpp>
 #include "View/Renderer/Shader.hpp"
 #include "Controller/LuaManager.hpp"
-#include "Model/Transform.hpp"
+#include "Model/Components/Transform.hpp"
 
 /**
  * @class GameObjectType
@@ -24,6 +22,7 @@ enum class GameObjectType
 class GameObject
 {
 public:
+	GameObject();
     /*!
      * @brief Registers the class for Lua
      */
