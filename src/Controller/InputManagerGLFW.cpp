@@ -46,9 +46,9 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 		EMS::getInstance().fire(NoReturnEvent::increaseSpeed);
 
 	//UI TESTING
-    if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
         EMS::getInstance().fire(NoReturnEvent::uiPressed);
-    if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_RELEASE)
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_RELEASE)
         EMS::getInstance().fire(NoReturnEvent::uiReleased);
 	//
 

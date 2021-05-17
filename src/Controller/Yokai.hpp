@@ -5,6 +5,7 @@
 #include "View/Renderer/Renderer.hpp"
 #include "View/Window.hpp"
 #include "Model/SplashScreen.hpp"
+#include "Controller/KeyframeAnimation.hpp"
 //workaround to allow vector of layer pointers
 class Layer;
 /**
@@ -63,4 +64,5 @@ class Yokai
     SplashScreen* endScreen;
 
     int frame;
+    KeyframeAnimation *keyframe;
 };

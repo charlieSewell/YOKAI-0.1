@@ -45,6 +45,7 @@ target_sources(${PROJECT_NAME} PRIVATE
         Controller/GameObjectManager.cpp
 		Controller/LuaTypes.cpp
 		Controller/TextureManager.cpp
+		Controller/KeyframeAnimation.cpp
 
         )
 

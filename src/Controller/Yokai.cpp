@@ -35,7 +35,8 @@ void Yokai::Init()
     GameObjectManager::init();
     endScreen = new SplashScreen("content/Textures/exit_screen.png");
 
-    frame = 0;
+    frame = 7;
+    keyframe = new KeyframeAnimation();
 }
 void Yokai::Run()
 {
@@ -44,33 +45,13 @@ void Yokai::Run()
 	double lastFrame = 0;
     double lastTime = 0;
 
-    std::vector<Model> guns;
-
-    ModelLoader loader;
-    Model g1 = loader.loadModel("content/Models/gun_000001.obj");
-    Model g2 = loader.loadModel("content/Models/gun_000002.obj");
-    Model g3 = loader.loadModel("content/Models/gun_000003.obj");
-    Model g4 = loader.loadModel("content/Models/gun_000004.obj");
-    Model g5 = loader.loadModel("content/Models/gun_000005.obj");
-    Model g6 = loader.loadModel("content/Models/gun_000006.obj");
-    Model g7 = loader.loadModel("content/Models/gun_000007.obj");
-    Model g8 = loader.loadModel("content/Models/gun_000008.obj");
-    Model g9 = loader.loadModel("content/Models/gun_000009.obj");
-    Model g10 = loader.loadModel("content/Models/gun_000010.obj");
-    Model g11 = loader.loadModel("content/Models/gun_000011.obj");
-    Model g12 = loader.loadModel("content/Models/gun_000012.obj");
-    Model g13 = loader.loadModel("content/Models/gun_000013.obj");
-    Model g14 = loader.loadModel("content/Models/gun_000014.obj");
-
-    guns.push_back(g1);
-    guns.push_back(g2);
-    guns.push_back(g3);
-    guns.push_back(g4);
-    guns.push_back(g5);
-    guns.push_back(g6);
-    guns.push_back(g7);
-
-    Shader shader = Shader("content/Shaders/vertexShader.vert", "content/Shaders/fragmentShader.frag");
+    //KEYFRAME TESTING
+    keyframe->readFile("content/Models/guntest.txt");
+    keyframe->setTPS(30);
+    //keyframe->addAnimation("fire", 1, 7);
+    keyframe->addAnimation("fire", 1, 1);
+    //keyframe->addAnimation("reload", 7, 55);
+    keyframe->setAnimation("fire");
 
     while(isRunning)
 	{
@@ -99,18 +80,10 @@ void Yokai::Run()
             glm::mat4 transform(1.0);
             transform = glm::translate(transform, glm::vec3(512, 25, 512));
             transform = glm::scale(transform, glm::vec3(0.03, 0.03, 0.03));
-
-            guns[frame].Draw(shader, transform);
             
-            
-            if (frame < 6) 
-            {
-                frame++;
-            } else {
-                frame = 0;
-            }
-            
-            //g1.Draw(shader, transform);
+            // KEYFRAME TESTING
+            keyframe->setCurrentFrame(frameTime);
+            keyframe->draw();
 
             for(auto& layer: layers)
             {
@@ -195,29 +168,18 @@ void Yokai::registerClose()
 
 void Yokai::registerUI() 
 {
-    static bool isPressed = false;
-
     auto uiReleased    = [&]() 
     { 
-        isPressed = false; 
+        //keyframe.setStartFrame(7);
+        //keyframe.setEndFrame(55);
     };
 
     EMS::getInstance().add(NoReturnEvent::uiReleased, uiReleased);
 
     auto uiPressed = [&]() 
     {
-        if (!isPressed) 
-        {
-            if (endScreen->isActive()) 
-            {
-                endScreen->setInactive();
-                isPressed = true;
-            } else 
-            {
-                endScreen->setActive();
-                isPressed = true;
-            }
-        }
+        //keyframe.setStartFrame(7);
+        //keyframe.setEndFrame(55);
     };
 
     EMS::getInstance().add(NoReturnEvent::uiPressed, uiPressed);
