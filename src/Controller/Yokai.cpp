@@ -6,7 +6,6 @@
 
 #include "Animator.hpp"
 #include "DemoScene.hpp"
-#include "Test/NewPhysicsSystem.hpp"
 Yokai &Yokai::getInstance() 
 {
     static Yokai instance;
@@ -39,8 +38,6 @@ void Yokai::Init()
 }
 void Yokai::Run()
 {
-    NewPhysicsSystem physicsTest;
-    physicsTest.test(GameObjectManager::getInstance().getPlayer());
 	const double frameRate = 1.0f / 300;	// 120 fps
 
 	double lastFrame = 0;
@@ -69,7 +66,6 @@ void Yokai::Run()
 
 			InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
 			InputManagerGLFW::getInstance().processMouse(window.getWindow());
-            physicsTest.update(GameObjectManager::getInstance().getPlayer());
             for(auto& layer: layers)
             {
                 layer->Update(frameTime);

@@ -50,7 +50,7 @@ protected:
      */
 	void registerPhysicsToggle();
     ///AABB Collider
-	AABB* m_collider;
+	//AABB* m_collider;
     ///Objects Mass
 	float m_mass;
     ///is on ground

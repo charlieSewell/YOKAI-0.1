@@ -15,6 +15,8 @@ Player::Player()
 	registerPhysicsToggle();
 
 	m_resolvingCollision = false;
+
+	PhysicsManager::getInstance().addCapsule(m_transform);
 }
 
 Player::~Player() {}
@@ -24,6 +26,7 @@ void Player::draw() {}
 void Player::update()
 {
 	Camera::m_position = m_transform.getPosition();		//TODO: make this better
+	PhysicsManager::getInstance().update(m_transform);
 	/*if(m_physicsActive)
 	{
 		m_canJump = m_onGround;

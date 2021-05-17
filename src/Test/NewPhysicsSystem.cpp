@@ -1,5 +1,5 @@
 
-#include "NewPhysicsSystem.hpp"
+/*#include "NewPhysicsSystem.hpp"
 
 NewPhysicsSystem::NewPhysicsSystem()
 {
@@ -32,8 +32,6 @@ void NewPhysicsSystem::test(std::shared_ptr<GameObject> player)
 {
     addPlayer(player);
     addTerrain();
-
-
 }
 
 void NewPhysicsSystem::addPlayer(std::shared_ptr<GameObject> player)
@@ -58,4 +56,4 @@ void NewPhysicsSystem::addTerrain()
 
 
 
-// Register your event listener class
+// Register your event listener class*/
