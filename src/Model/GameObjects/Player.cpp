@@ -17,6 +17,7 @@ Player::Player()
 	m_resolvingCollision = false;
 
 	PhysicsManager::getInstance().addCapsule(m_transform);
+	PhysicsManager::getInstance().addTerrain();
 }
 
 Player::~Player() {}

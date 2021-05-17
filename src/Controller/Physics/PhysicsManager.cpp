@@ -20,8 +20,8 @@ PhysicsManager::~PhysicsManager()
 
 PhysicsManager& PhysicsManager::getInstance()
 {
-    static PhysicsManager instance;
-    return instance;
+	static PhysicsManager instance;
+	return instance;
 }
 
 void PhysicsManager::update(Transform transform)
@@ -68,7 +68,7 @@ float PhysicsManager::checkTerrainCollision(AABB* collider)
 	float colliderY = collider->getPosition().y;
 	float colliderZ = collider->getPosition().z;
 
-	return(colliderY - TerrainFactory::getInstance().heightAt(colliderX,colliderZ));
+	return(colliderY - TerrainFactory::getInstance().heightAt(colliderX, colliderZ));
 }
 
 // returns distance from collider to terrain
@@ -80,10 +80,10 @@ float PhysicsManager::checkTerrainHeight(glm::vec3 position)
 AABB* PhysicsManager::checkCollisions(AABB* collider)
 {
 	std::map<int, AABB>::iterator it;
-	
-	for(it = m_colliders.begin(); it != m_colliders.end(); ++it)
+
+	for (it = m_colliders.begin(); it != m_colliders.end(); ++it)
 	{
-		if(collider->checkCollision(it->second) && &it->second != collider)		//check it's colliding and that it's not colliding with itself
+		if (collider->checkCollision(it->second) && &it->second != collider)		//check it's colliding and that it's not colliding with itself
 			return &it->second;
 	}
 	return nullptr;

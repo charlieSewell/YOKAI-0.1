@@ -17,25 +17,25 @@
 class PhysicsManager
 {
 public:
-    /**
-     * @brief Returns this instance of Physics manager
-     * @return PhysicsManager&
-     */
+	/**
+	 * @brief Returns this instance of Physics manager
+	 * @return PhysicsManager&
+	 */
 	static PhysicsManager& getInstance();
 
-    ///Deleted copy constructor
+	///Deleted copy constructor
 	PhysicsManager(PhysicsManager const&) = delete;
 
-    ///Deleted = operator
+	///Deleted = operator
 	void operator=(PhysicsManager const&) = delete;
 
 	void update(Transform transform);
 
-    /**
-     * @brief Checks terrain Collision
-     * @param AABB* - collider
-     * @return float
-     */
+	/**
+	 * @brief Checks terrain Collision
+	 * @param AABB* - collider
+	 * @return float
+	 */
 	float checkTerrainCollision(AABB* collider); 	// returns difference of object height and terrain height
 
 	/**
@@ -50,24 +50,24 @@ public:
 	 * @param AABB* collider
 	 * @return AABB*
 	 */
-    AABB* checkCollisions(AABB* collider);
+	AABB* checkCollisions(AABB* collider);
 
 	// easy to implement if needed
 	//int addBoundingSphere(glm::vec3 *position, double radius);
-    /**
-     * @brief Adds a bounding box
-     * @param vec3* - position
-     * @param float - width
-     * @param float - length
-     * @param float - height
-     * @return AABB*
-     */
-	AABB* addAABB(Transform *transform, float width, float length, float height);
-    /**
-     * @brief Returns a collider given an ID
-     * @param int - colliderID
-     * @return AABB
-     */
+	/**
+	 * @brief Adds a bounding box
+	 * @param vec3* - position
+	 * @param float - width
+	 * @param float - length
+	 * @param float - height
+	 * @return AABB*
+	 */
+	AABB* addAABB(Transform* transform, float width, float length, float height);
+	/**
+	 * @brief Returns a collider given an ID
+	 * @param int - colliderID
+	 * @return AABB
+	 */
 	AABB getCollider(int colliderID);
 
 	void addCapsule(Transform transform);
@@ -78,15 +78,15 @@ public:
 	reactphysics3d::PhysicsWorld* physicsWorld;
 
 private:
-    ///Privatised Constructor
+	///Privatised Constructor
 	PhysicsManager();
 
 	///Privatised destructor
 	~PhysicsManager();
 
-    ///count of map
+	///count of map
 	int m_mapCount;
-    ///map of colliders
+	///map of colliders
 	std::map<int, AABB> m_colliders;	//TODO: make colliders so can add spheres
 
 	reactphysics3d::decimal timeStep;
