@@ -41,6 +41,7 @@ void PhysicsManager::addCapsule(Transform transform)
 	rp3d::Quaternion orientation = rp3d::Quaternion::identity();
 	rp3d::Transform reactTransform(position, orientation);
 	playerCollision = physicsWorld->createCollisionBody(reactTransform);
+	playerCollision->getEntity().id;
 
 	capsule = physicsCommon.createCapsuleShape(1.0, 2.0);
 	//rp3d::Collider *collider;
