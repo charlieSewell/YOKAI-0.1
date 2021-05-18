@@ -56,6 +56,16 @@ public:
      */
 	void update() override;
 
+    void setHealth(int h);
+    int getHealth();
+
+    void setShields(int s);
+    int getShields();
+
 private:
 	void registerPosition();
+
+    int health;
+
+    int shields;
 };

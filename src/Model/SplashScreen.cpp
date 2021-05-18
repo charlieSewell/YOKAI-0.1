@@ -14,7 +14,7 @@ SplashScreen::SplashScreen(std::string texturePath)
 }
 void SplashScreen::setTexture(std::string texturePath)
 {
-    texture =  Texture::Create(texturePath);
+    texture = Texture::Create(texturePath);
 }
 void SplashScreen::draw()
 {

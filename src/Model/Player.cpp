@@ -4,7 +4,8 @@
 
 Player::Player()
 {
-
+    health            = 100;
+    shields           = 100;
 	m_movementSpeed = 0.075f;
 	m_lookSensitivity = 0.05f;
 	m_jumpHeight = 4.0f;
@@ -57,4 +58,24 @@ void Player::registerPosition()
 	};
 
 	EMS::getInstance().add(ReturnVec3Event::getPlayerPosition, getPlayerPosition);
+}
+
+void Player::setHealth(int h) 
+{
+    health = h;
+}
+
+int Player::getHealth() 
+{
+    return health;
+}
+
+void Player::setShields(int s) 
+{
+    shields = s;
+}
+
+int Player::getShields() 
+{
+    return shields;
 }
