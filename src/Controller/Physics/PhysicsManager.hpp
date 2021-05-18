@@ -4,7 +4,7 @@
 #include <map>
 #include <glm/glm.hpp>
 #include "Controller/Physics/AABB.hpp"
-
+#include "Model/Components/Transform.hpp"
 /**
  * @struct BoundingSphere
  * @brief Stores Data related to bounding sphere
@@ -72,7 +72,7 @@ public:
      * @param float - height
      * @return AABB*
      */
-	AABB* addAABB(glm::vec3 *position, float width, float length, float height);
+	AABB* addAABB(Transform *transform, float width, float length, float height);
     /**
      * @brief Returns a collider given an ID
      * @param int - colliderID

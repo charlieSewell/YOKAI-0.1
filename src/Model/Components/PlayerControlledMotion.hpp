@@ -1,9 +1,7 @@
 //PlayerControlledMotion.hpp - Abstract class
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
+#include "Model/Components/Transform.hpp"
 #include "Controller/EventManager.hpp"
 /**
  * @class PlayerControlledMotion
@@ -33,6 +31,12 @@ protected:
    * @brief Constructor for Player Controlled Motion
    */
 	PlayerControlledMotion() {}
+
+	/**
+	* @brief Constructor for Player Controlled Motion
+	* @param vec3* - positionPtr
+	*/
+	PlayerControlledMotion(Transform &transform);
     /**
      * @brief Destructor for player controlled motion
      */
@@ -43,45 +47,45 @@ protected:
      * @param vec3& - frontDirection
      * @param vec3& upDirection
      */
-	void registerAllMovement(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection);
+	void registerAllMovement(glm::vec3& frontDirection, glm::vec3& upDirection);
     /**
      * @brief Registers Forwared movement with EMS
      * @param vec3& - position
      * @param vec3& - frontDirection
      */
-	void registerMoveForward(glm::vec3& position, glm::vec3& frontDirection);
+	void registerMoveForward(glm::vec3& frontDirection);
     /**
      * @brief Registers Backwards movement with EMS
      * @param vec3& - position
      * @param vec3& - frontDirection
      */
-	void registerMoveBackward(glm::vec3& position, glm::vec3& frontDirection);
+	void registerMoveBackward(glm::vec3& frontDirection);
     /**
      * @brief Registers Left movement with EMS
      * @param vec3& - position
      * @param vec3& - frontDirection
      * @param vec3& - upDirection
      */
-	void registerMoveLeft(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection);
+	void registerMoveLeft(glm::vec3& frontDirection, glm::vec3& upDirection);
     /**
      * @brief Registers Right movement with EMS
      * @param vec3& - position
      * @param vec3& - frontDirection
      * @param vec3& - upDirection
      */
-	void registerMoveRight(glm::vec3& position, glm::vec3& frontDirection, glm::vec3& upDirection);
+	void registerMoveRight(glm::vec3& frontDirection, glm::vec3& upDirection);
 	/**
 	 * @brief Registers jump with EMS
 	 * @param vec3& - position
 	 * @param vec3& - upDirection
 	 */
-    void registerJump(glm::vec3& position);
+    void registerJump();
     /**
      * @brief Registers downward movement with EMS
      * @param vec3& - position
      * @param vec3& - upDirection
      */
-	void registerMoveDown(glm::vec3& position, glm::vec3& upDirection);
+	void registerMoveDown(glm::vec3& upDirection);
     /**
      * Registers Mouse Movement with EMS
      * @param vec3& - frontDirection
@@ -92,7 +96,7 @@ protected:
      * @param vec3& - position
      * @param vec3& - upDirection
      */
-	void updateJump(glm::vec3& position, glm::vec3& upDirection);
+	void updateJump(glm::vec3 position, glm::vec3& upDirection);
     ///Movement speed
 	float m_movementSpeed;
     ///Mouse sensitivity
@@ -111,4 +115,6 @@ private:
 	float m_jumpTarget;
     ///Current jump decay
 	float m_jumpDecay;
+
+	Transform* m_transformPtr;
 };

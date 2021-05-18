@@ -4,7 +4,7 @@
 #include "Model/GameObjects/GameObject.hpp"
 #include "Model/GameObjects/NPC.hpp"
 #include "Model/GameObjects/StaticObject.hpp"
-#include "Model/Player.hpp"
+#include "Model//GameObjects/Player.hpp"
 
 /**
  * @class GameAssetFactory

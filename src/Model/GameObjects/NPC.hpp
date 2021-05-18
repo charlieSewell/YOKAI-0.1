@@ -11,7 +11,7 @@
  * @class NPC
  * @brief Child of GameObject for all NPC's within the game. Inherits physics component.
  */
-class NPC : public GameObject, public PhysicsComponent, public AutomatedBehaviours
+class NPC : public GameObject, public AutomatedBehaviours//, public PhysicsComponent
 {
   public:
     /*!

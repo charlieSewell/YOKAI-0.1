@@ -9,13 +9,14 @@ target_sources(${PROJECT_NAME} PRIVATE
         Model/Chunk.cpp
 		Model/GameObjects/GameObject.cpp
         Model/Components/PlayerControlledMotion.cpp
-		Model/Player.cpp
+		Model/GameObjects/Player.cpp
 		Model/GameObjects/StaticObject.cpp
 		Model/GameObjects/NPC.cpp
 		Model/SplashScreen.cpp
 		Model/Components/PhysicsComponent.cpp
 		Model/Animation.cpp
 		Model/Components/AutomatedBehaviours.cpp
+		Model/Components/Transform.cpp
 
 
         View/Renderer/Shader.cpp
@@ -45,6 +46,13 @@ target_sources(${PROJECT_NAME} PRIVATE
         Controller/GameObjectManager.cpp
 		Controller/LuaTypes.cpp
 		Controller/TextureManager.cpp
+
+        Test/NewPhysicsSystem.cpp
+		Test/YourEventListener.cpp
+		Test/ReactTerrainShape.cpp
+
+
+
 
         )
 

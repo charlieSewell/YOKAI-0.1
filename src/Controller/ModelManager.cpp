@@ -43,6 +43,6 @@ Model* ModelManager::GetModel(size_t modelID)
 void ModelManager::DrawModel(size_t id, glm::mat4 transform) 
 {
     modelShader->useShader();
-    modelShader->setVec3("viewPos",GameObjectManager::getInstance().getPlayer()->getPosition());
+    modelShader->setVec3("viewPos",EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
     models[id].Draw(*modelShader, transform);
 }
