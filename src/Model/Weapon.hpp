@@ -1,5 +1,4 @@
 #include <iostream>
-#include "Model/SplashScreen.hpp"
 
 class Weapon 
 {

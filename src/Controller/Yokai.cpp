@@ -98,13 +98,15 @@ void Yokai::Run()
     double lastTime = 0;
 
     //KEYFRAME TESTING
-    /*
-    keyframe->readFile("content/Models/gunPaths.txt");
-    keyframe->setTPS(30);
+    
+    keyframe->readFile("content/Models/guntest.txt");
+    keyframe->setTPS(15);
     keyframe->addAnimation("fire", 1, 7);
     keyframe->addAnimation("reload", 7, 55);
-    keyframe->setAnimation("reload");
-    */
+    keyframe->addAnimation("emptyreload", 55, 108);
+    keyframe->addAnimation("idle", 142, 164);
+    keyframe->setAnimation("idle");
+    
 
     while(isRunning)
 	{
@@ -135,8 +137,8 @@ void Yokai::Run()
             transform = glm::scale(transform, glm::vec3(0.03, 0.03, 0.03));
             
             // KEYFRAME TESTING
-            //keyframe->setCurrentFrame(frameTime);
-            //keyframe->draw();
+            keyframe->setCurrentFrame(frameTime);
+            keyframe->draw();
 
             // AMMO TESTING
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -173,17 +175,33 @@ void Yokai::Run()
 
             if (gun.getAmmo() == 0) 
             {
+                keyframe->setTPS(30);
+                keyframe->setAnimation("emptyreload");
                 gun.reload();
             }
 
             if (glfwGetKey(window.getWindow(), GLFW_KEY_R) == GLFW_PRESS) 
             {
+                keyframe->setTPS(30);
+                keyframe->setAnimation("reload");
                 gun.reload();
             }
 
             if (glfwGetKey(window.getWindow(), GLFW_KEY_LEFT) == GLFW_PRESS) 
             {
                 gun.decrementAmmo();
+            }
+
+            if (glfwGetKey(window.getWindow(), GLFW_KEY_UP) == GLFW_PRESS) 
+            {
+                keyframe->setTPS(20);
+                keyframe->setAnimation("idle");
+            }
+
+            if (glfwGetMouseButton(window.getWindow(), GLFW_MOUSE_BUTTON_1) == GLFW_PRESS) 
+            {
+                keyframe->setTPS(30);
+                keyframe->setAnimation("fire");
             }
 
             if (glfwGetKey(window.getWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS) 
