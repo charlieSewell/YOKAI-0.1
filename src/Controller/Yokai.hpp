@@ -6,6 +6,7 @@
 #include "View/Window.hpp"
 #include "Model/SplashScreen.hpp"
 #include "Controller/KeyframeAnimation.hpp"
+#include "Model/Weapon.hpp"
 //workaround to allow vector of layer pointers
 class Layer;
 /**
@@ -61,8 +62,24 @@ class Yokai
     bool isRunning = true;
     ///Vector of Scene layers
     std::vector<std::shared_ptr<Layer>> layers;
+
     SplashScreen* endScreen;
 
-    int frame;
+    SplashScreen* healthUI;
+
+    SplashScreen *shieldUI;
+
+    SplashScreen *ammoMainUI;
+    SplashScreen *ammoMainUI2;
+    SplashScreen *ammoReserveUI;
+    SplashScreen *ammoReserveUI2;
+    SplashScreen *ammoReserveUI3;
+
     KeyframeAnimation *keyframe;
+
+    //TESTING
+    int healthbar;
+    bool inGame;
+    Weapon gun;
+    std::vector<std::string> ammoNumbers;
 };
