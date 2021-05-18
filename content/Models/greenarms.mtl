@@ -20,8 +20,8 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump C:\\Users\\vjk20\\OneDrive\\Desktop\\weapon\\textures\\carbine_normal.png
-map_Kd C:\\Users\\vjk20\\OneDrive\\Desktop\\weapon\\textures\\carbine_baseColor.png
+map_Bump textures/carbine_normal.png
+map_Kd textures/carbine_baseColor.png
 
 newmtl green
 Ns 225.000000
@@ -43,6 +43,6 @@ Ke 1.000000 0.060700 0.003986
 Ni 1.450000
 d 1.000000
 illum 2
-map_Bump C:\\Users\\vjk20\\OneDrive\\Desktop\\weapon\\textures\\carbine_normal.png
-map_Kd C:\\Users\\vjk20\\OneDrive\\Desktop\\weapon\\textures\\lens_baseColor.png
-map_d C:\\Users\\vjk20\\OneDrive\\Desktop\\weapon\\textures\\lens_baseColor.png
+map_Bump textures/carbine_normal.png
+map_Kd textures/lens_baseColor.png
+map_d textures/lens_baseColor.png

@@ -1,1 +1,1 @@
-content/Models/greenarms.obj
+content/Models/gun_000001.obj

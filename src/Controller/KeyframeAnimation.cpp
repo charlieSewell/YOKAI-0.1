@@ -3,6 +3,11 @@
 KeyframeAnimation::KeyframeAnimation() 
 {
     shader = std::make_unique<Shader>("content/Shaders/vertexShader.vert", "content/Shaders/fragmentShader.frag");
+    shader->useShader();
+    shader->setVec3("skyColor",glm::vec3(0.05,0.05,0.05));
+    shader->setBool("isAnimated",false);
+    shader->setVec3("lightColor",glm::vec3(1.0,1.0,1.0));
+    shader->setVec3("lightPos",glm::vec3(500,200,500));
     totalTime = 0;
     ticksPerSecond = 30;
 }
@@ -80,6 +85,8 @@ void KeyframeAnimation::draw()
     transform = glm::translate(transform, glm::vec3(512, 25, 512));
     transform = glm::scale(transform, glm::vec3(0.03, 0.03, 0.03));
 
+    shader->useShader();
+    shader->setVec3("viewPos",GameObjectManager::getInstance().getPlayer()->getPosition());
     models[currentFrame].Draw(*shader, transform);
 }
 

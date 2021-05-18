@@ -3,6 +3,7 @@
 #include "Model/Model.hpp"
 #include "Model/ObjectLoading/ModelLoader.hpp"
 #include <fstream>
+#include "Controller/GameObjectManager.hpp"
 
 class KeyframeAnimation 
 {
