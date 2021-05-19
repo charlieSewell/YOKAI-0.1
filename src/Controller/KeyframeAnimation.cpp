@@ -10,6 +10,7 @@ KeyframeAnimation::KeyframeAnimation()
     shader->setVec3("lightPos",glm::vec3(500,200,500));
     totalTime = 0;
     ticksPerSecond = 30;
+    animationFinished = true;
 }
 
 void KeyframeAnimation::readFile(std::string textPath) 
@@ -64,19 +65,34 @@ void KeyframeAnimation::setCurrentFrame(double deltaTime)
 {
     totalTime += deltaTime;
 
-    if (totalTime >
-        ((animations.at(currentAnimation).second - animations.at(currentAnimation).first + 1) / ticksPerSecond))
+    if (totalTime > ((animations.at(currentAnimation).second - animations.at(currentAnimation).first + 1) / ticksPerSecond))
     {
         totalTime = 0;
     }
 
+    swapAnimationCheck(); 
     currentFrame = static_cast<int>(totalTime * ticksPerSecond);
     currentFrame += animations.at(currentAnimation).first - 1;
+}
+
+void KeyframeAnimation::swapAnimationCheck() 
+{
+    if (currentAnimation != tempAnimation) 
+    {
+        totalTime = 0;
+    }
+
+    tempAnimation = currentAnimation;
 }
 
 int KeyframeAnimation::getCurrentFrame() 
 {
     return currentFrame;
+}
+
+int KeyframeAnimation::getEndFrame() 
+{
+    return animations.at(currentAnimation).second;
 }
 
 void KeyframeAnimation::draw() 
@@ -98,4 +114,18 @@ void KeyframeAnimation::setTPS(float tps)
 float KeyframeAnimation::getTPS() 
 {
     return ticksPerSecond;
+}
+
+bool KeyframeAnimation::getAnimationFinished() 
+{
+    if (currentFrame == animations.at(currentAnimation).second - 1) 
+    {
+        animationFinished = true;
+    } 
+    else 
+    {
+        animationFinished = false;
+    }
+
+    return animationFinished;
 }

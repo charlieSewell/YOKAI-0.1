@@ -25,11 +25,17 @@ class KeyframeAnimation
 
         int getCurrentFrame();
 
+        int getEndFrame();
+
         void draw();
 
         void setTPS(float tps);
 
         float getTPS();
+
+        bool getAnimationFinished();
+
+        void swapAnimationCheck();
 
 	private:
 
@@ -52,4 +58,8 @@ class KeyframeAnimation
       std::map<std::string, std::pair<int, int>> animations;
 
       std::string currentAnimation;
+
+      bool animationFinished;
+
+      std::string tempAnimation;
 };

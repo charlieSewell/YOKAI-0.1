@@ -100,7 +100,7 @@ void Yokai::Run()
     //KEYFRAME TESTING
     
     keyframe->readFile("content/Models/guntest.txt");
-    keyframe->setTPS(15);
+    keyframe->setTPS(20);
     keyframe->addAnimation("fire", 1, 7);
     keyframe->addAnimation("reload", 7, 55);
     keyframe->addAnimation("emptyreload", 55, 108);
@@ -173,18 +173,27 @@ void Yokai::Run()
                 ammoReserveUI3->setTexture(ammoNumbers[0]);
             }
 
-            if (gun.getAmmo() == 0) 
+            //GUN ANIMATION LOGIC
+            if (gun.getAmmo() == 0 && gun.getReserveAmmo() == 0)
+            {
+                keyframe->setTPS(20);
+                keyframe->setAnimation("idle");
+            } 
+            else if (gun.getAmmo() == 0) 
             {
                 keyframe->setTPS(30);
                 keyframe->setAnimation("emptyreload");
                 gun.reload();
-            }
+            } 
 
             if (glfwGetKey(window.getWindow(), GLFW_KEY_R) == GLFW_PRESS) 
             {
-                keyframe->setTPS(30);
-                keyframe->setAnimation("reload");
-                gun.reload();
+                if (gun.getAmmo() != 0 && (gun.getAmmo() != gun.getMaxAmmo()) && gun.getReserveAmmo() != 0) 
+                {
+                    keyframe->setTPS(30);
+                    keyframe->setAnimation("reload");
+                    gun.reload();
+                }
             }
 
             if (glfwGetKey(window.getWindow(), GLFW_KEY_LEFT) == GLFW_PRESS) 
@@ -200,13 +209,32 @@ void Yokai::Run()
 
             if (glfwGetMouseButton(window.getWindow(), GLFW_MOUSE_BUTTON_1) == GLFW_PRESS) 
             {
-                keyframe->setTPS(30);
-                keyframe->setAnimation("fire");
+                if (gun.getAmmo() != 0) 
+                {
+                    if (keyframe->getCurrentAnimation() == "idle") 
+                    {
+                        keyframe->setTPS(30);
+                        keyframe->setAnimation("fire");
+                        gun.decrementAmmo();
+                    } 
+                    else if (keyframe->getAnimationFinished()) 
+                    {
+                        keyframe->setTPS(30);
+                        keyframe->setAnimation("fire");
+                        gun.decrementAmmo();
+                    }
+                }
             }
 
             if (glfwGetKey(window.getWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS) 
             {
                 gun.incrementAmmo();
+            }
+
+            if (keyframe->getAnimationFinished()) 
+            {
+                keyframe->setTPS(20);
+                keyframe->setAnimation("idle");
             }
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -252,6 +280,10 @@ void Yokai::Run()
             if(ImGui::Button("Settings",ImVec2(500,100)))
             {
                 std::cout << "Entering Settings" <<std::endl;
+            }
+            if (ImGui::Button("Pause", ImVec2(500, 100))) 
+            {
+                std::cout << "Paused" << std::endl;
             }
             if(ImGui::Button("Quit",ImVec2(500,100)))
             {
