@@ -10,12 +10,20 @@ void DemoScene::Init()
     terrainManager.Init();
     controlsScreen = new SplashScreen("content/Textures/help_menu.png");
     registerMenuButtons();
+
+
+	test = GameObjectManager::CreateObject(GameObjectType::npc, "content/Models/Zombie/ZombieSmooth.gltf");
 }
 
+#include "Model/GameObjects/NPC.hpp"
 void DemoScene::Update(double frameRate)
 {
     GameObjectManager::update();
+	
+	//test
+    //GameObjectManager::getnpc(test)->test();
 }
+
 void DemoScene::Draw()
 {
     GameObjectManager::draw();

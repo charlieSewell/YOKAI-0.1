@@ -1,10 +1,8 @@
 #pragma once
-#include <iostream>
 #include <glm/glm.hpp>
 #include "Controller/ModelManager.hpp"
 #include "GameObject.hpp"
 #include "Model/Components/PhysicsComponent.hpp"
-#include "View/Renderer/Shader.hpp"
 #include "Model/Components/AutomatedBehaviours.hpp"
 
 /**
@@ -38,6 +36,10 @@ class NPC : public GameObject//, public PhysicsComponent
      * @param float - height
      */
 	void setCollider(float width, float length, float height);
+
+	void test();
+
+	static void registerClass();
 
 private:
 	AutomatedBehaviours m_behaviours;

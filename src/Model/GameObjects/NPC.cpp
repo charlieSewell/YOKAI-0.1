@@ -33,3 +33,17 @@ void NPC::setCollider(float width, float length, float height)
 	//registerAABB(&m_position, width, length, height);
 }
 
+void NPC::test()
+{
+	std::cout << "Cool\n";
+}
+
+void NPC::registerClass()
+{
+	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+		.deriveClass<NPC, GameObject>("NPC")
+		.addFunction("test", &NPC::test)
+		.endClass();
+	std::cout << "registered\n";
+}
+

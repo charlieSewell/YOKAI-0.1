@@ -14,10 +14,12 @@ GameObjectManager::GameObjectManager()
 void GameObjectManager::init()
 {
     GameObject::registerClass();
+	NPC::registerClass();
     luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
         .beginNamespace("ObjectManager")
             .addFunction("Create",GameObjectManager::CreateObject)
             .addFunction("GetObject",GameObjectManager::luaGet)
+			.addFunction("GetNPC", GameObjectManager::getNPC)
             .addFunction("Update",GameObjectManager::update)
         .endNamespace();
 
@@ -82,6 +84,7 @@ std::shared_ptr<GameObject> GameObjectManager::getObject(int id)
     }
     return nullptr;
 }
+
 GameObject* GameObjectManager::luaGet(int id)
 {
 
@@ -91,6 +94,13 @@ GameObject* GameObjectManager::luaGet(int id)
     }
     return nullptr;
 }
+
+NPC* GameObjectManager::getNPC(int id)
+{ 
+	std::cout << "getting NPC\n";
+	return(dynamic_cast<NPC*>(gameObjects[id].get()));
+}
+
 //static declaration of member variables
 int GameObjectManager::objectCount = 0;
 int GameObjectManager::playerID = 0;

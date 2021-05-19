@@ -6,6 +6,8 @@
 #include "Controller/LuaTypes.hpp"
 #include "Model/GameObjects/GameObject.hpp"
 
+class NPC;
+
 /**
  * @class GameObjectManager
  * @brief Responsible for the management of all game objects created
@@ -68,6 +70,8 @@ class GameObjectManager
      * @brief Calls the draw function for all GameObjects
      */
     static void draw();
+	
+	static NPC* getNPC(int id);
 
   private:
     /*!

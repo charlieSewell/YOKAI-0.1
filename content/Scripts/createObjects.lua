@@ -39,6 +39,12 @@ for i=0, 180 do
         gameObj:setCollider(4,1,25);
         gameObj:setPosition(x,val,z);
 end
+test = ObjectManager.Create(Types.npc(),"content/Models/Zombie/ZombieSmooth.gltf");
+derived = ObjectManager.GetNPC(test);
+derived:test();
+derived:setPosition(500, 50, 500);
+derived:setScale(10, 10, 10);
+
 --Creating Trees in random places
 for i=0,300 do
         x = math.random(0,TerrainSettings.terrainSize);
