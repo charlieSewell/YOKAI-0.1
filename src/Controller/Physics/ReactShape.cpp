@@ -3,8 +3,10 @@
 //
 
 #include "ReactShape.hpp"
-void ReactShape::DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon,
-                             reactphysics3d::PhysicsWorld *physicsWorld)
-                             {
+void ReactShape::DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon) {
 
+}
+
+reactphysics3d::CollisionShape* ReactShape::getShape() {
+    return shape;
 }

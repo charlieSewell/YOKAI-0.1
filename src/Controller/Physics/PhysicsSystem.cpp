@@ -31,28 +31,32 @@ PhysicsSystem& PhysicsSystem::getInstance()
 void PhysicsSystem::update(float dt)
 {
     physicsWorld->update(timeStep);
-    //std::cout << glm::to_string(playerTrans) << std::endl;
-    //rp3d::Vector3 temp = playerCollider->getTransform().getPosition();
-    //GameObjectManager::getInstance().getPlayer()->m_transform.setPosition(ReactMath::r3pdVecToGlm(temp));
 
 }
 
-void PhysicsSystem::addPlayer(Transform transform)
+int PhysicsSystem::addSphere(Transform *transform, float radius)
 {
-    RigidBody player;
-    player.CreateBody(physicsWorld,transform.getPosition(),transform.getRotation());
+    RigidBody object;
+    ReactSphereShape sphere;
+    object.CreateBody(physicsWorld,transform->getPosition(),transform->getRotation());
 
-    //capsule = physicsCommon.createSphereShape(3.0);
-    //playerCollider->addCollider(capsule, rp3d::Transform::identity());
+    sphere.CreateSphereShape(3,physicsCommon);
+    object.AddCollisionShape(sphere);
+    m_colliders.emplace(object.getColliderID(),object);
+    return object.getColliderID();
 }
 
 
 int PhysicsSystem::addAABB(Transform* transform, float width, float length, float height)
 {
-    //ReactBoxShape shape;
-   // shape.CreateBoxShape(*transform,glm::vec3(width,height,length),physicsCommon,physicsWorld);
-    //m_colliders.emplace(shape.getShapeID(),shape);
-    return 0;
+    RigidBody object;
+    ReactBoxShape box;
+    object.CreateBody(physicsWorld,transform->getPosition(),transform->getRotation());
+
+    box.CreateBoxShape(glm::vec3(width,height,length),physicsCommon);
+    object.AddCollisionShape(box);
+    m_colliders.emplace(object.getColliderID(),object);
+    return object.getColliderID();
 }
 
 rp3d::RigidBody * PhysicsSystem::getCollider(int colliderID)
@@ -66,11 +70,14 @@ rp3d::RigidBody * PhysicsSystem::getCollider(int colliderID)
 void PhysicsSystem::addTerrain()
 {
     RigidBody terrain;
+    ReactTerrainShape terrShape;
     glm::vec3 position(TerrainFactory::getInstance().getTerrainSize()/2, 128, TerrainFactory::getInstance().getTerrainSize()/2);
     glm::quat orientation = glm::identity<glm::quat>();
     terrain.CreateBody(physicsWorld,position,orientation);
-    terrShape.CreateTerrainShape(physicsCommon,physicsWorld);
+    terrShape.CreateTerrainShape(physicsCommon);
     terrain.AddCollisionShape(terrShape);
     terrain.SetBodyType(rp3d::BodyType::STATIC);
     m_colliders.emplace(terrain.getColliderID(),terrain);
 }
+
+

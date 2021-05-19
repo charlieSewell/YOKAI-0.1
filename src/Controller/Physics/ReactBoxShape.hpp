@@ -12,8 +12,7 @@ class ReactBoxShape : public ReactShape
     public:
         ReactBoxShape() =default;
         ~ReactBoxShape()=default;
-        void CreateBoxShape(glm::vec3 bounds, reactphysics3d::PhysicsCommon &physicsCommon,
-                            reactphysics3d::PhysicsWorld *physicsWorld);
+        void CreateBoxShape(glm::vec3 bounds, reactphysics3d::PhysicsCommon &physicsCommon);
         void DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon) override;
     private:
 

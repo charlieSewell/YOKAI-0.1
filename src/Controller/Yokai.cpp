@@ -39,7 +39,6 @@ void Yokai::Init()
 }
 void Yokai::Run()
 {
-    PhysicsSystem::getInstance().addPlayer(GameObjectManager::getInstance().getPlayer()->getTransform());
     PhysicsSystem::getInstance().addTerrain();
 
     const double frameRate = 1.0f / 300;	// 120 fps

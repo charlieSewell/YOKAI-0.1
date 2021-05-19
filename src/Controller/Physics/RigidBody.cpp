@@ -35,10 +35,12 @@ void RigidBody::ApplyForceToCentre(glm::vec3 force) {
     rp3d::Vector3 addedForce = ReactMath::glmVecToR3pd(force);
     body->applyForceToCenterOfMass(addedForce);
 }
-void RigidBody::AddCollisionShape(ReactTerrainShape& shape) {
-    rp3d::Collider* temp = body->addCollider(shape.getShape(),rp3d::Transform::identity());
+void RigidBody::AddCollisionShape(ReactShape shape) {
+    this->shape = std::move(shape);
+    rp3d::Collider* temp = body->addCollider(this->shape.getShape(),rp3d::Transform::identity());
     colliderID = temp->getEntity().id;
 }
+
 void RigidBody::SetBodyType(rp3d::BodyType type) {
     switch (type) {
         case rp3d::BodyType::KINEMATIC: {

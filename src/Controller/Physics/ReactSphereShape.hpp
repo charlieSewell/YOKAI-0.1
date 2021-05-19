@@ -9,9 +9,7 @@ class ReactSphereShape : public ReactShape{
 public:
     ReactSphereShape() =default;
     ~ReactSphereShape() = default;
-    void CreateSphereShape(float radius, reactphysics3d::PhysicsCommon &physicsCommon,
-                        reactphysics3d::PhysicsWorld *physicsWorld);
+    void CreateSphereShape(float radius, reactphysics3d::PhysicsCommon &physicsCommon);
     void DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon) override;
 private:
-    reactphysics3d::SphereShape* boxCollider;
 };

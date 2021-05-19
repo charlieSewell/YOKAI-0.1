@@ -7,7 +7,8 @@
 #include "CollisionEventHandler.hpp"
 #include "Controller/Physics/ReactMath.hpp"
 #include "Controller/Physics/ReactTerrainShape.hpp"
-
+#include "Controller/Physics/ReactSphereShape.hpp"
+#include "Controller/Physics/ReactBoxShape.hpp"
 //class ReactTerrainShape;
 
 /**
@@ -53,13 +54,12 @@ public:
      */
     rp3d::RigidBody * getCollider(int colliderID);
 
-    void addPlayer(Transform transform);
+    int addSphere(Transform* transform,float radius);
 
     void addTerrain();
 
     reactphysics3d::PhysicsCommon physicsCommon;
     reactphysics3d::PhysicsWorld* physicsWorld;
-    reactphysics3d::CollisionBody* playerCollision;
 private:
     ///Privatised Constructor
     PhysicsSystem() = default;
@@ -74,11 +74,6 @@ private:
 
     reactphysics3d::decimal timeStep;
 
-    ReactTerrainShape terrShape;
-    reactphysics3d::RigidBody* playerCollider;
-    reactphysics3d::SphereShape* capsule;
-    unsigned int terrainID;
-    reactphysics3d::Transform transform;
     CollisionEventHandler listener;
 
 

@@ -45,6 +45,8 @@ protected:
      * @param float - height
      */
     void registerAABB(float width, float length, float height);
+
+    void registerSphere(float radius);
     /**
      * @brief Registers Physics Toggle
      */

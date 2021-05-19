@@ -17,13 +17,14 @@ public:
     glm::quat GetOrientation();
     void ApplyForceToCentre(glm::vec3 force);
     reactphysics3d::RigidBody* getRigidBody(){return body;}
-    void AddCollisionShape(ReactTerrainShape& shape);
+    void AddCollisionShape(ReactShape shape);
     void SetBodyType(rp3d::BodyType type);
     void SetFrictionCoefficient(float friction);
     void SetRollingResistance(float resistance);
     void SetMass(float mass);
     unsigned int getColliderID(){return body->getEntity().id;}
 private:
+    ReactShape shape;
     reactphysics3d::RigidBody* body;
     unsigned int colliderID = -1;
 };

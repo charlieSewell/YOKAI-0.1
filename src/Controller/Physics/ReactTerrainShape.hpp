@@ -9,8 +9,7 @@ class ReactTerrainShape : public ReactShape{
   public:
     ReactTerrainShape();
     ~ReactTerrainShape();
-    void CreateTerrainShape(reactphysics3d::PhysicsCommon &physicsCommon, reactphysics3d::PhysicsWorld *physicsWorld);
-    rp3d::HeightFieldShape * getShape(){return static_cast<rp3d::HeightFieldShape*>(shape);}
+    void CreateTerrainShape(reactphysics3d::PhysicsCommon &physicsCommon);
     void DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon) override;
   private:
     float *heightFieldArray;

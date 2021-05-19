@@ -3,7 +3,7 @@
 #include "Player.hpp"
 
 Player::Player()
-	: PlayerControlledMotion(m_transform)//, PhysicsComponent(m_transform)
+	: PlayerControlledMotion(m_transform), PhysicsComponent(m_transform)
 {
 	m_movementSpeed = 0.075f;
 	m_lookSensitivity = 0.05f;
@@ -25,6 +25,7 @@ void Player::update()
 {
 
 	Camera::m_position = m_transform.getPosition();		//TODO: make this better
+    updatePhysics(m_movementSpeed, m_jumpSpeed);
 	/*
 	if(m_physicsActive)
 	{
