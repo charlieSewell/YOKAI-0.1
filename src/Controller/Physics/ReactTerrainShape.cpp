@@ -24,10 +24,10 @@ void ReactTerrainShape::CreateTerrainShape(reactphysics3d::PhysicsCommon &physic
             heightFieldArray[x * terrainSize + z] = TerrainFactory::getInstance().heightAt(static_cast<float>(z),static_cast<float>(x));
         }
     }
-    terrainCollider = physicsCommon.createHeightFieldShape(terrainSize, terrainSize, 0, 255, heightFieldArray, rp3d::HeightFieldShape::HeightDataType::HEIGHT_FLOAT_TYPE);
+    shape = physicsCommon.createHeightFieldShape(terrainSize, terrainSize, 0, 255, heightFieldArray, rp3d::HeightFieldShape::HeightDataType::HEIGHT_FLOAT_TYPE);
 
 }
-void ReactTerrainShape::DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon,reactphysics3d::PhysicsWorld *physicsWorld){
-    physicsCommon.destroyHeightFieldShape(terrainCollider);
+void ReactTerrainShape::DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon){
+    physicsCommon.destroyHeightFieldShape(static_cast<reactphysics3d::HeightFieldShape*>(shape));
     delete[] heightFieldArray;
 }

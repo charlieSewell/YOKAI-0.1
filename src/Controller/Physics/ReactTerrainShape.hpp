@@ -10,9 +10,8 @@ class ReactTerrainShape : public ReactShape{
     ReactTerrainShape();
     ~ReactTerrainShape();
     void CreateTerrainShape(reactphysics3d::PhysicsCommon &physicsCommon, reactphysics3d::PhysicsWorld *physicsWorld);
-    rp3d::HeightFieldShape * getShape(){return terrainCollider;}
-    void DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon,reactphysics3d::PhysicsWorld *physicsWorld);
+    rp3d::HeightFieldShape * getShape(){return static_cast<rp3d::HeightFieldShape*>(shape);}
+    void DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon) override;
   private:
-    reactphysics3d::HeightFieldShape* terrainCollider;
     float *heightFieldArray;
 };

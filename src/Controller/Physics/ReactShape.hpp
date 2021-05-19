@@ -8,8 +8,8 @@
 class ReactShape {
     public:
     ReactShape() = default;
-    reactphysics3d::CollisionShape* getCollisionShape(){return shape;}
-    virtual void DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon,reactphysics3d::PhysicsWorld *physicsWorld);
+    virtual reactphysics3d::CollisionShape* getCollisionShape(){return shape;}
+    virtual void DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon);
     unsigned int getShapeID() const{return shapeID;}
 protected:
     reactphysics3d::CollisionShape* shape;
