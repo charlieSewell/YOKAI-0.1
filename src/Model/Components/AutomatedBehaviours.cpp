@@ -70,6 +70,37 @@ void AutomatedBehaviours::seek(glm::vec3 targetPosition)
 	updateHeading();
 }
 
+#include <iostream>
+void AutomatedBehaviours::wander()
+{
+	float ringDistance = 0.6;
+	float ringRadius = 0.3;
+
+	glm::vec3 ringLocation = m_transformPtr->getPosition() + glm::normalize(heading) * ringDistance;
+
+	//rotate
+	//theta = Point2D::randomNumber(0, 6.28);  //6.28 = 2pi
+	std::cout << glm::linearRand(m_wanderAngle - 2, m_wanderAngle + 2) << "\n";
+	m_wanderAngle = glm::linearRand(m_wanderAngle - 1, m_wanderAngle + 1);  //defines the jitter
+	if (m_wanderAngle > glm::pi<float>())
+		--m_wanderAngle;
+	if (m_wanderAngle < -glm::pi<float>())
+		++m_wanderAngle;
+
+	glm::vec3 seekTarget = ringLocation + glm::normalize(heading) * ringRadius;
+
+
+	//test
+	glm::vec3 temp1 = seekTarget - ringLocation;
+	glm::vec3 temp2;
+	temp2.x = temp1.x * cos(m_wanderAngle) - temp1.y * sin(m_wanderAngle);
+	temp2.y = temp1.x * sin(m_wanderAngle) + temp1.y * cos(m_wanderAngle);
+
+	seekTarget = temp2 + ringLocation;
+
+	seek(seekTarget);
+}
+
 void AutomatedBehaviours::updateHeading()
 {
 	if (angle > glm::pi<float>())

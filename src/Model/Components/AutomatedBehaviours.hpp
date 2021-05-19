@@ -2,6 +2,7 @@
 
 #include "Model/Components/Transform.hpp"
 #include "Controller/EventManager.hpp"
+#include <glm/gtc/random.hpp>
 
 class AutomatedBehaviours
 {
@@ -13,6 +14,7 @@ public:
 	void accelerate(float topSpeed);
 	void decelerate();
 	void seek(glm::vec3 tartgetPosition);
+	void wander();
 
 
 	glm::vec3 heading;
@@ -23,6 +25,7 @@ public:
 
 private:
 	Transform *m_transformPtr;
+	float m_wanderAngle;
 	void updateHeading();
 	float angle_XZ(glm::vec3 vector);
 };
