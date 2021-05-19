@@ -92,5 +92,5 @@ AABB* PhysicsManager::checkCollisions(AABB* collider)
 
 void PhysicsManager::addTerrain()
 {
-	terrain.CreateTerrainShape(physicsCommon, physicsWorld);
+	//terrain.CreateTerrainShape(physicsCommon, physicsWorld);
 }

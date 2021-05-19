@@ -94,7 +94,7 @@ private:
 	reactphysics3d::CollisionBody* playerCollision;
 	reactphysics3d::Collider* playerCollider;
 	reactphysics3d::CapsuleShape* capsule;
-	ReactTerrainShape terrain;
+	//ReactTerrainShape terrain;
 	reactphysics3d::Transform transform;
 	YourEventListener listener;
 };
