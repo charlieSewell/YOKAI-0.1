@@ -11,6 +11,8 @@ class Animator{
         void BoneTransform(float TimeInSeconds);
         void addModel(std::shared_ptr<Model> model){modelToAnimate = std::move(model);}
         void setAnimation(std::string animationToSet);
+        void startAnimation(){shouldEnd = false;}
+        void endAnimation(){shouldEnd = true;}
         std::vector<glm::mat4> finalTransforms;
 
     private:
