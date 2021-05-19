@@ -80,6 +80,7 @@ class Yokai
     //TESTING
     int healthbar;
     bool inGame;
+    bool isPaused;
     Weapon gun;
     std::vector<std::string> ammoNumbers;
 };

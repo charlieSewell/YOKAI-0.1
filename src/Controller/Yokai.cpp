@@ -89,6 +89,7 @@ void Yokai::Init()
     keyframe = new KeyframeAnimation();
 
     inGame = true;
+    isPaused = false;
 }
 void Yokai::Run()
 {
@@ -110,10 +111,20 @@ void Yokai::Run()
 
     while(isRunning)
 	{
-		double currentTime = glfwGetTime();
+        double currentTime = glfwGetTime();
         double frameTime = currentTime - lastTime;
         lastTime = currentTime;
 
+        /*
+        if (isPaused) 
+        {
+            currentTime = currentTime * 0;
+        } 
+        else 
+        {
+            currentTime = currentTime * 1;
+        }
+        */
 
 		if((currentTime - lastFrame) >= frameRate)
 		{
@@ -137,8 +148,8 @@ void Yokai::Run()
             transform = glm::scale(transform, glm::vec3(0.03, 0.03, 0.03));
             
             // KEYFRAME TESTING
-            keyframe->setCurrentFrame(frameTime);
-            keyframe->draw();
+            //keyframe->setCurrentFrame(frameTime);
+            //keyframe->draw();
 
             // AMMO TESTING
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -240,14 +251,20 @@ void Yokai::Run()
 
             if (inGame == true) 
             {
-                for (auto &layer : layers) 
+                if (isPaused == false) 
                 {
-                    layer->Update(frameTime);
+                    for (auto &layer : layers) 
+                    {
+                        layer->Update(frameTime);
+                    }
+
+                    keyframe->setCurrentFrame(frameTime);
                 }
                 for (auto &layer : layers) 
                 {
                     layer->Draw();
                 }
+                keyframe->draw();
             }
 
             if(endScreen->isActive())
@@ -267,7 +284,7 @@ void Yokai::Run()
             ammoReserveUI3->draw();
 
 			lastFrame = currentTime;
-
+            
             ImGui::Begin("Main Menu");                          // Create a window called "Hello, world!" and append into it.
 
             ImGui::Text("Main Menu");               // Display some text (you can use a format strings too)
@@ -284,6 +301,7 @@ void Yokai::Run()
             if (ImGui::Button("Pause", ImVec2(500, 100))) 
             {
                 std::cout << "Paused" << std::endl;
+                isPaused = !isPaused;
             }
             if(ImGui::Button("Quit",ImVec2(500,100)))
             {
@@ -294,7 +312,6 @@ void Yokai::Run()
             ImGui::End();
             renderer.DrawGui();
             window.endFrame();
-
 		}
 
     }
