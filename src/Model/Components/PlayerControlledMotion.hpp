@@ -26,7 +26,7 @@ public:
      */
 	void setJumpHeight(float jumpHeight);;
 
-protected:
+//protected:
   /**
    * @brief Constructor for Player Controlled Motion
    */
@@ -98,17 +98,17 @@ protected:
      */
 	void updateJump(glm::vec3 position, glm::vec3& upDirection);
     ///Movement speed
-	float m_movementSpeed;
+	float movementSpeed;
     ///Mouse sensitivity
-	float m_lookSensitivity;
+	float lookSensitivity;
     ///Jump Height
-	float m_jumpHeight;
+	float jumpHeight;
     ///bool to check if player can jump
-	bool m_canJump;
+	bool canJump;
     ///bool to say whether player is in jump
-	bool m_jump = false;
+	bool jumping = false;
     ///player jump speed
-	float m_jumpSpeed;
+	float jumpSpeed;
 
 private:
     ///Jump height target

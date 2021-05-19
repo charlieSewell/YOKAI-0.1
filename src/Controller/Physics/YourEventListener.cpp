@@ -6,9 +6,5 @@
 
 void YourEventListener::onContact(const CollisionCallback::CallbackData &callbackData)
 {
-   /*for(size_t i = 0; i < callbackData.getNbContactPairs();++i)
-   {
-	   if(callbackData.getContactPair(i).getBody2()->getEntity().id == 2)
-			std::cout << callbackData.getContactPair(i).getBody1()->getEntity().id << " " << callbackData.getContactPair(i).getBody2()->getEntity().id << std::endl;
-   }*/
+   //for(size_t i = 0; i < callbackData.getNbContactPairs();++i)
 }

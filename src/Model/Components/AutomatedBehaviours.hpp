@@ -7,7 +7,7 @@ class AutomatedBehaviours
 {
 public:
 	
-protected:
+//protected:
 	AutomatedBehaviours(Transform& transform);
 
 	void accelerate(float topSpeed);
@@ -15,11 +15,11 @@ protected:
 	void seek(glm::vec3 tartgetPosition);
 
 
-	glm::vec3 m_heading;
-	float m_angle;
-	float m_topSpeed;
-	float m_acceleration;
-	float m_rotationSpeed;
+	glm::vec3 heading;
+	float angle;
+	float topSpeed;
+	float acceleration;
+	float rotationSpeed;
 
 private:
 	Transform *m_transformPtr;

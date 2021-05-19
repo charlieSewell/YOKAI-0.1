@@ -20,7 +20,7 @@ public:
    */
 	void updatePhysics(float &movementSpeed, float jumpSpeed);
 
-protected:
+//protected:
   /**
    * @brief Constructor For Physics Components
    */
