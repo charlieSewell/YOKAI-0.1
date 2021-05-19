@@ -63,9 +63,9 @@ void main(){
     vec3 specular = specularStrength * spec * lightColor;
 
     //final results
-    ambient  *= attenuation;
-    diffuse  *= attenuation;
-    specular *= attenuation;
+    //ambient  *= attenuation;
+    //diffuse  *= attenuation;
+    //specular *= attenuation;
     
     vec4 texResult = FragColor*detail;
     vec3 result = (ambient + diffuse + specular);

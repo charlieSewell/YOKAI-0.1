@@ -3,8 +3,9 @@
 //
 
 #include "Yokai.hpp"
-#include "DemoScene.hpp"
+
 #include "Animator.hpp"
+#include "DemoScene.hpp"
 Yokai &Yokai::getInstance() 
 {
     static Yokai instance;
@@ -109,6 +110,14 @@ void Yokai::Run()
     keyframe->setAnimation("idle");
     
 
+
+    ModelLoader loader;
+    std::shared_ptr<Model> model = std::make_shared<Model>(loader.loadModel("content/Models/Zombie/ZombieSmooth.gltf"));
+
+    Animator animator;
+    animator.addModel(model);
+    animator.setAnimation("test");
+
     while(isRunning)
 	{
         double currentTime = glfwGetTime();
@@ -132,20 +141,10 @@ void Yokai::Run()
             window.startFrame();
             glm::mat4 model(1.0);
             model = glm::translate(model,glm::vec3(500,20,500));
-            glm::mat4 model1(1.0);
-            model1 = glm::translate(model1,glm::vec3(480,20,500));
-            glm::mat4 model2(1.0);
-            model2 = glm::translate(model2,glm::vec3(490,20,500));
-            glm::mat4 model3(1.0);
-            model3 = glm::translate(model3,glm::vec3(510,20,500));
 
 
 			InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
 			InputManagerGLFW::getInstance().processMouse(window.getWindow());
-
-            glm::mat4 transform(1.0);
-            transform = glm::translate(transform, glm::vec3(512, 25, 512));
-            transform = glm::scale(transform, glm::vec3(0.03, 0.03, 0.03));
             
             // KEYFRAME TESTING
             //keyframe->setCurrentFrame(frameTime);

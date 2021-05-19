@@ -2,21 +2,22 @@
 target_sources(${PROJECT_NAME} PRIVATE
         main.cpp
 
-
 		Model/ObjectLoading/ModelLoader.cpp
 		Model/Mesh.cpp
         Model/Model.cpp
         Model/Chunk.cpp
 		Model/GameObjects/GameObject.cpp
         Model/Components/PlayerControlledMotion.cpp
-		Model/Player.cpp
+		Model/GameObjects/Player.cpp
 		Model/GameObjects/StaticObject.cpp
 		Model/GameObjects/NPC.cpp
 		Model/SplashScreen.cpp
 		Model/Components/PhysicsComponent.cpp
-		Model/Animation.cpp
+        Model/SkeletalAnimation.cpp
 		Model/Components/AutomatedBehaviours.cpp
 		Model/Weapon.cpp
+		Model/Components/Transform.cpp
+
 
 
         View/Renderer/Shader.cpp
@@ -29,7 +30,6 @@ target_sources(${PROJECT_NAME} PRIVATE
         View/Renderer/OpenGL/FileIO.cpp
 		View/Window.cpp
 
-
 		Controller/Yokai.cpp
         Controller/ModelManager.cpp
         Controller/TerrainManager.cpp
@@ -38,6 +38,8 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/EventManager.cpp
 		Controller/InputManagerGLFW.cpp
 		Controller/Layer.cpp
+		Controller/Physics/YourEventListener.cpp
+		Controller/Physics/ReactTerrainShape.cpp
         Controller/Physics/PhysicsManager.cpp
 		Controller/Animator.cpp
 		Controller/Physics/AABB.cpp

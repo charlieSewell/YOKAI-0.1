@@ -102,7 +102,7 @@ void KeyframeAnimation::draw()
     transform = glm::scale(transform, glm::vec3(0.03, 0.03, 0.03));
 
     shader->useShader();
-    shader->setVec3("viewPos",GameObjectManager::getInstance().getPlayer()->getPosition());
+    shader->setVec3("viewPos", EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
     models[currentFrame].Draw(*shader, transform);
 }
 

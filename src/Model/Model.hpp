@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 #include "View/Renderer/Shader.hpp"
 #include "Model/Mesh.hpp"
-#include "Model/Animation.hpp"
+#include "Model/SkeletalAnimation.hpp"
 
 /**
  * @struct Node
@@ -56,16 +56,16 @@ class Model
      * @param vector<Bone> - bones
      * @param map<string,unsigned int> - boneMap
      * @param Joint - rootNode
-     * @param vector<Animation> - animations
+     * @param vector<SkeletalAnimation> - animations
      */
-    Model(std::vector<Mesh> meshes, std::vector<Bone> bones, std::map<std::string, unsigned int> boneMap, Node rootJoint, std::vector<Animation> animations, glm::mat4 globalInverseTransform);
+    Model(std::vector<Mesh> meshes, std::vector<Bone> bones, std::map<std::string, unsigned int> boneMap, Node rootJoint, std::vector<SkeletalAnimation> animations, glm::mat4 globalInverseTransform);
     /**
      * @brief Draws a mesh
      * @param Shader& - shader
      * @param mat4 - transform
      */
     void Draw(Shader &shader, glm::mat4 transform);
-    Animation* getAnimation(std::string name);
+    SkeletalAnimation* getAnimation(std::string name);
     int getBonesSize(){return bones.size();}
     Node getRootNode();
     std::map<std::string, unsigned int>* getBoneMap(){return &boneMap;}
@@ -86,6 +86,6 @@ class Model
     ///Root node of scene
     Node rootNode;
     ///Animations
-    std::vector<Animation> animations;
+    std::vector<SkeletalAnimation> animations;
 };
 

@@ -10,7 +10,7 @@
  * @class StaticObject
  * @brief Child of GameObject for all static objects within the game. Inherits physics component.
  */
-class StaticObject : public GameObject, public PhysicsComponent
+class StaticObject : public GameObject
 {
   public:
     /*!
@@ -25,12 +25,6 @@ class StaticObject : public GameObject, public PhysicsComponent
     void draw() override;
 
     /*!
-     * @brief Getter for the position of the staticObject
-     * @return position
-     */
-    glm::vec3 getPosition();
-
-    /*!
      * @brief Setter for the staticObject collider
      * @param float - width
      * @param float - length
@@ -39,9 +33,7 @@ class StaticObject : public GameObject, public PhysicsComponent
 	void setCollider(float width, float length, float height) override;
 
   private:
+	PhysicsComponent m_physics;
     /// Stores associated model id of the staticObject
     int modelID;
-
-    /// Position of the staticObject
-    glm::vec3 position;
 };

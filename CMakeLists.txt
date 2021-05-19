@@ -47,7 +47,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG    ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE  ${PROJECT_BINARY_DIR}/lib)
 
 # Define the executable.
-add_executable(${PROJECT_NAME} src/main.cpp "src/Controller/KeyframeAnimation.hpp" "src/Controller/KeyframeAnimation.cpp" "src/Model/Weapon.hpp" "src/Model/Weapon.cpp")
+add_executable(${PROJECT_NAME} src/main.cpp)
+
 
 # Set C++ standard.
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -102,7 +103,7 @@ target_link_options(${PROJECT_NAME} PRIVATE
 )
 
 # Include and link against dependencies.
-target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL glad assimp lua LuaBridge glfw glm imgui${CMAKE_DL_LIBS})
+target_link_libraries(${PROJECT_NAME} PRIVATE OpenGL::GL glad assimp lua reactphysics3d LuaBridge glfw glm imgui${CMAKE_DL_LIBS})
 
 # Create a SymLink or Copy resources into build folder
 if (NOT DisablePostBuild)

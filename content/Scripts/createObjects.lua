@@ -17,7 +17,7 @@ skyBox:setPosition(TerrainSettings.terrainSize/2, 0, TerrainSettings.terrainSize
 skyBox:setScale(0.05, 0.05, 0.05);
 
 --Creating Rocks in random places
-for i=0,300 do
+for i=0,200 do
         x = math.random(0,TerrainSettings.terrainSize);
         z = math.random(0,TerrainSettings.terrainSize);
         val = terrFac:getHeight(x,z)
@@ -29,18 +29,19 @@ for i=0,300 do
 end
 
 --Creating Zombies in random places
---for i=0, 180 do
-     --   x = math.random(0,TerrainSettings.terrainSize);
-      --  z = math.random(0,TerrainSettings.terrainSize);
-      --  val = terrFac:getHeight(x,z)
-       -- asset = ObjectManager.Create(Types.npc(),"content/Models/Zombie/ZombieSmooth.gltf");
-       -- gameObj = ObjectManager.GetObject(asset);
-       -- gameObj:setScale(0.5,0.5,0.5);
-       -- gameObj:setCollider(4,1,25);
-       -- gameObj:setPosition(x,val,z);
---end
+for i=0, 50 do
+        x = math.random(0,TerrainSettings.terrainSize);
+        z = math.random(0,TerrainSettings.terrainSize);
+        val = terrFac:getHeight(x,z)
+        asset = ObjectManager.Create(Types.npc(),"content/Models/Zombie/ZombieSmooth.gltf");
+        gameObj = ObjectManager.GetObject(asset);
+        gameObj:setScale(0.5,0.5,0.5);
+        gameObj:setCollider(4,1,25);
+        gameObj:setPosition(x,val,z);
+end
+
 --Creating Trees in random places
-for i=0,300 do
+for i=0,200 do
         x = math.random(0,TerrainSettings.terrainSize);
         z = math.random(0,TerrainSettings.terrainSize);
         val = terrFac:getHeight(x,z)
