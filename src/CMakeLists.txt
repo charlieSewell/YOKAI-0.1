@@ -2,7 +2,6 @@
 target_sources(${PROJECT_NAME} PRIVATE
         main.cpp
 
-
 		Model/ObjectLoading/ModelLoader.cpp
 		Model/Mesh.cpp
         Model/Model.cpp
@@ -29,7 +28,6 @@ target_sources(${PROJECT_NAME} PRIVATE
         View/Renderer/OpenGL/FileIO.cpp
 		View/Window.cpp
 
-
 		Controller/Yokai.cpp
         Controller/ModelManager.cpp
         Controller/TerrainManager.cpp
@@ -38,6 +36,8 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/EventManager.cpp
 		Controller/InputManagerGLFW.cpp
 		Controller/Layer.cpp
+		Controller/Physics/YourEventListener.cpp
+		Controller/Physics/ReactTerrainShape.cpp
         Controller/Physics/PhysicsManager.cpp
 		Controller/Animator.cpp
 		Controller/Physics/AABB.cpp
@@ -46,13 +46,6 @@ target_sources(${PROJECT_NAME} PRIVATE
         Controller/GameObjectManager.cpp
 		Controller/LuaTypes.cpp
 		Controller/TextureManager.cpp
-
-        Test/NewPhysicsSystem.cpp
-		Test/YourEventListener.cpp
-		Test/ReactTerrainShape.cpp
-
-
-
 
         )
 

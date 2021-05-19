@@ -20,7 +20,7 @@ public:
    */
 	void updatePhysics(float &movementSpeed, float jumpSpeed);
 
-protected:
+//protected:
   /**
    * @brief Constructor For Physics Components
    */
@@ -50,7 +50,7 @@ protected:
      */
 	void registerPhysicsToggle();
     ///AABB Collider
-	AABB* m_collider;
+	//AABB* m_collider;
     ///Objects Mass
 	float m_mass;
     ///is on ground

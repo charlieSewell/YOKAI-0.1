@@ -3,18 +3,22 @@
 #include "Player.hpp"
 
 Player::Player()
-	: PlayerControlledMotion(m_transform)//, PhysicsComponent(m_transform)
+	: m_camera(Camera()), m_movement(PlayerControlledMotion(m_transform))//, PhysicsComponent(m_transform)
 {
-	m_movementSpeed = 0.075f;
-	m_lookSensitivity = 0.05f;
-	m_jumpHeight = 4.0f;
-	m_jumpSpeed = 0.15f;
+	m_movement.movementSpeed = 0.075f;
+	m_movement.lookSensitivity = 0.05f;
+	m_movement.jumpHeight = 4.0f;
+	m_movement.jumpSpeed = 0.15f;
 	//m_mass = 0.025f;
 	registerPosition();
-	registerAllMovement(m_frontDirection, m_upDirection);
-	registerPhysicsToggle();
+	m_movement.registerAllMovement(m_camera.m_frontDirection, m_camera.m_upDirection);
+	m_physics.registerPhysicsToggle();
 
-	m_resolvingCollision = false;
+	m_physics.m_resolvingCollision = false;
+
+
+	PhysicsManager::getInstance().addCapsule(m_transform);
+	PhysicsManager::getInstance().addTerrain();
 }
 
 Player::~Player() {}
@@ -23,7 +27,8 @@ void Player::draw() {}
 
 void Player::update()
 {
-	Camera::m_position = m_transform.getPosition();		//TODO: make this better
+	m_camera.m_position = m_transform.getPosition();		//TODO: make this better
+	PhysicsManager::getInstance().update(m_transform);
 	/*if(m_physicsActive)
 	{
 		m_canJump = m_onGround;

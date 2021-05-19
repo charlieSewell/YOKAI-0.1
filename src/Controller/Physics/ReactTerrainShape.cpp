@@ -3,6 +3,7 @@
 //
 
 #include "ReactTerrainShape.hpp"
+
 ReactTerrainShape::ReactTerrainShape()
 {
     heightFieldArray = new float[TerrainFactory::getInstance().getTerrainSize()*TerrainFactory::getInstance().getTerrainSize()];

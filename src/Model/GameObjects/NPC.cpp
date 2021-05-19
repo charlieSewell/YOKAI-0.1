@@ -1,8 +1,7 @@
 #include "NPC.hpp"
 
-#include <iostream>
 NPC::NPC(std::string modelName)
-	: GameObject(), AutomatedBehaviours(m_transform)//, PhysicsComponent()
+	: GameObject(), m_behaviours(AutomatedBehaviours(m_transform))//, PhysicsComponent()
 {
     modelID = ModelManager::getInstance().GetModelID(modelName);
 }
@@ -13,11 +12,11 @@ void NPC::draw()
 	// SUDO STATE MACHINE
 	glm::vec3 targetPosition = EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition);
 
-	seek(targetPosition);
+	m_behaviours.seek(targetPosition);
 	if(glm::distance(m_transform.getPosition(), targetPosition) > 10)
-		accelerate(0.25f);
+		m_behaviours.accelerate(0.25f);
 	else
-		decelerate();
+		m_behaviours.decelerate();
 
 	// END SUDO STATE MACHINE
 	//m_transform.setPosition(m_transform.getPosition());
