@@ -41,8 +41,9 @@ std::shared_ptr<Model> ModelManager::GetModel(size_t modelID)
 void ModelManager::DrawModel(size_t id, glm::mat4 transform) 
 {
     modelShader->useShader();
+
     modelShader->setBool("isAnimated",false);
-    modelShader->setVec3("viewPos",GameObjectManager::getInstance().getPlayer()->getPosition());
+    modelShader->setVec3("viewPos",EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
     models[id].Draw(*modelShader, transform);
 }
 void ModelManager::DrawModel(size_t id, glm::mat4 transform, std::vector<glm::mat4> &finalTransforms)
@@ -50,6 +51,6 @@ void ModelManager::DrawModel(size_t id, glm::mat4 transform, std::vector<glm::ma
     modelShader->useShader();
     modelShader->setBool("isAnimated",true);
     modelShader->setVecMat4("boneTrans",finalTransforms);
-    modelShader->setVec3("viewPos",GameObjectManager::getInstance().getPlayer()->getPosition());
+    modelShader->setVec3("viewPos",EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
     models[id].Draw(*modelShader, transform);
 }

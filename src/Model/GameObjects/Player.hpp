@@ -10,10 +10,8 @@
  * @class Player
  * @brief Child of GameObject for the player within the game. Inherits physics component, camera and player controlled motion
  */
-class Player : public GameObject, public Camera, public PlayerControlledMotion, public PhysicsComponent
+class Player : public GameObject
 {
-	/// Camera position
-	using Camera::m_position;
 
 public:
     /*!
@@ -25,18 +23,6 @@ public:
      * @brief Deconstructor
      */
 	~Player();
-
-	/*!
-     * @brief Getter for the position of the player
-     * @return position
-     */
-	glm::vec3 getPosition() const override;
-
-    /*!
-     * @brief Setter for the player position
-     * @param vec3 - position
-     */
-	void setPosition(glm::vec3 position) override;
 
 	/*!
      * @brief Setter for the player collider
@@ -57,5 +43,8 @@ public:
 	void update(float dt) override;
 
 private:
+	Camera m_camera;
+	PlayerControlledMotion m_movement;
+	PhysicsComponent m_physics;
 	void registerPosition();
 };

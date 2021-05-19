@@ -4,6 +4,7 @@
 
 #include "Controller/Physics/PhysicsManager.hpp"
 #include "Controller/EventManager.hpp"
+#include "Model/Components/Transform.hpp"
 
 /**
  * @class PhysicsComponent
@@ -19,11 +20,18 @@ public:
    */
 	void updatePhysics(float &movementSpeed, float jumpSpeed);
 
-protected:
+//protected:
   /**
    * @brief Constructor For Physics Components
    */
 	PhysicsComponent() {}
+
+	/**
+	* @brief Constructor For Physics Components
+	* @param Transfomr - transform
+	*/
+	PhysicsComponent(Transform &transform);
+
     /**
    * @brief Destructor For Physics Components
    */
@@ -36,13 +44,13 @@ protected:
      * @param float - length
      * @param float - height
      */
-	void registerAABB(glm::vec3* position, float width, float length, float height);
+	void registerAABB(float width, float length, float height);
     /**
      * @brief Registers Physics Toggle
      */
 	void registerPhysicsToggle();
     ///AABB Collider
-	AABB* m_collider;
+	//AABB* m_collider;
     ///Objects Mass
 	float m_mass;
     ///is on ground
@@ -67,4 +75,6 @@ private:
 	void resolveCollisions(float &movementSpeed);
     ///is physics toggle pressed
 	bool m_physicsTogglePressed = false;
+
+	Transform* m_transformPtr;
 };

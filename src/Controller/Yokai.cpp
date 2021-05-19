@@ -3,8 +3,9 @@
 //
 
 #include "Yokai.hpp"
-#include "DemoScene.hpp"
+
 #include "Animator.hpp"
+#include "DemoScene.hpp"
 Yokai &Yokai::getInstance() 
 {
     static Yokai instance;
@@ -65,7 +66,6 @@ void Yokai::Run()
 
 			InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
 			InputManagerGLFW::getInstance().processMouse(window.getWindow());
-
             for(auto& layer: layers)
             {
                 layer->Update(frameTime);
