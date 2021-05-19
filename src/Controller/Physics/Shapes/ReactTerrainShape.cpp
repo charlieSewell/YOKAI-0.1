@@ -11,8 +11,6 @@ ReactTerrainShape::ReactTerrainShape()
 }
 ReactTerrainShape::~ReactTerrainShape()
 {
-    std::cout << "Hi" <<std::endl;
-    //delete[] heightFieldArray;
 }
 void ReactTerrainShape::CreateTerrainShape(reactphysics3d::PhysicsCommon &physicsCommon)
 {

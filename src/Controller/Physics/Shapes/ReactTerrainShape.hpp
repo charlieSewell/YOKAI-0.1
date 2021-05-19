@@ -3,7 +3,7 @@
 //
 #pragma once
 #include "Controller/Factory/TerrainFactory.hpp"
-#include "Controller/Physics/ReactShape.hpp"
+#include "ReactShape.hpp"
 
 class ReactTerrainShape : public ReactShape{
   public:

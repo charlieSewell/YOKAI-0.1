@@ -4,7 +4,7 @@
 #include <iostream>
 #include <reactphysics3d/reactphysics3d.h>
 #include <glm/glm.hpp>
-#include "Controller/Physics/ReactTerrainShape.hpp"
+#include "Controller/Physics/Shapes/ReactTerrainShape.hpp"
 
 class RigidBody {
 

@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "Controller/Physics/ReactShape.hpp"
+#include "ReactShape.hpp"
 
 class ReactSphereShape : public ReactShape{
 public:

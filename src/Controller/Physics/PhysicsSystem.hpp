@@ -6,8 +6,8 @@
 #include "Model/Components/Transform.hpp"
 #include "CollisionEventHandler.hpp"
 #include "Controller/Physics/ReactMath.hpp"
-#include "Controller/Physics/ReactTerrainShape.hpp"
-#include "Controller/Physics/ReactSphereShape.hpp"
+#include "Controller/Physics/Shapes/ReactTerrainShape.hpp"
+#include "Controller/Physics/Shapes/ReactSphereShape.hpp"
 #include "Controller/Physics/ReactBoxShape.hpp"
 //class ReactTerrainShape;
 

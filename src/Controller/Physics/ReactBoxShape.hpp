@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Controller/Physics/ReactShape.hpp"
+#include "Controller/Physics/Shapes/ReactShape.hpp"
 /**
  * @class ReactBoxShape
  * @brief Class for createing Axis Aligned Bounding Boxes
