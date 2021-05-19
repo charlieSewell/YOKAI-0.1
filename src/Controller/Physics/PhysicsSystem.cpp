@@ -55,7 +55,9 @@ int PhysicsSystem::addAABB(Transform* transform, float width, float length, floa
 
     box.CreateBoxShape(glm::vec3(width,height,length),physicsCommon);
     object.AddCollisionShape(box);
+    object.SetBodyType(rp3d::BodyType::STATIC);
     m_colliders.emplace(object.getColliderID(),object);
+
     return object.getColliderID();
 }
 

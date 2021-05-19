@@ -1,8 +1,10 @@
 #include "StaticObject.hpp"
 
 StaticObject::StaticObject(std::string modelName)
+: m_physics(m_transform)
 {
     modelID = ModelManager::getInstance().GetModelID(modelName);
+
 }
 
 void StaticObject::draw()

@@ -29,7 +29,7 @@ void Player::update()
 
 void Player::setCollider(float width, float length, float height)
 {
-    m_physics.registerAABB(width,length,height);
+    m_physics.registerSphere(4);
 }
 
 void Player::registerPosition()
