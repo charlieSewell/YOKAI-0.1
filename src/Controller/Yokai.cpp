@@ -31,6 +31,7 @@ void Yokai::Init()
     {
         layer->Init();
     }
+    PhysicsSystem::getInstance().Init();
     GameObjectManager::init();
     endScreen = new SplashScreen("content/Textures/exit_screen.png");
 
@@ -38,7 +39,10 @@ void Yokai::Init()
 }
 void Yokai::Run()
 {
-	const double frameRate = 1.0f / 300;	// 120 fps
+    PhysicsSystem::getInstance().addPlayer(GameObjectManager::getInstance().getPlayer()->getTransform());
+    PhysicsSystem::getInstance().addTerrain();
+
+    const double frameRate = 1.0f / 300;	// 120 fps
 
 	double lastFrame = 0;
     double lastTime = 0;
@@ -71,6 +75,7 @@ void Yokai::Run()
                 layer->Update(frameTime);
 
             }
+            PhysicsSystem::getInstance().update(frameTime);
             for(auto& layer: layers)
             {
                 layer->Draw();

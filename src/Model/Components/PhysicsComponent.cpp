@@ -1,7 +1,7 @@
 //PhysicsComponent.cpp - manages physics
 
 #include "PhysicsComponent.hpp"
-
+#include <glm/gtx/string_cast.hpp>
 PhysicsComponent::PhysicsComponent(Transform &transform)
 	: m_transformPtr(&transform)
 {
@@ -10,35 +10,52 @@ PhysicsComponent::PhysicsComponent(Transform &transform)
 
 void PhysicsComponent::updatePhysics(float &movementSpeed, float jumpSpeed)
 {
-	//updateGravity(jumpSpeed);
-	//resolveCollisions(movementSpeed);
+    auto& physManager = PhysicsSystem::getInstance();
+
+    rp3d::Vector3 position(m_transformPtr->getPosition().x,m_transformPtr->getPosition().y, m_transformPtr->getPosition().z);
+    rp3d::Quaternion orientation = rp3d::Quaternion::identity();
+    rp3d::Transform reactTransform(position, orientation);
+
+	physManager.getCollider(colliderID)->setTransform(reactTransform);
+    //updateGravity(jumpSpeed);
+	resolveCollisions(movementSpeed);
+    m_transformPtr->setPosition(physManager.getCollider(colliderID)->getTransform().getPosition().x,physManager.getCollider(colliderID)->getTransform().getPosition().y,physManager.getCollider(colliderID)->getTransform().getPosition().z);
+
+
 }
 
 void PhysicsComponent::resolveCollisions(float &movementSpeed)
 {
-	/*AABB* otherCollider = nullptr;
-	otherCollider = PhysicsManager::getInstance().checkCollisions(m_collider);
-	m_collisionDetected = (otherCollider != nullptr);
+    /*
+    auto& physManager = PhysicsSystem::getInstance();
+    int otherColliderID = physManager.checkCollisions(colliderID);
+    bool m_collisionDetected = (otherColliderID != -1);
 
-	if(m_collisionDetected)
-	{
-		if(m_collider->getPosition().y > otherCollider->getAABBPoints().ymax)		//on top of hit box
-		{
-			m_onGround = true;
-			m_mass = 0;
-		}
-		else
-		{
-			m_collider->getPosition().x += (m_collider->getPosition().x - otherCollider->getPosition().x) * movementSpeed;
-			m_collider->getPosition().z += (m_collider->getPosition().z - otherCollider->getPosition().z) * movementSpeed;
-		}
-	}
-	else
-		m_mass = 0.125f;		//TODO unhardcode this cuntc
+    if(m_collisionDetected)
+    {
+        if(physManager.getCollider(colliderID)->getTransform().getPosition().y > physManager.getCollider(otherColliderID)->getTransform().getPosition().y)		//on top of hit box
+        {
+            m_onGround = true;
+            m_mass = 0;
+        }
+        else
+        {
+            float newX = physManager.getCollider(colliderID)->getTransform().getPosition().x + ((physManager.getCollider(colliderID)->getTransform().getPosition().x - physManager.getCollider(otherColliderID)->getTransform().getPosition().x) * movementSpeed);
+            float newZ =  physManager.getCollider(colliderID)->getTransform().getPosition().z + ((physManager.getCollider(colliderID)->getTransform().getPosition().z - physManager.getCollider(otherColliderID)->getTransform().getPosition().z) * movementSpeed);
 
-	*/
+            rp3d::Vector3 position(newX, physManager.getCollider(colliderID)->getTransform().getPosition().y, newZ);
+            rp3d::Quaternion orientation = rp3d::Quaternion::identity();
+            rp3d::Transform reactTransform(position, orientation);
+
+            physManager.getCollider(colliderID)->setTransform(reactTransform);
+        }
+    }
+    else
+    {
+        m_mass = 0.125f;
+    }
+*/
 }
-
 void PhysicsComponent::registerPhysicsToggle()
 {
 	/*auto togglePhysicsReleased = [&]()
@@ -63,29 +80,41 @@ void PhysicsComponent::registerPhysicsToggle()
 //easy to implement if needed
 /*void PhysicsComponent::registerBoundingSphere(glm::vec3 *position, double radius)
 {
-	m_colliderID = PhysicsManager::getInstance().addBoundingSphere(position, radius);
+	m_colliderID = PhysicsSystem::getInstance().addBoundingSphere(position, radius);
 }*/
 
 void PhysicsComponent::registerAABB(float width, float length, float height)
 {
-	//m_collider = PhysicsManager::getInstance().addAABB(m_transformPtr, width, length, height);
+	colliderID = PhysicsSystem::getInstance().addAABB(m_transformPtr, width, length, height);
 }
 
 void PhysicsComponent::updateGravity(float jumpSpeed)
 {
-	/*float distanceFromGround = PhysicsManager::getInstance().checkTerrainCollision(m_collider);
-
-	if(distanceFromGround < m_collider->getHeight()/2)
-		m_transformPtr->translate(0, jumpSpeed, 0);
+    /*
+	bool isColliding = PhysicsSystem::getInstance().checkTerrainCollision(colliderID);
+    auto& physManager = PhysicsSystem::getInstance();
+	if(isColliding)
+    {
+        rp3d::Vector3 position(physManager.getCollider(colliderID)->getTransform().getPosition().x, physManager.getCollider(colliderID)->getTransform().getPosition().y + jumpSpeed, physManager.getCollider(colliderID)->getTransform().getPosition().z);
+        rp3d::Quaternion orientation = rp3d::Quaternion::identity();
+        rp3d::Transform reactTransform(position, orientation);
+        PhysicsSystem::getInstance().getCollider(colliderID)->setTransform(reactTransform);
+    }
 	else
 	{
-		if(distanceFromGround > m_collider->getHeight() / 2 + 1)		//+1 buffer
+		if(!isColliding)
 		{
-			m_transformPtr->translate(0, -m_mass, 0); //apply gravity
+            rp3d::Vector3 position(physManager.getCollider(colliderID)->getTransform().getPosition().x, physManager.getCollider(colliderID)->getTransform().getPosition().y -m_mass, physManager.getCollider(colliderID)->getTransform().getPosition().z);
+            rp3d::Quaternion orientation = rp3d::Quaternion::identity();
+            rp3d::Transform reactTransform(position, orientation);
+            PhysicsSystem::getInstance().getCollider(colliderID)->setTransform(reactTransform);
 			m_onGround = false;
 		}
 		else
-			m_onGround = true;
+        {
+            m_onGround = true;
+        }
+
 	}
-	*/
+*/
 }

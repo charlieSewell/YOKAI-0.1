@@ -175,7 +175,7 @@ void TerrainFactory::LoadHeightMap(const std::string& filename)
 }
 float TerrainFactory::heightAt(float x, float z)
 {
-    if(x > 0 && x < terrainSize && z > 0 && z < terrainSize)
+    if(x > 0 && x < static_cast<float>(terrainSize) && z > 0 && z < static_cast<float>(terrainSize))
     {
 
         float fract_x = x - (int) x;

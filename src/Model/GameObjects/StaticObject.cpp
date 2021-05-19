@@ -12,6 +12,6 @@ void StaticObject::draw()
 
 void StaticObject::setCollider(float width, float length, float height)
 {
-	PhysicsManager::getInstance().addCapsule(m_transform);
+	//PhysicsSystem::getInstance().addCapsule(m_transform);
 	//registerAABB(width, length, height);
 }

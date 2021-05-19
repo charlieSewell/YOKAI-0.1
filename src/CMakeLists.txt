@@ -36,11 +36,16 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/EventManager.cpp
 		Controller/InputManagerGLFW.cpp
 		Controller/Layer.cpp
-		Controller/Physics/YourEventListener.cpp
 		Controller/Physics/ReactTerrainShape.cpp
-        Controller/Physics/PhysicsManager.cpp
+        Controller/Physics/CollisionEventHandler.cpp
+        Controller/Physics/PhysicsSystem.cpp
+		Controller/Physics/ReactMath.cpp
+		Controller/Physics/RigidBody.cpp
+
 		Controller/Animator.cpp
-		Controller/Physics/AABB.cpp
+        Controller/Physics/ReactBoxShape.cpp
+		Controller/Physics/ReactShape.cpp
+		Controller/Physics/ReactSphereShape.cpp
         Controller/Factory/GameAssetFactory.cpp
 		Controller/DemoScene.cpp
         Controller/GameObjectManager.cpp

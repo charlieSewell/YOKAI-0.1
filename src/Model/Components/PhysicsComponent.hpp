@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Controller/Physics/PhysicsManager.hpp"
+#include "Controller/Physics/PhysicsSystem.hpp"
 #include "Controller/EventManager.hpp"
 #include "Model/Components/Transform.hpp"
 
@@ -38,19 +38,19 @@ protected:
 	virtual ~PhysicsComponent() {}
 
     /**
-     * @brief Register AABB
+     * @brief Register ReactBoxShape
      * @param vec3* - position
      * @param float - width
      * @param float - length
      * @param float - height
      */
-	void registerAABB(float width, float length, float height);
+    void registerAABB(float width, float length, float height);
     /**
      * @brief Registers Physics Toggle
      */
 	void registerPhysicsToggle();
-    ///AABB Collider
-	//AABB* m_collider;
+    ///ReactBoxShape Collider
+	//ReactBoxShape* m_collider;
     ///Objects Mass
 	float m_mass;
     ///is on ground
@@ -75,6 +75,8 @@ private:
 	void resolveCollisions(float &movementSpeed);
     ///is physics toggle pressed
 	bool m_physicsTogglePressed = false;
-
+	int colliderID = 0;
 	Transform* m_transformPtr;
+
+    void resolveCollisions(int colliderID);
 };

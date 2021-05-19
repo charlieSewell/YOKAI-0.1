@@ -73,11 +73,11 @@ public:
      * @brief Pure virtual draw call for the GameObject
      */
     virtual void draw() = 0;
-
+    Transform m_transform;
 protected:
 	/// Type of GameObject
 	GameObjectType m_EntityType;
 
     /// Transform of the GameObject
-    Transform m_transform;
+
 };

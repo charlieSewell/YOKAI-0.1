@@ -6,7 +6,6 @@
 #include "View/Renderer/DataTypes.hpp"
 #include "Model/Chunk.hpp"
 #include "Controller/LuaManager.hpp"
-#include "Controller/Physics/PhysicsManager.hpp"
 #include "Controller/TextureManager.hpp"
 /**
  * @class TerrainFactory
