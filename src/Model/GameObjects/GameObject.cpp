@@ -28,7 +28,7 @@ void GameObject::setLuaScale(float x,float y,float z)
 {
     m_transform.setScale(x, y, z);
 }
-void GameObject::update()
+void GameObject::update(float dt)
 {
 
 }

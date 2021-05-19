@@ -46,6 +46,12 @@ void Yokai::Run()
 	double lastFrame = 0;
     double lastTime = 0;
 
+    ModelLoader loader;
+    std::shared_ptr<Model> model = std::make_shared<Model>(loader.loadModel("content/Models/Zombie/ZombieSmooth.gltf"));
+
+    Animator animator;
+    animator.addModel(model);
+    animator.setAnimation("test");
     while(isRunning)
 	{
 		double currentTime = glfwGetTime();
@@ -59,12 +65,6 @@ void Yokai::Run()
             window.startFrame();
             glm::mat4 model(1.0);
             model = glm::translate(model,glm::vec3(500,20,500));
-            glm::mat4 model1(1.0);
-            model1 = glm::translate(model1,glm::vec3(480,20,500));
-            glm::mat4 model2(1.0);
-            model2 = glm::translate(model2,glm::vec3(490,20,500));
-            glm::mat4 model3(1.0);
-            model3 = glm::translate(model3,glm::vec3(510,20,500));
 
 
 			InputManagerGLFW::getInstance().processKeyboard(window.getWindow());

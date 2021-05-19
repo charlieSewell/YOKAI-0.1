@@ -37,9 +37,9 @@ class ModelManager
     /*!
      * @brief Getter for model with the specified id
      * @param size_t - modelID
-     * @return Model
+     * @return shared_ptr<Model>
      */
-    Model* GetModel(size_t modelID);
+    std::shared_ptr<Model> GetModel(size_t modelID);
 
     /*!
      * @brief Calls the draw function for the specified model
@@ -47,6 +47,7 @@ class ModelManager
      * @param mat4 - transform
      */
     void DrawModel(size_t id, glm::mat4 transform);
+    void DrawModel(size_t id, glm::mat4 transform, std::vector<glm::mat4> &finalTransforms);
 
   private:
     /// Model loader

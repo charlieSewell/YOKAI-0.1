@@ -19,7 +19,8 @@ Player::Player()
 Player::~Player() {}
 
 void Player::draw() {}
-void Player::update()
+
+void Player::update(float dt)
 {
 	m_camera.m_position = m_transform.getPosition();		//TODO: make this better
 	if(m_physics.m_physicsActive) {
