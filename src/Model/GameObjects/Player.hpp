@@ -40,7 +40,9 @@ public:
     /*!
      * @brief Update call for the player
      */
-	void update() override;
+	void update(float dt) override;
+
+	static void registerClass();
 
 private:
 	Camera m_camera;

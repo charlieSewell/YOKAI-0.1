@@ -28,7 +28,7 @@ void GameObject::setLuaScale(float x,float y,float z)
 {
     m_transform.setScale(x, y, z);
 }
-void GameObject::update()
+void GameObject::update(float dt)
 {
 
 }
@@ -36,11 +36,18 @@ void GameObject::update()
 void GameObject::registerClass() 
 {
     luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+		.beginClass<glm::vec3>("Vec3")
+		.addConstructor<void (*)(float, float, float)>()
+		.addData("x", &glm::vec3::x)
+		.addData("y", &glm::vec3::y)
+		.addData("z", &glm::vec3::z)
+		.endClass()
         .beginClass<GameObject>("GameObject")
             .addFunction("update", &GameObject::update)
             .addFunction("getPosition", &GameObject::getLuaPosition)
             .addFunction("setPosition", &GameObject::setLuaPosition)
             .addFunction("setScale", &GameObject::setLuaScale)
             .addFunction("setCollider", &GameObject::setCollider)
+			
         .endClass();
 }

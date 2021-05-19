@@ -28,6 +28,8 @@ class LuaManager
          */
         static void runScript(std::string scriptName);
 
+		static void callFunction(std::string func);
+
 	private:
         /*!
          * @brief Constructor

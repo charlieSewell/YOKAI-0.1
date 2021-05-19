@@ -57,11 +57,11 @@ int GameObjectManager::add(std::shared_ptr<GameObject>& gameObject)
     return objectCount - 1;
 }
 
-void GameObjectManager::update() 
+void GameObjectManager::update(float dt)
 {
     for(auto& gameObject :gameObjects)
     {
-        gameObject.second->update();
+        gameObject.second->update(dt);
     }
 }
 void GameObjectManager::draw()
@@ -71,10 +71,12 @@ void GameObjectManager::draw()
         gameObject.second->draw();
     }
 }
-std::shared_ptr<GameObject> GameObjectManager::getPlayer()
+
+Player* GameObjectManager::getPlayer()
 {
-        return gameObjects[playerID];
+	return(dynamic_cast<Player*>(gameObjects[playerID].get()));
 }
+
 std::shared_ptr<GameObject> GameObjectManager::getObject(int id) 
 {
 
@@ -97,7 +99,6 @@ GameObject* GameObjectManager::luaGet(int id)
 
 NPC* GameObjectManager::getNPC(int id)
 { 
-	std::cout << "getting NPC\n";
 	return(dynamic_cast<NPC*>(gameObjects[id].get()));
 }
 

@@ -7,7 +7,7 @@ Model::Model(std::vector<Mesh> meshes)
     this->meshes = std::move(meshes);
 
 }
-Model::Model(std::vector<Mesh> meshes, std::vector<Bone> bones, std::map<std::string, unsigned int> boneMap, Node rootNode, std::vector<Animation> animations, glm::mat4 globalInverseTransformation)
+Model::Model(std::vector<Mesh> meshes, std::vector<Bone> bones, std::map<std::string, unsigned int> boneMap, Node rootNode, std::vector<SkeletalAnimation> animations, glm::mat4 globalInverseTransformation)
 {
     this->meshes = std::move(meshes);
     this->bones = std::move(bones);
@@ -31,7 +31,7 @@ void Model::Draw(Shader &shader, glm::mat4 transform)
         mesh.Draw(shader);
     }
 }
-Animation* Model::getAnimation(std::string name)
+SkeletalAnimation* Model::getAnimation(std::string name)
 {
     for(auto& anim : animations)
     {

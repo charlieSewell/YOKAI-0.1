@@ -18,10 +18,7 @@ void DemoScene::Init()
 #include "Model/GameObjects/NPC.hpp"
 void DemoScene::Update(double frameRate)
 {
-    GameObjectManager::update();
-	
-	//test
-    //GameObjectManager::getnpc(test)->test();
+    GameObjectManager::update(frameRate);
 }
 
 void DemoScene::Draw()

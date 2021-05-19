@@ -25,7 +25,7 @@ Player::~Player() {}
 
 void Player::draw() {}
 
-void Player::update()
+void Player::update(float dt)
 {
 	m_camera.m_position = m_transform.getPosition();		//TODO: make this better
 	PhysicsManager::getInstance().update(m_transform);
@@ -54,4 +54,13 @@ void Player::registerPosition()
 	};
 
 	EMS::getInstance().add(ReturnVec3Event::getPlayerPosition, getPlayerPosition);
+}
+
+void Player::registerClass()
+{
+	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+		.deriveClass<Player, GameObject>("Player")
+		//.addFunction("test", &Player::m_transform)
+		.endClass();
+	std::cout << "registered\n";
 }

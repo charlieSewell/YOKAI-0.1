@@ -36,3 +36,8 @@ void LuaManager::runScript(std::string scriptName)
 {
     luaL_dofile(getInstance().getState(), scriptName.c_str());
 }
+
+void LuaManager::callFunction(std::string func)
+{
+	luaL_dostring(getInstance().getState(), func.c_str());
+}

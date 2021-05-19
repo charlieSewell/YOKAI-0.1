@@ -10,7 +10,7 @@ void Animator::BoneTransform(float TimeInSeconds)
     finalTransforms.resize(modelToAnimate->getBonesSize());
     glm::mat4 identity(1.0);
     currTime += TimeInSeconds;
-    if(modelToAnimate != nullptr)
+    if(modelToAnimate != nullptr && modelToAnimate->getAnimation(animation) != nullptr)
     {
         double TicksPerSecond = modelToAnimate->getAnimation(animation)->getTPS();
         float TimeInTicks = currTime * static_cast<float>(TicksPerSecond);
@@ -102,4 +102,15 @@ glm::vec3 Animator::CalcInterpolatedPosition(double AnimationTime, const Frame *
     glm::vec3 Delta = End - Start;
     result = Start + static_cast<float>(Factor) * Delta;
     return result;
+}
+void Animator::setAnimation(std::string animationToSet)
+{
+    try
+    {
+        SkeletalAnimation* test = modelToAnimate->getAnimation(animationToSet);
+        this->animation = std::move(animationToSet);
+    }catch (std::exception e)
+    {
+        std::cout << e.what() <<std::endl;
+    }
 }
