@@ -11,7 +11,7 @@
  * @class NPC
  * @brief Child of GameObject for all NPC's within the game. Inherits physics component.
  */
-class NPC : public GameObject, public AutomatedBehaviours//, public PhysicsComponent
+class NPC : public GameObject//, public PhysicsComponent
 {
   public:
     /*!
@@ -39,7 +39,8 @@ class NPC : public GameObject, public AutomatedBehaviours//, public PhysicsCompo
      */
 	void setCollider(float width, float length, float height);
 
-  private:
+private:
+	AutomatedBehaviours m_behaviours;
     /// Stores associated model id of the NPC
     int modelID;
 };

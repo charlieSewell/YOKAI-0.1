@@ -3,45 +3,33 @@
 #include "Player.hpp"
 
 Player::Player()
-	: PlayerControlledMotion(m_transform), PhysicsComponent(m_transform)
+	: m_camera(Camera()), m_movement(PlayerControlledMotion(m_transform)), m_physics(m_transform)
 {
-	m_movementSpeed = 0.075f;
-	m_lookSensitivity = 0.05f;
-	m_jumpHeight = 4.0f;
-	m_jumpSpeed = 0.15f;
+	m_movement.movementSpeed = 0.075f;
+	m_movement.lookSensitivity = 0.05f;
+	m_movement.jumpHeight = 4.0f;
+	m_movement.jumpSpeed = 0.15f;
 	//m_mass = 0.025f;
 	registerPosition();
-	registerAllMovement(m_frontDirection, m_upDirection);
-	registerPhysicsToggle();
+	m_movement.registerAllMovement(m_camera.m_frontDirection, m_camera.m_upDirection);
+	m_physics.registerPhysicsToggle();
 
-	m_resolvingCollision = false;
 }
 
 Player::~Player() {}
 
 void Player::draw() {}
-
 void Player::update()
 {
-
-	Camera::m_position = m_transform.getPosition();		//TODO: make this better
-    updatePhysics(m_movementSpeed, m_jumpSpeed);
-	/*
-	if(m_physicsActive)
-	{
-		m_canJump = m_onGround;
-		updatePhysics(m_movementSpeed, m_jumpSpeed);
-	}
-	else
-		m_canJump = true;
-	
-	updateJump(m_transform.getPosition(), m_upDirection);
-     */
+	m_camera.m_position = m_transform.getPosition();		//TODO: make this better
+	if(m_physics.m_physicsActive) {
+        m_physics.updatePhysics(m_movement.movementSpeed, m_movement.jumpSpeed);
+    }
 }
 
 void Player::setCollider(float width, float length, float height)
 {
-    registerAABB(width,length,height);
+    m_physics.registerAABB(width,length,height);
 }
 
 void Player::registerPosition()

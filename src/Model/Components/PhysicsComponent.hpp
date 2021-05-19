@@ -20,7 +20,7 @@ public:
    */
 	void updatePhysics(float &movementSpeed, float jumpSpeed);
 
-protected:
+//protected:
   /**
    * @brief Constructor For Physics Components
    */
@@ -77,7 +77,7 @@ private:
 	void resolveCollisions(float &movementSpeed);
     ///is physics toggle pressed
 	bool m_physicsTogglePressed = false;
-	int colliderID = 0;
+	unsigned int colliderID = 0;
 	Transform* m_transformPtr;
 
     void resolveCollisions(int colliderID);

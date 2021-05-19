@@ -10,7 +10,7 @@
  * @class Player
  * @brief Child of GameObject for the player within the game. Inherits physics component, camera and player controlled motion
  */
-class Player : public GameObject, public Camera, public PlayerControlledMotion, public PhysicsComponent
+class Player : public GameObject
 {
 
 public:
@@ -43,5 +43,8 @@ public:
 	void update() override;
 
 private:
+	Camera m_camera;
+	PlayerControlledMotion m_movement;
+	PhysicsComponent m_physics;
 	void registerPosition();
 };
