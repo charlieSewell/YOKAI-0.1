@@ -14,7 +14,7 @@ void DemoScene::Init()
 
 void DemoScene::Update(double frameRate)
 {
-    GameObjectManager::update();
+    GameObjectManager::update(frameRate);
 }
 void DemoScene::Draw()
 {

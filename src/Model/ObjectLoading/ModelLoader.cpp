@@ -13,7 +13,7 @@ Model ModelLoader::loadModel(const std::string& filename)
     numBones = 0;
     std::vector<Mesh> meshes;
     std::vector<Bone> bones;
-    std::vector<Animation> animations;
+    std::vector<SkeletalAnimation> animations;
     std::map<std::string,unsigned int> boneMap;
     Assimp::Importer importer;
     const aiScene *scene = importer.ReadFile(
@@ -36,7 +36,7 @@ Model ModelLoader::loadModel(const std::string& filename)
     return Model(meshes,bones,boneMap,rootAnimNode,animations,globalInverseTransform);
 }
 
-void ModelLoader::processNode(std::vector<Animation> &animations,std::vector<Mesh> &meshes, std::vector<Bone> &bones,
+void ModelLoader::processNode(std::vector<SkeletalAnimation> &animations, std::vector<Mesh> &meshes, std::vector<Bone> &bones,
                               std::map<std::string, unsigned int> &boneMap, aiNode *node,
                               const aiScene *scene, glm::mat4 transform)
 {
@@ -192,14 +192,14 @@ std::vector<ModelTexture> ModelLoader::loadMaterialTextures(aiMaterial *mat, aiT
     }
     return textures;
 }
-void ModelLoader::loadAnimations(std::vector<Animation> &animations, const aiScene *scene){
+void ModelLoader::loadAnimations(std::vector<SkeletalAnimation> &animations, const aiScene *scene){
     for(unsigned int i=0; i < scene->mNumAnimations;++i)
     {
         //Stores Each frame against the bone/node name
         std::map<std::string,Frame> animationMap;
         for(unsigned int j =0; j < scene->mAnimations[i]->mNumChannels; ++j)
         {
-            //Animation for a singular bone
+            //SkeletalAnimation for a singular bone
             Frame keyFrame = {};
             std::string name = scene->mAnimations[i]->mChannels[j]->mNodeName.C_Str();
             keyFrame.numPositions = scene->mAnimations[i]->mChannels[j]->mNumPositionKeys;
@@ -217,7 +217,8 @@ void ModelLoader::loadAnimations(std::vector<Animation> &animations, const aiSce
             //Place it in a map with the name so animation can be called
             animationMap.emplace(name, keyFrame);
         }
-        Animation anim = Animation(scene->mAnimations[i]->mName.C_Str(),animationMap, static_cast<float>(scene->mAnimations[i]->mDuration),static_cast<float>(scene->mAnimations[i]->mTicksPerSecond));
+        SkeletalAnimation anim = SkeletalAnimation(scene->mAnimations[i]->mName.C_Str(), animationMap, static_cast<float>(scene->mAnimations[i]->mDuration), static_cast<float>(scene->mAnimations[i]->mTicksPerSecond));
+        std::cout << anim.getName() << std::endl;
         animations.push_back(anim);
     }
 

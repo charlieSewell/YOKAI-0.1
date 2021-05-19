@@ -55,11 +55,11 @@ int GameObjectManager::add(std::shared_ptr<GameObject>& gameObject)
     return objectCount - 1;
 }
 
-void GameObjectManager::update() 
+void GameObjectManager::update(float dt)
 {
     for(auto& gameObject :gameObjects)
     {
-        gameObject.second->update();
+        gameObject.second->update(dt);
     }
 }
 void GameObjectManager::draw()

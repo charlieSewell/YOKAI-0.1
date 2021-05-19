@@ -6,7 +6,7 @@
 #include "Model/Components/PhysicsComponent.hpp"
 #include "View/Renderer/Shader.hpp"
 #include "Model/Components/AutomatedBehaviours.hpp"
-
+#include <Controller/Animator.hpp>
 /**
  * @class NPC
  * @brief Child of GameObject for all NPC's within the game. Inherits physics component.
@@ -24,7 +24,7 @@ class NPC : public GameObject//, public PhysicsComponent
      * @brief Draw call for the NPC model
      */
     void draw();
-
+    void update(float dt) override;
     /*!
      * @brief Getter for the position of the NPC
      * @return position
@@ -43,4 +43,5 @@ private:
 	AutomatedBehaviours m_behaviours;
     /// Stores associated model id of the NPC
     int modelID;
+    Animator animator;
 };

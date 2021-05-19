@@ -62,7 +62,7 @@ class GameObjectManager
     /*!
      * @brief Calls the update function for all GameObjects
      */
-    static void update();
+    static void update(float dt);
 
     /*!
      * @brief Calls the draw function for all GameObjects

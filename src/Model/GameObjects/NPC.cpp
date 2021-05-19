@@ -4,6 +4,11 @@ NPC::NPC(std::string modelName)
 	: GameObject(), m_behaviours(AutomatedBehaviours(m_transform))//, PhysicsComponent()
 {
     modelID = ModelManager::getInstance().GetModelID(modelName);
+    m_transform.setPosition(glm::vec3(0,0,0));
+    m_transform.setScale(glm::vec3(0,0,0));
+    animator.addModel(ModelManager::getInstance().GetModel(modelID));
+    animator.setAnimation("ZombieIdle");
+
 }
 
 void NPC::draw() 
@@ -18,15 +23,16 @@ void NPC::draw()
 	else
 		m_behaviours.decelerate();
 
-	// END SUDO STATE MACHINE
-	//m_transform.setPosition(m_transform.getPosition());
 	m_transform.setPosition(glm::vec3(m_transform.getPosition().x, PhysicsManager::getInstance().checkTerrainHeight(m_transform.getPosition()), m_transform.getPosition().z));
 	
-	ModelManager::getInstance().DrawModel(modelID, m_transform.getMatrix());
+	ModelManager::getInstance().DrawModel(modelID, m_transform.getMatrix(),animator.finalTransforms);
 }
 
 void NPC::setCollider(float width, float length, float height)
 {
 	//registerAABB(&m_position, width, length, height);
 }
-
+void NPC::update(float dt)
+{
+    animator.BoneTransform(dt);
+}
