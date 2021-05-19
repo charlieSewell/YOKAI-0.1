@@ -12,10 +12,12 @@ void NPC::draw()
 	// SUDO STATE MACHINE
 	glm::vec3 targetPosition = EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition);
 
-	m_behaviours.seek(targetPosition);
+	//m_behaviours.rotationSpeed = 0.0025;
+	//m_behaviours.rotationSpeed = 
+	//m_behaviours.seek(targetPosition);
 	m_behaviours.wander();
 	if(glm::distance(m_transform.getPosition(), targetPosition) > 10)
-		m_behaviours.accelerate(0.25f);
+		m_behaviours.accelerate(0.1f);
 	else
 		m_behaviours.decelerate();
 
