@@ -14,7 +14,7 @@ player:setCollider(4, 4, 4.0);
 skyBoxID = ObjectManager.Create(Types.static(),"content/Models/skybox1.fbx");
 skyBox = ObjectManager.GetObject(skyBoxID);
 skyBox:setPosition(TerrainSettings.terrainSize/2, 0, TerrainSettings.terrainSize/2);
-skyBox:setScale(0.03, 0.03, 0.03);
+skyBox:setScale(0.05, 0.05, 0.05);
 
 --Creating Rocks in random places
 for i=0,200 do
@@ -39,6 +39,7 @@ for i=0, 50 do
         gameObj:setCollider(4,1,25);
         gameObj:setPosition(x,val,z);
 end
+
 --Creating Trees in random places
 for i=0,200 do
         x = math.random(0,TerrainSettings.terrainSize);

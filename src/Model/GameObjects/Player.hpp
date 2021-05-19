@@ -42,9 +42,19 @@ public:
      */
 	void update(float dt) override;
 
+    void setHealth(int h);
+    int getHealth();
+
+    void setShields(int s);
+    int getShields();
+
 private:
 	Camera m_camera;
 	PlayerControlledMotion m_movement;
 	PhysicsComponent m_physics;
 	void registerPosition();
+
+    int health;
+
+    int shields;
 };
