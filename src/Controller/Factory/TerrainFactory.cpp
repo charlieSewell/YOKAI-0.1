@@ -57,6 +57,7 @@ Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int siz
     GenerateTexCoords(vertices);
     unsigned int x = xStart;
     unsigned int z = zStart;
+    AddBoundary();
     for(auto& vert: vertices)
     {
         if(vert.position.x != static_cast<float>(x))
@@ -68,6 +69,7 @@ Chunk TerrainFactory::SetupChunk(unsigned int xStart,unsigned int zStart,int siz
         z++;
     }
     GenerateNormals(vertices,indices);
+
     chunk.SetupChunk(vertices,indices);
     return chunk;
 }
@@ -150,9 +152,9 @@ void TerrainFactory::LoadHeightMap(const std::string& filename)
     {
         e.resize(static_cast<size_t>(height)+1);
     }
-    for(int x = 0; x < width; x++) 
+    for(int x = 0; x < width; x++)
     {
-        for (int y = 0; y < height; y++) 
+        for (int y = 0; y < height; y++)
         {
             heightVals.at((x)).at((y)) = data[((x * width) + y)];
             //std::cout << heightVals.at((x)).at((y)) <<std::endl;
@@ -203,8 +205,8 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
     for (auto &e : heightVals) {
         e.resize(static_cast<size_t>(ySize));
     }
-    float xFactor = 1.0f / (500 - 1);
-    float yFactor = 1.0f / (500 - 1);
+    float xFactor = 1.0f / (800 - 1);
+    float yFactor = 1.0f / (800 - 1);
     float a       = 0.3; //Tuning variables
     float b       = 0.2;  //Tuning variables
 
@@ -238,4 +240,42 @@ void TerrainFactory::GeneratePerlinMap(int xSize,int ySize)
             heightVals.at(static_cast<size_t>(row)).at(static_cast<size_t>(col)) = result*255;
         }
     }
+}
+void TerrainFactory::AddBoundary()
+{
+    for(size_t i = 0; i < terrainSize; ++i){
+        float height = 400.f;
+        for (size_t y = 0; y <= 20; ++y) {
+            height -= 2.5f;
+            heightVals.at(i).at(y) = height;
+        }
+        //heightVals.at(i).at(20) = height;
+    }
+
+    for(size_t i = 0; i < terrainSize; ++i) {
+        auto height = 400.f;
+        for (size_t y = 0; y <= 20; ++y) {
+            height -= 2.5f;
+            heightVals.at(y).at(i) = height;
+        }
+        //heightVals.at(20).at(i) = height;
+    }
+
+    for(size_t i = 0; i < terrainSize; ++i){
+        auto height = 400.f;
+        for (size_t y = 0; y <= 20; ++y) {
+            height -= 2.5f;
+            heightVals.at(terrainSize - 20 - y).at(i) = height;
+        }
+        //heightVals.at(20).at(i) = 300.f;
+    }
+    for(size_t i = 0; i < terrainSize; ++i){
+        auto height = 400.f;
+        for (size_t y = 0; y <= 20; ++y) {
+            height -= 2.5f;
+            heightVals.at(i).at(terrainSize - 20-  y) = height;
+        }
+    }
+
+
 }

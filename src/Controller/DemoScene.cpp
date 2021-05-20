@@ -22,8 +22,8 @@ void DemoScene::Update(double frameRate)
 
 void DemoScene::Draw()
 {
-    GameObjectManager::getInstance().draw();
     terrainManager.Draw(EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
+    GameObjectManager::getInstance().draw();
     if(controlsScreen->isActive())
     {
         controlsScreen->draw();

@@ -95,14 +95,14 @@ int KeyframeAnimation::getCurrentFrame()
 
 void KeyframeAnimation::draw(Transform t) 
 {
-    glm::mat4 transform(1.0);
-    transform = glm::translate(transform, glm::vec3(650, 95, 600));
-    transform = glm::scale(transform, glm::vec3(0.03, 0.03, 0.03));
+    //glm::mat4 transform(1.0);
+    //transform = glm::translate(transform, glm::vec3(650, 95, 600));
+    //transform = glm::scale(transform, glm::vec3(0.03, 0.03, 0.03));
 
     shader->useShader();
     shader->setVec3("viewPos", EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
-    models[currentFrame].Draw(*shader, transform);
-    //models[currentFrame].Draw(*shader, t.getMatrix());
+    //models[currentFrame].Draw(*shader, transform);
+    models[currentFrame].Draw(*shader, t.getMatrix());
 }
 
 void KeyframeAnimation::setTPS(float tps) 
