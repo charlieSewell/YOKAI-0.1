@@ -5,7 +5,7 @@
 Player::Player()
 	: m_camera(Camera()), m_movement(PlayerControlledMotion(m_transform))//, PhysicsComponent(m_transform)
 {
-	m_movement.movementSpeed = 0.075f;
+	m_movement.movementSpeed = 0;
 	m_movement.lookSensitivity = 0.05f;
 	m_movement.jumpHeight = 4.0f;
 	m_movement.jumpSpeed = 0.15f;
@@ -29,16 +29,7 @@ void Player::update(float dt)
 {
 	m_camera.m_position = m_transform.getPosition();		//TODO: make this better
 	PhysicsManager::getInstance().update(m_transform);
-	/*if(m_physicsActive)
-	{
-		m_canJump = m_onGround;
-		updatePhysics(m_movementSpeed, m_jumpSpeed);
-	}
-	else
-		m_canJump = true;
-	
-	updateJump(m_transform.getPosition(), m_upDirection);
-	*/
+
 }
 
 void Player::setCollider(float width, float length, float height)
@@ -58,9 +49,10 @@ void Player::registerPosition()
 
 void Player::registerClass()
 {
+	PlayerControlledMotion::registerClass();
 	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
 		.deriveClass<Player, GameObject>("Player")
-		//.addFunction("test", &Player::m_transform)
+		.addProperty("movement", &Player::m_movement)
 		.endClass();
-	std::cout << "registered\n";
 }
+

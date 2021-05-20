@@ -3,6 +3,8 @@
 
 #include "Model/Components/Transform.hpp"
 #include "Controller/EventManager.hpp"
+#include "Controller/LuaManager.hpp"
+
 /**
  * @class PlayerControlledMotion
  * @brief Player Control component that can be attatched to game object
@@ -14,7 +16,7 @@ public:
    * @brief Setter for Player Movement speed
    * @param float - movementSpeed
    */
-	void setMovementSpeed(float movementSpeed);
+	void setMovementSpeed(float newMovementSpeed);
     /**
      * @brief Getter for Player Movement Speed
      * @return float
@@ -96,6 +98,9 @@ public:
      * @param vec3& - position
      * @param vec3& - upDirection
      */
+
+	static void registerClass();
+
 	void updateJump(glm::vec3 position, glm::vec3& upDirection);
     ///Movement speed
 	float movementSpeed;

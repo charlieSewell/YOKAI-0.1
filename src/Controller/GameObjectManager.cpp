@@ -15,10 +15,12 @@ void GameObjectManager::init()
 {
     GameObject::registerClass();
 	NPC::registerClass();
+	Player::registerClass();
     luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
         .beginNamespace("ObjectManager")
             .addFunction("Create",GameObjectManager::CreateObject)
             .addFunction("GetObject",GameObjectManager::luaGet)
+			.addFunction("GetPlayer", GameObjectManager::getPlayer)
 			.addFunction("GetNPC", GameObjectManager::getNPC)
             .addFunction("Update",GameObjectManager::update)
         .endNamespace();

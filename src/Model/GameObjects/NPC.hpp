@@ -38,8 +38,6 @@ class NPC : public GameObject//, public PhysicsComponent
      */
 	void setCollider(float width, float length, float height);
 
-	void test();
-
 	static void registerClass();
 
 private:
@@ -49,4 +47,5 @@ private:
     /// Stores associated model id of the NPC
     int modelID;
 
+	luabridge::LuaRef luaUpdate = LuaManager::getInstance().getState();
 };

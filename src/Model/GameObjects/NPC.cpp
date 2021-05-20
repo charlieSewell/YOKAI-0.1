@@ -8,6 +8,9 @@ NPC::NPC(std::string modelName)
     m_transform.setScale(glm::vec3(0,0,0));
     animator.addModel(ModelManager::getInstance().GetModel(modelID));
 	animator.setAnimation("ZombieWalk");
+
+	LuaManager::getInstance().runScript("content/Scripts/stateMachine.lua");
+	luaUpdate = luabridge::getGlobal(LuaManager::getInstance().getState(), "update");
 }
 
 void NPC::draw() 
@@ -34,22 +37,15 @@ void NPC::setCollider(float width, float length, float height)
 	//registerAABB(&m_position, width, length, height);
 }
 
-void NPC::test()
-{
-	std::cout << "Cool\n";
-}
-
 void NPC::registerClass()
 {
 	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
 		.deriveClass<NPC, GameObject>("NPC")
-		.addFunction("test", &NPC::test)
-		.addFunction("sayHello", SayHello);
 		.endClass();
-	std::cout << "registered\n";
 }
 
 void NPC::update(float dt)
 {
+	luaUpdate(this);
     animator.BoneTransform(dt);
 }
