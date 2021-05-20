@@ -96,15 +96,6 @@ void Player::registerPosition()
 	EMS::getInstance().add(ReturnVec3Event::getPlayerPosition, getPlayerPosition);
 }
 
-void Player::registerClass()
-{
-	PlayerControlledMotion::registerClass();
-	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
-		.deriveClass<Player, GameObject>("Player")
-		.addProperty("movement", &Player::m_movement)
-		.endClass();
-}
-
 void Player::setHealth(int h) 
 {
     health = h;
@@ -123,4 +114,13 @@ void Player::setShields(int s)
 int Player::getShields() 
 {
     return shields;
+}
+
+void Player::registerClass()
+{
+	PlayerControlledMotion::registerClass();
+	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+		.deriveClass<Player, GameObject>("Player")
+		.addProperty("movement", &Player::m_movement)
+		.endClass();
 }
