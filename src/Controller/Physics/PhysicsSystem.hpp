@@ -61,7 +61,6 @@ public:
 
     void addTerrain();
     void DeInit();
-    void Draw();
     reactphysics3d::PhysicsCommon physicsCommon;
     reactphysics3d::PhysicsWorld* physicsWorld;
 private:
