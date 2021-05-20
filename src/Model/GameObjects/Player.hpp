@@ -52,8 +52,12 @@ private:
     RayCaster rayCaster;
 
 	void registerPosition();
+	void registerColliderID();
 
     int health;
 
     int shields;
+
+	glm::vec3 feelerRight;
+	glm::vec3 feelerLeft;
 };
