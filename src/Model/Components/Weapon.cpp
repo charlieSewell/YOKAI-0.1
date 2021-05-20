@@ -11,6 +11,11 @@ Weapon::Weapon()
     initialiseAnimations();
 }
 
+void Weapon::setCollider(float length, float height,float width){
+
+}
+
+
 void Weapon::initialiseAnimations() 
 {
     weaponAnimation->readFile("content/Models/guntest.txt");

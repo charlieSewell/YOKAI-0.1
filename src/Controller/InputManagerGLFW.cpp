@@ -14,8 +14,6 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
         EMS::getInstance().fire(NoReturnEvent::closePressed);
     if (glfwGetKey(window, GLFW_KEY_X) == GLFW_RELEASE)
         EMS::getInstance().fire(NoReturnEvent::closeReleased);
-	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-		EMS::getInstance().fire(NoReturnEvent::jump);
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		EMS::getInstance().fire(NoReturnEvent::moveForward);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -24,6 +22,8 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 		EMS::getInstance().fire(NoReturnEvent::moveLeft);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		EMS::getInstance().fire(NoReturnEvent::moveRight);
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        EMS::getInstance().fire(NoReturnEvent::jump);
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 		EMS::getInstance().fire(NoReturnEvent::moveDown);
 

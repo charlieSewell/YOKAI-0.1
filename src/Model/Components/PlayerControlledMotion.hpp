@@ -79,7 +79,7 @@ public:
 	 * @param vec3& - position
 	 * @param vec3& - upDirection
 	 */
-    void registerJump();
+    void registerJump(glm::vec3& upDirection);
     /**
      * @brief Registers downward movement with EMS
      * @param vec3& - position
@@ -91,12 +91,6 @@ public:
      * @param vec3& - frontDirection
      */
 	void registerXYLook(glm::vec3& frontDirection);
-    /**
-     * Updates Jump
-     * @param vec3& - position
-     * @param vec3& - upDirection
-     */
-	void updateJump(glm::vec3 position, glm::vec3& upDirection);
     ///Movement speed
 	float movementSpeed;
     ///Mouse sensitivity
@@ -109,12 +103,13 @@ public:
 	bool jumping = false;
     ///player jump speed
 	float jumpSpeed;
-
+    glm::vec3 updateVector = glm::vec3(1.0);
 private:
     ///Jump height target
 	float m_jumpTarget;
     ///Current jump decay
 	float m_jumpDecay;
-
+    ///Pointer to current transform
 	Transform* m_transformPtr;
+
 };

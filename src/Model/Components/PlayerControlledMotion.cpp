@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "PlayerControlledMotion.hpp"
-
+#include "Controller/Physics/PhysicsSystem.hpp"
 PlayerControlledMotion::PlayerControlledMotion(Transform& transform)
 	:m_transformPtr(&transform)
 {
@@ -30,7 +30,7 @@ void PlayerControlledMotion::registerAllMovement(glm::vec3& frontDirection, glm:
 	registerMoveBackward(frontDirection);
 	registerMoveLeft(frontDirection, upDirection);
 	registerMoveRight(frontDirection, upDirection);
-	registerJump();
+	registerJump(upDirection);
 	registerMoveDown(upDirection);
 	registerXYLook(frontDirection);
 }
@@ -39,7 +39,7 @@ void PlayerControlledMotion::registerMoveForward(glm::vec3& frontDirection)
 {
 	auto moveForward = [&]()
 	{
-		m_transformPtr->translatePostMultiply(movementSpeed * frontDirection);
+		updateVector = (glm::vec3(frontDirection.x,0,frontDirection.z));
 	};
 	EMS::getInstance().add(NoReturnEvent::moveForward, moveForward);
 }
@@ -48,7 +48,8 @@ void PlayerControlledMotion::registerMoveBackward(glm::vec3& frontDirection)
 {
 	auto moveBackward = [&]()
 	{
-		m_transformPtr->translatePostMultiply(-movementSpeed * frontDirection);
+        updateVector = (-glm::vec3(frontDirection.x,0,frontDirection.z));
+		//m_transformPtr->translatePostMultiply(-movementSpeed * frontDirection);
 	};
 	EMS::getInstance().add(NoReturnEvent::moveBackward, moveBackward);
 }
@@ -57,7 +58,9 @@ void PlayerControlledMotion::registerMoveLeft(glm::vec3& frontDirection, glm::ve
 {
 	auto moveLeft = [&]()
 	{
-		m_transformPtr->translatePostMultiply(glm::normalize(glm::cross(frontDirection, upDirection)) * -movementSpeed);
+        updateVector = -glm::normalize(glm::cross(frontDirection, upDirection)) + updateVector;
+        updateVector = glm::vec3(updateVector.x,0,updateVector.z);
+		//m_transformPtr->translatePostMultiply(glm::normalize(glm::cross(frontDirection, upDirection)) * -movementSpeed);
 	};
 	EMS::getInstance().add(NoReturnEvent::moveLeft, moveLeft);
 }
@@ -66,7 +69,9 @@ void PlayerControlledMotion::registerMoveRight(glm::vec3& frontDirection, glm::v
 {
 	auto moveRight = [&]()
 	{
-		m_transformPtr->translatePostMultiply(glm::normalize(glm::cross(frontDirection, upDirection)) * movementSpeed);
+        updateVector = glm::normalize(glm::cross(frontDirection, upDirection)) + updateVector;
+        updateVector = glm::vec3(updateVector.x,0,updateVector.z);
+		//m_transformPtr->translatePostMultiply(glm::normalize(glm::cross(frontDirection, upDirection)) * movementSpeed);
 	};
 	EMS::getInstance().add(NoReturnEvent::moveRight, moveRight);
 }
@@ -75,37 +80,21 @@ void PlayerControlledMotion::registerMoveDown(glm::vec3& upDirection)
 {
 	auto moveDown = [&]()
 	{
-		m_transformPtr->translatePostMultiply(-movementSpeed * upDirection);
+        updateVector = (-upDirection)+ updateVector;
 	};
 	EMS::getInstance().add(NoReturnEvent::moveDown, moveDown);
 }
 
 
-void PlayerControlledMotion::registerJump()
+void PlayerControlledMotion::registerJump(glm::vec3& upDirection)
 {
 	auto jump = [&]()
 	{
-		if(canJump)
-		{
-			m_jumpTarget = m_transformPtr->getPosition().y + jumpHeight;
-			jumping = true;
-			canJump = false;
-		}
+        updateVector = (upDirection) + updateVector;
 	};
 	EMS::getInstance().add(NoReturnEvent::jump, jump);
 }
 
-void PlayerControlledMotion::updateJump(glm::vec3 position, glm::vec3& upDirection)
-{
-	m_jumpDecay = (m_jumpTarget - position.y)*jumpSpeed;
-	if(jumping)
-	{
-		if(position.y < m_jumpTarget)
-			position += (jumpSpeed + m_jumpDecay/3) * upDirection;
-		else
-			jumping = false;
-	}
-}
 void PlayerControlledMotion::registerXYLook(glm::vec3& frontDirection)
 {
 	static double yaw = -90.0f;

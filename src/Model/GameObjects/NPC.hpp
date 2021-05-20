@@ -24,7 +24,8 @@ class NPC : public GameObject//, public PhysicsComponent
      * @brief Draw call for the NPC model
      */
     void draw();
-    void update(double dt) override;
+    void update(float dt) override;
+    void setCollider(float x, float y, float z) override;
     /*!
      * @brief Getter for the position of the NPC
      * @return position

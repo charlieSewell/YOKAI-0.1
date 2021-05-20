@@ -31,7 +31,7 @@ class Weapon : public GameObject
 
     void update(Transform playerTransform, glm::vec3 frontDirection);
     void draw() override;
-
+    void setCollider(float width, float length, float height) override;
   private:
     KeyframeAnimation *weaponAnimation;
       

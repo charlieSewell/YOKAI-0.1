@@ -33,8 +33,8 @@ public:
     /*!
      * @brief Update call for the player
      */
-	void update(double dt) override;
-
+	void update(float dt) override;
+    void setCollider(float width, float length, float height) override;
     void setHealth(int h);
     int getHealth();
 
@@ -45,7 +45,7 @@ private:
 	Camera m_camera;
 	PlayerControlledMotion m_movement;
 	PhysicsComponent m_physics;
-    Weapon gun;
+    //Weapon gun;
 	void registerPosition();
 
     int health;

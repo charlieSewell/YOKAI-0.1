@@ -42,6 +42,8 @@ public:
 	*/
 	virtual glm::vec3 getLuaPosition();
 
+    virtual void setCollider(float x,float y,float z) = 0;
+
     /*!
      * @brief Virtual setter for the GameObject position within Lua
      * @param float - x
@@ -61,17 +63,17 @@ public:
     /*!
      * @brief Virtual update call for the GameObject
      */
-	virtual void update(double dt);
+	virtual void update(float dt);
 
     /*!
      * @brief Pure virtual draw call for the GameObject
      */
     virtual void draw() = 0;
-
+    Transform m_transform;
 protected:
 	/// Type of GameObject
 	GameObjectType m_EntityType;
 
     /// Transform of the GameObject
-    Transform m_transform;
+
 };
