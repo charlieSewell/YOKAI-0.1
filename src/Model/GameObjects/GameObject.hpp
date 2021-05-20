@@ -23,6 +23,7 @@ class GameObject
 {
 public:
 	GameObject();
+    virtual ~GameObject() = 0;
     /*!
      * @brief Registers the class for Lua
      */
@@ -69,11 +70,13 @@ public:
      * @brief Pure virtual draw call for the GameObject
      */
     virtual void draw() = 0;
+
+    void setID(unsigned int ID){this->ID = ID;}
     Transform m_transform;
 protected:
 	/// Type of GameObject
 	GameObjectType m_EntityType;
-
+    unsigned int ID;
     /// Transform of the GameObject
 
 };

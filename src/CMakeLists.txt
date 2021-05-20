@@ -17,7 +17,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Model/Components/AutomatedBehaviours.cpp
 		Model/Components/Weapon.cpp
 		Model/Components/Transform.cpp
-
+		Model/Components/RayCaster.cpp
 
 
         View/Renderer/Shader.cpp

@@ -19,10 +19,6 @@ float PlayerControlledMotion::getMovementSpeed() const
 	return movementSpeed;
 }
 
-void PlayerControlledMotion::setJumpHeight(float jumpHeight)
-{
-	jumpHeight = jumpHeight;
-}
 
 void PlayerControlledMotion::registerAllMovement(glm::vec3& frontDirection, glm::vec3& upDirection)
 {

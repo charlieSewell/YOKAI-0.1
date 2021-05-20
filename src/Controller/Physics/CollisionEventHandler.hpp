@@ -8,6 +8,6 @@ class CollisionEventHandler : public reactphysics3d::EventListener {
   public:
     CollisionEventHandler() = default;
     void onContact(const reactphysics3d::CollisionCallback::CallbackData &callbackData) override;
-    std::vector<std::pair<int,int>> collisions;
+    //std::vector<std::pair<int,int>> collisions;
 };
 

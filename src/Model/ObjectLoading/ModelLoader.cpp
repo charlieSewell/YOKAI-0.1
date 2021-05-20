@@ -218,7 +218,6 @@ void ModelLoader::loadAnimations(std::vector<SkeletalAnimation> &animations, con
             animationMap.emplace(name, keyFrame);
         }
         SkeletalAnimation anim = SkeletalAnimation(scene->mAnimations[i]->mName.C_Str(), animationMap, static_cast<float>(scene->mAnimations[i]->mDuration), static_cast<float>(scene->mAnimations[i]->mTicksPerSecond));
-        std::cout << anim.getName() << std::endl;
         animations.push_back(anim);
     }
 

@@ -2,6 +2,7 @@
 #include <utility>
 #include "Animator.hpp"
 Animator::Animator(std::shared_ptr<Model> model)
+	: currTime(0)
 {
     this->modelToAnimate = std::move(model);
 }
@@ -105,12 +106,24 @@ glm::vec3 Animator::CalcInterpolatedPosition(double AnimationTime, const Frame *
 }
 void Animator::setAnimation(std::string animationToSet)
 {
-    try
-    {
-        SkeletalAnimation* test = modelToAnimate->getAnimation(animationToSet);
-        this->animation = std::move(animationToSet);
-    }catch (std::exception e)
-    {
-        std::cout << e.what() <<std::endl;
-    }
+	if(animation != animationToSet)
+	{
+		try
+		{
+			currTime = 0;
+			SkeletalAnimation* test = modelToAnimate->getAnimation(animationToSet);
+			this->animation = std::move(animationToSet);
+		}catch (std::exception e)
+		{
+			std::cout << e.what() <<std::endl;
+		}
+	}
+}
+
+void Animator::registerClass()
+{
+	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+		.beginClass<Animator>("animator")
+		.addFunction("setAnimation", &Animator::setAnimation)
+		.endClass();
 }

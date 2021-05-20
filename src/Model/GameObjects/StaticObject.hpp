@@ -18,6 +18,7 @@ class StaticObject : public GameObject
      * @param string - modelName
      */
     StaticObject(std::string modelName);
+    ~StaticObject();
     void setCollider(float width, float length, float height) override;
     /*!
      * @brief Draw call for the staticObject model

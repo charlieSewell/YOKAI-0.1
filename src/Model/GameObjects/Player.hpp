@@ -7,7 +7,7 @@
 #include "Model/GameObjects/GameObject.hpp"
 #include "Model/Components/Weapon.hpp"
 #include "Controller/LuaManager.hpp"
-
+#include "Model/Components/RayCaster.hpp"
 /**
  * @class Player
  * @brief Child of GameObject for the player within the game. Inherits physics component, camera and player controlled motion
@@ -49,6 +49,8 @@ private:
 	PlayerControlledMotion m_movement;
 	PhysicsComponent m_physics;
     Weapon gun;
+    RayCaster rayCaster;
+
 	void registerPosition();
 
     int health;

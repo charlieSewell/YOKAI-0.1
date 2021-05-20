@@ -24,7 +24,7 @@ class GameObjectManager
     /*!
      * @brief Initialises the manager
      */
-    static void init();
+    void init();
 
     /*!
      * @brief Creates a GameObject and stores it within a map of GameObjects
@@ -32,59 +32,72 @@ class GameObjectManager
      * @param string - model
      * @return objectCount-1
      */
-    static int CreateObject(GameObjectType type, std::string model);
+    int CreateObject(GameObjectType type, std::string model);
 
     /*!
      * @brief Adds a GameObject to the map of GameObjects
      * @param GameObject smart pointer - &gameObject
      * @return objectCount-1
      */
-    static int add(std::shared_ptr<GameObject> &gameObject);
+    int add(std::shared_ptr<GameObject> &gameObject);
 
     /*!
      * @brief Getter for a GameObject with the specified id
      * @param int - id
      * @return GameObject
      */
-    static std::shared_ptr<GameObject> getObject(int id);
+    std::shared_ptr<GameObject> getObject(int id);
 
     /*!
      * @brief Getter for a GameObject with the specified id
      * @param int - id
      * @return GameObject pointer
      */
-    static GameObject* luaGet(int id);
+    GameObject* luaGet(int id);
 
     /*!
      * @brief Getter for Gameobject with player id
      * @return GameObject
      */
-    static Player* getPlayer();
+
+    Player* getPlayer();
+
 
     /*!
      * @brief Calls the update function for all GameObjects
      */
-    static void update(float dt);
+    void update(float dt);
 
     /*!
      * @brief Calls the draw function for all GameObjects
      */
-    static void draw();
+    void draw();
+    /*!
+     * @brief Deletes a game object by ID
+     * @param unsigned int - id
+     */
+    void DeleteGameObject(unsigned int id);
+
 	
-	static NPC* getNPC(int id);
+    NPC* getNPC(int id);
+
+	//should be in a utility function
+	float luaDistance(glm::vec3, glm::vec3);
+
+    void DeInit();
 
   private:
     /*!
      * @brief Constructor
      */
     GameObjectManager();
-
+    ~GameObjectManager();
     /// Map of GameObjects, with the key of the GameObject id, and value of the GameObject smart pointer
-    static std::map<int, std::shared_ptr<GameObject>> gameObjects;
+    std::map<int, std::shared_ptr<GameObject>> gameObjects;
 
     /// Stores the number of GameObjects within the map
-    static int objectCount;
+    int objectCount = 0;
 
     /// Stores the id of the player GameObject
-    static int playerID;
+    int playerID = 0;
 };

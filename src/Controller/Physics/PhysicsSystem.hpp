@@ -40,13 +40,14 @@ public:
     //int addBoundingSphere(glm::vec3 *position, double radius);
     /**
      * @brief Adds a bounding box
-     * @param vec3* - position
+     * @param unsigned int - ID
+     * @param Transform* - transform
      * @param float - width
      * @param float - length
      * @param float - height
      * @return ReactBoxShape*
      */
-    int addAABB(Transform* transform, float width, float height, float length);
+    unsigned int addAABB(unsigned int ID, Transform* transform, float width, float height, float length);
     /**
      * @brief Returns a collider given an ID
      * @param int - colliderID
@@ -54,10 +55,12 @@ public:
      */
     RigidBody * getRigidBody(int colliderID);
 
-    int addSphere(Transform* transform,float radius);
+    void deleteRigidBody(int ID);
+
+    unsigned int addSphere(unsigned int ID, Transform* transform,float radius);
 
     void addTerrain();
-
+    void DeInit();
     reactphysics3d::PhysicsCommon physicsCommon;
     reactphysics3d::PhysicsWorld* physicsWorld;
 private:
@@ -65,7 +68,7 @@ private:
     PhysicsSystem() = default;
 
     ///Privatised destructor
-    ~PhysicsSystem();
+
 
     ///count of map
     int m_mapCount;
@@ -75,6 +78,4 @@ private:
     reactphysics3d::decimal timeStep;
 
     CollisionEventHandler listener;
-
-
 };
