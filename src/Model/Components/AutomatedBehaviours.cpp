@@ -70,7 +70,6 @@ void AutomatedBehaviours::seek(glm::vec3 targetPosition)
 	updateHeading();
 }
 
-#include <iostream>
 void AutomatedBehaviours::wander()
 {
 	float ringDistance = 10;
@@ -112,7 +111,7 @@ void AutomatedBehaviours::updateHeading()
 }
 
 
-// UTILITY FUNCTIONS SHOULD GO IN SEPERATE CLASS //
+// UTILITY FUNCTION SHOULD GO IN SEPERATE CLASS //
 
 float AutomatedBehaviours::angle_XZ(const glm::vec3 vector)
 {

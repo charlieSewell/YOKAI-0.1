@@ -17,21 +17,37 @@ function stateMachine(obj)
 	--target:setPosition(650.0, 800.0, 600.0);
 	if(obj.behaviours.state == wander)
 	then
+		obj.animator:setAnimation("ZombieWalk")
 		obj.behaviours:wander();
 		obj.behaviours:accelerate(0.015);
 		
-		test = ObjectManager.distance(player:getPosition(), obj:getPosition())
+		--test = ObjectManager.distance(player:getPosition(), obj:getPosition())
 
-		if(test < 10)
+		if(ObjectManager.distance(player:getPosition(), obj:getPosition()) < 30)
 		then
 			obj.behaviours.state = seek
 		end
-	end
-
-	if(obj.behaviours.state == seek)
+	elseif(obj.behaviours.state == seek)
 	then
+		obj.animator:setAnimation("ZombieRun")
 		obj.behaviours:seek(player:getPosition());
 		obj.behaviours:accelerate(0.115);
 		obj.behaviours.rotationSpeed = 0.05;
+
+		if(ObjectManager.distance(player:getPosition(), obj:getPosition()) < 5)
+		then
+			obj.behaviours.state = attack
+		end
+	elseif(obj.behaviours.state == attack)
+	then
+		obj.animator:setAnimation("ZombieBite")
+		--obj.behaviours:seek(player:getPosition());
+		--obj.behaviours:accelerate(0.0);
+		obj.behaviours.rotationSpeed = 0.05;
+
+		if(ObjectManager.distance(player:getPosition(), obj:getPosition()) > 5)
+		then
+			obj.behaviours.state = seek
+		end
 	end
 end

@@ -9,7 +9,6 @@ player.movement.movementSpeed = 1500;
 
 playerPos = player:getPosition();
 
---test = ObjectManager.distance(player:getPosition(), player:getPosition())
 --Creating SkyBox
 skyBoxID = ObjectManager.Create(Types.static(),"content/Models/skybox1.fbx");
 skyBox = ObjectManager.GetObject(skyBoxID);
@@ -30,7 +29,7 @@ for i=0,200 do
 end
 
 --Creating Zombies in random places
-numZombies = 350;
+numZombies = 100;
 spawnRange = 200;
 for i=0, numZombies do
         x = math.random(playerPos.x - spawnRange, playerPos.x + spawnRange);

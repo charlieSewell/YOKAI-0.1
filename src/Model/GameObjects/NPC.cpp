@@ -43,10 +43,12 @@ void NPC::setCollider(float x, float y, float z)
 void NPC::registerClass()
 {
 	AutomatedBehaviours::registerClass();
+	Animator::registerClass();
 
 	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
 		.deriveClass<NPC, GameObject>("NPC")
-		.addProperty("behaviours", &NPC::m_behaviours) 
+		.addProperty("behaviours", &NPC::m_behaviours)
+		.addProperty("animator", &NPC::animator)
 		.endClass();
 }
 
