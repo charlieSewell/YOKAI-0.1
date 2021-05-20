@@ -1,14 +1,13 @@
 terrFac = TerrainFactory:getInstance()
 
-
-
 --Creating Player Object
 playerID = ObjectManager.Create(Types.player(),"");
-player = ObjectManager.GetObject(playerID);
-
+player = ObjectManager.GetPlayer(playerID);
 player:setPosition(650.0, 200.0, 600.0);
 player:setCollider(4, 4, 4.0);
+player.movement.movementSpeed = 1500;
 
+playerPos = player:getPosition();
 
 --Creating SkyBox
 skyBoxID = ObjectManager.Create(Types.static(),"content/Models/skybox1.fbx");
@@ -30,15 +29,17 @@ for i=0,200 do
 end
 
 --Creating Zombies in random places
-for i=0, 50 do
-        x = math.random(0,TerrainSettings.terrainSize);
-        z = math.random(0,TerrainSettings.terrainSize);
+numZombies = 50;
+spawnRange = 300;
+for i=0, numZombies do
+        x = math.random(playerPos.x - spawnRange, playerPos.x + spawnRange);
+        z = math.random(playerPos.z - spawnRange, playerPos.z + spawnRange);
         val = terrFac:getHeight(x,z)
         asset = ObjectManager.Create(Types.npc(),"content/Models/Zombie/ZombieSmooth.gltf");
-        gameObj = ObjectManager.GetObject(asset);
-        gameObj:setScale(0.5,0.5,0.5);
-        gameObj:setCollider(4,1,25);
-        gameObj:setPosition(x,val,z);
+        npc = ObjectManager.GetNPC(asset);
+        npc:setScale(0.5,0.5,0.5);
+        npc:setCollider(4,1,25);
+        npc:setPosition(x,val,z);
 end
 
 --Creating Trees in random places

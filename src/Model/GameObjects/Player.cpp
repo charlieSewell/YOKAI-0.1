@@ -4,7 +4,7 @@
 Player::Player()
 	: m_camera(Camera()), m_movement(PlayerControlledMotion(m_transform)), m_physics(m_transform)
 {
-	m_movement.movementSpeed = 1500.0f;
+	m_movement.movementSpeed = 0;
 	m_movement.lookSensitivity = 0.05f;
 	m_movement.jumpHeight = 4.0f;
 	m_movement.jumpSpeed = 0.15f;
@@ -84,6 +84,15 @@ void Player::registerPosition()
 	};
 
 	EMS::getInstance().add(ReturnVec3Event::getPlayerPosition, getPlayerPosition);
+}
+
+void Player::registerClass()
+{
+	PlayerControlledMotion::registerClass();
+	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+		.deriveClass<Player, GameObject>("Player")
+		.addProperty("movement", &Player::m_movement)
+		.endClass();
 }
 
 void Player::setHealth(int h) 

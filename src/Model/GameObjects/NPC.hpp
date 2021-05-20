@@ -1,12 +1,11 @@
 #pragma once
-#include <iostream>
 #include <glm/glm.hpp>
 #include "Controller/ModelManager.hpp"
 #include "GameObject.hpp"
 #include "Model/Components/PhysicsComponent.hpp"
-#include "View/Renderer/Shader.hpp"
 #include "Model/Components/AutomatedBehaviours.hpp"
 #include <Controller/Animator.hpp>
+#include "Controller/LuaManager.hpp"
 /**
  * @class NPC
  * @brief Child of GameObject for all NPC's within the game. Inherits physics component.
@@ -33,9 +32,14 @@ class NPC : public GameObject//, public PhysicsComponent
     //glm::vec3 getPosition();
 
 
+	static void registerClass();
+
 private:
+	//Coponents
 	AutomatedBehaviours m_behaviours;
+	Animator animator;
     /// Stores associated model id of the NPC
     int modelID;
-    Animator animator;
+
+	luabridge::LuaRef luaUpdate = LuaManager::getInstance().getState();
 };

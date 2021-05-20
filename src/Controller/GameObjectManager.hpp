@@ -1,10 +1,12 @@
 #pragma once
-#include <iostream>
 #include <map>
 #include "Controller/Factory/GameAssetFactory.hpp"
 #include "Controller/LuaManager.hpp"
 #include "Controller/LuaTypes.hpp"
 #include "Model/GameObjects/GameObject.hpp"
+
+class NPC;
+class Player;
 
 /**
  * @class GameObjectManager
@@ -57,7 +59,7 @@ class GameObjectManager
      * @brief Getter for Gameobject with player id
      * @return GameObject
      */
-    static std::shared_ptr<GameObject> getPlayer();
+    static Player* getPlayer();
 
     /*!
      * @brief Calls the update function for all GameObjects
@@ -68,6 +70,8 @@ class GameObjectManager
      * @brief Calls the draw function for all GameObjects
      */
     static void draw();
+	
+	static NPC* getNPC(int id);
 
   private:
     /*!
