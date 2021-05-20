@@ -6,7 +6,7 @@
 unsigned int RayCaster::CastRay(glm::vec3 startPosition,glm::vec3 direction,float distance)
 {
     glm::vec3 extrapolatedVec = direction * distance + startPosition;
-    glm::vec3 start = direction * static_cast<float>(0.1) + startPosition;
+    glm::vec3 start = startPosition;
     rp3d::Ray testRay(ReactMath::glmVecToR3pd(start),ReactMath::glmVecToR3pd(extrapolatedVec));
     PhysicsSystem::getInstance().physicsWorld->raycast(testRay,this);
     if(lastHit != -1)
@@ -18,6 +18,7 @@ unsigned int RayCaster::CastRay(glm::vec3 startPosition,glm::vec3 direction,floa
     lastHit = -1;
     return -1;
 }
+
 rp3d::decimal RayCaster::notifyRaycastHit(const rp3d::RaycastInfo& info)
 {
     if(info.collider != nullptr){
@@ -26,11 +27,18 @@ rp3d::decimal RayCaster::notifyRaycastHit(const rp3d::RaycastInfo& info)
             lastHit = -1;
             return rp3d::decimal(0.0);
         }
-        else if(info.collider->getEntity().id == ownColliderID){
+		else if (info.collider->getEntity().id == excludedColliderID)
+		{
+			lastHit = -1;
+			return rp3d::decimal(1.0);
+		}
+        else if(info.collider->getEntity().id == ownColliderID)
+		{
             lastHit = -1;
             return rp3d::decimal(1.0);
         }
-        else{
+        else
+		{
             lastHit = info.collider->getEntity().id;
             return rp3d::decimal(0.0);
         }
@@ -38,4 +46,14 @@ rp3d::decimal RayCaster::notifyRaycastHit(const rp3d::RaycastInfo& info)
     lastHit = -1;
     // Return a fraction of 1.0 to gather all hits
     return rp3d::decimal(1.0);
+}
+
+void RayCaster::setOwnColliderID(unsigned int ownColliderID)
+{ 
+	this->ownColliderID = ownColliderID;
+}
+
+void RayCaster::setExcludedColliderID(unsigned int id)
+{
+	excludedColliderID = id;
 }

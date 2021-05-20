@@ -26,10 +26,11 @@ playerPos = player:getPosition();
 skyBoxID = objManager:Create(Types.static(),"content/Models/skybox1.fbx");
 skyBox = objManager:GetObject(skyBoxID);
 skyBox:setPosition(TerrainSettings.terrainSize/2, 0, TerrainSettings.terrainSize/2);
-skyBox:setScale(0.05, 0.05, 0.05);
+skyBox:setScale(0.1, 0.1, 0.1);
 
+spawnRange = 500;
 --Creating Rocks in random places
-for i=0,200 do
+for i=0,100 do
         x = math.random(0,TerrainSettings.terrainSize);
         z = math.random(0,TerrainSettings.terrainSize);
         val = terrFac:getHeight(x,z)
@@ -41,9 +42,54 @@ for i=0,200 do
 
 end
 
+for i=0, 50 do
+        x = math.random(playerPos.x - spawnRange, playerPos.x + spawnRange);
+        z = math.random(playerPos.z - spawnRange, playerPos.z + spawnRange);
+        val = terrFac:getHeight(x,z)
+        asset = objManager:Create(Types.static(),"content/Models/rock.fbx");
+        gameObj = objManager:GetObject(asset);
+        gameObj:setScale(0.02,0.02,0.02);
+        gameObj:setPosition(x,val-2,z);
+        gameObj:setCollider(3,4,3);
+
+end
+
+--Creating Trees in random places
+for i=0,100 do
+        x= 0;
+        z = 0;
+        val = 0;
+        while val < 60 do
+            x = math.random(0,TerrainSettings.terrainSize);
+            z = math.random(0,TerrainSettings.terrainSize);
+                val = terrFac:getHeight(x,z)
+        end
+        asset = objManager:Create(Types.static(),"content/Models/tree.fbx");
+        gameObj = objManager:GetObject(asset);
+        gameObj:setScale(0.01,0.01,0.01);
+        gameObj:setPosition(x,val-1,z);
+        gameObj:setCollider(1,20,1);
+end
+
+for i=0,100 do
+        x= 0;
+        z = 0;
+        val = 0;
+        while val < 60 do
+            x = math.random(playerPos.x - spawnRange, playerPos.x + spawnRange);
+			z = math.random(playerPos.z - spawnRange, playerPos.z + spawnRange);
+            val = terrFac:getHeight(x,z)
+        end
+        asset = objManager:Create(Types.static(),"content/Models/tree.fbx");
+        gameObj = objManager:GetObject(asset);
+        gameObj:setScale(0.01,0.01,0.01);
+        gameObj:setPosition(x,val-1,z);
+        gameObj:setCollider(1,20,1);
+end
+
 --Creating Zombies in random places
-numZombies = 100;
-spawnRange = 200;
+numZombies = 50;
+spawnRange = 150;
 for i=0, numZombies do
         x = math.random(playerPos.x - spawnRange, playerPos.x + spawnRange);
         z = math.random(playerPos.z - spawnRange, playerPos.z + spawnRange);
@@ -56,14 +102,7 @@ for i=0, numZombies do
 		npc.behaviours.rotationSpeed = 0.005;
 end
 
---Creating Trees in random places
-for i=0,200 do
-        x = math.random(0,TerrainSettings.terrainSize);
-        z = math.random(0,TerrainSettings.terrainSize);
-        val = terrFac:getHeight(x,z)
-        asset = objManager:Create(Types.static(),"content/Models/tree.fbx");
-        gameObj = objManager:GetObject(asset);
-        gameObj:setScale(0.01,0.01,0.01);
-        gameObj:setPosition(x,val-1,z);
-        gameObj:setCollider(1,20,1);
-end
+waterID = objManager:Create(Types.static(),"content/Models/water.gltf");
+water = objManager:GetObject(waterID);
+water:setPosition(1428.0, 30.0, 1000.0);
+water:setScale(60, 1, 60);

@@ -112,7 +112,10 @@ class TerrainFactory
      * @param int - zSize
      */
     void GenerateTexCoords(std::vector<Vertex> &terrain);
-
+    /**
+     * @brief Adds the boundarys to the terrain
+     */
+    void AddBoundary();
     /*!
      * @brief Generates normals for terrain
      * @param Vector<Vertex> - &terrain

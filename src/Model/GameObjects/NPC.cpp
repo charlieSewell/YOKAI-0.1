@@ -18,32 +18,19 @@ NPC::~NPC(){
     m_physicsComponent.deleteCollider();
 }
 void NPC::draw() 
-{
-	// SUDO STATE MACHINE
-	//glm::vec3 targetPosition = EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition);
-
-	//m_behaviours.rotationSpeed = 0.005;
-	//m_behaviours.rotationSpeed = 
-	//m_behaviours.seek(targetPosition);
-	//m_behaviours.wander();
-	/*if(glm::distance(m_transform.getPosition(), targetPosition) > 10)
-		m_behaviours.accelerate(0.01f);
-	else
-		m_behaviours.decelerate();
-	*/
-
-	// END SUDO STATE MACHINE
-	//m_transform.setPosition(m_transform.getPosition());
-	m_transform.setPosition(glm::vec3(m_transform.getPosition().x, TerrainFactory::getInstance().heightAt(m_transform.getPosition().x,m_transform.getPosition().z), m_transform.getPosition().z));
-
-	
+{	
 	ModelManager::getInstance().DrawModel(modelID, m_transform.getMatrix(),animator.finalTransforms);
 }
+
+
 void NPC::setCollider(float width, float height, float length)
 {
     m_physicsComponent.registerAABB(ID,width, height, length);
     m_physicsComponent.getCollider()->SetBodyType(rp3d::BodyType::STATIC);
     m_physicsComponent.getCollider()->SetBounciness(0.0);
+
+	m_behaviours.rayCaster.setOwnColliderID(m_physicsComponent.getCollider()->getColliderID());
+	m_behaviours.rayCaster.setExcludedColliderID(EMS::getInstance().fire(ReturnIntEvent::getPlayerColliderID));
 }
 
 void NPC::registerClass()
@@ -60,8 +47,10 @@ void NPC::registerClass()
 
 void NPC::update(float dt)
 {
+	m_transform.setPosition(glm::vec3(m_transform.getPosition().x, TerrainFactory::getInstance().heightAt(m_transform.getPosition().x, m_transform.getPosition().z), m_transform.getPosition().z));
     m_physicsComponent.getCollider()->SetPosition(m_transform.getPosition());
     m_physicsComponent.getCollider()->SetOrientation(m_transform.getRotation());
+	m_behaviours.updateFeelers();
 	luaUpdate(this);
     animator.BoneTransform(dt);
 }

@@ -1,8 +1,8 @@
 -- Configurable Terrain Properties
 
 -- Only for Dynamically Generated Terrains
-TerrainSettings.terrainSize = 1000
-TerrainSettings.useHeightMap = true;
+TerrainSettings.terrainSize = 3000;
+TerrainSettings.useHeightMap = false;
 
 --Height map Path
 TerrainSettings.mapPath = "content/HeightMaps/1000Map.png"
@@ -15,5 +15,5 @@ TerrainSettings.detailTexture = "content/Textures/detail.jpg"
 
 --Terrain Texture Heights
 TerrainSettings.sandHeight = 0
-TerrainSettings.grassHeight = 10
-TerrainSettings.snowHeight = 100
+TerrainSettings.grassHeight = 50
+TerrainSettings.snowHeight = 200
