@@ -14,7 +14,7 @@ SplashScreen::SplashScreen(std::string texturePath)
 }
 void SplashScreen::setTexture(std::string texturePath)
 {
-    texture =  Texture::Create(texturePath);
+    texture = Texture::Create(texturePath);
 }
 void SplashScreen::draw()
 {
@@ -49,6 +49,23 @@ void SplashScreen::setupPanel()
     std::vector<unsigned int> indices = {0,1,2,1,3,2};
     vao = VertexArrayBuffer::Create(verts,indices);
 }
+
+void SplashScreen::setupPanel(glm::vec3 bottomLeft, glm::vec3 topLeft, glm::vec3 bottomRight, glm::vec3 topRight) 
+{
+    std::vector<Vertex> verts;
+    verts.resize(4);
+    verts[0].position = bottomLeft;
+    verts[1].position = topLeft;
+    verts[2].position = bottomRight;
+    verts[3].position = topRight;
+    verts[0].textureCoords = glm::vec2(0, 0);
+    verts[1].textureCoords = glm::vec2(1, 0);
+    verts[2].textureCoords = glm::vec2(0, 1);
+    verts[3].textureCoords  = glm::vec2(1, 1);
+    std::vector<unsigned int> indices = {0, 1, 2, 1, 3, 2};
+    vao = VertexArrayBuffer::Create(verts, indices);
+}
+
 void SplashScreen::setActive()
 {
     active = true;

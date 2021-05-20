@@ -5,6 +5,7 @@
 #include "Model/Components/PhysicsComponent.hpp"
 #include "Model/Components/PlayerControlledMotion.hpp"
 #include "Model/GameObjects/GameObject.hpp"
+#include "Model/Components/Weapon.hpp"
 
 /**
  * @class Player
@@ -24,14 +25,6 @@ public:
      */
 	~Player();
 
-	/*!
-     * @brief Setter for the player collider
-     * @param float - width
-     * @param float - length
-     * @param float - height
-     */
-	void setCollider(float width, float length, float height) override;
-
     /*!
      * @brief Draw call for the player model
      */
@@ -41,6 +34,12 @@ public:
      * @brief Update call for the player
      */
 	void update(float dt) override;
+    void setCollider(float width, float length, float height) override;
+    void setHealth(int h);
+    int getHealth();
+
+    void setShields(int s);
+    int getShields();
 
 	static void registerClass();
 
@@ -48,5 +47,10 @@ private:
 	Camera m_camera;
 	PlayerControlledMotion m_movement;
 	PhysicsComponent m_physics;
+    //Weapon gun;
 	void registerPosition();
+
+    int health;
+
+    int shields;
 };

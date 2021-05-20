@@ -14,6 +14,11 @@ Transform GameObject::getTransform()
     return m_transform;
 }
 
+void GameObject::setTransform(Transform transform) 
+{
+    m_transform = transform;
+}
+
 glm::vec3 GameObject::getLuaPosition()
 {
 	return m_transform.getPosition();

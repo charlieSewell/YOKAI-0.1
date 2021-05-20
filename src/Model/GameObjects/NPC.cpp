@@ -1,7 +1,7 @@
 #include "NPC.hpp"
 
 NPC::NPC(std::string modelName)
-	: GameObject(), m_behaviours(AutomatedBehaviours(m_transform))//, PhysicsComponent()
+	: GameObject(), m_behaviours(AutomatedBehaviours(m_transform))//, (m_transform)
 {
     modelID = ModelManager::getInstance().GetModelID(modelName);
     m_transform.setPosition(glm::vec3(0,0,0));
@@ -27,14 +27,17 @@ void NPC::draw()
 	else
 		m_behaviours.decelerate();
 
-	m_transform.setPosition(glm::vec3(m_transform.getPosition().x, PhysicsManager::getInstance().checkTerrainHeight(m_transform.getPosition()), m_transform.getPosition().z));
+
+	// END SUDO STATE MACHINE
+	//m_transform.setPosition(m_transform.getPosition());
+	m_transform.setPosition(glm::vec3(m_transform.getPosition().x, TerrainFactory::getInstance().heightAt(m_transform.getPosition().x,m_transform.getPosition().z), m_transform.getPosition().z));
+
 	
 	ModelManager::getInstance().DrawModel(modelID, m_transform.getMatrix(),animator.finalTransforms);
 }
-
-void NPC::setCollider(float width, float length, float height)
+void NPC::setCollider(float x, float y, float z)
 {
-	//registerAABB(&m_position, width, length, height);
+
 }
 
 void NPC::registerClass()

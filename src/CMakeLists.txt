@@ -15,7 +15,9 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Model/Components/PhysicsComponent.cpp
         Model/SkeletalAnimation.cpp
 		Model/Components/AutomatedBehaviours.cpp
+		Model/Components/Weapon.cpp
 		Model/Components/Transform.cpp
+
 
 
         View/Renderer/Shader.cpp
@@ -36,16 +38,23 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/EventManager.cpp
 		Controller/InputManagerGLFW.cpp
 		Controller/Layer.cpp
-		Controller/Physics/YourEventListener.cpp
-		Controller/Physics/ReactTerrainShape.cpp
-        Controller/Physics/PhysicsManager.cpp
+        Controller/Physics/Shapes/ReactTerrainShape.cpp
+        Controller/Physics/CollisionEventHandler.cpp
+        Controller/Physics/PhysicsSystem.cpp
+		Controller/Physics/ReactMath.cpp
+		Controller/Physics/RigidBody.cpp
+
 		Controller/Animator.cpp
-		Controller/Physics/AABB.cpp
+        Controller/Physics/Shapes/ReactBoxShape.cpp
+        Controller/Physics/Shapes/ReactShape.cpp
+        Controller/Physics/Shapes/ReactSphereShape.cpp
         Controller/Factory/GameAssetFactory.cpp
 		Controller/DemoScene.cpp
         Controller/GameObjectManager.cpp
 		Controller/LuaTypes.cpp
 		Controller/TextureManager.cpp
+		Controller/KeyframeAnimation.cpp
+		Controller/MainMenuScene.cpp
 
         )
 

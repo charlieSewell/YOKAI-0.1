@@ -11,8 +11,7 @@ void DemoScene::Init()
     controlsScreen = new SplashScreen("content/Textures/help_menu.png");
     registerMenuButtons();
 
-
-	test = GameObjectManager::CreateObject(GameObjectType::npc, "content/Models/Zombie/ZombieSmooth.gltf");
+    GameObjectManager::init();
 }
 
 #include "Model/GameObjects/NPC.hpp"
@@ -28,6 +27,30 @@ void DemoScene::Draw()
     if(controlsScreen->isActive())
     {
         controlsScreen->draw();
+    }
+
+    if (Yokai::getInstance().getIsPaused()) 
+    {
+        int width = 1920, height = 1080;
+        ImGui::SetNextWindowPos(ImVec2(width / 2, height / 2), ImGuiCond_Always, ImVec2(0.5, 0.5));
+        ImGui::Begin("Pause Menu");
+
+        ImGui::Text("Pause Menu");
+        if (ImGui::Button("Resume", ImVec2(500, 100))) 
+        {
+            Yokai::getInstance().setIsPaused(false);
+            glfwSetInputMode(Yokai::getInstance().window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        }
+        if (ImGui::Button("Save", ImVec2(500, 100))) 
+        {
+            std::cout << "Saving" << std::endl;
+        }
+        if (ImGui::Button("Quit", ImVec2(500, 100))) 
+        {
+            std::cout << "Quitting" << std::endl;
+            Yokai::getInstance().setIsRunning(false);
+        }
+        ImGui::End();
     }
 }
 void DemoScene::Enable()

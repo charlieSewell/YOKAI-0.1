@@ -24,19 +24,13 @@ class NPC : public GameObject//, public PhysicsComponent
      */
     void draw();
     void update(float dt) override;
+    void setCollider(float x, float y, float z) override;
     /*!
      * @brief Getter for the position of the NPC
      * @return position
      */
     //glm::vec3 getPosition();
 
-    /*!
-     * @brief Setter for the NPC collider
-     * @param float - width
-     * @param float - length
-     * @param float - height
-     */
-	void setCollider(float width, float length, float height);
 
 	static void registerClass();
 

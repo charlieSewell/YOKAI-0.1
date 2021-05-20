@@ -28,6 +28,14 @@ class SplashScreen {
      * @param string - texturePath
      */
     void setTexture(std::string texturePath);
+
+    /**
+     * @brief Sets up splash screen panel mesh
+     */
+    void setupPanel();
+
+    void setupPanel(glm::vec3 bottomLeft, glm::vec3 topLeft, glm::vec3 bottomRight, glm::vec3 topRight);
+
     /**
      * @brief Sets the splash screen as active
      */
@@ -54,9 +62,5 @@ class SplashScreen {
      * @brief Sets up splash screen shader
      */
     void setupShader();
-    /**
-     * @brief Sets up splash screen panel mesh
-     */
-    void setupPanel();
 
 };
