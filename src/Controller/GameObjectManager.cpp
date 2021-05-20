@@ -10,10 +10,12 @@ GameObjectManager::GameObjectManager()
 {
 
 }
+
 GameObjectManager::~GameObjectManager()
 {
 
 }
+
 void GameObjectManager::init()
 {
     GameObject::registerClass();

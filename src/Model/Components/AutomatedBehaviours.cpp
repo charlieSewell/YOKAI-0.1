@@ -33,36 +33,55 @@ void AutomatedBehaviours::seek(glm::vec3 targetPosition)
 {
 	glm::vec3 targetHeading = (targetPosition - m_transformPtr->getPosition());
 
-	if (angle_XZ(heading) < angle_XZ(targetHeading))  
+	if(frontFeelerHit)
 	{
-		if(angle_XZ(targetHeading) - angle_XZ(heading) > rotationSpeed)		// greater than rotation speed as a buffer to stop unecesary rotation
-		{
-			if(angle_XZ(heading) - angle_XZ(targetHeading) > (glm::pi<float>()))		// if difference is greater than pi, it's quicker to turn the other way
-			{
-				angle -= rotationSpeed;
-				m_transformPtr->rotate(rotationSpeed, glm::vec3(0, 1, 0));			// turn left
-			}
-			else
-			{
-				angle += rotationSpeed;
-				m_transformPtr->rotate(-rotationSpeed, glm::vec3(0, 1, 0));			// turn right
-			}
-		}
+		//decelerate();
+		angle += rotationSpeed;
+		m_transformPtr->rotate(-rotationSpeed, glm::vec3(0, 1, 0));			// turn right
+	}
+	else if(feelerRightHit)
+	{
+		angle -= rotationSpeed;
+		m_transformPtr->rotate(rotationSpeed, glm::vec3(0, 1, 0));			// turn left
+	}
+	else if(feelerLeftHit)
+	{
+		angle += rotationSpeed;
+		m_transformPtr->rotate(-rotationSpeed, glm::vec3(0, 1, 0));			// turn right
 	}
 	else
 	{
-		if(angle_XZ(heading) - angle_XZ(targetHeading) > rotationSpeed)		// greater than rotation speed as a buffer to stop unecesary rotation
+		if (angle_XZ(heading) < angle_XZ(targetHeading))  
 		{
-			if (angle_XZ(heading) - angle_XZ(targetHeading) > (glm::pi<float>()))	// if difference is greater than pi, it's quicker to turn the other way
+			if(angle_XZ(targetHeading) - angle_XZ(heading) > rotationSpeed)		// greater than rotation speed as a buffer to stop unecesary rotation
 			{
-				angle += rotationSpeed;
-				m_transformPtr->rotate(-rotationSpeed, glm::vec3(0, 1, 0));			// turn right
+				if(angle_XZ(heading) - angle_XZ(targetHeading) > (glm::pi<float>()))		// if difference is greater than pi, it's quicker to turn the other way
+				{
+					angle -= rotationSpeed;
+					m_transformPtr->rotate(rotationSpeed, glm::vec3(0, 1, 0));			// turn left
+				}
+				else
+				{
+					angle += rotationSpeed;
+					m_transformPtr->rotate(-rotationSpeed, glm::vec3(0, 1, 0));			// turn right
+				}
 			}
-			else
+		}
+		else
+		{
+			if(angle_XZ(heading) - angle_XZ(targetHeading) > rotationSpeed)		// greater than rotation speed as a buffer to stop unecesary rotation
 			{
-				angle -= rotationSpeed;
-				//*m_transformPtr = glm::rotate(*m_transformPtr, m_rotationSpeed, glm::vec3(0, 1, 0));		// turn left
-				m_transformPtr->rotate(rotationSpeed, glm::vec3(0, 1, 0));			// turn right
+				if (angle_XZ(heading) - angle_XZ(targetHeading) > (glm::pi<float>()))	// if difference is greater than pi, it's quicker to turn the other way
+				{
+					angle += rotationSpeed;
+					m_transformPtr->rotate(-rotationSpeed, glm::vec3(0, 1, 0));			// turn right
+				}
+				else
+				{
+					angle -= rotationSpeed;
+					//*m_transformPtr = glm::rotate(*m_transformPtr, m_rotationSpeed, glm::vec3(0, 1, 0));		// turn left
+					m_transformPtr->rotate(rotationSpeed, glm::vec3(0, 1, 0));			// turn right
+				}
 			}
 		}
 	}
@@ -98,6 +117,39 @@ void AutomatedBehaviours::wander()
 	seekTarget = temp2 + ringLocation;
 
 	seek(seekTarget);
+}
+
+void AutomatedBehaviours::updateFeelers()
+{
+	frontFeelerHit = false;
+	feelerLeftHit = false;
+	feelerRightHit = false;
+
+	glm::vec3 temp1 = heading;
+	temp1.y = 0;
+	glm::vec3 temp2;
+
+	temp2.x = temp1.x * cos(0.39) - temp1.z * sin(0.39);        // 0.39 rad = 22.5 deg
+	temp2.z = temp1.x * sin(0.39) + temp1.z * cos(0.39);
+
+	feelerRight = temp2;
+
+	temp2.x = temp1.x * cos(-0.39) - temp1.z * sin(-0.39);        // 0.39 rad = 22.5 deg
+	temp2.z = temp1.x * sin(-0.39) + temp1.z * cos(-0.39);
+
+	feelerLeft = temp2;
+
+	glm::vec3 test = m_transformPtr->getPosition();
+	test.y++;
+
+	if (rayCaster.CastRay(test, glm::normalize(heading), 10) != -1)
+		frontFeelerHit = true;
+
+	if (rayCaster.CastRay(test, glm::normalize(feelerLeft), 5) != -1)
+		feelerLeftHit = true;
+
+	if (rayCaster.CastRay(test, glm::normalize(feelerRight), 5) != -1)
+		feelerRightHit = true;
 }
 
 void AutomatedBehaviours::updateHeading()
