@@ -68,6 +68,10 @@ void InputManagerGLFW::processMouse(GLFWwindow* window)
 {
     if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_1) == GLFW_PRESS)
         EMS::getInstance().fire(NoReturnEvent::mouseClicked);
+
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_RELEASE)
+        EMS::getInstance().fire(NoReturnEvent::mouseReleased);
+
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
 

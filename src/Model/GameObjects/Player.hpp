@@ -6,6 +6,7 @@
 #include "Model/Components/PlayerControlledMotion.hpp"
 #include "Model/GameObjects/GameObject.hpp"
 #include "Model/Components/Weapon.hpp"
+#include "Controller/LuaManager.hpp"
 
 /**
  * @class Player
@@ -47,7 +48,7 @@ private:
 	Camera m_camera;
 	PlayerControlledMotion m_movement;
 	PhysicsComponent m_physics;
-    //Weapon gun;
+    Weapon gun;
 	void registerPosition();
 
     int health;

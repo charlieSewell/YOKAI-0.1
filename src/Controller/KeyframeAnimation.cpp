@@ -8,6 +8,7 @@ KeyframeAnimation::KeyframeAnimation()
     shader->setBool("isAnimated",false);
     shader->setVec3("lightColor",glm::vec3(1.0,1.0,1.0));
     shader->setVec3("lightPos",glm::vec3(500,200,500));
+    currentFrame = 0;
     totalTime = 0;
     ticksPerSecond = 30;
     animationFinished = true;
@@ -41,7 +42,7 @@ void KeyframeAnimation::setAnimation(std::string name)
     currentAnimation = name;
 }
 
-std::string KeyframeAnimation::getCurrentAnimation()
+std::string KeyframeAnimation::getCurrentAnimation() const
 {
     return currentAnimation;
 }
@@ -63,7 +64,7 @@ void KeyframeAnimation::addAnimation(std::string animation, int firstFrame, int 
 
 void KeyframeAnimation::setCurrentFrame(double deltaTime) 
 {
-    
+    //std::cout << getCurrentFrame() << "\n";
     totalTime += deltaTime;
 
     if (totalTime > ((animations.at(currentAnimation).second - animations.at(currentAnimation).first + 1) / ticksPerSecond))
@@ -75,11 +76,6 @@ void KeyframeAnimation::setCurrentFrame(double deltaTime)
     currentFrame = static_cast<int>(totalTime * ticksPerSecond);
     currentFrame += animations.at(currentAnimation).first - 1;
     
-}
-
-void KeyframeAnimation::testing() 
-{
-    std::cout << "test" << std::endl;
 }
 
 void KeyframeAnimation::swapAnimationCheck() 
@@ -97,15 +93,10 @@ int KeyframeAnimation::getCurrentFrame()
     return currentFrame;
 }
 
-int KeyframeAnimation::getEndFrame() 
-{
-    return animations.at(currentAnimation).second;
-}
-
 void KeyframeAnimation::draw(Transform t) 
 {
     glm::mat4 transform(1.0);
-    transform = glm::translate(transform, glm::vec3(512, 25, 512));
+    transform = glm::translate(transform, glm::vec3(650, 95, 600));
     transform = glm::scale(transform, glm::vec3(0.03, 0.03, 0.03));
 
     shader->useShader();
@@ -119,12 +110,17 @@ void KeyframeAnimation::setTPS(float tps)
     ticksPerSecond = tps;
 }
 
-float KeyframeAnimation::getTPS() 
+float KeyframeAnimation::getTPS() const
 {
     return ticksPerSecond;
 }
 
-bool KeyframeAnimation::getAnimationFinished() 
+void KeyframeAnimation::setAnimationFinished(bool a) 
+{
+    animationFinished = a;
+}
+
+void KeyframeAnimation::checkAnimationFinished() 
 {
     if (currentFrame == animations.at(currentAnimation).second - 1) 
     {
@@ -134,6 +130,25 @@ bool KeyframeAnimation::getAnimationFinished()
     {
         animationFinished = false;
     }
+    //std::cout << animationFinished << "\n";
+}
 
+bool KeyframeAnimation::getAnimationFinished() const
+{
     return animationFinished;
+}
+
+void KeyframeAnimation::registerClass() 
+{
+    luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+        .beginClass<KeyframeAnimation>("KeyframeAnimation")
+        //.addProperty("animationFinished", &KeyframeAnimation::getAnimationFinished, &KeyframeAnimation::setAnimationFinished)
+        .addProperty("ticksPerSecond", &KeyframeAnimation::getTPS,&KeyframeAnimation::setTPS)
+        .addFunction("getAnimationFinished", &KeyframeAnimation::getAnimationFinished)
+        .addFunction("checkAnimationFinished", &KeyframeAnimation::checkAnimationFinished)
+        .addFunction("getCurrentAnimation", &KeyframeAnimation::getCurrentAnimation)
+        .addFunction("setCurrentAnimation", &KeyframeAnimation::setAnimation)
+        .addFunction("addAnimation", &KeyframeAnimation::addAnimation)
+        .addFunction("readFile", &KeyframeAnimation::readFile)
+        .endClass();
 }
