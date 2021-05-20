@@ -27,8 +27,8 @@ void GameObjectManager::init()
             .addFunction("GetPlayer", &GameObjectManager::getPlayer)
             .addFunction("GetNPC", &GameObjectManager::getNPC)
             .addFunction("Update",&GameObjectManager::update)
+			.addFunction("distance", &GameObjectManager::luaDistance)
         .endClass();
-
 
     luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
         .beginNamespace("Types")
@@ -119,3 +119,7 @@ NPC* GameObjectManager::getNPC(int id)
 }
 
 
+float GameObjectManager::luaDistance(glm::vec3 vec1, glm::vec3 vec2)
+{
+	return glm::distance(vec1, vec2);
+}

@@ -20,17 +20,17 @@ NPC::~NPC(){
 void NPC::draw() 
 {
 	// SUDO STATE MACHINE
-	glm::vec3 targetPosition = EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition);
+	//glm::vec3 targetPosition = EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition);
 
-	m_behaviours.rotationSpeed = 0.005;
+	//m_behaviours.rotationSpeed = 0.005;
 	//m_behaviours.rotationSpeed = 
 	//m_behaviours.seek(targetPosition);
-	m_behaviours.wander();
-	if(glm::distance(m_transform.getPosition(), targetPosition) > 10)
+	//m_behaviours.wander();
+	/*if(glm::distance(m_transform.getPosition(), targetPosition) > 10)
 		m_behaviours.accelerate(0.01f);
 	else
 		m_behaviours.decelerate();
-
+	*/
 
 	// END SUDO STATE MACHINE
 	//m_transform.setPosition(m_transform.getPosition());
@@ -48,8 +48,13 @@ void NPC::setCollider(float width, float height, float length)
 
 void NPC::registerClass()
 {
+	AutomatedBehaviours::registerClass();
+	Animator::registerClass();
+
 	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
 		.deriveClass<NPC, GameObject>("NPC")
+		.addProperty("behaviours", &NPC::m_behaviours)
+		.addProperty("animator", &NPC::animator)
 		.endClass();
 }
 
