@@ -101,6 +101,16 @@ int Player::getShields()
     return shields;
 }
 
+void Player::registerPosition()
+{
+	auto getPlayerPosition = [&]()
+	{
+		return m_transform.getPosition();
+	};
+
+	EMS::getInstance().add(ReturnVec3Event::getPlayerPosition, getPlayerPosition);
+}
+
 void Player::registerColliderID()
 {
 	auto getPlayerColliderID = [&]()
