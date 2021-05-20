@@ -6,6 +6,7 @@
 #include "Model/ObjectLoading/ModelLoader.hpp"
 #include <fstream>
 #include "Model/Components/Transform.hpp"
+#include "Controller/LuaManager.hpp"
 
 class KeyframeAnimation 
 {
@@ -19,7 +20,7 @@ class KeyframeAnimation
 
         void addAnimation(std::string animation, int firstFrame, int lastFrame);
 
-        std::string getCurrentAnimation();
+        std::string getCurrentAnimation() const; 
 
         void collectModel(std::string modelPath);
 
@@ -27,19 +28,21 @@ class KeyframeAnimation
 
         int getCurrentFrame();
 
-        int getEndFrame();
-
         void draw(Transform t);
 
         void setTPS(float tps);
 
-        float getTPS();
+        float getTPS() const;
 
-        bool getAnimationFinished();
+        void setAnimationFinished(bool a);
+
+        void checkAnimationFinished();
+
+        bool getAnimationFinished() const;
 
         void swapAnimationCheck();
 
-        void testing();
+        static void registerClass();
 
 	private:
 
@@ -50,10 +53,6 @@ class KeyframeAnimation
       ModelLoader loader;
 
       int currentFrame;
-
-      int startFrame;
-
-      int endFrame;
 
       double totalTime;
 

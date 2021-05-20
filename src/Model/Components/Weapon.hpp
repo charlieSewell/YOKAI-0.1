@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Controller/KeyframeAnimation.hpp"
 #include "Model/GameObjects/GameObject.hpp"
+#include "Controller/LuaManager.hpp"
 
 class Weapon : public GameObject
 {
@@ -12,26 +13,36 @@ class Weapon : public GameObject
     void reload();
 
     void setAmmo(int a);
-    int getAmmo();
+    int getAmmo() const;
 
     void setReserveAmmo(int r);
-    int getReserveAmmo();
+    int getReserveAmmo() const;
 
     void incrementAmmo();
     void decrementAmmo();
 
     void setMaxAmmo(int a);
-    int getMaxAmmo();
+    int getMaxAmmo() const;
 
     void setMaxReserveAmmo(int r);
-    int getMaxReserveAmmo();
+    int getMaxReserveAmmo() const;
 
-    void initialiseAnimations();
     KeyframeAnimation *getWeaponAnimation();
 
     void update(Transform playerTransform, glm::vec3 frontDirection);
     void draw() override;
     void setCollider(float width, float length, float height) override;
+
+    static void registerClass();
+
+    void registerFire();
+
+    bool getIsFiring() const;
+
+    void registerReload();
+
+    bool getIsReloading() const;
+
   private:
     KeyframeAnimation *weaponAnimation;
       
@@ -40,4 +51,7 @@ class Weapon : public GameObject
 
     int maxReserveAmmo;
     int reserveAmmo;
+
+    bool isFiring;
+    bool isReloading;
 };
