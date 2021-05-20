@@ -24,6 +24,8 @@ enum class NoReturnEvent
     toggleMenuReleased,
     mouseClicked,
     mouseReleased,
+    reloadPressed,
+    reloadReleased,
     uiPressed,
     uiReleased
 };

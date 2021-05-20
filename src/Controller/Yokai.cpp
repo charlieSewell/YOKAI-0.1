@@ -183,71 +183,8 @@ else
     ammoReserveUI2->setTexture(ammoNumbers[0]);
     ammoReserveUI3->setTexture(ammoNumbers[0]);
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//GUN ANIMATION LOGIC
-if (gun.getAmmo() == 0 && gun.getReserveAmmo() == 0)
-{
-    keyframe->setTPS(20);
-    keyframe->setAnimation("idle");
-}
-else if (gun.getAmmo() == 0)
-{
-    keyframe->setTPS(30);
-    keyframe->setAnimation("emptyreload");
-    gun.reload();
-}
-
-if (glfwGetKey(window.getWindow(), GLFW_KEY_R) == GLFW_PRESS)
-{
-    if (gun.getAmmo() != 0 && (gun.getAmmo() != gun.getMaxAmmo()) && gun.getReserveAmmo() != 0)
-    {
-        keyframe->setTPS(30);
-        keyframe->setAnimation("reload");
-        gun.reload();
-    }
-}
-
-if (glfwGetKey(window.getWindow(), GLFW_KEY_LEFT) == GLFW_PRESS)
-{
-    gun.decrementAmmo();
-}
-
-if (glfwGetKey(window.getWindow(), GLFW_KEY_UP) == GLFW_PRESS)
-{
-    keyframe->setTPS(20);
-    keyframe->setAnimation("idle");
-}
-
-if (glfwGetMouseButton(window.getWindow(), GLFW_MOUSE_BUTTON_1) == GLFW_PRESS)
-{
-    if (gun.getAmmo() != 0)
-    {
-        if (keyframe->getCurrentAnimation() == "idle")
-        {
-            keyframe->setTPS(30);
-            keyframe->setAnimation("fire");
-            gun.decrementAmmo();
-        }
-        else if (keyframe->getAnimationFinished())
-        {
-            keyframe->setTPS(30);
-            keyframe->setAnimation("fire");
-            gun.decrementAmmo();
-        }
-    }
-}
-
-if (glfwGetKey(window.getWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS)
-{
-    gun.incrementAmmo();
-}
-
-if (keyframe->getAnimationFinished())
-{
-    keyframe->setTPS(20);
-    keyframe->setAnimation("idle");
-}
 */
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //healthUI->draw();
 //shieldUI->draw();

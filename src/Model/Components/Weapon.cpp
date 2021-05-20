@@ -11,6 +11,7 @@ Weapon::Weapon()
 
     weaponAnimation = new KeyframeAnimation();
     registerFire();
+    registerReload();
 }
 
 void Weapon::setCollider(float length, float height,float width)
@@ -123,6 +124,7 @@ void Weapon::registerClass()
         .addProperty("maxReserveAmmo", &Weapon::getMaxReserveAmmo, &Weapon::setMaxReserveAmmo)
         .addFunction("reload", &Weapon::reload)
         .addFunction("getIsFiring", &Weapon::getIsFiring)
+        .addFunction("getIsReloading", &Weapon::getIsReloading)
         .addFunction("incrementAmmo", &Weapon::incrementAmmo)
         .addFunction("decrementAmmo", &Weapon::decrementAmmo)
         .endClass();
@@ -148,4 +150,26 @@ void Weapon::registerFire()
 bool Weapon::getIsFiring() const
 {
     return isFiring;
+}
+
+void Weapon::registerReload() 
+{
+    auto reload = [&]() 
+    { 
+        isReloading = true; 
+    };
+
+    EMS::getInstance().add(NoReturnEvent::reloadPressed, reload);
+
+    auto noReload = [&]() 
+    { 
+        isReloading = false; 
+    };
+
+    EMS::getInstance().add(NoReturnEvent::reloadReleased, noReload);
+}
+
+bool Weapon::getIsReloading() const 
+{
+    return isReloading;
 }

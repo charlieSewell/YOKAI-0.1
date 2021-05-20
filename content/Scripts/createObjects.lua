@@ -16,7 +16,7 @@ player.gun.gunAnimation:addAnimation("fire", 1, 7);
 player.gun.gunAnimation:addAnimation("reload", 7, 55);
 player.gun.gunAnimation:addAnimation("emptyreload", 55, 108);
 player.gun.gunAnimation:addAnimation("idle", 142, 164);
-player.gun.gunAnimation:setCurrentAnimation("reload");
+player.gun.gunAnimation:setCurrentAnimation("idle");
 
 playerPos = player:getPosition();
 
