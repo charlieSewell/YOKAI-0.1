@@ -147,6 +147,8 @@ void Yokai::Run()
         renderer.DrawGui();
         window.endFrame();
 	}
+    GameObjectManager::getInstance().DeInit();
+    PhysicsSystem::getInstance().DeInit();
     renderer.DeInit();
     window.DeInit();
 }

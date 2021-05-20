@@ -50,15 +50,23 @@ void PhysicsComponent::registerPhysicsToggle()
 	m_colliderID = PhysicsSystem::getInstance().addBoundingSphere(position, radius);
 }*/
 
-void PhysicsComponent::registerAABB(float width, float height, float length)
+void PhysicsComponent::registerAABB(unsigned int ID, float width, float height, float length)
 {
-	colliderID = PhysicsSystem::getInstance().addAABB(m_transformPtr, width, height, length);
+	colliderID = PhysicsSystem::getInstance().addAABB(ID,m_transformPtr, width, height, length);
 }
-void PhysicsComponent::registerSphere(float radius)
+void PhysicsComponent::deleteCollider()
 {
-    colliderID = PhysicsSystem::getInstance().addSphere(m_transformPtr,radius);
+    if(colliderID != -1)
+    {
+        PhysicsSystem::getInstance().deleteRigidBody(colliderID);
+    }
+}
+void PhysicsComponent::registerSphere(unsigned int ID, float radius)
+{
+    colliderID = PhysicsSystem::getInstance().addSphere(ID,m_transformPtr,radius);
 
 }
 RigidBody * PhysicsComponent::getCollider(){
     return PhysicsSystem::getInstance().getRigidBody(colliderID);
+
 }

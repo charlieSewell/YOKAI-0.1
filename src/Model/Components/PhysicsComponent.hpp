@@ -44,11 +44,11 @@ public:
      * @param float - length
      * @param float - height
      */
-    void registerAABB(float width, float height, float length);
+    void registerAABB(unsigned int ID, float width, float height, float length);
 
     RigidBody * getCollider();
-
-    void registerSphere(float radius);
+    void deleteCollider();
+    void registerSphere(unsigned int ID, float radius);
     /**
      * @brief Registers Physics Toggle
      */
@@ -79,7 +79,7 @@ private:
 	void resolveCollisions(float &movementSpeed);
     ///is physics toggle pressed
 	bool m_physicsTogglePressed = false;
-	unsigned int colliderID = 0;
+	unsigned int colliderID = -1;
 	Transform* m_transformPtr;
 
     void resolveCollisions(int colliderID);

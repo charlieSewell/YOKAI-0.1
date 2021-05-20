@@ -4,10 +4,16 @@
 
 #include "RigidBody.hpp"
 #include "Controller/Physics/ReactMath.hpp"
-void RigidBody::CreateBody(rp3d::PhysicsWorld* physicsWorld,glm::vec3 position,glm::quat orientation)
+void RigidBody::CreateBody(unsigned int gameObjID,rp3d::PhysicsWorld* physicsWorld,glm::vec3 position,glm::quat orientation)
 {
+    gameObjectID = gameObjID;
     rp3d::Transform temp(ReactMath::glmVecToR3pd(position),ReactMath::glmQuatToR3pd(orientation));
     body = physicsWorld->createRigidBody(temp);
+}
+void RigidBody::DeleteBody(rp3d::PhysicsWorld* physicsWorld,rp3d::PhysicsCommon &physicsCommon)
+{
+    shape.DeleteShape(physicsCommon);
+    physicsWorld->destroyRigidBody(body);
 }
 void RigidBody::SetPosition(glm::vec3 position){
     rp3d::Transform currTransform = body->getTransform();

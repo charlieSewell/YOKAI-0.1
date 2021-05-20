@@ -15,12 +15,15 @@ void PhysicsSystem::Init()
     physicsWorld->setEventListener(&listener);
     timeStep = 1.0f / 30.0f;
 }
-PhysicsSystem::~PhysicsSystem()
+void PhysicsSystem::DeInit()
 {
-    std::cout << "GoodBye";
+    for(auto& collider : m_colliders)
+    {
+        collider.second.DeleteBody(physicsWorld,physicsCommon);
+    }
+    m_colliders.clear();
     physicsCommon.destroyPhysicsWorld(physicsWorld);
 }
-
 
 PhysicsSystem& PhysicsSystem::getInstance()
 {
@@ -30,43 +33,54 @@ PhysicsSystem& PhysicsSystem::getInstance()
 
 void PhysicsSystem::update(float dt)
 {
-    physicsWorld->update(timeStep);
+
+    physicsWorld->update(static_cast<rp3d::decimal>(dt));
 
 }
 
-int PhysicsSystem::addSphere(Transform *transform, float radius)
+unsigned int PhysicsSystem::addSphere(unsigned int ID,Transform *transform, float radius)
 {
     RigidBody object;
     ReactSphereShape sphere;
-    object.CreateBody(physicsWorld,transform->getPosition(),transform->getRotation());
-
+    object.CreateBody(ID,physicsWorld,transform->getPosition(),transform->getRotation());
     sphere.CreateSphereShape(radius,physicsCommon);
     object.AddCollisionShape(sphere);
+    unsigned int temp = object.getColliderID();
     m_colliders.emplace(object.getColliderID(),object);
-    return object.getColliderID();
+    return temp;
 }
 
 
-int PhysicsSystem::addAABB(Transform* transform, float width, float height, float length)
+unsigned int PhysicsSystem::addAABB(unsigned int ID,Transform* transform, float width, float height, float length)
 {
     RigidBody object;
     ReactBoxShape box;
     glm::vec3 newPos = glm::vec3(transform->getPosition().x,transform->getPosition().y,transform->getPosition().z);
-    object.CreateBody(physicsWorld,newPos,transform->getRotation());
-
+    object.CreateBody(ID,physicsWorld,newPos,transform->getRotation());
     box.CreateBoxShape(glm::vec3(width,height,length),physicsCommon);
     object.AddCollisionShape(box);
+    unsigned int temp = object.getColliderID();
     m_colliders.emplace(object.getColliderID(),object);
 
-    return object.getColliderID();
+    return temp;
 }
 
 RigidBody * PhysicsSystem::getRigidBody(int colliderID)
 {
-    return &m_colliders.at(colliderID);
+    try{
+        return &m_colliders.at(colliderID);
+    } catch (std::exception &e) {
+        std::cout << colliderID <<std::endl;
+        std::cout << e.what() <<std::endl;
+        return nullptr;
+    }
 }
 
-
+void PhysicsSystem::deleteRigidBody(int ID)
+{
+    m_colliders.at(ID).DeleteBody(physicsWorld,physicsCommon);
+    m_colliders.erase(ID);
+}
 
 
 void PhysicsSystem::addTerrain()
@@ -75,7 +89,7 @@ void PhysicsSystem::addTerrain()
     ReactTerrainShape terrShape;
     glm::vec3 position(TerrainFactory::getInstance().getTerrainSize()/2, 128, TerrainFactory::getInstance().getTerrainSize()/2);
     glm::quat orientation = glm::identity<glm::quat>();
-    terrain.CreateBody(physicsWorld,position,orientation);
+    terrain.CreateBody(-2,physicsWorld,position,orientation);
     terrShape.CreateTerrainShape(physicsCommon);
     terrain.AddCollisionShape(terrShape);
     terrain.SetBounciness(0.0);
