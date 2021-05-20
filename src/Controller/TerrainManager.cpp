@@ -15,7 +15,7 @@ void TerrainManager::Init()
     terrainShader->useShader();
     terrainShader->setVec3("skyColor",glm::vec3(0.05,0.05,0.05));
     terrainShader->setVec3("lightColor",glm::vec3(1.0,1.0,1.0));
-    terrainShader->setVec3("lightPos",glm::vec3(maxKey*chunkSize/2,200,maxKey*chunkSize/2));
+    terrainShader->setVec3("lightPos",glm::vec3(maxKey*chunkSize/2,400,maxKey*chunkSize/2));
     terrainShader->setFloat("lightLinear",0.002);
     terrainShader->setFloat("lightQuadratic",0.000004);
     terrainShader->setInt("grassTexture",0);

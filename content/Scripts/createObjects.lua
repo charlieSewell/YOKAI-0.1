@@ -5,7 +5,7 @@ objManager = ObjectManager:getInstance()
 --Creating Player Object
 playerID = objManager:Create(Types.player(),"");
 player = objManager:GetPlayer();
-player:setPosition(650.0, 200.0, 600.0);
+player:setPosition(1500, 300.0, 1500.0);
 player:setCollider(4, 4, 4.0);
 player.movement.movementSpeed = 3500;
 
@@ -16,7 +16,7 @@ playerPos = player:getPosition();
 skyBoxID = objManager:Create(Types.static(),"content/Models/skybox1.fbx");
 skyBox = objManager:GetObject(skyBoxID);
 skyBox:setPosition(TerrainSettings.terrainSize/2, 0, TerrainSettings.terrainSize/2);
-skyBox:setScale(0.05, 0.05, 0.05);
+skyBox:setScale(0.2, 0.2, 0.2);
 
 --Creating Rocks in random places
 for i=0,200 do
@@ -65,6 +65,6 @@ end
 
 waterID = objManager:Create(Types.static(),"content/Models/water.gltf");
 water = objManager:GetObject(waterID);
-water:setPosition(500.0, 60.0, 500.0);
-water:setScale(50, 1, 50);
+water:setPosition(1428.0, 30.0, 1000.0);
+water:setScale(60, 1, 60);
 
