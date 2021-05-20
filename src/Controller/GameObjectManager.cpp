@@ -10,21 +10,25 @@ GameObjectManager::GameObjectManager()
 {
 
 }
+GameObjectManager::~GameObjectManager()
+{
 
+}
 void GameObjectManager::init()
 {
     GameObject::registerClass();
 	NPC::registerClass();
 	Player::registerClass();
     luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
-        .beginNamespace("ObjectManager")
-            .addFunction("Create",GameObjectManager::CreateObject)
-            .addFunction("GetObject",GameObjectManager::luaGet)
-			.addFunction("GetPlayer", GameObjectManager::getPlayer)
-			.addFunction("GetNPC", GameObjectManager::getNPC)
-            .addFunction("Update",GameObjectManager::update)
-			.addFunction("distance", GameObjectManager::luaDistance)
-        .endNamespace();
+        .beginClass<GameObjectManager>("ObjectManager")
+            .addStaticFunction("getInstance",&GameObjectManager::getInstance)
+            .addFunction("Create",&GameObjectManager::CreateObject)
+            .addFunction("GetObject",&GameObjectManager::luaGet)
+            .addFunction("GetPlayer", &GameObjectManager::getPlayer)
+            .addFunction("GetNPC", &GameObjectManager::getNPC)
+            .addFunction("Update",&GameObjectManager::update)
+			.addFunction("distance", &GameObjectManager::luaDistance)
+        .endClass();
 
     luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
         .beginNamespace("Types")
@@ -36,16 +40,17 @@ void GameObjectManager::init()
     LuaManager::getInstance().runScript("content/Scripts/createObjects.lua");
     std::cout << "Game Object Manager Initialised" << std::endl;
 }
-
 int GameObjectManager::CreateObject(GameObjectType type,std::string model)
 {
     if(type == GameObjectType::player){
         gameObjects[objectCount] = GameAssetFactory::Create(type);
+        gameObjects[objectCount]->setID(objectCount);
         playerID = objectCount;
     }
     else
     {
         gameObjects[objectCount] = GameAssetFactory::Create(type,model);
+        gameObjects[objectCount]->setID(objectCount);
     }
 
     objectCount++;
@@ -55,9 +60,17 @@ int GameObjectManager::CreateObject(GameObjectType type,std::string model)
 
 int GameObjectManager::add(std::shared_ptr<GameObject>& gameObject)
 {
+    gameObject->setID(objectCount);
     gameObjects[objectCount] = gameObject;
     objectCount++;
     return objectCount - 1;
+}
+void GameObjectManager::DeInit(){
+    gameObjects.clear();
+}
+void GameObjectManager::DeleteGameObject(unsigned int id)
+{
+    gameObjects.erase(id);
 }
 
 void GameObjectManager::update(float dt)
@@ -105,12 +118,8 @@ NPC* GameObjectManager::getNPC(int id)
 	return(dynamic_cast<NPC*>(gameObjects[id].get()));
 }
 
+
 float GameObjectManager::luaDistance(glm::vec3 vec1, glm::vec3 vec2)
 {
 	return glm::distance(vec1, vec2);
 }
-
-//static declaration of member variables
-int GameObjectManager::objectCount = 0;
-int GameObjectManager::playerID = 0;
-std::map<int, std::shared_ptr<GameObject>> GameObjectManager::gameObjects = std::map<int, std::shared_ptr<GameObject>>();

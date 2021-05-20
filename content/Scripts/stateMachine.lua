@@ -1,14 +1,16 @@
-function update(obj)
-		
-	stateMachine(obj)
-
-end
+objManager = ObjectManager:getInstance()
 
 --States
 wander		= 0
 seek		= 1
 attack		= 2
 dead		= 3
+
+function update(obj)
+		
+	stateMachine(obj)
+
+end
 
 function stateMachine(obj)
 	--target = ObjectManager.GetPlayer();
@@ -23,7 +25,7 @@ function stateMachine(obj)
 		
 		--test = ObjectManager.distance(player:getPosition(), obj:getPosition())
 
-		if(ObjectManager.distance(player:getPosition(), obj:getPosition()) < 30)
+		if(objManager:distance(player:getPosition(), obj:getPosition()) < 30)
 		then
 			obj.behaviours.state = seek
 		end
@@ -34,7 +36,7 @@ function stateMachine(obj)
 		obj.behaviours:accelerate(0.115);
 		obj.behaviours.rotationSpeed = 0.05;
 
-		if(ObjectManager.distance(player:getPosition(), obj:getPosition()) < 5)
+		if(objManager:distance(player:getPosition(), obj:getPosition()) < 5)
 		then
 			obj.behaviours.state = attack
 		end
@@ -45,7 +47,7 @@ function stateMachine(obj)
 		--obj.behaviours:accelerate(0.0);
 		obj.behaviours.rotationSpeed = 0.05;
 
-		if(ObjectManager.distance(player:getPosition(), obj:getPosition()) > 5)
+		if(objManager:distance(player:getPosition(), obj:getPosition()) > 5)
 		then
 			obj.behaviours.state = seek
 		end

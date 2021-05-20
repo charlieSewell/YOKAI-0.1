@@ -1,6 +1,6 @@
 #include "Pickup.hpp"
 
-Pickup::Pickup(std::string modelName) 
+Pickup::Pickup(std::string modelName)
 {
     modelID = ModelManager::getInstance().GetModelID(modelName);
     setPosition(glm::vec3(0, 0, 0));
