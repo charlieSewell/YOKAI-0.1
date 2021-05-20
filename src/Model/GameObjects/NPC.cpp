@@ -28,11 +28,7 @@ void NPC::draw()
 	ModelManager::getInstance().DrawModel(modelID, m_transform.getMatrix(),animator.finalTransforms);
 }
 
-void NPC::setCollider(float width, float length, float height)
-{
-	//registerAABB(&m_position, width, length, height);
-}
-void NPC::update(float dt)
+void NPC::update(double dt)
 {
     animator.BoneTransform(dt);
 }

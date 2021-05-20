@@ -63,6 +63,7 @@ void KeyframeAnimation::addAnimation(std::string animation, int firstFrame, int 
 
 void KeyframeAnimation::setCurrentFrame(double deltaTime) 
 {
+    
     totalTime += deltaTime;
 
     if (totalTime > ((animations.at(currentAnimation).second - animations.at(currentAnimation).first + 1) / ticksPerSecond))
@@ -73,6 +74,12 @@ void KeyframeAnimation::setCurrentFrame(double deltaTime)
     swapAnimationCheck(); 
     currentFrame = static_cast<int>(totalTime * ticksPerSecond);
     currentFrame += animations.at(currentAnimation).first - 1;
+    
+}
+
+void KeyframeAnimation::testing() 
+{
+    std::cout << "test" << std::endl;
 }
 
 void KeyframeAnimation::swapAnimationCheck() 
@@ -95,7 +102,7 @@ int KeyframeAnimation::getEndFrame()
     return animations.at(currentAnimation).second;
 }
 
-void KeyframeAnimation::draw() 
+void KeyframeAnimation::draw(Transform t) 
 {
     glm::mat4 transform(1.0);
     transform = glm::translate(transform, glm::vec3(512, 25, 512));
@@ -104,6 +111,7 @@ void KeyframeAnimation::draw()
     shader->useShader();
     shader->setVec3("viewPos", EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
     models[currentFrame].Draw(*shader, transform);
+    //models[currentFrame].Draw(*shader, t.getMatrix());
 }
 
 void KeyframeAnimation::setTPS(float tps) 

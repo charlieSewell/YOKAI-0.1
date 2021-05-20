@@ -1,9 +1,11 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 #include "Model/Model.hpp"
 #include "Model/ObjectLoading/ModelLoader.hpp"
 #include <fstream>
-#include "Controller/GameObjectManager.hpp"
+#include "Model/Components/Transform.hpp"
 
 class KeyframeAnimation 
 {
@@ -27,7 +29,7 @@ class KeyframeAnimation
 
         int getEndFrame();
 
-        void draw();
+        void draw(Transform t);
 
         void setTPS(float tps);
 
@@ -36,6 +38,8 @@ class KeyframeAnimation
         bool getAnimationFinished();
 
         void swapAnimationCheck();
+
+        void testing();
 
 	private:
 

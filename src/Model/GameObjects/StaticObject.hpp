@@ -24,14 +24,6 @@ class StaticObject : public GameObject
      */
     void draw() override;
 
-    /*!
-     * @brief Setter for the staticObject collider
-     * @param float - width
-     * @param float - length
-     * @param float - height
-     */
-	void setCollider(float width, float length, float height) override;
-
   private:
 	PhysicsComponent m_physics;
     /// Stores associated model id of the staticObject

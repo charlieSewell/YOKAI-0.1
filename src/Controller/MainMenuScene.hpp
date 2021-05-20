@@ -1,10 +1,11 @@
 #pragma once
 #include "Controller/Layer.hpp"
+#include "Controller/Yokai.hpp"
 /**
  * @class DemoScene
  * @brief A demo Scene for Assignment 1
  */
-class DemoScene : public Layer
+class MainMenuScene : public Layer 
 {
   public:
     /**
@@ -27,15 +28,11 @@ class DemoScene : public Layer
      * @brief Disables the Scene
      */
     void Disable() override;
+
   private:
-    ///Terrain Manager for the scene
-    TerrainManager terrainManager = {};
-    ///Controls SplashScreen
-    SplashScreen* controlsScreen;
-    ///Is this scene active
+    /// Is this scene active
     bool isEnabled = true;
     /**
      * @brief Registers Menu Buttons
      */
-    void registerMenuButtons();
 };

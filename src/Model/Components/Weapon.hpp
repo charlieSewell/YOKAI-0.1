@@ -1,6 +1,10 @@
-#include <iostream>
+#pragma once
 
-class Weapon 
+#include <iostream>
+#include "Controller/KeyframeAnimation.hpp"
+#include "Model/GameObjects/GameObject.hpp"
+
+class Weapon : public GameObject
 {
   public:
     Weapon();
@@ -22,9 +26,17 @@ class Weapon
     void setMaxReserveAmmo(int r);
     int getMaxReserveAmmo();
 
+    void initialiseAnimations();
+    KeyframeAnimation *getWeaponAnimation();
+
+    void update(Transform playerTransform, glm::vec3 frontDirection);
+    void draw() override;
+
   private:
+    KeyframeAnimation *weaponAnimation;
+      
     int maxAmmo;
-    int ammo;
+    int m_ammo;
 
     int maxReserveAmmo;
     int reserveAmmo;

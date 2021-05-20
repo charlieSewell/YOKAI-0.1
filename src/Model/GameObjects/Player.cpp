@@ -19,13 +19,20 @@ Player::Player()
 
 	PhysicsManager::getInstance().addCapsule(m_transform);
 	PhysicsManager::getInstance().addTerrain();
+
+	gun.initialiseAnimations();
+    health = 100;
+    shields = 100;
 }
 
 Player::~Player() {}
 
-void Player::draw() {}
+void Player::draw() 
+{
+    gun.draw();
+}
 
-void Player::update(float dt)
+void Player::update(double dt)
 {
 	m_camera.m_position = m_transform.getPosition();		//TODO: make this better
 	PhysicsManager::getInstance().update(m_transform);
@@ -39,11 +46,10 @@ void Player::update(float dt)
 	
 	updateJump(m_transform.getPosition(), m_upDirection);
 	*/
-}
 
-void Player::setCollider(float width, float length, float height)
-{
-	 //registerAABB(width, length, height);
+    gun.update(m_transform, m_camera.m_frontDirection);
+
+	gun.getWeaponAnimation()->setCurrentFrame(dt);
 }
 
 void Player::registerPosition()
@@ -54,4 +60,24 @@ void Player::registerPosition()
 	};
 
 	EMS::getInstance().add(ReturnVec3Event::getPlayerPosition, getPlayerPosition);
+}
+
+void Player::setHealth(int h) 
+{
+    health = h;
+}
+
+int Player::getHealth() 
+{
+    return health;
+}
+
+void Player::setShields(int s) 
+{
+    shields = s;
+}
+
+int Player::getShields() 
+{
+    return shields;
 }
