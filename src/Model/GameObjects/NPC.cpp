@@ -56,6 +56,7 @@ void NPC::registerClass()
 void NPC::update(float dt)
 {
     m_physicsComponent.getCollider()->SetPosition(m_transform.getPosition());
+    m_physicsComponent.getCollider()->SetOrientation(m_transform.getRotation());
 	luaUpdate(this);
     animator.BoneTransform(dt);
 }

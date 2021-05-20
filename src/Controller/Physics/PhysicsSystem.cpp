@@ -14,6 +14,18 @@ void PhysicsSystem::Init()
     physicsWorld = physicsCommon.createPhysicsWorld(settings);
     physicsWorld->setEventListener(&listener);
     timeStep = 1.0f / 30.0f;
+
+    glGenVertexArrays(1, &l_vao_);
+    assert(l_vao_ != 0);
+    glGenBuffers(1, &l_vbo_);
+    assert(l_vbo_ != 0);
+
+
+    //Generate triangle buffers for test renderer
+    glGenVertexArrays(1, &t_vao_);
+    assert(t_vao_ != 0);
+    glGenBuffers(1, &t_vbo_);
+    assert(t_vbo_ != 0);
 }
 void PhysicsSystem::DeInit()
 {
@@ -97,5 +109,56 @@ void PhysicsSystem::addTerrain()
     terrain.SetBodyType(rp3d::BodyType::STATIC);
     m_colliders.emplace(terrain.getColliderID(),terrain);
 }
+void PhysicsSystem::Draw() {
 
+        shader->useShader();
+        //TODO Setup the shader, verify data is okay being passed in like this.
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        shader->setMat4("projection", EMS::getInstance().fire(ReturnMat4Event::getPerspective));
+        shader->setMat4("view", EMS::getInstance().fire(ReturnMat4Event::getViewMatrix));
+        shader->setMat4("model", EMS::getInstance().fire(ReturnMat4Event::getViewMatrix));
+
+        if (line_num_ > 0) {
+            // Bind the VAO
+            glBindVertexArray(l_vao_);
+            glBindBuffer(GL_ARRAY_BUFFER, l_vbo_);
+
+            glEnableVertexAttribArray(0);
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (char*) nullptr);
+
+            glEnableVertexAttribArray(1);
+            glVertexAttribIPointer(1, 3, GL_UNSIGNED_INT, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (void*) sizeof(rp3d::Vector3));
+
+            // Draw the lines geometry
+            glDrawArrays(GL_LINES, 0, line_num_ * 2);
+
+            glDisableVertexAttribArray(0);
+            glDisableVertexAttribArray(1);
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            glBindVertexArray(0);
+        }
+
+        if (triag_num_ > 0) {
+
+            // Bind the VAO
+            glBindVertexArray(t_vao_);
+            glBindBuffer(GL_ARRAY_BUFFER, t_vbo_);
+
+            glEnableVertexAttribArray(0);
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (char*) nullptr);
+
+            glEnableVertexAttribArray(1);
+            glVertexAttribIPointer(1, 3, GL_UNSIGNED_INT, sizeof(rp3d::Vector3) + sizeof(rp3d::uint32), (void*) sizeof(rp3d::Vector3));
+
+            // Draw the triangles geometry
+            glDrawArrays(GL_TRIANGLES, 0, triag_num_ * 3);
+
+            glDisableVertexAttribArray(0);
+            glDisableVertexAttribArray(1);
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            glBindVertexArray(0);
+        }
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        shader->useShader();
+}
 

@@ -26,7 +26,7 @@ for i=0,200 do
         gameObj = objManager:GetObject(asset);
         gameObj:setScale(0.02,0.02,0.02);
         gameObj:setPosition(x,val-2,z);
-        gameObj:setCollider(3,6,3);
+        gameObj:setCollider(3,4,3);
 
 end
 
