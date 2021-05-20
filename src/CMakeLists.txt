@@ -55,6 +55,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/TextureManager.cpp
 		Controller/KeyframeAnimation.cpp
 		Controller/MainMenuScene.cpp
+		Controller/UIManager.cpp
 
         )
 

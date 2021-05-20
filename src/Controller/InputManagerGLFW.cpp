@@ -50,7 +50,11 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
         EMS::getInstance().fire(NoReturnEvent::uiPressed);
     if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_RELEASE)
         EMS::getInstance().fire(NoReturnEvent::uiReleased);
-	//
+	
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+        EMS::getInstance().fire(NoReturnEvent::reloadPressed);
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_RELEASE)
+        EMS::getInstance().fire(NoReturnEvent::reloadReleased);
 
 	/*if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
 		if (isPressed) {
@@ -68,6 +72,10 @@ void InputManagerGLFW::processMouse(GLFWwindow* window)
 {
     if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_1) == GLFW_PRESS)
         EMS::getInstance().fire(NoReturnEvent::mouseClicked);
+
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_RELEASE)
+        EMS::getInstance().fire(NoReturnEvent::mouseReleased);
+
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
 

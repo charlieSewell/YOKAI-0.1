@@ -15,17 +15,15 @@ Player::Player()
 	m_movement.registerAllMovement(m_camera.m_frontDirection, m_camera.m_upDirection);
 	m_physics.registerPhysicsToggle();
 
-	//gun.initialiseAnimations();
     health = 100;
     shields = 100;
-
 }
 
 Player::~Player() {}
 
 void Player::draw() 
 {
-    //gun.draw();
+    gun.draw();
 }
 
 void Player::update(float dt)
@@ -69,9 +67,14 @@ void Player::update(float dt)
     {
         GameObjectManager::getInstance().DeleteGameObject(test);
 
-    }
     //gun.getWeaponAnimation()->setCurrentFrame(dt);
     //gun.update(m_transform, m_camera.m_frontDirection);
+
+    //LuaManager::getInstance().runScript("content/Scripts/gunLogic.lua");
+    }
+    gun.getWeaponAnimation()->setCurrentFrame(dt);
+    gun.update(m_transform, m_camera.m_frontDirection);
+    LuaManager::getInstance().runScript("content/Scripts/gunLogic.lua");
 }
 
 void Player::setCollider(float width, float length, float height)
@@ -96,6 +99,19 @@ void Player::registerPosition()
 	EMS::getInstance().add(ReturnVec3Event::getPlayerPosition, getPlayerPosition);
 }
 
+void Player::registerClass()
+{
+	PlayerControlledMotion::registerClass();
+    Weapon::registerClass();
+	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+		.deriveClass<Player, GameObject>("Player")
+		.addProperty("movement", &Player::m_movement)
+        .addProperty("health", &Player::health, true)
+        .addProperty("shields", &Player::shields, true)
+        .addProperty("gun", &Player::gun, true)
+		.endClass();
+}
+
 void Player::setHealth(int h) 
 {
     health = h;
@@ -114,13 +130,4 @@ void Player::setShields(int s)
 int Player::getShields() 
 {
     return shields;
-}
-
-void Player::registerClass()
-{
-	PlayerControlledMotion::registerClass();
-	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
-		.deriveClass<Player, GameObject>("Player")
-		.addProperty("movement", &Player::m_movement)
-		.endClass();
 }

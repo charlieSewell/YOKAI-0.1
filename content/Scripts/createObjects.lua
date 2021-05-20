@@ -8,6 +8,17 @@ player = objManager:GetPlayer();
 player:setPosition(1500, 300.0, 1500.0);
 player:setCollider(4, 4, 4.0);
 player.movement.movementSpeed = 3500;
+player.health = 100;
+player.shields = 100;
+player.gun.maxAmmo = 30;
+player.gun.maxReserveAmmo = 150;
+player.gun.gunAnimation:readFile("content/Models/guntest.txt");
+player.gun.gunAnimation.ticksPerSecond = 20;
+player.gun.gunAnimation:addAnimation("fire", 1, 7);
+player.gun.gunAnimation:addAnimation("reload", 7, 55);
+player.gun.gunAnimation:addAnimation("emptyreload", 55, 108);
+player.gun.gunAnimation:addAnimation("idle", 142, 164);
+player.gun.gunAnimation:setCurrentAnimation("idle");
 
 playerPos = player:getPosition();
 
