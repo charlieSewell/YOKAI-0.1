@@ -1,8 +1,8 @@
 #include "AutomatedBehaviours.hpp"
 
 AutomatedBehaviours::AutomatedBehaviours(Transform& transform)
-	: heading(glm::vec3(0)), angle(0), acceleration(0), topSpeed(0.005),		
-	m_transformPtr(&transform), rotationSpeed(0.05), m_wanderAngle(0)
+	: heading(glm::vec3(0)), angle(0), acceleration(0), topSpeed(0),		
+	m_transformPtr(&transform), rotationSpeed(0), m_wanderAngle(0), state(0)
 {
 
 }
@@ -117,4 +117,16 @@ void AutomatedBehaviours::updateHeading()
 float AutomatedBehaviours::angle_XZ(const glm::vec3 vector)
 {
 		return(std::atan2f(vector.z, vector.x));
+}
+
+void AutomatedBehaviours::registerClass()
+{
+	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+		.beginClass<AutomatedBehaviours>("behaviours")
+		.addProperty("rotationSpeed", &AutomatedBehaviours::rotationSpeed, true)
+		.addProperty("state", &AutomatedBehaviours::state, true)
+		.addFunction("accelerate", &AutomatedBehaviours::accelerate)
+		.addFunction("seek", &AutomatedBehaviours::seek)
+		.addFunction("wander", &AutomatedBehaviours::wander)
+		.endClass();
 }

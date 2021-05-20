@@ -73,6 +73,9 @@ class GameObjectManager
 	
 	static NPC* getNPC(int id);
 
+	//should be in a utility function
+	static float luaDistance(glm::vec3, glm::vec3);
+
   private:
     /*!
      * @brief Constructor

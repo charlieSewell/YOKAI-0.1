@@ -53,6 +53,6 @@ void GameObject::registerClass()
             .addFunction("getPosition", &GameObject::getLuaPosition)
             .addFunction("setPosition", &GameObject::setLuaPosition)
             .addFunction("setScale", &GameObject::setLuaScale)
-            .addFunction("setCollider", &GameObject::setCollider)			
+            .addFunction("setCollider", &GameObject::setCollider)
         .endClass();
 }
