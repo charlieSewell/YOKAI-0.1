@@ -9,9 +9,9 @@ PlayerControlledMotion::PlayerControlledMotion(Transform& transform)
 
 }
 
-void PlayerControlledMotion::setMovementSpeed(float movementSpeed)
+void PlayerControlledMotion::setMovementSpeed(float newMovementSpeed)
 {
-	movementSpeed = movementSpeed;
+	movementSpeed = newMovementSpeed;
 }
 
 float PlayerControlledMotion::getMovementSpeed() const
@@ -120,5 +120,12 @@ void PlayerControlledMotion::registerXYLook(glm::vec3& frontDirection)
 	};
 
 	EMS::getInstance().add(NoReturnEvent::xyLook, xyLook);
+}
 
+void PlayerControlledMotion::registerClass()
+{
+	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+		.beginClass<PlayerControlledMotion>("PlayerControlledMotion")
+		.addProperty("movementSpeed", &PlayerControlledMotion::getMovementSpeed, &PlayerControlledMotion::setMovementSpeed)
+		.endClass();
 }

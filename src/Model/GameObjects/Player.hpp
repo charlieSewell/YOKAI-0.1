@@ -41,6 +41,8 @@ public:
     void setShields(int s);
     int getShields();
 
+	static void registerClass();
+
 private:
 	Camera m_camera;
 	PlayerControlledMotion m_movement;

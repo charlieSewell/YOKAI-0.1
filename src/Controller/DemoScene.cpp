@@ -14,10 +14,12 @@ void DemoScene::Init()
     GameObjectManager::getInstance().init();
 }
 
+#include "Model/GameObjects/NPC.hpp"
 void DemoScene::Update(double frameRate)
 {
     GameObjectManager::getInstance().update(frameRate);
 }
+
 void DemoScene::Draw()
 {
     GameObjectManager::getInstance().draw();

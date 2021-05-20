@@ -4,11 +4,12 @@ objManager = ObjectManager:getInstance()
 
 --Creating Player Object
 playerID = objManager:Create(Types.player(),"");
-player = objManager:GetObject(playerID);
-
+player = objManager:GetPlayer();
 player:setPosition(650.0, 200.0, 600.0);
 player:setCollider(4, 4, 4.0);
+player.movement.movementSpeed = 3500;
 
+playerPos = player:getPosition();
 
 --Creating SkyBox
 skyBoxID = objManager:Create(Types.static(),"content/Models/skybox1.fbx");
@@ -30,16 +31,17 @@ for i=0,200 do
 end
 
 --Creating Zombies in random places
-for i=0, 50 do
-        x = math.random(0,TerrainSettings.terrainSize);
-        z = math.random(0,TerrainSettings.terrainSize);
+numZombies = 50;
+spawnRange = 300;
+for i=0, numZombies do
+        x = math.random(playerPos.x - spawnRange, playerPos.x + spawnRange);
+        z = math.random(playerPos.z - spawnRange, playerPos.z + spawnRange);
         val = terrFac:getHeight(x,z)
         asset = objManager:Create(Types.npc(),"content/Models/Zombie/ZombieSmooth.gltf");
         gameObj = objManager:GetObject(asset);
         gameObj:setScale(0.5,0.5,0.5);
         gameObj:setPosition(x,val,z);
         gameObj:setCollider(1,4,1);
-
 end
 
 --Creating Trees in random places
@@ -52,5 +54,4 @@ for i=0,200 do
         gameObj:setScale(0.01,0.01,0.01);
         gameObj:setPosition(x,val-1,z);
         gameObj:setCollider(1,20,1);
-
 end

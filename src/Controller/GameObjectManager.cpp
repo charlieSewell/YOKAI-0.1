@@ -17,13 +17,18 @@ GameObjectManager::~GameObjectManager()
 void GameObjectManager::init()
 {
     GameObject::registerClass();
+	NPC::registerClass();
+	Player::registerClass();
     luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
         .beginClass<GameObjectManager>("ObjectManager")
             .addStaticFunction("getInstance",&GameObjectManager::getInstance)
             .addFunction("Create",&GameObjectManager::CreateObject)
             .addFunction("GetObject",&GameObjectManager::luaGet)
+            .addFunction("GetPlayer", &GameObjectManager::getPlayer)
+            .addFunction("GetNPC", &GameObjectManager::getNPC)
             .addFunction("Update",&GameObjectManager::update)
         .endClass();
+
 
     luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
         .beginNamespace("Types")
@@ -82,10 +87,12 @@ void GameObjectManager::draw()
         gameObject.second->draw();
     }
 }
-std::shared_ptr<GameObject> GameObjectManager::getPlayer()
+
+Player* GameObjectManager::getPlayer()
 {
-        return gameObjects[playerID];
+	return(dynamic_cast<Player*>(gameObjects[playerID].get()));
 }
+
 std::shared_ptr<GameObject> GameObjectManager::getObject(int id) 
 {
 
@@ -95,6 +102,7 @@ std::shared_ptr<GameObject> GameObjectManager::getObject(int id)
     }
     return nullptr;
 }
+
 GameObject* GameObjectManager::luaGet(int id)
 {
 
@@ -104,3 +112,10 @@ GameObject* GameObjectManager::luaGet(int id)
     }
     return nullptr;
 }
+
+NPC* GameObjectManager::getNPC(int id)
+{ 
+	return(dynamic_cast<NPC*>(gameObjects[id].get()));
+}
+
+

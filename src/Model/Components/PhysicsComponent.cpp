@@ -68,4 +68,5 @@ void PhysicsComponent::registerSphere(unsigned int ID, float radius)
 }
 RigidBody * PhysicsComponent::getCollider(){
     return PhysicsSystem::getInstance().getRigidBody(colliderID);
+
 }
