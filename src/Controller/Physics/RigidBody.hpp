@@ -11,7 +11,7 @@ class RigidBody {
 public:
     void SetPosition(glm::vec3 position);
     void SetOrientation(glm::quat orientation);
-    void CreateBody(rp3d::PhysicsWorld* physicsWorld,glm::vec3 position,glm::quat orientation);
+    void CreateBody(unsigned int gameObjID,rp3d::PhysicsWorld* physicsWorld,glm::vec3 position,glm::quat orientation);
     void DeleteBody(rp3d::PhysicsWorld* physicsWorld,rp3d::PhysicsCommon &physicsCommon);
     void SetPositionAndOrientation(glm::vec3 position, glm::quat orientation);
     glm::vec3 GetPosition();
@@ -31,9 +31,11 @@ public:
     void SetBounciness(float bounciness);
     void SetMass(float mass);
     void SetIsAllowedToSleep(bool sleepState);
-    unsigned int getColliderID(){return body->getEntity().id;}
+    unsigned int getColliderID(){return collider->getEntity().id;}
+    unsigned int getGameObjectID(){return gameObjectID;}
 private:
     ReactShape shape;
+    unsigned int gameObjectID = -1;
     reactphysics3d::RigidBody* body;
     reactphysics3d::Collider* collider;
 };

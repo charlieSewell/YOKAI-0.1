@@ -11,16 +11,16 @@ void DemoScene::Init()
     controlsScreen = new SplashScreen("content/Textures/help_menu.png");
     registerMenuButtons();
 
-    GameObjectManager::init();
+    GameObjectManager::getInstance().init();
 }
 
 void DemoScene::Update(double frameRate)
 {
-    GameObjectManager::update(frameRate);
+    GameObjectManager::getInstance().update(frameRate);
 }
 void DemoScene::Draw()
 {
-    GameObjectManager::draw();
+    GameObjectManager::getInstance().draw();
     terrainManager.Draw(EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
     if(controlsScreen->isActive())
     {

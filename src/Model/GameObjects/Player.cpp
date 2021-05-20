@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Player.hpp"
+#include "Controller/GameObjectManager.hpp"
 Player::Player()
 	: m_camera(Camera()), m_movement(PlayerControlledMotion(m_transform)), m_physics(m_transform)
 {
-	m_movement.movementSpeed = 1500.0f;
+	m_movement.movementSpeed = 2000.0f;
 	m_movement.lookSensitivity = 0.05f;
 	m_movement.jumpSpeed = 0.15f;
 	//m_mass = 0.025f;
@@ -38,11 +39,13 @@ void Player::update(float dt)
         }
         if(m_movement.canJump)
         {
+            m_physics.getCollider()->SetLinearVelocity(glm::vec3(0.0,m_physics.getCollider()->GetLinearVelocity().y,0.0));
+            m_physics.getCollider()->SetAngularVelocity(glm::vec3(0.0));
+
             if (m_movement.updateVector != glm::vec3{})
             {
-                m_physics.getCollider()->SetLinearVelocity(glm::vec3(0.0));
-                m_physics.getCollider()->SetAngularVelocity(glm::vec3(0.0));
                 m_physics.getCollider()->ApplyForceToCentre(glm::normalize(glm::vec3(m_movement.updateVector)) * m_movement.movementSpeed * dt);
+
             }
         }
     }
@@ -55,24 +58,30 @@ void Player::update(float dt)
 
         }
 	}
+
     m_physics.updatePhysics(m_movement.movementSpeed, m_movement.jumpSpeed);
     m_movement.updateVector = glm::vec3{};
     m_camera.m_position = glm::vec3(m_transform.getPosition().x,m_transform.getPosition().y+3,m_transform.getPosition().z);		//TODO: make this better
+    unsigned int test= rayCaster.CastRay(m_camera.m_position,glm::normalize(m_camera.m_frontDirection),50);
+    if(test != -1)
+    {
+        GameObjectManager::getInstance().DeleteGameObject(test);
 
+    }
     //gun.getWeaponAnimation()->setCurrentFrame(dt);
     //gun.update(m_transform, m_camera.m_frontDirection);
 }
 
 void Player::setCollider(float width, float length, float height)
 {
-    m_physics.registerSphere(1);
+    m_physics.registerSphere(ID,1);
     m_physics.getCollider()->SetMass(0.1);
-    m_physics.getCollider()->SetFrictionCoefficient(1.0);
-    m_physics.getCollider()->SetAngularDamping(0.9);
-    m_physics.getCollider()->SetLinearDamping(0.9);
-    m_physics.getCollider()->SetRollingResistance(1.0);
+    m_physics.getCollider()->SetFrictionCoefficient(0.6);
+    m_physics.getCollider()->SetAngularDamping(0.6);
+    m_physics.getCollider()->SetLinearDamping(0.6);
+    m_physics.getCollider()->SetRollingResistance(0.8);
     m_physics.getCollider()->SetBounciness(0);
-
+    rayCaster.setOwnColliderID( m_physics.getCollider()->getColliderID());
 }
 
 void Player::registerPosition()
