@@ -38,6 +38,11 @@ enum class ReturnVec3Event
 	getPlayerPosition
 };
 
+enum class ReturnIntEvent
+{
+	getPlayerColliderID
+};
+
 /**
  * @class EMS
  * @brief Singleton Class Defining The Event Management System
@@ -85,6 +90,13 @@ class EMS
 	 */
 	void add(ReturnVec3Event event, std::function<glm::vec3()> func);
 
+	/**
+	 * @brief Adds a Event callback
+	 * @param InputEvent - event
+	 * @param function<glm::vec3()> - func
+	 */
+	void add(ReturnIntEvent event, std::function<int()> func);
+
     /**
      * @brief Fires an Input Event
      * @param InputEvent - event
@@ -113,6 +125,8 @@ class EMS
 	 */
 	glm::vec3 fire(ReturnVec3Event event);
 
+	int fire(ReturnIntEvent event);
+
   private:
       ///Privatised constructor of EMS
 	  EMS() {}
@@ -130,4 +144,6 @@ class EMS
       std::function<glm::mat4(void)> m_perspective;
 
 	  std::function<glm::vec3(void)> m_playerPosition;
+
+	  std::function<int(void)> m_playerColliderID;
 };

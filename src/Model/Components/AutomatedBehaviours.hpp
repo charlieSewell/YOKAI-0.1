@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Model/Components/Transform.hpp"
+#include "Model/Components/RayCaster.hpp"
 #include "Controller/EventManager.hpp"
 #include "Controller/LuaManager.hpp"
 #include <glm/gtc/random.hpp>
@@ -27,8 +28,18 @@ public:
 	float rotationSpeed;
 	int state;
 
+	RayCaster rayCaster;
+	glm::vec3 feelerRight;
+	glm::vec3 feelerLeft;
+	bool frontFeelerHit;
+	bool feelerRightHit;
+	bool feelerLeftHit;
+
+	void updateFeelers();
+
 private:
 	Transform *m_transformPtr;
+
 	float m_wanderAngle;
 	void updateHeading();
 	float angle_XZ(glm::vec3 vector);

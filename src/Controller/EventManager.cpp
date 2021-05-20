@@ -34,6 +34,12 @@ void EMS::add(ReturnVec3Event event, std::function<glm::vec3()> func)
 		m_playerPosition = func;
 }
 
+void EMS::add(ReturnIntEvent event, std::function<int()> func)
+{
+	if (event == ReturnIntEvent::getPlayerColliderID)
+		m_playerColliderID = func;
+}
+
 void EMS::fire(NoReturnEvent event) 
 {
 	for(std::multimap<NoReturnEvent, std::function<void()>>::iterator itr = m_NoReturnEventList.begin(); itr != m_NoReturnEventList.end(); ++itr)
@@ -64,4 +70,12 @@ glm::vec3 EMS::fire(ReturnVec3Event event)
 		return m_playerPosition();
 
 	return glm::vec3(-1,-1,-1);
+}
+
+int EMS::fire(ReturnIntEvent event)
+{
+	if (event == ReturnIntEvent::getPlayerColliderID)
+		return m_playerColliderID();
+
+	return -1;
 }
