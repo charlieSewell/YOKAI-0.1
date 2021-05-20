@@ -11,6 +11,7 @@ player.movement.movementSpeed = 3500;
 
 playerPos = player:getPosition();
 
+
 --Creating SkyBox
 skyBoxID = objManager:Create(Types.static(),"content/Models/skybox1.fbx");
 skyBox = objManager:GetObject(skyBoxID);
@@ -47,12 +48,23 @@ end
 
 --Creating Trees in random places
 for i=0,200 do
-        x = math.random(0,TerrainSettings.terrainSize);
-        z = math.random(0,TerrainSettings.terrainSize);
-        val = terrFac:getHeight(x,z)
+        x= 0;
+        z = 0;
+        val = 0;
+        while val < 60 do
+                x = math.random(0,TerrainSettings.terrainSize);
+                z = math.random(0,TerrainSettings.terrainSize);
+                val = terrFac:getHeight(x,z)
+        end
         asset = objManager:Create(Types.static(),"content/Models/tree.fbx");
         gameObj = objManager:GetObject(asset);
         gameObj:setScale(0.01,0.01,0.01);
         gameObj:setPosition(x,val-1,z);
         gameObj:setCollider(1,20,1);
 end
+
+waterID = objManager:Create(Types.static(),"content/Models/water.gltf");
+water = objManager:GetObject(waterID);
+water:setPosition(500.0, 60.0, 500.0);
+water:setScale(50, 1, 50);
+

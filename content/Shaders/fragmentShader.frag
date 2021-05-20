@@ -15,8 +15,8 @@ void main()
 {
     vec4 texColor = texture(texture_diffuse1, TexCoords);
 
-    if(texColor.a < 0.1)
-        discard;
+    //if(texColor.a < 0.1)
+        //discard;
     //FragColor = vec4(0.8,0,0,0);
 
     //Ambient
