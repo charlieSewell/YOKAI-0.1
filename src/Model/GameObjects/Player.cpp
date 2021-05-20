@@ -1,4 +1,3 @@
-#pragma once
 
 #include "Player.hpp"
 #include "Controller/GameObjectManager.hpp"
@@ -82,29 +81,6 @@ void Player::setCollider(float width, float length, float height)
     rayCaster.setOwnColliderID( m_physics.getCollider()->getColliderID());
 }
 
-void Player::registerPosition()
-{
-	auto getPlayerPosition = [&]()
-	{
-		return m_transform.getPosition();
-	};
-
-	EMS::getInstance().add(ReturnVec3Event::getPlayerPosition, getPlayerPosition);
-}
-
-void Player::registerClass()
-{
-	PlayerControlledMotion::registerClass();
-    Weapon::registerClass();
-	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
-		.deriveClass<Player, GameObject>("Player")
-		.addProperty("movement", &Player::m_movement)
-        .addProperty("health", &Player::health, true)
-        .addProperty("shields", &Player::shields, true)
-        .addProperty("gun", &Player::gun, true)
-		.endClass();
-}
-
 void Player::setHealth(int h) 
 {
     health = h;
@@ -135,3 +111,15 @@ void Player::registerColliderID()
 	EMS::getInstance().add(ReturnIntEvent::getPlayerColliderID, getPlayerColliderID);
 }
 
+void Player::registerClass()
+{
+	PlayerControlledMotion::registerClass();
+	Weapon::registerClass();
+	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+		.deriveClass<Player, GameObject>("Player")
+		.addProperty("movement", &Player::m_movement)
+		.addProperty("health", &Player::health, true)
+		.addProperty("shields", &Player::shields, true)
+		.addProperty("gun", &Player::gun, true)
+		.endClass();
+}
