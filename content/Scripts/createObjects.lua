@@ -3,9 +3,9 @@ terrFac = TerrainFactory:getInstance()
 --Creating Player Object
 playerID = ObjectManager.Create(Types.player(),"");
 player = ObjectManager.GetPlayer(playerID);
-player:setPosition(500.0, 50.0, 500.0);
+player:setPosition(650.0, 200.0, 600.0);
 player:setCollider(4, 4, 4.0);
-player.movement.movementSpeed = 150;
+player.movement.movementSpeed = 1500;
 
 playerPos = player:getPosition();
 
