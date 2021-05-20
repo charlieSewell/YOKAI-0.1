@@ -78,6 +78,4 @@ private:
     reactphysics3d::decimal timeStep;
 
     CollisionEventHandler listener;
-
-
 };

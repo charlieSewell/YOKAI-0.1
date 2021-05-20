@@ -5,8 +5,9 @@
 #include "RayCaster.hpp"
 unsigned int RayCaster::CastRay(glm::vec3 startPosition,glm::vec3 direction,float distance)
 {
-    glm::vec3 extrapolatedVec = startPosition + (direction * distance);
-    rp3d::Ray testRay(ReactMath::glmVecToR3pd(startPosition),ReactMath::glmVecToR3pd(extrapolatedVec));
+    glm::vec3 extrapolatedVec = direction * distance + startPosition;
+    glm::vec3 start = direction * static_cast<float>(0.1) + startPosition;
+    rp3d::Ray testRay(ReactMath::glmVecToR3pd(start),ReactMath::glmVecToR3pd(extrapolatedVec));
     PhysicsSystem::getInstance().physicsWorld->raycast(testRay,this);
     if(lastHit != -1)
     {

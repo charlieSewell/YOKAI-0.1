@@ -64,7 +64,7 @@ void Player::update(float dt)
     m_physics.updatePhysics(m_movement.movementSpeed, m_movement.jumpSpeed);
     m_movement.updateVector = glm::vec3{};
     m_camera.m_position = glm::vec3(m_transform.getPosition().x,m_transform.getPosition().y+3,m_transform.getPosition().z);		//TODO: make this better
-    unsigned int test= rayCaster.CastRay(m_camera.m_position,glm::normalize(m_camera.m_frontDirection),50);
+    unsigned int test= rayCaster.CastRay(m_camera.m_position ,glm::normalize(m_camera.m_frontDirection),50);
     if(test != -1)
     {
         GameObjectManager::getInstance().DeleteGameObject(test);
