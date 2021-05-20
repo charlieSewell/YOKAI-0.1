@@ -6,7 +6,6 @@ Player::Player()
 {
 	m_movement.movementSpeed = 1500.0f;
 	m_movement.lookSensitivity = 0.05f;
-	m_movement.jumpHeight = 4.0f;
 	m_movement.jumpSpeed = 0.15f;
 	//m_mass = 0.025f;
 	registerPosition();

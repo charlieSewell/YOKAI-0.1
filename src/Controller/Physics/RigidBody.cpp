@@ -9,6 +9,11 @@ void RigidBody::CreateBody(rp3d::PhysicsWorld* physicsWorld,glm::vec3 position,g
     rp3d::Transform temp(ReactMath::glmVecToR3pd(position),ReactMath::glmQuatToR3pd(orientation));
     body = physicsWorld->createRigidBody(temp);
 }
+void RigidBody::DeleteBody(rp3d::PhysicsWorld* physicsWorld,rp3d::PhysicsCommon &physicsCommon)
+{
+    shape.DeleteShape(physicsCommon);
+    physicsWorld->destroyRigidBody(body);
+}
 void RigidBody::SetPosition(glm::vec3 position){
     rp3d::Transform currTransform = body->getTransform();
     currTransform.setPosition(ReactMath::glmVecToR3pd(position));

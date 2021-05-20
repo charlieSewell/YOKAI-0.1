@@ -17,7 +17,10 @@ void PhysicsSystem::Init()
 }
 PhysicsSystem::~PhysicsSystem()
 {
-    std::cout << "GoodBye";
+    for(auto& collider : m_colliders)
+    {
+        collider.second.DeleteBody(physicsWorld,physicsCommon);
+    }
     physicsCommon.destroyPhysicsWorld(physicsWorld);
 }
 
@@ -39,7 +42,6 @@ int PhysicsSystem::addSphere(Transform *transform, float radius)
     RigidBody object;
     ReactSphereShape sphere;
     object.CreateBody(physicsWorld,transform->getPosition(),transform->getRotation());
-
     sphere.CreateSphereShape(radius,physicsCommon);
     object.AddCollisionShape(sphere);
     m_colliders.emplace(object.getColliderID(),object);
@@ -53,7 +55,6 @@ int PhysicsSystem::addAABB(Transform* transform, float width, float height, floa
     ReactBoxShape box;
     glm::vec3 newPos = glm::vec3(transform->getPosition().x,transform->getPosition().y,transform->getPosition().z);
     object.CreateBody(physicsWorld,newPos,transform->getRotation());
-
     box.CreateBoxShape(glm::vec3(width,height,length),physicsCommon);
     object.AddCollisionShape(box);
     m_colliders.emplace(object.getColliderID(),object);

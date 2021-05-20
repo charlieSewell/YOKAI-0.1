@@ -12,6 +12,7 @@ public:
     void SetPosition(glm::vec3 position);
     void SetOrientation(glm::quat orientation);
     void CreateBody(rp3d::PhysicsWorld* physicsWorld,glm::vec3 position,glm::quat orientation);
+    void DeleteBody(rp3d::PhysicsWorld* physicsWorld,rp3d::PhysicsCommon &physicsCommon);
     void SetPositionAndOrientation(glm::vec3 position, glm::quat orientation);
     glm::vec3 GetPosition();
     glm::quat GetOrientation();
