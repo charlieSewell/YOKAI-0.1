@@ -48,7 +48,7 @@ private:
 	Camera m_camera;
 	PlayerControlledMotion m_movement;
 	PhysicsComponent m_physics;
-    Weapon gun;
+    //Weapon gun;
     RayCaster rayCaster;
 
 	void registerPosition();
