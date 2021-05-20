@@ -24,7 +24,7 @@ Player::~Player() {}
 
 void Player::draw() 
 {
-    //gun.draw();
+    gun.draw();
 }
 
 void Player::update(float dt)
@@ -65,9 +65,9 @@ void Player::update(float dt)
 
 	m_camera.m_position = glm::vec3(m_transform.getPosition().x, m_transform.getPosition().y + 3, m_transform.getPosition().z);		//TODO: make this better
 
-    //gun.getWeaponAnimation()->setCurrentFrame(dt);
-    //gun.update(m_transform, m_camera.m_frontDirection);
-    //LuaManager::getInstance().runScript("content/Scripts/gunLogic.lua");
+	gun.getWeaponAnimation()->setCurrentFrame(dt);
+    gun.update(m_transform, m_camera.m_frontDirection);
+    LuaManager::getInstance().runScript("content/Scripts/gunLogic.lua");
 }
 
 void Player::setCollider(float width, float length, float height)
@@ -101,7 +101,7 @@ void Player::registerClass()
 		.addProperty("movement", &Player::m_movement)
         .addProperty("health", &Player::health, true)
         .addProperty("shields", &Player::shields, true)
-        //.addProperty("gun", &Player::gun, true)
+        .addProperty("gun", &Player::gun, true)
 		.endClass();
 }
 
