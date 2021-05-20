@@ -5,7 +5,7 @@ terrFac = TerrainFactory:getInstance()
 --Creating Player Object
 playerID = ObjectManager.Create(Types.player(),"");
 player = ObjectManager.GetObject(playerID);
-player:setPosition(500.0, 50.0, 500.0);
+player:setPosition(650.0, 200.0, 600.0);
 player:setCollider(4, 4, 4.0);
 
 
@@ -25,7 +25,7 @@ for i=0,200 do
         gameObj = ObjectManager.GetObject(asset);
         gameObj:setScale(0.02,0.02,0.02);
         gameObj:setPosition(x,val-2,z);
-        gameObj:setCollider(6,6,15);
+        gameObj:setCollider(3,6,3);
 end
 
 --Creating Zombies in random places
@@ -47,6 +47,7 @@ for i=0,200 do
         asset = ObjectManager.Create(Types.static(),"content/Models/tree.fbx");
         gameObj = ObjectManager.GetObject(asset);
         gameObj:setScale(0.01,0.01,0.01);
-        gameObj:setCollider(1,1,50);
         gameObj:setPosition(x,val-1,z);
+        gameObj:setCollider(1,20,1);
+
 end

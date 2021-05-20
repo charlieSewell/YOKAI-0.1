@@ -8,7 +8,7 @@
 #include "Controller/Physics/ReactMath.hpp"
 #include "Controller/Physics/Shapes/ReactTerrainShape.hpp"
 #include "Controller/Physics/Shapes/ReactSphereShape.hpp"
-#include "Controller/Physics/ReactBoxShape.hpp"
+#include "Controller/Physics/Shapes/ReactBoxShape.hpp"
 //class ReactTerrainShape;
 
 /**
@@ -46,13 +46,13 @@ public:
      * @param float - height
      * @return ReactBoxShape*
      */
-    int addAABB(Transform* transform, float width, float length, float height);
+    int addAABB(Transform* transform, float width, float height, float length);
     /**
      * @brief Returns a collider given an ID
      * @param int - colliderID
-     * @return ReactBoxShape
+     * @return RigidBody
      */
-    rp3d::RigidBody * getCollider(int colliderID);
+    RigidBody * getRigidBody(int colliderID);
 
     int addSphere(Transform* transform,float radius);
 

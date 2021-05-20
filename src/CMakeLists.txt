@@ -43,7 +43,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Controller/Physics/RigidBody.cpp
 
 		Controller/Animator.cpp
-        Controller/Physics/ReactBoxShape.cpp
+        Controller/Physics/Shapes/ReactBoxShape.cpp
         Controller/Physics/Shapes/ReactShape.cpp
         Controller/Physics/Shapes/ReactSphereShape.cpp
         Controller/Factory/GameAssetFactory.cpp

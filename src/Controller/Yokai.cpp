@@ -41,10 +41,11 @@ void Yokai::Run()
 {
     PhysicsSystem::getInstance().addTerrain();
 
-    const double frameRate = 1.0f / 300;	// 120 fps
+    const float timeStep = 1.0f / 60;	// 120 fps
 
 	double lastFrame = 0;
     double lastTime = 0;
+    double accumulator = 0;
 
     ModelLoader loader;
     std::shared_ptr<Model> model = std::make_shared<Model>(loader.loadModel("content/Models/Zombie/ZombieSmooth.gltf"));
@@ -55,60 +56,57 @@ void Yokai::Run()
     while(isRunning)
 	{
 		double currentTime = glfwGetTime();
-        double frameTime = currentTime - lastTime;
+        double deltaTime = currentTime - lastTime;
         lastTime = currentTime;
 
-
-		if((currentTime - lastFrame) >= frameRate)
-		{
-            renderer.Clear();
-            window.startFrame();
-            glm::mat4 model(1.0);
-            model = glm::translate(model,glm::vec3(500,20,500));
+        accumulator += deltaTime;
 
 
-			InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
-			InputManagerGLFW::getInstance().processMouse(window.getWindow());
-            for(auto& layer: layers)
-            {
-                layer->Update(frameTime);
+        renderer.Clear();
+        window.startFrame();
+        InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
+		InputManagerGLFW::getInstance().processMouse(window.getWindow());
+        while (accumulator >= timeStep) {
 
-            }
-            PhysicsSystem::getInstance().update(frameTime);
-            for(auto& layer: layers)
-            {
-                layer->Draw();
+            PhysicsSystem::getInstance().update(timeStep);
+
+            for (auto &layer: layers) {
+                layer->Update(timeStep);
             }
 
-            if(endScreen->isActive())
-            {
-                endScreen->draw();
-            }
+            accumulator -= timeStep;
+        }
 
-			lastFrame = currentTime;
+        for(auto& layer: layers)
+        {
+            layer->Draw();
+        }
 
-            ImGui::Begin("Menu");                          // Create a window called "Hello, world!" and append into it.
+        if(endScreen->isActive())
+        {
+            endScreen->draw();
+        }
 
-            ImGui::Text("Main Menu");               // Display some text (you can use a format strings too)
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            if(ImGui::Button("Start Game",ImVec2(500,100)))
-            {
-                std::cout << "Starting Game" <<std::endl;
-            }
-            if(ImGui::Button("Settings",ImVec2(500,100)))
-            {
-                std::cout << "Entering Settings" <<std::endl;
-            }
-            if(ImGui::Button("Quit",ImVec2(500,100)))
-            {
-                std::cout << "Quitting" <<std::endl;
-            }
+        ImGui::Begin("Menu");                          // Create a window called "Hello, world!" and append into it.
 
-            ImGui::End();
-            renderer.DrawGui();
-            window.endFrame();
+        ImGui::Text("Main Menu");               // Display some text (you can use a format strings too)
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        if(ImGui::Button("Start Game",ImVec2(500,100)))
+        {
+            std::cout << "Starting Game" <<std::endl;
+        }
+        if(ImGui::Button("Settings",ImVec2(500,100)))
+        {
+            std::cout << "Entering Settings" <<std::endl;
+        }
+        if(ImGui::Button("Quit",ImVec2(500,100)))
+        {
+            std::cout << "Quitting" <<std::endl;
+        }
 
-		}
+        ImGui::End();
+        renderer.DrawGui();
+        window.endFrame();
 
     }
     renderer.DeInit();

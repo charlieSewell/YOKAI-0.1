@@ -44,7 +44,9 @@ public:
      * @param float - length
      * @param float - height
      */
-    void registerAABB(float width, float length, float height);
+    void registerAABB(float width, float height, float length);
+
+    RigidBody * getCollider();
 
     void registerSphere(float radius);
     /**

@@ -1,6 +1,6 @@
 //ReactBoxShape.cpp - Axis Aligned Bounding Box
 
-#include "Controller/Physics/ReactBoxShape.hpp"
+#include "ReactBoxShape.hpp"
 void ReactBoxShape::CreateBoxShape(glm::vec3 bounds, reactphysics3d::PhysicsCommon &physicsCommon)
 {
     reactphysics3d::Vector3 extent(bounds.x,bounds.y,bounds.z);

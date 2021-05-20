@@ -30,15 +30,24 @@ glm::vec3 RigidBody::GetPosition()
     rp3d::Vector3 temp = body->getTransform().getPosition();
     return ReactMath::r3pdVecToGlm(temp);
 }
-
+glm::vec3 RigidBody::GetLinearVelocity()
+{
+    rp3d::Vector3 temp = body->getLinearVelocity();
+    return ReactMath::r3pdVecToGlm(temp);
+}
+glm::vec3 RigidBody::GetAngularVelocity()
+{
+    rp3d::Vector3 temp = body->getAngularVelocity();
+    return ReactMath::r3pdVecToGlm(temp);
+}
 void RigidBody::ApplyForceToCentre(glm::vec3 force) {
     rp3d::Vector3 addedForce = ReactMath::glmVecToR3pd(force);
     body->applyForceToCenterOfMass(addedForce);
 }
 void RigidBody::AddCollisionShape(ReactShape shape) {
     this->shape = std::move(shape);
-    rp3d::Collider* temp = body->addCollider(this->shape.getShape(),rp3d::Transform::identity());
-    colliderID = temp->getEntity().id;
+    collider = body->addCollider(this->shape.getShape(),rp3d::Transform::identity());
+
 }
 
 void RigidBody::SetBodyType(rp3d::BodyType type) {
@@ -56,14 +65,33 @@ void RigidBody::SetBodyType(rp3d::BodyType type) {
 }
 void RigidBody::SetFrictionCoefficient(float friction)
 {
-    body->getCollider(colliderID)->getMaterial().setFrictionCoefficient(friction);
+    collider->getMaterial().setFrictionCoefficient(friction);
 }
 
 void RigidBody::SetRollingResistance(float resistance)
 {
-    body->getCollider(colliderID)->getMaterial().setRollingResistance(resistance);
+    collider->getMaterial().setRollingResistance(resistance);
 }
 void RigidBody::SetMass(float mass)
 {
     body->setMass(mass);
+}
+void RigidBody::SetAngularDamping(double damping) {
+    body->setAngularDamping(damping);
+}
+void RigidBody::SetLinearDamping(double damping) {
+    body->setAngularDamping(damping);
+}
+void RigidBody::SetLinearVelocity(glm::vec3 velocity) {
+    body->setLinearVelocity(ReactMath::glmVecToR3pd(velocity));
+}
+void RigidBody::SetAngularVelocity(glm::vec3 velocity) {
+    body->setAngularVelocity(ReactMath::glmVecToR3pd(velocity));
+}
+void RigidBody::SetBounciness(float bounciness) {
+    collider->getMaterial().setBounciness(bounciness);
+}
+void RigidBody::SetIsAllowedToSleep(bool sleepState)
+{
+    body->setIsAllowedToSleep(sleepState);
 }

@@ -79,7 +79,7 @@ public:
 	 * @param vec3& - position
 	 * @param vec3& - upDirection
 	 */
-    void registerJump();
+    void registerJump(glm::vec3& upDirection);
     /**
      * @brief Registers downward movement with EMS
      * @param vec3& - position
@@ -109,7 +109,7 @@ public:
 	bool jumping = false;
     ///player jump speed
 	float jumpSpeed;
-
+    glm::vec3 updateVector = glm::vec3(1.0);
 private:
     ///Jump height target
 	float m_jumpTarget;
@@ -117,4 +117,5 @@ private:
 	float m_jumpDecay;
 
 	Transform* m_transformPtr;
+
 };

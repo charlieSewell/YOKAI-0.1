@@ -1,11 +1,10 @@
 #pragma once
 
 #include "Player.hpp"
-
 Player::Player()
 	: m_camera(Camera()), m_movement(PlayerControlledMotion(m_transform)), m_physics(m_transform)
 {
-	m_movement.movementSpeed = 0.075f;
+	m_movement.movementSpeed = 1500.0f;
 	m_movement.lookSensitivity = 0.05f;
 	m_movement.jumpHeight = 4.0f;
 	m_movement.jumpSpeed = 0.15f;
@@ -22,15 +21,48 @@ void Player::draw() {}
 
 void Player::update(float dt)
 {
-	m_camera.m_position = m_transform.getPosition();		//TODO: make this better
-	if(m_physics.m_physicsActive) {
-        m_physics.updatePhysics(m_movement.movementSpeed, m_movement.jumpSpeed);
+	if(m_physics.m_physicsActive)
+	{
+        if(m_transform.getPosition().y -2.5 <= TerrainFactory::getInstance().heightAt(m_transform.getPosition().x,m_transform.getPosition().z))
+        {
+            m_movement.canJump = true;
+        }
+        else{
+            m_movement.canJump = false;
+        }
+        if(m_movement.canJump)
+        {
+            if (m_movement.updateVector != glm::vec3{})
+            {
+                m_physics.getCollider()->SetLinearVelocity(glm::vec3(0.0));
+                m_physics.getCollider()->SetAngularVelocity(glm::vec3(0.0));
+                m_physics.getCollider()->ApplyForceToCentre(glm::normalize(glm::vec3(m_movement.updateVector)) *m_movement.movementSpeed * dt);
+            }
+        }
     }
+	else
+	{
+        if (m_movement.updateVector != glm::vec3{})
+        {
+            m_movement.canJump = true;
+            m_physics.getCollider()->SetPosition(m_physics.getCollider()->GetPosition()+m_movement.updateVector);
+
+        }
+	}
+    m_physics.updatePhysics(m_movement.movementSpeed, m_movement.jumpSpeed);
+    m_movement.updateVector = glm::vec3{};
+    m_camera.m_position = glm::vec3(m_transform.getPosition().x,m_transform.getPosition().y+3,m_transform.getPosition().z);		//TODO: make this better
 }
 
 void Player::setCollider(float width, float length, float height)
 {
-    m_physics.registerSphere(4);
+    m_physics.registerSphere(1);
+    m_physics.getCollider()->SetMass(0.1);
+    m_physics.getCollider()->SetFrictionCoefficient(1.0);
+    m_physics.getCollider()->SetAngularDamping(0.9);
+    m_physics.getCollider()->SetLinearDamping(0.9);
+    m_physics.getCollider()->SetRollingResistance(1.0);
+    m_physics.getCollider()->SetBounciness(0);
 }
 
 void Player::registerPosition()

@@ -21,10 +21,18 @@ public:
     void SetBodyType(rp3d::BodyType type);
     void SetFrictionCoefficient(float friction);
     void SetRollingResistance(float resistance);
+    void SetLinearVelocity(glm::vec3 velocity);
+    void SetAngularVelocity(glm::vec3 velocity);
+    void SetAngularDamping(double damping);
+    void SetLinearDamping(double damping);
+    glm::vec3 GetLinearVelocity();
+    glm::vec3 GetAngularVelocity();
+    void SetBounciness(float bounciness);
     void SetMass(float mass);
+    void SetIsAllowedToSleep(bool sleepState);
     unsigned int getColliderID(){return body->getEntity().id;}
 private:
     ReactShape shape;
     reactphysics3d::RigidBody* body;
-    unsigned int colliderID = -1;
+    reactphysics3d::Collider* collider;
 };

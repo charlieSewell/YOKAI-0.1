@@ -2,13 +2,13 @@
 
 #include "PhysicsSystem.hpp"
 #include "Controller/GameObjectManager.hpp"
-
+#include <glm/gtx/string_cast.hpp>
 void PhysicsSystem::Init()
 {
     // Create the world settings
     reactphysics3d::PhysicsWorld::WorldSettings settings;
-    settings.defaultVelocitySolverNbIterations = 20;
-    settings.isSleepingEnabled = false;
+    //settings.defaultVelocitySolverNbIterations = 20;
+    //settings.isSleepingEnabled = false;
     settings.gravity = reactphysics3d::Vector3(0, -9.81, 0);
 
     physicsWorld = physicsCommon.createPhysicsWorld(settings);
@@ -40,30 +40,30 @@ int PhysicsSystem::addSphere(Transform *transform, float radius)
     ReactSphereShape sphere;
     object.CreateBody(physicsWorld,transform->getPosition(),transform->getRotation());
 
-    sphere.CreateSphereShape(3,physicsCommon);
+    sphere.CreateSphereShape(radius,physicsCommon);
     object.AddCollisionShape(sphere);
     m_colliders.emplace(object.getColliderID(),object);
     return object.getColliderID();
 }
 
 
-int PhysicsSystem::addAABB(Transform* transform, float width, float length, float height)
+int PhysicsSystem::addAABB(Transform* transform, float width, float height, float length)
 {
     RigidBody object;
     ReactBoxShape box;
-    object.CreateBody(physicsWorld,transform->getPosition(),transform->getRotation());
+    glm::vec3 newPos = glm::vec3(transform->getPosition().x,transform->getPosition().y,transform->getPosition().z);
+    object.CreateBody(physicsWorld,newPos,transform->getRotation());
 
     box.CreateBoxShape(glm::vec3(width,height,length),physicsCommon);
     object.AddCollisionShape(box);
-    object.SetBodyType(rp3d::BodyType::STATIC);
     m_colliders.emplace(object.getColliderID(),object);
 
     return object.getColliderID();
 }
 
-rp3d::RigidBody * PhysicsSystem::getCollider(int colliderID)
+RigidBody * PhysicsSystem::getRigidBody(int colliderID)
 {
-    return m_colliders.at(colliderID).getRigidBody();
+    return &m_colliders.at(colliderID);
 }
 
 
@@ -78,6 +78,8 @@ void PhysicsSystem::addTerrain()
     terrain.CreateBody(physicsWorld,position,orientation);
     terrShape.CreateTerrainShape(physicsCommon);
     terrain.AddCollisionShape(terrShape);
+    terrain.SetBounciness(0.0);
+    terrain.SetRollingResistance(1.0);
     terrain.SetBodyType(rp3d::BodyType::STATIC);
     m_colliders.emplace(terrain.getColliderID(),terrain);
 }

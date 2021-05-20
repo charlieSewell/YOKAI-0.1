@@ -15,5 +15,7 @@ void StaticObject::draw()
 void StaticObject::setCollider(float width, float length, float height)
 {
 	m_physics.registerAABB(width, length, height);
+    m_physics.getCollider()->SetBodyType(rp3d::BodyType::STATIC);
+    m_physics.getCollider()->SetBounciness(0.0);
 
 }

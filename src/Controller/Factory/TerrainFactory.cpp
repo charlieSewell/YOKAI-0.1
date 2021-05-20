@@ -141,7 +141,7 @@ void TerrainFactory::LoadHeightMap(const std::string& filename)
 {
     //File Must be square to produce the map e.g. 512x512
     int width,height,nrComponents;
-    float* data = stbi_loadf(filename.c_str(),&width,&height,&nrComponents,1);
+    unsigned char* data = stbi_load(filename.c_str(),&width,&height,&nrComponents,1);
 
     terrainSize = width;
     terrainSize = static_cast<int>(floor(terrainSize/100)*100);
@@ -154,7 +154,8 @@ void TerrainFactory::LoadHeightMap(const std::string& filename)
     {
         for (int y = 0; y < height; y++) 
         {
-            heightVals.at((x)).at((y)) = data[((x * width) + y)]*255;
+            heightVals.at((x)).at((y)) = data[((x * width) + y)];
+            //std::cout << heightVals.at((x)).at((y)) <<std::endl;
         }
     }
     for (int x = 1; x < width-1; x++) 
