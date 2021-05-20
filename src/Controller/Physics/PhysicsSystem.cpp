@@ -14,18 +14,6 @@ void PhysicsSystem::Init()
     physicsWorld = physicsCommon.createPhysicsWorld(settings);
     physicsWorld->setEventListener(&listener);
     timeStep = 1.0f / 30.0f;
-
-    glGenVertexArrays(1, &l_vao_);
-    assert(l_vao_ != 0);
-    glGenBuffers(1, &l_vbo_);
-    assert(l_vbo_ != 0);
-
-
-    //Generate triangle buffers for test renderer
-    glGenVertexArrays(1, &t_vao_);
-    assert(t_vao_ != 0);
-    glGenBuffers(1, &t_vbo_);
-    assert(t_vbo_ != 0);
 }
 void PhysicsSystem::DeInit()
 {

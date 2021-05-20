@@ -78,11 +78,4 @@ private:
     reactphysics3d::decimal timeStep;
 
     CollisionEventHandler listener;
-
-    unsigned int l_vbo_ = 0, l_vao_ = 0;
-    unsigned int t_vbo_ = 0, t_vao_ = 0;
-    unsigned int line_num_ = 0, triag_num_ = 0;
-
-    std::unique_ptr<Shader> shader = nullptr;
-
 };
