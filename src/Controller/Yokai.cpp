@@ -41,7 +41,6 @@ void Yokai::Init()
         layer->Init();
     }
    
-
     //GameObjectManager::init();
     endScreen = new SplashScreen("content/Textures/exit_screen.png");
     
