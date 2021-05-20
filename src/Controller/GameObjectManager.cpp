@@ -2,7 +2,6 @@
 
 GameObjectManager& GameObjectManager::getInstance() 
 {
-    std::cout << "Getting Instance" <<std::endl;
     static GameObjectManager instance;
     return instance;
 }
