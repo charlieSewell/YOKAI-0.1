@@ -7,6 +7,10 @@ void MainMenuScene::Init()
 
 void MainMenuScene::Update(double frameRate) 
 {
+}
+
+void MainMenuScene::Draw() 
+{
     int width = 1920, height = 1080;
     ImGui::SetNextWindowPos(ImVec2(width / 2, height / 2), ImGuiCond_Always, ImVec2(0.5, 0.5));
     ImGui::Begin("Main Menu"); // Create a window called "Hello, world!" and append into it.
@@ -20,18 +24,16 @@ void MainMenuScene::Update(double frameRate)
         Yokai::getInstance().setActiveLayer(1);
         glfwSetInputMode(Yokai::getInstance().window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     }
-    if (ImGui::Button("Load", ImVec2(500, 100))) {
+    if (ImGui::Button("Load", ImVec2(500, 100))) 
+    {
         std::cout << "Loading" << std::endl;
     }
-    if (ImGui::Button("Quit", ImVec2(500, 100))) {
+    if (ImGui::Button("Quit", ImVec2(500, 100))) 
+    {
         std::cout << "Quitting" << std::endl;
         Yokai::getInstance().setIsRunning(false);
     }
     ImGui::End();
-}
-
-void MainMenuScene::Draw() 
-{
 }
 
 void MainMenuScene::Enable() 
