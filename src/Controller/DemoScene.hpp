@@ -1,5 +1,6 @@
 #pragma once
 #include "Controller/Layer.hpp"
+#include "Controller/UIManager.hpp"
 /**
  * @class DemoScene
  * @brief A demo Scene for Assignment 1
@@ -31,7 +32,7 @@ class DemoScene : public Layer
     ///Terrain Manager for the scene
     TerrainManager terrainManager = {};
     ///Controls SplashScreen
-    SplashScreen* controlsScreen;
+    //SplashScreen* controlsScreen;
     ///Is this scene active
     bool isEnabled = true;
     /**
@@ -41,4 +42,5 @@ class DemoScene : public Layer
 
 	// test - delelt
 	int test;
+
 };

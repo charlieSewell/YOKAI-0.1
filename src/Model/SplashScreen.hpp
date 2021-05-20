@@ -32,23 +32,22 @@ class SplashScreen {
     /**
      * @brief Sets up splash screen panel mesh
      */
-    void setupPanel();
 
-    void setupPanel(glm::vec3 bottomLeft, glm::vec3 topLeft, glm::vec3 bottomRight, glm::vec3 topRight);
+    void setupPanel(float left, float right, float top, float bottom);
 
     /**
      * @brief Sets the splash screen as active
      */
-    void setActive();
+    void setActive(bool a);
     /**
      * @brief Sets the splash screen as inactive
      */
-    void setInactive();
     /**
      * @brief Returns whether the splash screen is active
      * @return bool
      */
-    bool isActive();
+    bool getActive();
+
   private:
     ///Pointer to shader
     Shader *splashShader;
