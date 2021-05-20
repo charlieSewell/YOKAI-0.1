@@ -31,10 +31,9 @@ void NPC::draw()
 	
 	ModelManager::getInstance().DrawModel(modelID, m_transform.getMatrix(),animator.finalTransforms);
 }
-
-void NPC::setCollider(float width, float length, float height)
+void NPC::setCollider(float x, float y, float z)
 {
-	//registerAABB(&m_position, width, length, height);
+
 }
 void NPC::update(float dt)
 {

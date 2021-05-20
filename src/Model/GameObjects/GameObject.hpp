@@ -34,11 +34,15 @@ public:
      */
     virtual Transform getTransform();
 
+    virtual void setTransform(Transform transform);
+
 	/*!
 	* @brief Virtual getter for the position of the GameObject
 	* @return m_position
 	*/
 	virtual glm::vec3 getLuaPosition();
+
+    virtual void setCollider(float x,float y,float z) = 0;
 
     /*!
      * @brief Virtual setter for the GameObject position within Lua
@@ -55,14 +59,6 @@ public:
      * @param float - z
      */
     virtual void setLuaScale(float x,float y,float z);
-
-    /*!
-     * @brief Pure virtual setter for the GameObject collider
-     * @param float - width
-     * @param float - length
-     * @param float - height
-     */
-	virtual void setCollider(float width, float length, float height) = 0;
 
     /*!
      * @brief Virtual update call for the GameObject

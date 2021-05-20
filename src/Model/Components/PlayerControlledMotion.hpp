@@ -91,12 +91,6 @@ public:
      * @param vec3& - frontDirection
      */
 	void registerXYLook(glm::vec3& frontDirection);
-    /**
-     * Updates Jump
-     * @param vec3& - position
-     * @param vec3& - upDirection
-     */
-	void updateJump(glm::vec3 position, glm::vec3& upDirection);
     ///Movement speed
 	float movementSpeed;
     ///Mouse sensitivity
@@ -115,7 +109,7 @@ private:
 	float m_jumpTarget;
     ///Current jump decay
 	float m_jumpDecay;
-
+    ///Pointer to current transform
 	Transform* m_transformPtr;
 
 };

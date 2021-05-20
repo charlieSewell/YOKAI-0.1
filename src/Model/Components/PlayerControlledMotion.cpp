@@ -95,17 +95,6 @@ void PlayerControlledMotion::registerJump(glm::vec3& upDirection)
 	EMS::getInstance().add(NoReturnEvent::jump, jump);
 }
 
-void PlayerControlledMotion::updateJump(glm::vec3 position, glm::vec3& upDirection)
-{
-	m_jumpDecay = (m_jumpTarget - position.y)*jumpSpeed;
-	if(jumping)
-	{
-		if(position.y < m_jumpTarget)
-			position += (jumpSpeed + m_jumpDecay/3) * upDirection;
-		else
-			jumping = false;
-	}
-}
 void PlayerControlledMotion::registerXYLook(glm::vec3& frontDirection)
 {
 	static double yaw = -90.0f;
@@ -130,7 +119,10 @@ void PlayerControlledMotion::registerXYLook(glm::vec3& frontDirection)
 		direction.y = sin(glm::radians(pitch));
 		direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 		frontDirection = glm::normalize(direction);
+
+		m_transformPtr->rotate(glm::radians(-xoffset), glm::vec3(0, 1, 0));
 	};
 
 	EMS::getInstance().add(NoReturnEvent::xyLook, xyLook);
+
 }

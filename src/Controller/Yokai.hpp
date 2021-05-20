@@ -1,10 +1,11 @@
-
 #pragma once
 
 #include "Controller/TerrainManager.hpp"
 #include "View/Renderer/Renderer.hpp"
 #include "View/Window.hpp"
 #include "Model/SplashScreen.hpp"
+//#include "Controller/KeyframeAnimation.hpp"
+//#include "Model/Components/Weapon.hpp"
 //workaround to allow vector of layer pointers
 class Layer;
 /**
@@ -32,12 +33,23 @@ class Yokai
     ///window used by the engine
     Window window = {};
 
+    void setIsRunning(bool s);
+
+    std::vector<std::shared_ptr<Layer>> getLayer();
+
+    void setActiveLayer(int a);
+
+    void setIsPaused(bool p);
+    bool getIsPaused();
+
   private:
     //Singleton pattern requires that all constructors,destructors and copy constructors be private
     /**
      * @brief Registers Engine close event with EMS
      */
     void registerClose();
+
+    void registerUI();
     /**
      * @brief Privatised Default Constructor
      */
@@ -58,6 +70,26 @@ class Yokai
     bool isRunning = true;
     ///Vector of Scene layers
     std::vector<std::shared_ptr<Layer>> layers;
+
     SplashScreen* endScreen;
 
+    //SplashScreen* healthUI;
+
+    //SplashScreen *shieldUI;
+
+    //SplashScreen *ammoMainUI;
+    //SplashScreen *ammoMainUI2;
+    //SplashScreen *ammoReserveUI;
+    //SplashScreen *ammoReserveUI2;
+    //SplashScreen *ammoReserveUI3;
+
+    //KeyframeAnimation *keyframe;
+
+    //TESTING
+    //int healthbar;
+    bool isPaused;
+    //Weapon gun;
+    //std::vector<std::string> ammoNumbers;
+
+    int activeLayer;
 };

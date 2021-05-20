@@ -13,11 +13,18 @@ Player::Player()
 	m_movement.registerAllMovement(m_camera.m_frontDirection, m_camera.m_upDirection);
 	m_physics.registerPhysicsToggle();
 
+	//gun.initialiseAnimations();
+    health = 100;
+    shields = 100;
+
 }
 
 Player::~Player() {}
 
-void Player::draw() {}
+void Player::draw() 
+{
+    //gun.draw();
+}
 
 void Player::update(float dt)
 {
@@ -36,7 +43,7 @@ void Player::update(float dt)
             {
                 m_physics.getCollider()->SetLinearVelocity(glm::vec3(0.0));
                 m_physics.getCollider()->SetAngularVelocity(glm::vec3(0.0));
-                m_physics.getCollider()->ApplyForceToCentre(glm::normalize(glm::vec3(m_movement.updateVector)) *m_movement.movementSpeed * dt);
+                m_physics.getCollider()->ApplyForceToCentre(glm::normalize(glm::vec3(m_movement.updateVector)) * m_movement.movementSpeed * dt);
             }
         }
     }
@@ -52,6 +59,9 @@ void Player::update(float dt)
     m_physics.updatePhysics(m_movement.movementSpeed, m_movement.jumpSpeed);
     m_movement.updateVector = glm::vec3{};
     m_camera.m_position = glm::vec3(m_transform.getPosition().x,m_transform.getPosition().y+3,m_transform.getPosition().z);		//TODO: make this better
+
+    //gun.getWeaponAnimation()->setCurrentFrame(dt);
+    //gun.update(m_transform, m_camera.m_frontDirection);
 }
 
 void Player::setCollider(float width, float length, float height)
@@ -63,6 +73,7 @@ void Player::setCollider(float width, float length, float height)
     m_physics.getCollider()->SetLinearDamping(0.9);
     m_physics.getCollider()->SetRollingResistance(1.0);
     m_physics.getCollider()->SetBounciness(0);
+
 }
 
 void Player::registerPosition()
@@ -73,4 +84,24 @@ void Player::registerPosition()
 	};
 
 	EMS::getInstance().add(ReturnVec3Event::getPlayerPosition, getPlayerPosition);
+}
+
+void Player::setHealth(int h) 
+{
+    health = h;
+}
+
+int Player::getHealth() 
+{
+    return health;
+}
+
+void Player::setShields(int s) 
+{
+    shields = s;
+}
+
+int Player::getShields() 
+{
+    return shields;
 }

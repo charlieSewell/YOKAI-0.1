@@ -1,3 +1,4 @@
+#pragma once
 #include "Controller/Layer.hpp"
 /**
  * @class DemoScene

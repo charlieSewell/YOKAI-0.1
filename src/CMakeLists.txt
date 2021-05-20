@@ -15,7 +15,9 @@ target_sources(${PROJECT_NAME} PRIVATE
 		Model/Components/PhysicsComponent.cpp
         Model/SkeletalAnimation.cpp
 		Model/Components/AutomatedBehaviours.cpp
+		Model/Components/Weapon.cpp
 		Model/Components/Transform.cpp
+
 
 
         View/Renderer/Shader.cpp
@@ -51,6 +53,8 @@ target_sources(${PROJECT_NAME} PRIVATE
         Controller/GameObjectManager.cpp
 		Controller/LuaTypes.cpp
 		Controller/TextureManager.cpp
+		Controller/KeyframeAnimation.cpp
+		Controller/MainMenuScene.cpp
 
         )
 
