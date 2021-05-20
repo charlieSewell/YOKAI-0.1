@@ -9,9 +9,3 @@ void StaticObject::draw()
 {
     ModelManager::getInstance().DrawModel(modelID, m_transform.getMatrix());
 }
-
-void StaticObject::setCollider(float width, float length, float height)
-{
-	//PhysicsManager::getInstance().addCapsule(m_transform);
-	//registerAABB(width, length, height);
-}

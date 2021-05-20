@@ -24,20 +24,13 @@ class NPC : public GameObject//, public PhysicsComponent
      * @brief Draw call for the NPC model
      */
     void draw();
-    void update(float dt) override;
+    void update(double dt) override;
     /*!
      * @brief Getter for the position of the NPC
      * @return position
      */
     //glm::vec3 getPosition();
 
-    /*!
-     * @brief Setter for the NPC collider
-     * @param float - width
-     * @param float - length
-     * @param float - height
-     */
-	void setCollider(float width, float length, float height);
 
 private:
 	AutomatedBehaviours m_behaviours;

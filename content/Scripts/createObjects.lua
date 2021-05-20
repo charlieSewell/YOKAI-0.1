@@ -6,7 +6,7 @@ terrFac = TerrainFactory:getInstance()
 playerID = ObjectManager.Create(Types.player(),"");
 player = ObjectManager.GetObject(playerID);
 player:setPosition(500.0, 50.0, 500.0);
-player:setCollider(4, 4, 4.0);
+--player:setCollider(4, 4, 4.0);
 
 
 
@@ -25,20 +25,20 @@ for i=0,200 do
         gameObj = ObjectManager.GetObject(asset);
         gameObj:setScale(0.02,0.02,0.02);
         gameObj:setPosition(x,val-2,z);
-        gameObj:setCollider(6,6,15);
+        --gameObj:setCollider(6,6,15);
 end
 
 --Creating Zombies in random places
-for i=0, 50 do
-        x = math.random(0,TerrainSettings.terrainSize);
-        z = math.random(0,TerrainSettings.terrainSize);
-        val = terrFac:getHeight(x,z)
-        asset = ObjectManager.Create(Types.npc(),"content/Models/Zombie/ZombieSmooth.gltf");
-        gameObj = ObjectManager.GetObject(asset);
-        gameObj:setScale(0.5,0.5,0.5);
-        gameObj:setCollider(4,1,25);
-        gameObj:setPosition(x,val,z);
-end
+--for i=0, 50 do
+        --x = math.random(0,TerrainSettings.terrainSize);
+        --z = math.random(0,TerrainSettings.terrainSize);
+        --val = terrFac:getHeight(x,z)
+        --asset = ObjectManager.Create(Types.npc(),"content/Models/Zombie/ZombieSmooth.gltf");
+        --gameObj = ObjectManager.GetObject(asset);
+        --gameObj:setScale(0.5,0.5,0.5);
+        --gameObj:setCollider(4,1,25);
+        --gameObj:setPosition(x,val,z);
+--end
 
 --Creating Trees in random places
 for i=0,200 do
@@ -48,6 +48,6 @@ for i=0,200 do
         asset = ObjectManager.Create(Types.static(),"content/Models/tree.fbx");
         gameObj = ObjectManager.GetObject(asset);
         gameObj:setScale(0.01,0.01,0.01);
-        gameObj:setCollider(1,1,50);
+        --gameObj:setCollider(1,1,50);
         gameObj:setPosition(x,val-1,z);
 end

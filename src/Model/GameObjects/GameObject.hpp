@@ -34,6 +34,8 @@ public:
      */
     virtual Transform getTransform();
 
+    virtual void setTransform(Transform transform);
+
 	/*!
 	* @brief Virtual getter for the position of the GameObject
 	* @return m_position
@@ -57,17 +59,9 @@ public:
     virtual void setLuaScale(float x,float y,float z);
 
     /*!
-     * @brief Pure virtual setter for the GameObject collider
-     * @param float - width
-     * @param float - length
-     * @param float - height
-     */
-	virtual void setCollider(float width, float length, float height) = 0;
-
-    /*!
      * @brief Virtual update call for the GameObject
      */
-	virtual void update(float dt);
+	virtual void update(double dt);
 
     /*!
      * @brief Pure virtual draw call for the GameObject

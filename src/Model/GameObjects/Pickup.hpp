@@ -33,14 +33,6 @@ class Pickup : public GameObject, public PhysicsComponent
      */
     // glm::vec3 getPosition();
 
-    /*!
-     * @brief Setter for the Pickup collider
-     * @param float - width
-     * @param float - length
-     * @param float - height
-     */
-    void setCollider(float width, float length, float height);
-
     void setHealth(float h);
 
     float getHealth();

@@ -20,11 +20,6 @@ void Pickup::draw()
     ModelManager::getInstance().DrawModel(modelID, m_transform);
 }
 
-void Pickup::setCollider(float width, float length, float height) 
-{
-    registerAABB(&m_position, width, length, height);
-}
-
 void Pickup::setHealth(float h) 
 {
     health = h;

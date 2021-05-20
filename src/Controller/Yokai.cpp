@@ -6,6 +6,8 @@
 
 #include "Animator.hpp"
 #include "DemoScene.hpp"
+#include "MainMenuScene.hpp"
+
 Yokai &Yokai::getInstance() 
 {
     static Yokai instance;
@@ -15,7 +17,7 @@ Yokai &Yokai::getInstance()
 void Yokai::Init() 
 {
     registerClose();
-    registerUI();
+    //registerUI();
 
     if(!window.Init())
     {
@@ -26,16 +28,24 @@ void Yokai::Init()
     {
         return;
     }
+
     //Add layers to layer stack
+    activeLayer = 0;
+    //layers.push_back(std::shared_ptr<Layer>(new DemoScene()));
+    layers.push_back(std::shared_ptr<Layer>(new MainMenuScene()));
     layers.push_back(std::shared_ptr<Layer>(new DemoScene()));
     TerrainFactory::getInstance().Init();
+    
     for(auto& layer: layers)
     {
         layer->Init();
     }
-    GameObjectManager::init();
-    endScreen = new SplashScreen("content/Textures/exit_screen.png");
+   
 
+    //GameObjectManager::init();
+    endScreen = new SplashScreen("content/Textures/exit_screen.png");
+    
+    /*
     healthbar = 700;
     healthUI = new SplashScreen("content/Textures/health.jpg");
     healthUI->setupPanel(glm::vec3(50, 950, 1), glm::vec3(700, 950, 1), glm::vec3(50, 1000, 1), glm::vec3(700, 1000, 1));
@@ -81,15 +91,9 @@ void Yokai::Init()
     ammoNumbers.push_back("content/Textures/7.png");
     ammoNumbers.push_back("content/Textures/8.png");
     ammoNumbers.push_back("content/Textures/9.png");
-
-    gun.setMaxAmmo(30);
-    gun.setMaxReserveAmmo(150);
-
+    */
     // END OF AMMO TESTING
 
-    keyframe = new KeyframeAnimation();
-
-    inGame = true;
     isPaused = false;
 }
 void Yokai::Run()
@@ -99,41 +103,11 @@ void Yokai::Run()
 	double lastFrame = 0;
     double lastTime = 0;
 
-    //KEYFRAME TESTING
-    
-    keyframe->readFile("content/Models/guntest.txt");
-    keyframe->setTPS(20);
-    keyframe->addAnimation("fire", 1, 7);
-    keyframe->addAnimation("reload", 7, 55);
-    keyframe->addAnimation("emptyreload", 55, 108);
-    keyframe->addAnimation("idle", 142, 164);
-    keyframe->setAnimation("idle");
-    
-
-
-    ModelLoader loader;
-    std::shared_ptr<Model> model = std::make_shared<Model>(loader.loadModel("content/Models/Zombie/ZombieSmooth.gltf"));
-
-    Animator animator;
-    animator.addModel(model);
-    animator.setAnimation("test");
-
     while(isRunning)
 	{
         double currentTime = glfwGetTime();
         double frameTime = currentTime - lastTime;
         lastTime = currentTime;
-
-        /*
-        if (isPaused) 
-        {
-            currentTime = currentTime * 0;
-        } 
-        else 
-        {
-            currentTime = currentTime * 1;
-        }
-        */
 
 		if((currentTime - lastFrame) >= frameRate)
 		{
@@ -145,13 +119,10 @@ void Yokai::Run()
 
 			InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
 			InputManagerGLFW::getInstance().processMouse(window.getWindow());
-            
-            // KEYFRAME TESTING
-            //keyframe->setCurrentFrame(frameTime);
-            //keyframe->draw();
 
             // AMMO TESTING
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /*
             if (gun.getReserveAmmo() >= 0) 
             {
                 int remainder = gun.getAmmo() % 10;
@@ -182,7 +153,7 @@ void Yokai::Run()
                 ammoReserveUI2->setTexture(ammoNumbers[0]);
                 ammoReserveUI3->setTexture(ammoNumbers[0]);
             }
-
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //GUN ANIMATION LOGIC
             if (gun.getAmmo() == 0 && gun.getReserveAmmo() == 0)
             {
@@ -246,33 +217,24 @@ void Yokai::Run()
                 keyframe->setTPS(20);
                 keyframe->setAnimation("idle");
             }
+            */
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            if (inGame == true) 
+            if (isPaused == false) 
             {
-                if (isPaused == false) 
-                {
-                    for (auto &layer : layers) 
-                    {
-                        layer->Update(frameTime);
-                    }
-
-                    keyframe->setCurrentFrame(frameTime);
-                }
-                for (auto &layer : layers) 
-                {
-                    layer->Draw();
-                }
-                keyframe->draw();
+                layers[activeLayer]->Update(frameTime);
             }
+
+            layers[activeLayer]->Draw();
 
             if(endScreen->isActive())
             {
                 endScreen->draw();
             }
 
-            healthUI->draw();
-            shieldUI->draw();
+            //healthUI->draw();
+            //shieldUI->draw();
+            /*
             ammoMainUI->draw();
             ammoMainUI2->draw();
             if (gun.getReserveAmmo() >= 100) 
@@ -281,34 +243,24 @@ void Yokai::Run()
             }
             ammoReserveUI2->draw();
             ammoReserveUI3->draw();
+            */
 
 			lastFrame = currentTime;
             
-            ImGui::Begin("Main Menu");                          // Create a window called "Hello, world!" and append into it.
+            // UI
+            /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            ImGui::Text("Main Menu");               // Display some text (you can use a format strings too)
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            if(ImGui::Button("Start Game",ImVec2(500,100)))
+            if (glfwGetKey(window.getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) 
             {
-                std::cout << "Starting Game" <<std::endl;
-                inGame = true;
-            }
-            if(ImGui::Button("Settings",ImVec2(500,100)))
-            {
-                std::cout << "Entering Settings" <<std::endl;
-            }
-            if (ImGui::Button("Pause", ImVec2(500, 100))) 
-            {
-                std::cout << "Paused" << std::endl;
                 isPaused = !isPaused;
-            }
-            if(ImGui::Button("Quit",ImVec2(500,100)))
-            {
-                std::cout << "Quitting" <<std::endl;
-                isRunning = false;
+
+                if (isPaused) {
+                    glfwSetInputMode(window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+                } else {
+                    glfwSetInputMode(window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+                }
             }
 
-            ImGui::End();
             renderer.DrawGui();
             window.endFrame();
 		}
@@ -369,15 +321,40 @@ void Yokai::registerUI()
     {
         if (!isPressed) 
         {
-            if(healthbar > 50) 
-            {
-                healthbar -= 65;
-            }
+            //if(healthbar > 50) 
+            //{
+            //    healthbar -= 65;
+            //}
 
-            healthUI->setupPanel(glm::vec3(50, 950, 1), glm::vec3(healthbar, 950, 1), glm::vec3(50, 1000, 1), glm::vec3(healthbar, 1000, 1));
+            //healthUI->setupPanel(glm::vec3(50, 950, 1), glm::vec3(healthbar, 950, 1), glm::vec3(50, 1000, 1), glm::vec3(healthbar, 1000, 1));
             isPressed = true;
         }
     };
 
     EMS::getInstance().add(NoReturnEvent::uiPressed, uiPressed);
+}
+
+void Yokai::setIsRunning(bool s) 
+{
+    isRunning = s;
+}
+
+std::vector<std::shared_ptr<Layer>> Yokai::getLayer() 
+{
+    return layers;
+}
+
+void Yokai::setActiveLayer(int a) 
+{
+    activeLayer = a;
+}
+
+void Yokai::setIsPaused(bool p) 
+{
+    isPaused = p;
+}
+
+bool Yokai::getIsPaused() 
+{
+    return isPaused;
 }
