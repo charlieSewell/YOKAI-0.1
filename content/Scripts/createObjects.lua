@@ -5,7 +5,7 @@ objManager = ObjectManager:getInstance()
 --Creating Player Object
 playerID = objManager:Create(Types.player(),"");
 player = objManager:GetPlayer();
-player:setPosition(650.0, 200.0, 600.0);
+player:setPosition(1000.0, 75.0, 750.0);
 player:setCollider(4, 4, 4.0);
 player.movement.movementSpeed = 7500;
 player.health = 100;
@@ -88,8 +88,8 @@ for i=0,100 do
 end
 
 --Creating Zombies in random places
-numZombies = 50;
-spawnRange = 150;
+numZombies = 75;
+spawnRange = 300;
 for i=0, numZombies do
         x = math.random(playerPos.x - spawnRange, playerPos.x + spawnRange);
         z = math.random(playerPos.z - spawnRange, playerPos.z + spawnRange);

@@ -30,6 +30,6 @@ then
     uiManager:setTexture("reserveThree", ammoNumbers[rRemainder]);
 end
 
---player.health = 90; works
+--player.health = 50; --works
 --healthSize = 650;
 --uiManager:setUpPanel(healthBar, 50, 700, 950, 1000);

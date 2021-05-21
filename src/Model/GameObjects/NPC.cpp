@@ -1,7 +1,8 @@
 #include "NPC.hpp"
 
 NPC::NPC(std::string modelName)
-	: GameObject(), m_behaviours(AutomatedBehaviours(m_transform)), m_physicsComponent(m_transform)
+	: GameObject(), m_behaviours(AutomatedBehaviours(m_transform)), m_physicsComponent(m_transform),
+	hit(false), health(100)
 {
     modelID = ModelManager::getInstance().GetModelID(modelName);
     m_transform.setPosition(glm::vec3(0,0,0));
@@ -31,18 +32,6 @@ void NPC::setCollider(float width, float height, float length)
 
 	m_behaviours.rayCaster.setOwnColliderID(m_physicsComponent.getCollider()->getColliderID());
 	m_behaviours.rayCaster.setExcludedColliderID(EMS::getInstance().fire(ReturnIntEvent::getPlayerColliderID));
-}
-
-void NPC::registerClass()
-{
-	AutomatedBehaviours::registerClass();
-	Animator::registerClass();
-
-	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
-		.deriveClass<NPC, GameObject>("NPC")
-		.addProperty("behaviours", &NPC::m_behaviours)
-		.addProperty("animator", &NPC::animator)
-		.endClass();
 }
 
 void NPC::update(float dt)
@@ -85,4 +74,18 @@ void NPC::groupAlert()
 				GameObjectManager::getInstance().getNPC(m_behaviours.feelerLeftHit)->m_behaviours.active = true;
 		}
 	}
+}
+
+void NPC::registerClass()
+{
+	AutomatedBehaviours::registerClass();
+	Animator::registerClass();
+
+	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+		.deriveClass<NPC, GameObject>("NPC")
+		.addProperty("behaviours", &NPC::m_behaviours)
+		.addProperty("animator", &NPC::animator)
+		.addProperty("hit", &NPC::hit, true)
+		.addProperty("health", &NPC::health, true)
+		.endClass();
 }

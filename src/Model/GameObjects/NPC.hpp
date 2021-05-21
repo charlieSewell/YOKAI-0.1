@@ -33,18 +33,18 @@ class NPC : public GameObject
      */
     //glm::vec3 getPosition();
 
+	bool hit;
+	int health;
 
 	static void registerClass();
-
+	AutomatedBehaviours m_behaviours;		//bad
 private:
 	//Coponents
-	AutomatedBehaviours m_behaviours;
 	PhysicsComponent m_physicsComponent;
 	Animator animator;
 
 	void groupAlert();	//bad
     /// Stores associated model id of the NPC
     int modelID;
-
 	luabridge::LuaRef luaUpdate = LuaManager::getInstance().getState();
 };

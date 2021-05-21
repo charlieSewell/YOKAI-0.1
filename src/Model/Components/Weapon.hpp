@@ -43,6 +43,8 @@ class Weapon : public GameObject
 
     bool getIsReloading() const;
 
+	bool canFire;
+
   private:
     KeyframeAnimation *weaponAnimation;
       

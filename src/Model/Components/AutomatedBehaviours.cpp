@@ -122,9 +122,9 @@ void AutomatedBehaviours::wander()
 
 void AutomatedBehaviours::updateFeelers()
 {
-	frontFeelerHit = false;
-	feelerLeftHit = false;
-	feelerRightHit = false;
+	frontFeelerHit = -1;
+	feelerLeftHit = -1;
+	feelerRightHit = -1;
 
 	glm::vec3 temp1 = heading;
 	temp1.y = 0;
@@ -174,6 +174,7 @@ void AutomatedBehaviours::registerClass()
 		.addProperty("state", &AutomatedBehaviours::state, true)
 		.addProperty("active", &AutomatedBehaviours::active, true)
 		.addFunction("accelerate", &AutomatedBehaviours::accelerate)
+		.addProperty("acceleration", &AutomatedBehaviours::acceleration, true)
 		.addFunction("seek", &AutomatedBehaviours::seek)
 		.addFunction("wander", &AutomatedBehaviours::wander)
 		.endClass();

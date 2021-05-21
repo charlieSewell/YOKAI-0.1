@@ -62,10 +62,23 @@ void Player::update(float dt)
     m_physics.updatePhysics(m_movement.movementSpeed, m_movement.jumpSpeed);
     m_movement.updateVector = glm::vec3{};
 
+	gun.update(m_transform, m_camera.m_frontDirection);
 	m_camera.m_position = glm::vec3(m_transform.getPosition().x, m_transform.getPosition().y + 3, m_transform.getPosition().z);		//TODO: make this better
 
+	if(gun.getIsFiring() && gun.canFire)
+	{
+		unsigned int targetID = rayCaster.CastRay(m_camera.m_position, m_camera.m_frontDirection, 50);
+		if(targetID != -1 && GameObjectManager::getInstance().getNPC(targetID))
+		{
+			std::cout << "Hit\n";
+			if(GameObjectManager::getInstance().getNPC(targetID)->m_behaviours.state == 0)		//dead
+				GameObjectManager::getInstance().DeleteGameObject(targetID);
+			else
+				GameObjectManager::getInstance().getNPC(targetID)->hit = true;
+		}
+	}
+	
 	gun.getWeaponAnimation()->setCurrentFrame(dt);
-    gun.update(m_transform, m_camera.m_frontDirection);
     LuaManager::getInstance().runScript("content/Scripts/gunLogic.lua");
     //std::cout << health << std::endl;
 }
