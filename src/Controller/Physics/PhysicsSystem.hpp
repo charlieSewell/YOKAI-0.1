@@ -24,7 +24,9 @@ public:
      */
     static PhysicsSystem& getInstance();
 
-
+    /**
+     * @brief Initialises Physics Manager
+     */
     void Init();
 
     ///Deleted copy constructor
@@ -32,7 +34,10 @@ public:
 
     ///Deleted = operator
     void operator=(PhysicsSystem const&) = delete;
-
+    /**
+     * @brief Updates the simulation
+     * @param float - dt
+     */
     void update(float dt);
 
 
@@ -54,14 +59,30 @@ public:
      * @return RigidBody
      */
     RigidBody * getRigidBody(int colliderID);
-
+    /**
+     * @brief Deletes a rigid Body
+     * @param int - ID
+     */
     void deleteRigidBody(int ID);
-
+    /**
+     * @brief Adds a sphere body to the scene
+     * @param ID
+     * @param transform
+     * @param radius
+     * @return unsigned int bodyID
+     */
     unsigned int addSphere(unsigned int ID, Transform* transform,float radius);
-
+    /**
+     * @brief Adds Terrain to the Scene
+     */
     void addTerrain();
+    /**
+     * @brief DeInitialises the physics simulation
+     */
     void DeInit();
+    ///object to create physics shapes
     reactphysics3d::PhysicsCommon physicsCommon;
+    ///physics world for simulation
     reactphysics3d::PhysicsWorld* physicsWorld;
 private:
     ///Privatised Constructor
@@ -74,8 +95,6 @@ private:
     int m_mapCount;
     ///map of colliders
     std::map<int, RigidBody> m_colliders;	//TODO: make colliders so can add spheres
-
-    reactphysics3d::decimal timeStep;
-
+    ///Collision callback listener
     CollisionEventHandler listener;
 };

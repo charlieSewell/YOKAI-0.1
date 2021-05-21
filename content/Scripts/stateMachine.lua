@@ -51,10 +51,8 @@ function stateMachine(obj)
 	elseif(obj.behaviours.state == attack)
 	then
 		obj.animator:setAnimation("ZombieBite")
-		--obj.behaviours:seek(player:getPosition());
-		--obj.behaviours:accelerate(0.0);
 		obj.behaviours.rotationSpeed = 0.05;
-
+		player.hit = true;
 		if(objManager:distance(player:getPosition(), obj:getPosition()) > 5)
 		then
 			obj.behaviours.state = seek

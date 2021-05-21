@@ -26,8 +26,8 @@ enum class NoReturnEvent
     mouseReleased,
     reloadPressed,
     reloadReleased,
-    uiPressed,
-    uiReleased
+    pausePressed,
+    pauseReleased
 };
 
 enum class ReturnMat4Event
@@ -145,8 +145,8 @@ class EMS
 
       ///Function pointer for Perspective matrix
       std::function<glm::mat4(void)> m_perspective;
-
+      ///Function pointer for player position
 	  std::function<glm::vec3(void)> m_playerPosition;
-
+	  ///Function pointer for player collider
 	  std::function<int(void)> m_playerColliderID;
 };

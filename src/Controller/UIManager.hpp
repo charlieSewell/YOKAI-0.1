@@ -47,13 +47,30 @@ class UIManager
      * @brief Calls the draw function for all GameObjects
      */
     void draw();
-
+    /**
+     * @brief Registers class in Lua
+     */
     static void registerClass();
-
+    /**
+     * Sets up a UI Panel in Lua
+     * @param name
+     * @param left
+     * @param right
+     * @param top
+     * @param bottom
+     */
     void luaSetUpPanel(std::string name, float left, float right, float top, float bottom);
-
+    /**
+     * @brief Sets a texture in Lua
+     * @param name
+     * @param texturePath
+     */
     void luaSetTexture(std::string name, std::string texturePath);
-
+    /**
+     * @brief Sets a panel active
+     * @param name
+     * @param a
+     */
     void luaSetActive(std::string name, bool a);
 
   private:

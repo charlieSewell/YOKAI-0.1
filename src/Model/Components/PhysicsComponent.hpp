@@ -20,7 +20,6 @@ public:
    */
 	void updatePhysics(float &movementSpeed, float jumpSpeed);
 
-//protected:                                                
   /**
    * @brief Constructor For Physics Components
    */
@@ -45,9 +44,24 @@ public:
      * @param float - height
      */
     void registerAABB(unsigned int ID, float width, float height, float length);
-
+    /**
+     * @brief Registers class in LUA
+     */
+    static void registerPhysicsComponent();
+    /**
+     * @brief Returns the rigid body of game object
+     * @return
+     */
     RigidBody * getCollider();
+    /**
+     * @brief Deletes the Collider
+     */
     void deleteCollider();
+    /**
+     * @brief Registers Sphere
+     * @param ID
+     * @param radius
+     */
     void registerSphere(unsigned int ID, float radius);
     /**
      * @brief Registers Physics Toggle
@@ -65,7 +79,23 @@ public:
 	bool m_resolvingCollision;
     ///is physics active
 	bool m_physicsActive = true;
-
+	///Max Velocity
+	float maxVelocity =0 ;
+	/**
+	 * @brief Sets the max Velocity
+	 * @param vel
+	 */
+    void setmaxVelocity(float vel){maxVelocity = vel;}
+    /**
+     * @brief Gets the Max Velocity
+     * @return
+     */
+    int getmaxVelocity(){ return maxVelocity;}
+/**
+ * @brief Gets the current velocity
+ * @return
+ */
+	glm::vec3 getCurrentVelocity(){return getCollider()->GetLinearVelocity();}
 private:
   /**
    * @brief Updates Gravity
@@ -79,8 +109,13 @@ private:
 	void resolveCollisions(float &movementSpeed);
     ///is physics toggle pressed
 	bool m_physicsTogglePressed = false;
+	///colliderID
 	unsigned int colliderID = -1;
+	///transform Pointer
 	Transform* m_transformPtr;
-
+    /**
+     * @brief Resolves collisions
+     * @param colliderID
+     */
     void resolveCollisions(int colliderID);
 };

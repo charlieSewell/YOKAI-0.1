@@ -18,7 +18,16 @@ class StaticObject : public GameObject
      * @param string - modelName
      */
     StaticObject(std::string modelName);
+    /**
+     * @brief Destructor for static object
+     */
     ~StaticObject();
+    /**
+     * @brief Sets the collider
+     * @param width
+     * @param length
+     * @param height
+     */
     void setCollider(float width, float length, float height) override;
     /*!
      * @brief Draw call for the staticObject model
@@ -26,6 +35,7 @@ class StaticObject : public GameObject
     void draw() override;
 
   private:
+    ///Physics Component
 	PhysicsComponent m_physics;
     /// Stores associated model id of the staticObject
     int modelID;

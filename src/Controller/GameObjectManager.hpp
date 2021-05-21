@@ -57,11 +57,10 @@ class GameObjectManager
 
     /*!
      * @brief Getter for Gameobject with player id
-     * @return GameObject
+     * @return Player*
      */
 
     Player* getPlayer();
-
 
     /*!
      * @brief Calls the update function for all GameObjects
@@ -78,12 +77,21 @@ class GameObjectManager
      */
     void DeleteGameObject(unsigned int id);
 
-	
+	/**
+	 * @brief Gets NPC by ID
+	 * @param id
+	 * @return NPC*
+	 */
     NPC* getNPC(int id);
 
-	//should be in a utility function
+	/**
+	 * @brief Utility function for lua
+	 * @return distance
+	 */
 	float luaDistance(glm::vec3, glm::vec3);
-
+    /**
+     * @brief DeInitialises all game objects
+     */
     void DeInit();
 
   private:

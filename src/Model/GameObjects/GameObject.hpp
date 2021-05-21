@@ -72,11 +72,13 @@ public:
     virtual void draw() = 0;
 
     void setID(unsigned int ID){this->ID = ID;}
+    /// Transform of the GameObject
     Transform m_transform;
 protected:
 	/// Type of GameObject
 	GameObjectType m_EntityType;
-    unsigned int ID;
-    /// Transform of the GameObject
+    ///ID of Game Object
+	unsigned int ID;
+
 
 };

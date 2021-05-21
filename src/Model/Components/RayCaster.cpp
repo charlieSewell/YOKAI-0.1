@@ -7,7 +7,7 @@ int RayCaster::CastRay(glm::vec3 startPosition,glm::vec3 direction,float distanc
 {
     glm::vec3 extrapolatedVec = direction * distance + startPosition;
     glm::vec3 start = startPosition;
-    rp3d::Ray testRay(ReactMath::glmVecToR3pd(start),ReactMath::glmVecToR3pd(extrapolatedVec));
+    rp3d::Ray testRay(ReactMath::glmVecToRP3d(start), ReactMath::glmVecToRP3d(extrapolatedVec));
     PhysicsSystem::getInstance().physicsWorld->raycast(testRay,this);
     if(lastHit != -1)
     {
