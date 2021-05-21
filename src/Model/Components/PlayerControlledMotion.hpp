@@ -93,7 +93,9 @@ public:
      * @param vec3& - frontDirection
      */
 	void registerXYLook(glm::vec3& frontDirection);
-
+    /**
+     * @brief Registers Class in LUA
+     */
 	static void registerClass();
 
     ///Movement speed

@@ -32,14 +32,30 @@ class Yokai
     Renderer renderer = {};
     ///window used by the engine
     Window window = {};
-
+    /**
+     * @brief Set is Running
+     * @param s
+     */
     void setIsRunning(bool s);
-
+    /**
+     * @brief Gets a layer Pointer
+     * @return Layer*
+     */
     std::vector<std::shared_ptr<Layer>> getLayer();
-
+    /**
+     * @brief Sets active lauer
+     * @param a
+     */
     void setActiveLayer(int a);
-
+    /**
+     * Sets the paused state
+     * @param p
+     */
     void setIsPaused(bool p);
+    /**
+     * Return true if engine paused
+     * @return bool
+     */
     bool getIsPaused();
 
   private:
@@ -69,10 +85,8 @@ class Yokai
     bool isRunning = true;
     ///Vector of Scene layers
     std::vector<std::shared_ptr<Layer>> layers;
-
-    //SplashScreen* endScreen;
-
+    ///is paused
     bool isPaused;
-
+    ///active layer
     int activeLayer;
 };

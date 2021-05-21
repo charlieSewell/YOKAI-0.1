@@ -45,7 +45,7 @@ void Player::update(float dt)
         }   
         if(m_movement.canJump)
         {
-            m_physics.getCollider()->SetLinearVelocity(glm::vec3(0.0, 0, 0.0));
+            m_physics.getCollider()->SetLinearVelocity(glm::vec3(0.0));
             m_physics.getCollider()->SetAngularVelocity(glm::vec3(0.0));
 
             if (m_movement.updateVector != glm::vec3{})
@@ -66,7 +66,7 @@ void Player::update(float dt)
         }
 	}
 
-    onBox = false;
+
     m_physics.updatePhysics(m_movement.movementSpeed, m_movement.jumpSpeed);
     m_movement.updateVector = glm::vec3{};
 
@@ -74,7 +74,9 @@ void Player::update(float dt)
 
 	gun.getWeaponAnimation()->setCurrentFrame(dt);
     gun.update(m_transform, m_camera.m_frontDirection);
+    LuaManager::getInstance().runScript("content/Scripts/playerLogic.lua");
     LuaManager::getInstance().runScript("content/Scripts/gunLogic.lua");
+    onBox = false;
 }
 
 void Player::setCollider(float width, float length, float height)
@@ -134,11 +136,14 @@ void Player::registerClass()
 {
 	PlayerControlledMotion::registerClass();
 	Weapon::registerClass();
+	PhysicsComponent::registerPhysicsComponent();
 	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
 		.deriveClass<Player, GameObject>("Player")
 		.addProperty("movement", &Player::m_movement)
 		.addProperty("health", &Player::health, true)
 		.addProperty("shields", &Player::shields, true)
 		.addProperty("gun", &Player::gun, true)
+		.addProperty("physics",&Player::m_physics,true)
+		.addProperty("onGround",&Player::onBox,true)
 		.endClass();
 }

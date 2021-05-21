@@ -35,30 +35,57 @@ public:
      * @brief Update call for the player
      */
 	void update(float dt) override;
+	/**
+	 * @brief Sets the collider for the player
+	 * @param width
+	 * @param length
+	 * @param height
+	 */
     void setCollider(float width, float length, float height) override;
+    /**
+     * @brief Sets the health for the player
+     * @param h
+     */
     void setHealth(int h);
+    /**
+     * @brief Gets Current Player Health
+     * @return
+     */
     int getHealth();
-
+    /**
+     * @brief Sets the players shields value
+     * @param s
+     */
     void setShields(int s);
+    /**
+     * @brief Gets the players shield ammount
+     * @return
+     */
     int getShields();
-
+    /**
+     * @brief Registers Class in Lua
+     */
 	static void registerClass();
+	///Movement Component
     PlayerControlledMotion m_movement;
+    ///Physics Component
     PhysicsComponent m_physics;
+    ///is on the ground
     bool onBox = false;
   private:
+    ///Camera component
 	Camera m_camera;
-	
+	///Weapon Component
     Weapon gun;
+    ///Ray caster Component
     RayCaster rayCaster;
-
+    ///registers player position with EMS
 	void registerPosition();
+    ///registers player colliderID with EMS
 	void registerColliderID();
-
+    ///health of player
     int health;
-
+    ///shields of player
     int shields;
 
-	glm::vec3 feelerRight;
-	glm::vec3 feelerLeft;
 };

@@ -11,7 +11,7 @@ void PhysicsComponent::updatePhysics(float &movementSpeed, float jumpSpeed)
 {
     auto& physManager = PhysicsSystem::getInstance();
     rp3d::Vector3 temp = physManager.getRigidBody(colliderID)->getRigidBody()->getTransform().getPosition();
-    m_transformPtr->setPosition(ReactMath::r3pdVecToGlm(temp));
+    m_transformPtr->setPosition(ReactMath::rp3dVecToGlm(temp));
 
 }
 
@@ -69,4 +69,14 @@ void PhysicsComponent::registerSphere(unsigned int ID, float radius)
 RigidBody * PhysicsComponent::getCollider(){
     return PhysicsSystem::getInstance().getRigidBody(colliderID);
 
+}
+void PhysicsComponent::registerPhysicsComponent()
+{
+    luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+            .beginClass<PhysicsComponent>("physicsComponent")
+                    .addFunction("getCollider",&PhysicsComponent::getCollider)
+                    .addFunction("getVelocity",&PhysicsComponent::getCurrentVelocity)
+                    .addFunction("setMaxVelocity",&PhysicsComponent::setmaxVelocity)
+                    .addFunction("getMaxVelocity",&PhysicsComponent::getmaxVelocity)
+                    .endClass();
 }
