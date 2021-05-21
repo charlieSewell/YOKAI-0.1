@@ -115,8 +115,6 @@ void PlayerControlledMotion::registerXYLook(glm::vec3& frontDirection)
 		direction.y = sin(glm::radians(pitch));
 		direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 		frontDirection = glm::normalize(direction);
-
-		m_transformPtr->rotate(glm::radians(-xoffset), glm::vec3(0, 1, 0));
 	};
 
 	EMS::getInstance().add(NoReturnEvent::xyLook, xyLook);

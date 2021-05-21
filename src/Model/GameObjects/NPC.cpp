@@ -51,6 +51,38 @@ void NPC::update(float dt)
     m_physicsComponent.getCollider()->SetPosition(m_transform.getPosition());
     m_physicsComponent.getCollider()->SetOrientation(m_transform.getRotation());
 	m_behaviours.updateFeelers();
+	groupAlert();
+
 	luaUpdate(this);
     animator.BoneTransform(dt);
+}
+
+void NPC::groupAlert()
+{
+	if (m_behaviours.frontFeelerHit != -1)
+	{
+		if (GameObjectManager::getInstance().getNPC(m_behaviours.frontFeelerHit))
+		{
+			if (!GameObjectManager::getInstance().getNPC(m_behaviours.frontFeelerHit)->m_behaviours.active)
+				GameObjectManager::getInstance().getNPC(m_behaviours.frontFeelerHit)->m_behaviours.active = true;
+		}
+	}
+
+	if (m_behaviours.feelerRightHit != -1)
+	{
+		if (GameObjectManager::getInstance().getNPC(m_behaviours.feelerRightHit))
+		{
+			if (!GameObjectManager::getInstance().getNPC(m_behaviours.feelerRightHit)->m_behaviours.active)
+				GameObjectManager::getInstance().getNPC(m_behaviours.feelerRightHit)->m_behaviours.active = true;
+		}
+	}
+
+	if (m_behaviours.feelerLeftHit != -1)
+	{
+		if (GameObjectManager::getInstance().getNPC(m_behaviours.feelerLeftHit))
+		{
+			if (!GameObjectManager::getInstance().getNPC(m_behaviours.feelerLeftHit)->m_behaviours.active)
+				GameObjectManager::getInstance().getNPC(m_behaviours.feelerLeftHit)->m_behaviours.active = true;
+		}
+	}
 }

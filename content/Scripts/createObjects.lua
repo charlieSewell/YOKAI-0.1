@@ -7,7 +7,7 @@ playerID = objManager:Create(Types.player(),"");
 player = objManager:GetPlayer();
 player:setPosition(650.0, 200.0, 600.0);
 player:setCollider(4, 4, 4.0);
-player.movement.movementSpeed = 3500;
+player.movement.movementSpeed = 7500;
 player.health = 100;
 player.shields = 100;
 player.gun.maxAmmo = 30;

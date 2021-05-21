@@ -2,6 +2,7 @@
 
 #include "Model/Components/Transform.hpp"
 #include "Model/Components/RayCaster.hpp"
+//#include "Controller/GameObjectManager.hpp"
 #include "Controller/EventManager.hpp"
 #include "Controller/LuaManager.hpp"
 #include <glm/gtc/random.hpp>
@@ -28,12 +29,14 @@ public:
 	float rotationSpeed;
 	int state;
 
+	bool active;	// bad
+
 	RayCaster rayCaster;
 	glm::vec3 feelerRight;
 	glm::vec3 feelerLeft;
-	bool frontFeelerHit;
-	bool feelerRightHit;
-	bool feelerLeftHit;
+	unsigned int frontFeelerHit;
+	unsigned int feelerRightHit;
+	unsigned int feelerLeftHit;
 
 	void updateFeelers();
 
