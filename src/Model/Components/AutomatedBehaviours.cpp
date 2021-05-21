@@ -2,7 +2,8 @@
 
 AutomatedBehaviours::AutomatedBehaviours(Transform& transform)
 	: heading(glm::vec3(0)), angle(0), acceleration(0), topSpeed(0),		
-	m_transformPtr(&transform), rotationSpeed(0), m_wanderAngle(0), state(0)
+	m_transformPtr(&transform), rotationSpeed(0), m_wanderAngle(0), state(0),
+	active(false)
 {
 
 }
@@ -33,18 +34,18 @@ void AutomatedBehaviours::seek(glm::vec3 targetPosition)
 {
 	glm::vec3 targetHeading = (targetPosition - m_transformPtr->getPosition());
 
-	if(frontFeelerHit)
+	if(frontFeelerHit != -1)
 	{
 		//decelerate();
 		angle += rotationSpeed;
 		m_transformPtr->rotate(-rotationSpeed, glm::vec3(0, 1, 0));			// turn right
 	}
-	else if(feelerRightHit)
+	else if(feelerRightHit != -1)
 	{
 		angle -= rotationSpeed;
 		m_transformPtr->rotate(rotationSpeed, glm::vec3(0, 1, 0));			// turn left
 	}
-	else if(feelerLeftHit)
+	else if(feelerLeftHit != -1)
 	{
 		angle += rotationSpeed;
 		m_transformPtr->rotate(-rotationSpeed, glm::vec3(0, 1, 0));			// turn right
@@ -142,14 +143,9 @@ void AutomatedBehaviours::updateFeelers()
 	glm::vec3 test = m_transformPtr->getPosition();
 	test.y++;
 
-	if (rayCaster.CastRay(test, glm::normalize(heading), 10) != -1)
-		frontFeelerHit = true;
-
-	if (rayCaster.CastRay(test, glm::normalize(feelerLeft), 5) != -1)
-		feelerLeftHit = true;
-
-	if (rayCaster.CastRay(test, glm::normalize(feelerRight), 5) != -1)
-		feelerRightHit = true;
+	frontFeelerHit = rayCaster.CastRay(test, glm::normalize(heading), 10);
+	feelerLeftHit = rayCaster.CastRay(test, glm::normalize(feelerLeft), 5);
+	feelerRightHit = rayCaster.CastRay(test, glm::normalize(feelerRight), 5);
 }
 
 void AutomatedBehaviours::updateHeading()
@@ -176,6 +172,7 @@ void AutomatedBehaviours::registerClass()
 		.beginClass<AutomatedBehaviours>("behaviours")
 		.addProperty("rotationSpeed", &AutomatedBehaviours::rotationSpeed, true)
 		.addProperty("state", &AutomatedBehaviours::state, true)
+		.addProperty("active", &AutomatedBehaviours::active, true)
 		.addFunction("accelerate", &AutomatedBehaviours::accelerate)
 		.addFunction("seek", &AutomatedBehaviours::seek)
 		.addFunction("wander", &AutomatedBehaviours::wander)
