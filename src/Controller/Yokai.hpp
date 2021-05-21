@@ -65,7 +65,6 @@ class Yokai
      */
     void registerClose();
 
-    void registerUI();
     /**
      * @brief Privatised Default Constructor
      */

@@ -76,20 +76,6 @@ void Yokai::Run()
         }
         layers[activeLayer]->Draw();
 
-        //if(endScreen->isActive())
-        //{
-        //    endScreen->draw();
-        //}
-        if (glfwGetKey(window.getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        {
-            isPaused = !isPaused;
-
-            if (isPaused) {
-                glfwSetInputMode(window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-            } else {
-                glfwSetInputMode(window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-            }
-        }
         renderer.DrawGui();
         window.endFrame();
 	}
@@ -99,72 +85,23 @@ void Yokai::Run()
     window.DeInit();
 }
 
-void Yokai::registerClose()
-{
+void Yokai::registerClose() {
     static bool isPressed = false;
-    auto closeReleased = [&]()
-    {
-        isPressed = false;
-    };
-    EMS::getInstance().add(NoReturnEvent::closeReleased, closeReleased);
+    auto pauseRelease     = [&]() { isPressed = false; };
+    EMS::getInstance().add(NoReturnEvent::pauseReleased, pauseRelease);
 
-    auto closePressed = [&]()
-    {
-      if (!isPressed){
-          /*
-          if (endScreen->isActive())
-          {
-              endScreen->setInactive();
-              isPressed = true;
-          }
-          else{
-              endScreen->setActive();
-              isPressed = true;
-          }
-          */
-      }
-    };
-    EMS::getInstance().add(NoReturnEvent::closePressed, closePressed);
-
-    auto close = [&]() {
-        /*
-        if(endScreen->isActive())
-        {
-            isRunning = false;
-        }
-        */
-
-    };
-    EMS::getInstance().add(NoReturnEvent::mouseClicked, close);
-}
-
-
-void Yokai::registerUI() 
-{
-    static bool isPressed = false;
-    
-    auto uiReleased    = [&]() 
-    { 
-        isPressed = false;
-    };
-
-    EMS::getInstance().add(NoReturnEvent::uiReleased, uiReleased);
-
-    auto uiPressed = [&]() 
-    {
-        if (!isPressed) 
-        {
-            //if(healthbar > 50) 
-            //{
-            //    healthbar -= 65;
-            //}
-
-            //healthUI->setupPanel(glm::vec3(50, 950, 1), glm::vec3(healthbar, 950, 1), glm::vec3(50, 1000, 1), glm::vec3(healthbar, 1000, 1));
+    auto pausePress = [&]() {
+        if (!isPressed) {
+            isPaused = !isPaused;
+            if (isPaused) {
+                glfwSetInputMode(window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            } else {
+                glfwSetInputMode(window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            }
             isPressed = true;
         }
     };
-
-    EMS::getInstance().add(NoReturnEvent::uiPressed, uiPressed);
+    EMS::getInstance().add(NoReturnEvent::pausePressed, pausePress);
 }
 
 void Yokai::setIsRunning(bool s) 

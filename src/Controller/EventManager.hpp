@@ -26,8 +26,8 @@ enum class NoReturnEvent
     mouseReleased,
     reloadPressed,
     reloadReleased,
-    uiPressed,
-    uiReleased
+    pausePressed,
+    pauseReleased
 };
 
 enum class ReturnMat4Event
