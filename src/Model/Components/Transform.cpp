@@ -5,10 +5,7 @@ Transform::Transform()
 {
 	decompose();
 }
-Transform::Transform(glm::mat4 transform) 
-	: m_transform(glm::mat4(transform)) {
-    decompose();
-}
+
 Transform::Transform(glm::vec3 scale, glm::quat rotation, glm::vec3 position)
 	: m_transform(glm::mat4(1.0f)), m_scale(scale), m_rotation(rotation), m_position(position)
 {
@@ -19,6 +16,12 @@ Transform::Transform(glm::vec3 scale, glm::quat rotation, glm::vec3 position)
 Transform::Transform(const Transform &other)
 {
 	m_transform = other.m_transform;
+	decompose();
+}
+
+Transform::Transform(glm::mat4 matrix)
+{
+	m_transform = matrix;
 	decompose();
 }
 

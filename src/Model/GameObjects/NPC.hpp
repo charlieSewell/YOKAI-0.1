@@ -26,6 +26,7 @@ class NPC : public GameObject
     void draw();
     void update(float dt) override;
     void setCollider(float width, float height, float length) override;
+	
     /*!
      * @brief Getter for the position of the NPC
      * @return position
@@ -39,9 +40,9 @@ private:
 	//Coponents
 	AutomatedBehaviours m_behaviours;
 	PhysicsComponent m_physicsComponent;
-
 	Animator animator;
 
+	void groupAlert();	//bad
     /// Stores associated model id of the NPC
     int modelID;
 
