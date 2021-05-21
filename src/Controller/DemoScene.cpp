@@ -8,26 +8,33 @@ void DemoScene::Init()
     terrainManager.setSandHeight(terrainFactory.getSandHeight());
     terrainManager.setSnowHeight(terrainFactory.getSnowHeight());
     terrainManager.Init();
-    controlsScreen = new SplashScreen("content/Textures/help_menu.png");
+    //controlsScreen = new SplashScreen("content/Textures/help_menu.png");
     registerMenuButtons();
 
     GameObjectManager::getInstance().init();
+    UIManager::getInstance().init();
+
+    //UIManager::getInstance().getObject("zero")->setupPanel(1700, 1750, 800, 900);
+    //std::string name = UIManager::getInstance().add("zero", "content/Textures/0.png");
+    //UIManager::getInstance().getObject(name)->setupPanel(1700, 1750, 800, 900);
+    //UIManager::getInstance().getObject("zero")->setActive();
 }
 
 #include "Model/GameObjects/NPC.hpp"
 void DemoScene::Update(double frameRate)
 {
     GameObjectManager::getInstance().update(frameRate);
+    UIManager::getInstance().update(frameRate);
 }
 
 void DemoScene::Draw()
 {
     terrainManager.Draw(EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
+    //if(controlsScreen->isActive())
+    //{
+    //    controlsScreen->draw();
+    //}
     GameObjectManager::getInstance().draw();
-    if(controlsScreen->isActive())
-    {
-        controlsScreen->draw();
-    }
 
     if (Yokai::getInstance().getIsPaused()) 
     {
@@ -52,6 +59,7 @@ void DemoScene::Draw()
         }
         ImGui::End();
     }
+    UIManager::getInstance().draw();
 }
 void DemoScene::Enable()
 {
@@ -74,6 +82,7 @@ void DemoScene::registerMenuButtons()
     auto toggleMenuPressed = [&]()
     {
         if (!isPressed){
+            /*
             if (controlsScreen->isActive())
             {
                 glfwSetInputMode(Yokai::getInstance().window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -86,6 +95,7 @@ void DemoScene::registerMenuButtons()
                 controlsScreen->setActive();
                 isPressed = true;
             }
+            */
         }
     };
     EMS::getInstance().add(NoReturnEvent::toggleMenuPressed, toggleMenuPressed);

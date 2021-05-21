@@ -71,7 +71,7 @@ class Yokai
     ///Vector of Scene layers
     std::vector<std::shared_ptr<Layer>> layers;
 
-    SplashScreen* endScreen;
+    //SplashScreen* endScreen;
 
     //SplashScreen* healthUI;
 

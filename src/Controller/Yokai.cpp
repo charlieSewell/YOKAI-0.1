@@ -41,60 +41,6 @@ void Yokai::Init()
         layer->Init();
     }
 
-
-    //GameObjectManager::init();
-
-    endScreen = new SplashScreen("content/Textures/exit_screen.png");
-    
-    /*
-    healthbar = 700;
-    healthUI = new SplashScreen("content/Textures/health.jpg");
-    healthUI->setupPanel(glm::vec3(50, 950, 1), glm::vec3(700, 950, 1), glm::vec3(50, 1000, 1), glm::vec3(700, 1000, 1));
-    healthUI->setActive();
-
-    shieldUI = new SplashScreen("content/Textures/shield.png");
-    shieldUI->setupPanel(glm::vec3(50, 875, 1), glm::vec3(700, 875, 1), glm::vec3(50, 925, 1), glm::vec3(700, 925, 1));
-    shieldUI->setActive();
-
-    // AMMO TESTING
-    ammoMainUI = new SplashScreen("content/Textures/3.png");
-    ammoMainUI->setupPanel(glm::vec3(1700, 800, 1), glm::vec3(1750, 800, 1),
-                              glm::vec3(1700, 900, 1), glm::vec3(1750, 900, 1));
-    ammoMainUI->setActive();
-
-    ammoMainUI2 = new SplashScreen("content/Textures/0.png");
-    ammoMainUI2->setupPanel(glm::vec3(1750, 800, 1), glm::vec3(1800, 800, 1),
-                               glm::vec3(1750, 900, 1), glm::vec3(1800, 900, 1));
-    ammoMainUI2->setActive();
-    
-    ammoReserveUI = new SplashScreen("content/Textures/1.png");
-    ammoReserveUI->setupPanel(glm::vec3(1750, 900, 1), glm::vec3(1800, 900, 1),
-                           glm::vec3(1750, 1000, 1), glm::vec3(1800, 1000, 1));
-    ammoReserveUI->setActive();
-
-    ammoReserveUI2 = new SplashScreen("content/Textures/0.png");
-    ammoReserveUI2->setupPanel(glm::vec3(1800, 900, 1), glm::vec3(1850, 900, 1),
-                           glm::vec3(1800, 1000, 1), glm::vec3(1850, 1000, 1));
-    ammoReserveUI2->setActive();
-
-    ammoReserveUI3 = new SplashScreen("content/Textures/0.png");
-    ammoReserveUI3->setupPanel(glm::vec3(1850, 900, 1), glm::vec3(1900, 900, 1),
-                               glm::vec3(1850, 1000, 1), glm::vec3(1900, 1000, 1));
-    ammoReserveUI3->setActive();
-
-    ammoNumbers.push_back("content/Textures/0.png");
-    ammoNumbers.push_back("content/Textures/1.png");
-    ammoNumbers.push_back("content/Textures/2.png");
-    ammoNumbers.push_back("content/Textures/3.png");
-    ammoNumbers.push_back("content/Textures/4.png");
-    ammoNumbers.push_back("content/Textures/5.png");
-    ammoNumbers.push_back("content/Textures/6.png");
-    ammoNumbers.push_back("content/Textures/7.png");
-    ammoNumbers.push_back("content/Textures/8.png");
-    ammoNumbers.push_back("content/Textures/9.png");
-    */
-    // END OF AMMO TESTING
-
     isPaused = false;
 }
 void Yokai::Run()
@@ -130,10 +76,10 @@ void Yokai::Run()
         }
         layers[activeLayer]->Draw();
 
-        if(endScreen->isActive())
-        {
-            endScreen->draw();
-        }
+        //if(endScreen->isActive())
+        //{
+        //    endScreen->draw();
+        //}
         if (glfwGetKey(window.getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
         {
             isPaused = !isPaused;
@@ -152,57 +98,6 @@ void Yokai::Run()
     renderer.DeInit();
     window.DeInit();
 }
-// AMMO TESTING
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-if (gun.getReserveAmmo() >= 0)
-{
-    int remainder = gun.getAmmo() % 10;
-    ammoMainUI->setTexture(ammoNumbers[(gun.getAmmo() - remainder) / 10]);
-    ammoMainUI2->setTexture(ammoNumbers[remainder]);
-
-    int rRemainder = gun.getReserveAmmo() % 10;
-
-    if (gun.getReserveAmmo() >= 100)
-    {
-        ammoReserveUI->setTexture(ammoNumbers[1]);
-        ammoReserveUI2->setTexture(ammoNumbers[(gun.getReserveAmmo() - 100 - rRemainder) / 10]);
-    }
-    else
-    {
-        ammoReserveUI->setTexture(ammoNumbers[0]);
-        ammoReserveUI2->setTexture(ammoNumbers[(gun.getReserveAmmo() - rRemainder) / 10]);
-    }
-
-    ammoReserveUI3->setTexture(ammoNumbers[rRemainder]);
-}
-else
-{
-    ammoMainUI->setTexture(ammoNumbers[0]);
-    ammoMainUI2->setTexture(ammoNumbers[0]);
-
-    ammoReserveUI->setTexture(ammoNumbers[0]);
-    ammoReserveUI2->setTexture(ammoNumbers[0]);
-    ammoReserveUI3->setTexture(ammoNumbers[0]);
-}
-*/
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-//healthUI->draw();
-//shieldUI->draw();
-/*
-ammoMainUI->draw();
-ammoMainUI2->draw();
-if (gun.getReserveAmmo() >= 100)
-{
-    ammoReserveUI->draw();
-}
-ammoReserveUI2->draw();
-ammoReserveUI3->draw();
-*/
-// UI
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-///
 
 void Yokai::registerClose()
 {
@@ -216,6 +111,7 @@ void Yokai::registerClose()
     auto closePressed = [&]()
     {
       if (!isPressed){
+          /*
           if (endScreen->isActive())
           {
               endScreen->setInactive();
@@ -225,15 +121,18 @@ void Yokai::registerClose()
               endScreen->setActive();
               isPressed = true;
           }
+          */
       }
     };
     EMS::getInstance().add(NoReturnEvent::closePressed, closePressed);
 
     auto close = [&]() {
+        /*
         if(endScreen->isActive())
         {
             isRunning = false;
         }
+        */
 
     };
     EMS::getInstance().add(NoReturnEvent::mouseClicked, close);
