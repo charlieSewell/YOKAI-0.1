@@ -10,61 +10,81 @@ UIManager::UIManager() {}
 
 void UIManager::init() 
 {
-
-    /*
-    luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
-        .beginNamespace("ObjectManager")
-        .addFunction("Create", GameObjectManager::CreateObject)
-        .addFunction("GetObject", GameObjectManager::luaGet)
-        .addFunction("GetPlayer", GameObjectManager::getPlayer)
-        .addFunction("GetNPC", GameObjectManager::getNPC)
-        .addFunction("Update", GameObjectManager::update)
-        .endNamespace();
-
-    luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
-        .beginNamespace("Types")
-        .addFunction("npc", LuaTypes::getNPCType)
-        .addFunction("player", LuaTypes::getPlayerType)
-        .addFunction("static", LuaTypes::getStaticType)
-        .endNamespace();
-
-    LuaManager::getInstance().runScript("content/Scripts/createObjects.lua");
-    std::cout << "Game Object Manager Initialised" << std::endl;
-    */
+    registerClass();
 }
 
-int UIManager::add(std::shared_ptr<SplashScreen> &gameObject) 
+std::shared_ptr<SplashScreen> UIManager::create(std::string texturePath) 
 {
-    uiObjects[objectCount] = gameObject;
-    objectCount++;
-    return objectCount - 1;
+    return std::shared_ptr<SplashScreen>(new SplashScreen(texturePath));
+}
+
+std::string UIManager::add(std::string name, std::string texturePath) 
+{
+    //uiObjects[name] = gameObject;
+    uiObjects[name] = std::shared_ptr<SplashScreen>(new SplashScreen(texturePath));
+    //std::cout << "ADD" << std::endl;
+    //objectCount++;
+    return name;
 }
 
 void UIManager::update(float dt) 
 {
-    for (auto &gameObject : uiObjects) 
-    {
+    //for (auto &gameObject : uiObjects) 
+    //{
         //gameObject.second->update(dt);
-    }
+    //}
+    LuaManager::getInstance().runScript("content/Scripts/uiLogic.lua");
 }
 void UIManager::draw() 
 {
     for (auto &gameObject : uiObjects) 
     {
-        gameObject.second->draw();
+        if (gameObject.second->getActive()) 
+        {
+            gameObject.second->draw();
+        }
     }
 }
 
-std::shared_ptr<SplashScreen> UIManager::getObject(int id) 
+std::shared_ptr<SplashScreen> UIManager::getObject(std::string name) 
 {
-
-    if (uiObjects[id] != nullptr) 
+    //std::cout << "GET" << std::endl;
+    if (uiObjects[name] != nullptr) 
     {
-        return uiObjects[id];
+        return uiObjects[name];
     }
     return nullptr;
 }
 
-// static declaration of member variables
-int UIManager::objectCount = 0;
-std::map<int, std::shared_ptr<SplashScreen>> UIManager::uiObjects = std::map<int, std::shared_ptr<SplashScreen>>();
+void UIManager::luaSetUpPanel(std::string name, float left, float right, float top, float bottom) 
+{
+    getObject(name)->setupPanel(left, right, top, bottom);
+}
+
+void UIManager::luaSetTexture(std::string name, std::string texturePath) 
+{
+    getObject(name)->setTexture(texturePath);
+}
+
+void UIManager::luaSetActive(std::string name, bool a) 
+{
+    getObject(name)->setActive(a);
+}
+
+void UIManager::registerClass() 
+{
+    luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+        .beginClass<UIManager>("UIManager")
+        .addStaticFunction("getInstance", &UIManager::getInstance)
+        .addFunction("add", &UIManager::add)
+        .addFunction("getObject", &UIManager::getObject)
+        .addFunction("update", &UIManager::update)
+        .addFunction("setUpPanel", &UIManager::luaSetUpPanel)
+        .addFunction("setTexture", &UIManager::luaSetTexture)
+        .addFunction("setActive", &UIManager::luaSetActive)
+        .endClass();
+
+    LuaManager::getInstance().runScript("content/Scripts/createUI.lua");
+    
+    std::cout << "UI Manager Initialised" << std::endl;
+}

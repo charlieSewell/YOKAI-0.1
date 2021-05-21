@@ -2,7 +2,7 @@
 
 #include <map>
 #include "Controller/LuaManager.hpp"
-#include "Controller/LuaTypes.hpp"
+//#include "Controller/LuaTypes.hpp"
 #include "Model/SplashScreen.hpp"
 
 /**
@@ -21,33 +21,40 @@ class UIManager
     /*!
      * @brief Initialises the manager
      */
-    static void init();
+    void init();
 
+    std::shared_ptr<SplashScreen> create(std::string texturePath);
     /*!
      * @brief Adds a GameObject to the map of GameObjects
      * @param GameObject smart pointer - &gameObject
      * @return objectCount-1
      */
-    static int add(std::shared_ptr<SplashScreen> &splashScreen);
+    std::string add(std::string name, std::string texturePath);
 
     /*!
      * @brief Getter for a GameObject with the specified id
      * @param int - id
      * @return GameObject
      */
-    static std::shared_ptr<SplashScreen> getObject(int id);
+    std::shared_ptr<SplashScreen> getObject(std::string name);
 
     /*!
      * @brief Calls the update function for all GameObjects
      */
-    static void update(float dt);
+    void update(float dt);
 
     /*!
      * @brief Calls the draw function for all GameObjects
      */
-    static void draw();
+    void draw();
 
-    //static NPC *getNPC(int id);
+    static void registerClass();
+
+    void luaSetUpPanel(std::string name, float left, float right, float top, float bottom);
+
+    void luaSetTexture(std::string name, std::string texturePath);
+
+    void luaSetActive(std::string name, bool a);
 
   private:
     /*!
@@ -56,8 +63,6 @@ class UIManager
     UIManager();
 
     /// Map of GameObjects, with the key of the GameObject id, and value of the GameObject smart pointer
-    static std::map<int, std::shared_ptr<SplashScreen>> uiObjects;
+    std::map<std::string, std::shared_ptr<SplashScreen>> uiObjects;
 
-    /// Stores the number of GameObjects within the map
-    static int objectCount;
 };

@@ -8,9 +8,8 @@
 SplashScreen::SplashScreen(std::string texturePath)
 {
     texture = Texture::Create(texturePath);
-    setupPanel();
     setupShader();
-
+    active = true;
 }
 void SplashScreen::setTexture(std::string texturePath)
 {
@@ -34,47 +33,31 @@ void SplashScreen::setupShader()
     splashShader->setMat4("projection",glm::ortho(0.0f, (float)1920, (float)1080, 0.0f));
     splashShader->setInt("texture_diffuse1", 1);
 }
-void SplashScreen::setupPanel()
-{
-    std::vector<Vertex> verts;
-    verts.resize(4);
-    verts[0].position= glm::vec3(400,200,1);
-    verts[1].position= glm::vec3(1520,200,1);
-    verts[2].position= glm::vec3(400,800,1);
-    verts[3].position= glm::vec3(1520,800,1);
-    verts[0].textureCoords= glm::vec2(0,0);
-    verts[1].textureCoords= glm::vec2(1,0);
-    verts[2].textureCoords= glm::vec2(0,1);
-    verts[3].textureCoords= glm::vec2(1,1);
-    std::vector<unsigned int> indices = {0,1,2,1,3,2};
-    vao = VertexArrayBuffer::Create(verts,indices);
-}
 
-void SplashScreen::setupPanel(glm::vec3 bottomLeft, glm::vec3 topLeft, glm::vec3 bottomRight, glm::vec3 topRight) 
+void SplashScreen::setupPanel(float left, float right, float top, float bottom) 
 {
     std::vector<Vertex> verts;
     verts.resize(4);
-    verts[0].position = bottomLeft;
-    verts[1].position = topLeft;
-    verts[2].position = bottomRight;
-    verts[3].position = topRight;
-    verts[0].textureCoords = glm::vec2(0, 0);
-    verts[1].textureCoords = glm::vec2(1, 0);
-    verts[2].textureCoords = glm::vec2(0, 1);
-    verts[3].textureCoords  = glm::vec2(1, 1);
+    verts[0].position = glm::vec3(left, top, 1);
+    verts[1].position                 = glm::vec3(right, top, 1);
+    verts[2].position                 = glm::vec3(left, bottom, 1);
+    verts[3].position                 = glm::vec3(right, bottom, 1);
+    verts[0].textureCoords            = glm::vec2(0, 0);
+    verts[1].textureCoords            = glm::vec2(1, 0);
+    verts[2].textureCoords            = glm::vec2(0, 1);
+    verts[3].textureCoords            = glm::vec2(1, 1);
     std::vector<unsigned int> indices = {0, 1, 2, 1, 3, 2};
-    vao = VertexArrayBuffer::Create(verts, indices);
+    vao                               = VertexArrayBuffer::Create(verts, indices);
+
+    //std::cout << "YES" << std::endl;
 }
 
-void SplashScreen::setActive()
+void SplashScreen::setActive(bool a)
 {
-    active = true;
+    active = a;
 }
-void SplashScreen::setInactive()
-{
-    active = false;
-}
-bool SplashScreen::isActive()
+
+bool SplashScreen::getActive()
 {
     return active;
 }
