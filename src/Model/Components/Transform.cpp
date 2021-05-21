@@ -19,6 +19,12 @@ Transform::Transform(const Transform &other)
 	decompose();
 }
 
+Transform::Transform(glm::mat4 matrix)
+{
+	m_transform = matrix;
+	decompose();
+}
+
 void Transform::decompose()
 {
 	glm::decompose(m_transform, m_scale, m_rotation, m_position, m_skew, m_perspective);
