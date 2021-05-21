@@ -13,7 +13,6 @@ void PhysicsSystem::Init()
 
     physicsWorld = physicsCommon.createPhysicsWorld(settings);
     physicsWorld->setEventListener(&listener);
-    timeStep = 1.0f / 30.0f;
 }
 void PhysicsSystem::DeInit()
 {

@@ -24,27 +24,38 @@ class NPC : public GameObject
      * @brief Draw call for the NPC model
      */
     void draw();
-    void update(float dt) override;
-    void setCollider(float width, float height, float length) override;
-	
-    /*!
-     * @brief Getter for the position of the NPC
-     * @return position
+    /**
+     * @brief Updates the game object
+     * @param dt
      */
-    //glm::vec3 getPosition();
+    void update(float dt) override;
+    /**
+     * @brief Sets the collider of the object
+     * @param width
+     * @param height
+     * @param length
+     */
+    void setCollider(float width, float height, float length) override;
 
-
+/**
+ * @brief Registers class in lua
+ */
 	static void registerClass();
 
 private:
 	//Coponents
+	///Behaviours component
 	AutomatedBehaviours m_behaviours;
+	///Physics component
 	PhysicsComponent m_physicsComponent;
+	///Animator component
 	Animator animator;
-
+    /**
+     * @brief Group allert for AI
+     */
 	void groupAlert();	//bad
     /// Stores associated model id of the NPC
     int modelID;
-
+    ///Lua stateMachine
 	luabridge::LuaRef luaUpdate = LuaManager::getInstance().getState();
 };

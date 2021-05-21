@@ -68,5 +68,6 @@ class TerrainManager
     std::vector<unsigned int> textures;
     ///heights of the textures
     int sandHeight{},grassHeight{},snowHeight{};
+    ///textures
     std::string sandTexture, snowTexture, grassTexture, detailTexture;
 };

@@ -65,11 +65,36 @@ class Model
      * @param mat4 - transform
      */
     void Draw(Shader &shader, glm::mat4 transform);
+    /**
+     * @brief Gets animation by Name
+     * @param name
+     * @return SkeletalAnimation*
+     */
     SkeletalAnimation* getAnimation(std::string name);
+    /**
+     * @brief Gets the size of the bones array
+     * @return
+     */
     int getBonesSize(){return bones.size();}
+    /**
+     * @brief Gets the root node of the model
+     * @return
+     */
     Node getRootNode();
+    /**
+     * @brief Gets the map of string to bone ID
+     * @return
+     */
     std::map<std::string, unsigned int>* getBoneMap(){return &boneMap;}
+    /**
+     * @brief Returns the vector of bones
+     * @return mat4
+     */
     std::vector<Bone>* getBones(){return &bones;}
+    /**
+     * @brief gets the global inverse transform
+     * @return mat4
+     */
     glm::mat4 getGlobalInverseTransform(){return globalInverseTransform;}
 
   private:
@@ -81,8 +106,6 @@ class Model
     std::vector<Bone> bones;
     ///map of bone names to index
     std::map<std::string, unsigned int> boneMap;
-    
-    
     ///Root node of scene
     Node rootNode;
     ///Animations
