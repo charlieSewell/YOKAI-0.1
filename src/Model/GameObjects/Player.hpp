@@ -43,11 +43,12 @@ public:
     int getShields();
 
 	static void registerClass();
-
-private:
+    PlayerControlledMotion m_movement;
+    PhysicsComponent m_physics;
+    bool onBox = false;
+  private:
 	Camera m_camera;
-	PlayerControlledMotion m_movement;
-	PhysicsComponent m_physics;
+	
     Weapon gun;
     RayCaster rayCaster;
 

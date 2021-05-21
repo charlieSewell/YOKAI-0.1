@@ -8,7 +8,7 @@ Player::Player()
 	m_movement.movementSpeed = 2000.0f;
 
 	m_movement.lookSensitivity = 0.05f;
-	m_movement.jumpSpeed = 0.15f;
+	m_movement.jumpSpeed = 6.0f;
 	//m_mass = 0.025f;
 	registerPosition();
 	registerColliderID();
@@ -30,20 +30,27 @@ void Player::update(float dt)
 {
 	if(m_physics.m_physicsActive)
 	{
-        if(m_transform.getPosition().y -2.5 <= TerrainFactory::getInstance().heightAt(m_transform.getPosition().x,m_transform.getPosition().z))
+        if(onBox)
         {
             m_movement.canJump = true;
         }
         else{
             m_movement.canJump = false;
         }
+        if (m_physics.getCollider()->GetLinearVelocity().y > m_movement.jumpSpeed) 
+        {
+            m_physics.getCollider()->SetLinearVelocity(
+                glm::vec3(m_physics.getCollider()->GetLinearVelocity().x, m_movement.jumpSpeed,
+                          m_physics.getCollider()->GetLinearVelocity().z));
+        }   
         if(m_movement.canJump)
         {
-            m_physics.getCollider()->SetLinearVelocity(glm::vec3(0.0,m_physics.getCollider()->GetLinearVelocity().y,0.0));
+            m_physics.getCollider()->SetLinearVelocity(glm::vec3(0.0, 0, 0.0));
             m_physics.getCollider()->SetAngularVelocity(glm::vec3(0.0));
 
             if (m_movement.updateVector != glm::vec3{})
-            {
+            { 
+                
                 m_physics.getCollider()->ApplyForceToCentre(glm::normalize(glm::vec3(m_movement.updateVector)) * m_movement.movementSpeed * dt);
 
             }
@@ -59,6 +66,7 @@ void Player::update(float dt)
         }
 	}
 
+    onBox = false;
     m_physics.updatePhysics(m_movement.movementSpeed, m_movement.jumpSpeed);
     m_movement.updateVector = glm::vec3{};
 
@@ -73,6 +81,7 @@ void Player::setCollider(float width, float length, float height)
 {
     m_physics.registerSphere(ID,1);
     m_physics.getCollider()->SetMass(0.1);
+    m_physics.getCollider()->SetIsAllowedToSleep(false);
     m_physics.getCollider()->SetFrictionCoefficient(0.6);
     m_physics.getCollider()->SetAngularDamping(0.6);
     m_physics.getCollider()->SetLinearDamping(0.6);

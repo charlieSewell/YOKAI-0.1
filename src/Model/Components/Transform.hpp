@@ -8,6 +8,7 @@ class Transform
 {
 public:
 	Transform();
+	Transform(glm::mat4 transform);
 	Transform(glm::vec3 scale, glm::quat rotation,glm::vec3 position);
 	Transform(const Transform &other);
 

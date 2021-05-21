@@ -86,8 +86,10 @@ void PlayerControlledMotion::registerJump(glm::vec3& upDirection)
 {
 	auto jump = [&]()
 	{
-        updateVector = (upDirection) + updateVector;
-	};
+        if (canJump) {
+               updateVector = (upDirection) + updateVector;
+		}
+    };  
 	EMS::getInstance().add(NoReturnEvent::jump, jump);
 }
 
