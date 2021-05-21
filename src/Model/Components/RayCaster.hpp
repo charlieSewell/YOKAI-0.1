@@ -7,14 +7,14 @@ class RayCaster : public rp3d::RaycastCallback {
 
 public:
     RayCaster() = default;
-    unsigned int CastRay(glm::vec3 startPosition,glm::vec3 direction,float distance);
+    int CastRay(glm::vec3 startPosition,glm::vec3 direction,float distance);
     virtual rp3d::decimal notifyRaycastHit(const rp3d::RaycastInfo &info);
     int lastHit = -1;
-    void setOwnColliderID(unsigned int ownColliderID);
-	void setExcludedColliderID(unsigned int id);
+    void setOwnColliderID(int ownColliderID);
+	void setExcludedColliderID(int id);
 
-    unsigned int ownColliderID;
-	unsigned int excludedColliderID = -1;
+    int ownColliderID;
+	int excludedColliderID = -1;
 };
 
 

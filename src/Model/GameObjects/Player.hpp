@@ -57,7 +57,4 @@ private:
     int health;
 
     int shields;
-
-	glm::vec3 feelerRight;
-	glm::vec3 feelerLeft;
 };

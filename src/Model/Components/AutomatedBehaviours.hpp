@@ -34,9 +34,9 @@ public:
 	RayCaster rayCaster;
 	glm::vec3 feelerRight;
 	glm::vec3 feelerLeft;
-	unsigned int frontFeelerHit;
-	unsigned int feelerRightHit;
-	unsigned int feelerLeftHit;
+	int frontFeelerHit;
+	int feelerRightHit;
+	int feelerLeftHit;
 
 	void updateFeelers();
 

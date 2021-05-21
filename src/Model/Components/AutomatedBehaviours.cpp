@@ -111,7 +111,7 @@ void AutomatedBehaviours::wander()
 
 	//test
 	glm::vec3 temp1 = seekTarget - ringLocation;
-	glm::vec3 temp2;
+	glm::vec3 temp2 = glm::vec3(0);
 	temp2.x = temp1.x * cos(m_wanderAngle) - temp1.z * sin(m_wanderAngle);
 	temp2.z = temp1.x * sin(m_wanderAngle) + temp1.z * cos(m_wanderAngle);
 
@@ -128,7 +128,7 @@ void AutomatedBehaviours::updateFeelers()
 
 	glm::vec3 temp1 = heading;
 	temp1.y = 0;
-	glm::vec3 temp2;
+	glm::vec3 temp2 = glm::vec3(0);
 
 	temp2.x = temp1.x * cos(0.39) - temp1.z * sin(0.39);        // 0.39 rad = 22.5 deg
 	temp2.z = temp1.x * sin(0.39) + temp1.z * cos(0.39);

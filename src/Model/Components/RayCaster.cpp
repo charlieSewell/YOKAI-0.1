@@ -3,7 +3,7 @@
 //
 
 #include "RayCaster.hpp"
-unsigned int RayCaster::CastRay(glm::vec3 startPosition,glm::vec3 direction,float distance)
+int RayCaster::CastRay(glm::vec3 startPosition,glm::vec3 direction,float distance)
 {
     glm::vec3 extrapolatedVec = direction * distance + startPosition;
     glm::vec3 start = startPosition;
@@ -48,12 +48,12 @@ rp3d::decimal RayCaster::notifyRaycastHit(const rp3d::RaycastInfo& info)
     return rp3d::decimal(1.0);
 }
 
-void RayCaster::setOwnColliderID(unsigned int ownColliderID)
+void RayCaster::setOwnColliderID(int ownColliderID)
 { 
 	this->ownColliderID = ownColliderID;
 }
 
-void RayCaster::setExcludedColliderID(unsigned int id)
+void RayCaster::setExcludedColliderID(int id)
 {
 	excludedColliderID = id;
 }

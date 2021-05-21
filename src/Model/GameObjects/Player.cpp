@@ -67,11 +67,12 @@ void Player::update(float dt)
 
 	if(gun.getIsFiring() && gun.canFire)
 	{
-		unsigned int targetID = rayCaster.CastRay(m_camera.m_position, m_camera.m_frontDirection, 50);
+		int targetID = rayCaster.CastRay(m_camera.m_position, m_camera.m_frontDirection, 200);
 		if(targetID != -1 && GameObjectManager::getInstance().getNPC(targetID))
 		{
-			std::cout << "Hit\n";
-			if(GameObjectManager::getInstance().getNPC(targetID)->m_behaviours.state == 0)		//dead
+			std::cout <<  "hit!\n";
+			//GameObjectManager::getInstance().getNPC(targetID)->hit = true;
+			if(GameObjectManager::getInstance().getNPC(targetID)->health < 0)		//dead
 				GameObjectManager::getInstance().DeleteGameObject(targetID);
 			else
 				GameObjectManager::getInstance().getNPC(targetID)->hit = true;
