@@ -31,3 +31,5 @@ then
 end
 
 --player.health = 90; works
+--healthSize = 650;
+--uiManager:setUpPanel(healthBar, 50, 700, 950, 1000);

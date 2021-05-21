@@ -34,11 +34,7 @@ void DemoScene::Draw()
     //{
     //    controlsScreen->draw();
     //}
-    //GameObjectManager::getInstance().draw();
-    //if(controlsScreen->isActive())
-    //{
-    //    controlsScreen->draw();
-    //}
+    GameObjectManager::getInstance().draw();
 
     if (Yokai::getInstance().getIsPaused()) 
     {
