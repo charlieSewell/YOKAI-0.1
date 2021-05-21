@@ -14,19 +14,19 @@ class KeyframeAnimation
 
         KeyframeAnimation();
 
-        void readFile(std::string textPath);
+        void readFile(const std::string &textPath);
 
         void setAnimation(std::string name);
 
-        void addAnimation(std::string animation, int firstFrame, int lastFrame);
+        void addAnimation(const std::string& animation, int firstFrame, int lastFrame);
 
         std::string getCurrentAnimation() const; 
 
-        void collectModel(std::string modelPath);
+        void collectModel(const std::string &modelPath);
 
         void setCurrentFrame(double dTime);
 
-        int getCurrentFrame();
+        int getCurrentFrame() const;
 
         void draw(Transform t);
 
@@ -48,7 +48,7 @@ class KeyframeAnimation
 
       std::shared_ptr<Shader> shader;
         
-      std::vector<Model> models;
+      std::vector<std::shared_ptr<Model>> models;
 
       ModelLoader loader;
 
