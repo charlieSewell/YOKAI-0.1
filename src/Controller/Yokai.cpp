@@ -47,7 +47,7 @@ void Yokai::Run()
 {
     PhysicsSystem::getInstance().addTerrain();
 
-    const float timeStep = 1.0f / 60;	// 120 fps
+    const float timeStep = 1.0f / 60;
 
 	double lastFrame = 0;
     double lastTime = 0;
