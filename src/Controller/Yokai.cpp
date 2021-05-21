@@ -65,6 +65,7 @@ void Yokai::Run()
         window.startFrame();
         InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
 		InputManagerGLFW::getInstance().processMouse(window.getWindow());
+		InputManagerGLFW::getInstance().processGamepad();
 
 		while (accumulator >= timeStep) {
             PhysicsSystem::getInstance().update(timeStep);
