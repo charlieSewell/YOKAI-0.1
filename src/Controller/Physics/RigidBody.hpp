@@ -29,7 +29,7 @@ public:
      * @param position
      * @param orientation
      */
-    void CreateBody(unsigned int gameObjID,rp3d::PhysicsWorld* physicsWorld,glm::vec3 position,glm::quat orientation);
+    void CreateBody(int gameObjID,rp3d::PhysicsWorld* physicsWorld,glm::vec3 position,glm::quat orientation);
     /**
      * @brief Deletes the physics body
      * @param physicsWorld
@@ -125,17 +125,17 @@ public:
      * @brief Returns the ColliderID
      * @return ID
      */
-    unsigned int getColliderID(){return collider->getEntity().id;}
+    uint32_t getColliderID(){return collider->getEntity().id;}
     /**
      * @brief Returns the owning game objects ID
      * @return
      */
-    unsigned int getGameObjectID(){return gameObjectID;}
+    [[nodiscard]] int getGameObjectID() const{return gameObjectID;}
 private:
     ///Shape of collider
     ReactShape shape;
     ///Owning game object ID
-    unsigned int gameObjectID = -1;
+    int gameObjectID = -1;
     ///React Rigid Body
     reactphysics3d::RigidBody* body;
     ///React Collider

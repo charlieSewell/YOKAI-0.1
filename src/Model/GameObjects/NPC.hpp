@@ -17,7 +17,7 @@ class NPC : public GameObject
      * @brief Constructor
      * @param string - modelName
      */
-    NPC(std::string modelName);
+    NPC(const std::string& modelName);
     ~NPC();
 
     /*!
@@ -57,7 +57,7 @@ private:
     /**
      * @brief Group allert for AI
      */
-	void groupAlert();	//bad
+	void groupAlert() const;	//bad
     /// Stores associated model id of the NPC
     int modelID;
     ///Lua stateMachine

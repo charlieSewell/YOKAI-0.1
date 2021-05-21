@@ -56,7 +56,7 @@ class Yokai
      * Return true if engine paused
      * @return bool
      */
-    bool getIsPaused();
+    bool getIsPaused() const;
 
   private:
     //Singleton pattern requires that all constructors,destructors and copy constructors be private

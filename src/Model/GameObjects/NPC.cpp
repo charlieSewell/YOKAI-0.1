@@ -1,6 +1,6 @@
 #include "NPC.hpp"
 
-NPC::NPC(std::string modelName)
+NPC::NPC(const std::string& modelName)
 	: GameObject(), m_behaviours(AutomatedBehaviours(m_transform)), m_physicsComponent(m_transform),
 	hit(false), health(100)
 {
@@ -46,7 +46,7 @@ void NPC::update(float dt)
     animator.BoneTransform(dt);
 }
 
-void NPC::groupAlert()
+void NPC::groupAlert() const
 {
 	if (m_behaviours.frontFeelerHit != -1)
 	{

@@ -7,13 +7,6 @@
 #include "GLFW/glfw3.h"
 #include "Controller/EventManager.hpp"
 
-OpenGLRenderer::OpenGLRenderer() 
-{
-}
-
-OpenGLRenderer::~OpenGLRenderer()
-{
-}
 
 void OpenGLRenderer::Init() 
 {

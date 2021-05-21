@@ -5,14 +5,14 @@ void MainMenuScene::Init()
     glfwSetInputMode(Yokai::getInstance().window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
-void MainMenuScene::Update(double frameRate) 
+void MainMenuScene::Update(float frameRate)
 {
 }
 
 void MainMenuScene::Draw() 
 {
     int width = 1920, height = 1080;
-    ImGui::SetNextWindowPos(ImVec2(width / 2, height / 2), ImGuiCond_Always, ImVec2(0.5, 0.5));
+    ImGui::SetNextWindowPos(ImVec2(static_cast<float>(width) / 2, static_cast<float>(height) / 2), ImGuiCond_Always, ImVec2(0.5, 0.5));
     ImGui::Begin("Main Menu"); // Create a window called "Hello, world!" and append into it.
 
     ImGui::Text("Main Menu"); // Display some text ,you can use a format strings too

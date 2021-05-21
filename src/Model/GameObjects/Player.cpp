@@ -19,8 +19,6 @@ Player::Player()
     shields = 100;
 }
 
-Player::~Player() {}
-
 void Player::draw() 
 {
     gun.draw();
@@ -82,7 +80,7 @@ void Player::update(float dt)
 			if(GameObjectManager::getInstance().getNPC(targetID)->health < 0)		//dead
 			{
 				GameObjectManager::getInstance().DeleteGameObject(targetID);
-				gun.setReserveAmmo(gun.getReserveAmmo() + 15);
+				gun.setReserveAmmo(gun.getReserveAmmo() + 30);
 			}
 			else
 				GameObjectManager::getInstance().getNPC(targetID)->hit = true;
@@ -117,7 +115,7 @@ void Player::setHealth(int h)
     health = h;
 }
 
-int Player::getHealth() 
+int Player::getHealth() const
 {
     return health;
 }
@@ -127,7 +125,7 @@ void Player::setShields(int s)
     shields = s;
 }
 
-int Player::getShields() 
+int Player::getShields() const
 {
     return shields;
 }
@@ -183,5 +181,8 @@ void Player::takeDamage(float dt)
 	else
 		takingDamage += dt;
 
-	//if(health <= 0);
+	if(health <= 0)
+    {
+	    exit(0.0);
+    }
 }

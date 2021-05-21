@@ -18,7 +18,7 @@ class OpenGLTexture : public Texture
     /**
      * @brief Destructor for an OpenGL Texture
      */
-    virtual ~OpenGLTexture();
+    ~OpenGLTexture() override;
     /**
      * @brief Constructor for OpenGLTexture
      * @param string - fileName
@@ -28,16 +28,16 @@ class OpenGLTexture : public Texture
      * @brief Binds the texture
      * @param size_t - slot
      */
-    virtual void Bind(size_t slot) override;
+    void Bind(size_t slot) override;
     /**
      * @brief Unbinds the texture
      */
-    virtual void UnBind() override;
+    void UnBind() override;
     /**
      * @brief Returns the TextureID
      * @return int
      */
-    virtual int getID() override;
+    int getID() override;
 
   private:
     ///Texture ID
@@ -53,7 +53,7 @@ class OpenGLVertexBuffer : public VertexBuffer
     /**
      * @brief Destructor for OpenGLVertexBuffer
      */
-    virtual ~OpenGLVertexBuffer();
+    ~OpenGLVertexBuffer() override;
     /**
      * @brief Constructor for OpenGLVertexBuffer
      * @param vector<Vertex> - vertices
@@ -82,7 +82,7 @@ class OpenGLIndexBuffer : public IndexBuffer
     /**
      * @brief Destructor for OpenGLIndexBuffer
      */
-    virtual ~OpenGLIndexBuffer();
+    ~OpenGLIndexBuffer() override;
     /**
      * @brief Constructor for OpenGLIndexBuffer
      * @param vector<unsigned int> - indices
@@ -111,7 +111,7 @@ class OpenGLVertexArrayBuffer : public VertexArrayBuffer
     /**
      * @brief Destructor for OpenGLVertexArrayBuffer
      */
-    virtual ~OpenGLVertexArrayBuffer();
+    ~OpenGLVertexArrayBuffer() override;
     /**
      * @brief Constructor for OpenGLVertexArrayBuffer
      * @param vector<Vertex> - vertices

@@ -25,7 +25,7 @@ public:
 	/*!
      * @brief Deconstructor
      */
-	~Player();
+	~Player() = default;
 
     /*!
      * @brief Draw call for the player model
@@ -52,7 +52,7 @@ public:
      * @brief Gets Current Player Health
      * @return
      */
-    int getHealth();
+    int getHealth() const;
     /**
      * @brief Sets the players shields value
      * @param s
@@ -62,7 +62,7 @@ public:
      * @brief Gets the players shield ammount
      * @return
      */
-    int getShields();
+    int getShields() const;
     /**
      * @brief Registers Class in Lua
      */

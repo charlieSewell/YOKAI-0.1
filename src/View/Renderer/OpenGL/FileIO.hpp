@@ -14,7 +14,7 @@
  * @param int& - reqComponents
  * @return unsigned char*
  */
-unsigned char* TextureFromFile(std::string filename, int &width,int &height, int &nrComponents,int reqComponents);
+unsigned char* TextureFromFile(const std::string& filename, int &width,int &height, int &nrComponents,int reqComponents);
 /**
  * @brief Deletes the loaded texture data
  * @param unsigned char* - data

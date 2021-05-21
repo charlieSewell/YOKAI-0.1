@@ -7,10 +7,6 @@
 #include <utility>
 #include "View/Renderer/OpenGL/OpenGLRenderer.hpp"
 #include "Controller/Yokai.hpp"
-Chunk::Chunk()
-{
-
-}
 
 void Chunk::SetupChunk(const std::vector<Vertex>& vertices, const std::vector<unsigned int> &indices)
 {

@@ -70,7 +70,7 @@ class Model
      * @param name
      * @return SkeletalAnimation*
      */
-    SkeletalAnimation* getAnimation(std::string name);
+    SkeletalAnimation* getAnimation(const std::string& name);
     /**
      * @brief Gets the size of the bones array
      * @return
@@ -99,7 +99,7 @@ class Model
 
   private:
     ///Global transform
-    glm::mat4 globalInverseTransform;
+    glm::mat4 globalInverseTransform{};
     ///list of models meshes
     std::vector<Mesh> meshes;
     ///list of models bones

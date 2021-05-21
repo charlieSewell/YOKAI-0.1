@@ -1,25 +1,23 @@
 
 #include "SplashScreen.hpp"
 #include "Controller/Yokai.hpp"
-#include "Controller/EventManager.hpp"
-#include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-SplashScreen::SplashScreen(std::string texturePath)
+SplashScreen::SplashScreen(const std::string& texturePath)
 {
-    texture = Texture::Create(texturePath);
+    texture = TextureManager::getInstance().loadTexture(texturePath);
     setupShader();
     active = true;
 }
-void SplashScreen::setTexture(std::string texturePath)
+void SplashScreen::setTexture(const std::string& texturePath)
 {
-    texture = Texture::Create(texturePath);
+    texture = TextureManager::getInstance().loadTexture(texturePath);
 }
 void SplashScreen::draw()
 {
     glDisable(GL_DEPTH_TEST);
     splashShader->useShader();
-    texture->Bind(1);
+    TextureManager::getInstance().getTexture(texture)->Bind(1);
     auto& engine = Yokai::getInstance();
     engine.renderer.Draw(*vao,6);
     glEnable(GL_DEPTH_TEST);
@@ -56,7 +54,7 @@ void SplashScreen::setActive(bool a)
     active = a;
 }
 
-bool SplashScreen::getActive()
+bool SplashScreen::getActive() const
 {
     return active;
 }

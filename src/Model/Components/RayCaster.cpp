@@ -11,7 +11,7 @@ int RayCaster::CastRay(glm::vec3 startPosition,glm::vec3 direction,float distanc
     PhysicsSystem::getInstance().physicsWorld->raycast(testRay,this);
     if(lastHit != -1)
     {
-        unsigned int gameObjID = PhysicsSystem::getInstance().getRigidBody(lastHit)->getGameObjectID();
+        int gameObjID = PhysicsSystem::getInstance().getRigidBody(lastHit)->getGameObjectID();
         lastHit = -1;
         return  gameObjID;
     }
@@ -27,7 +27,7 @@ rp3d::decimal RayCaster::notifyRaycastHit(const rp3d::RaycastInfo& info)
             lastHit = -1;
             return rp3d::decimal(0.0);
         }
-		else if (info.collider->getEntity().id == excludedColliderID)
+        else if (info.collider->getEntity().id == excludedColliderID)
 		{
 			lastHit = -1;
 			return rp3d::decimal(1.0);

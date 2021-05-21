@@ -20,7 +20,7 @@ class Chunk
     /**
      * @brief Constructs a Chunk Objects
      */
-    Chunk();
+    Chunk() = default;
     /**
      * @brief Constructs a chunks mesh
      * @param vector<Vertex> - vertices

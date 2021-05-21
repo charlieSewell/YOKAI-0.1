@@ -21,12 +21,12 @@ void Yokai::Init()
 
     if(!window.Init())
     {
-        return;
+        exit(0);
     }
     renderer.Init();
     if(!window.ImguiInit())
     {
-        return;
+        exit(0);
     }
 
     //Add layers to layer stack
@@ -49,7 +49,6 @@ void Yokai::Run()
 
     const float timeStep = 1.0f / 60;
 
-	double lastFrame = 0;
     double lastTime = 0;
     double accumulator = 0;
 
@@ -69,11 +68,12 @@ void Yokai::Run()
 
 		while (accumulator >= timeStep) {
             PhysicsSystem::getInstance().update(timeStep);
-            if (isPaused == false)
-            {
-                layers[activeLayer]->Update(timeStep);
-            }
+
             accumulator -= timeStep;
+        }
+        if (!isPaused)
+        {
+            layers[activeLayer]->Update(static_cast<float>(deltaTime));
         }
         layers[activeLayer]->Draw();
 
@@ -125,7 +125,7 @@ void Yokai::setIsPaused(bool p)
     isPaused = p;
 }
 
-bool Yokai::getIsPaused() 
+bool Yokai::getIsPaused() const
 {
     return isPaused;
 }

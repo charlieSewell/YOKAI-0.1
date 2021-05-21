@@ -114,7 +114,7 @@ void Weapon::update(Transform playerTransform, glm::vec3 frontDirection)
 	m_transform.setPosition(playerTransform.getPosition());
 	m_transform.scale(0.02);
 	m_transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
-	m_transform.translatePostMultiply(glm::normalize(frontDirection).x * 0.7, glm::normalize(frontDirection).y + 2.5, glm::normalize(frontDirection).z * 0.75);
+	m_transform.translatePostMultiply(static_cast<float>(glm::normalize(frontDirection).x * 0.7), static_cast<float>(glm::normalize(frontDirection).y + 2.5), static_cast<float>(glm::normalize(frontDirection).z * 0.75));
 	glm::vec3 rightVector = glm::normalize((glm::cross(frontDirection, glm::vec3(0, 1, 0))));
 	m_transform.translatePostMultiply(glm::normalize(rightVector) * 0.45f);
 }

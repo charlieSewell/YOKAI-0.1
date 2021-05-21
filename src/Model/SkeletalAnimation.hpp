@@ -27,7 +27,7 @@ class SkeletalAnimation {
         /**
          * @brief Default Constructor for SkeletalAnimation
          */
-        SkeletalAnimation();
+        SkeletalAnimation() =default;
         /**
          * @brief Constructor for SkeletalAnimation
          * @param name

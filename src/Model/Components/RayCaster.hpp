@@ -27,7 +27,7 @@ public:
      * @param info
      * @return
      */
-    virtual rp3d::decimal notifyRaycastHit(const rp3d::RaycastInfo &info);
+    rp3d::decimal notifyRaycastHit(const rp3d::RaycastInfo &info) override;
     /// ID of last object hit
     int lastHit = -1;
     /// Sets own collider to be excluded

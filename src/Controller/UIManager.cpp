@@ -1,5 +1,8 @@
 #include "Controller/UIManager.hpp"
 
+#include <memory>
+#include <utility>
+
 UIManager &UIManager::getInstance() 
 {
     static UIManager instance;
@@ -13,15 +16,15 @@ void UIManager::init()
     registerClass();
 }
 
-std::shared_ptr<SplashScreen> UIManager::create(std::string texturePath) 
+std::shared_ptr<SplashScreen> UIManager::create(const std::string& texturePath)
 {
-    return std::shared_ptr<SplashScreen>(new SplashScreen(texturePath));
+    return std::make_shared<SplashScreen>(texturePath);
 }
 
-std::string UIManager::add(std::string name, std::string texturePath) 
+std::string UIManager::add(std::string name, const std::string& texturePath)
 {
     //uiObjects[name] = gameObject;
-    uiObjects[name] = std::shared_ptr<SplashScreen>(new SplashScreen(texturePath));
+    uiObjects[name] = std::make_shared<SplashScreen>(texturePath);
     //std::cout << "ADD" << std::endl;
     //objectCount++;
     return name;
@@ -46,7 +49,7 @@ void UIManager::draw()
     }
 }
 
-std::shared_ptr<SplashScreen> UIManager::getObject(std::string name) 
+std::shared_ptr<SplashScreen> UIManager::getObject(const std::string& name)
 {
     //std::cout << "GET" << std::endl;
     if (uiObjects[name] != nullptr) 
@@ -56,17 +59,17 @@ std::shared_ptr<SplashScreen> UIManager::getObject(std::string name)
     return nullptr;
 }
 
-void UIManager::luaSetUpPanel(std::string name, float left, float right, float top, float bottom) 
+void UIManager::luaSetUpPanel(const std::string& name, float left, float right, float top, float bottom)
 {
     getObject(name)->setupPanel(left, right, top, bottom);
 }
 
-void UIManager::luaSetTexture(std::string name, std::string texturePath) 
+void UIManager::luaSetTexture(const std::string& name, std::string texturePath)
 {
-    getObject(name)->setTexture(texturePath);
+    getObject(name)->setTexture(std::move(texturePath));
 }
 
-void UIManager::luaSetActive(std::string name, bool a) 
+void UIManager::luaSetActive(const std::string& name, bool a)
 {
     getObject(name)->setActive(a);
 }

@@ -17,7 +17,7 @@ class StaticObject : public GameObject
      * @brief Constructor
      * @param string - modelName
      */
-    StaticObject(std::string modelName);
+    StaticObject(const std::string& modelName);
     /**
      * @brief Destructor for static object
      */
@@ -28,7 +28,7 @@ class StaticObject : public GameObject
      * @param length
      * @param height
      */
-    void setCollider(float width, float length, float height) override;
+    void setCollider(float width, float height, float length) override;
     /*!
      * @brief Draw call for the staticObject model
      */

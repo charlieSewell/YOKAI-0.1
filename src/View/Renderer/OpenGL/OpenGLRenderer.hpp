@@ -20,11 +20,11 @@ class OpenGLRenderer : public RenderAPI
     /**
      * @brief Constructor for OpenGLRenderer
      */
-    OpenGLRenderer();
+    OpenGLRenderer() = default;
     /**
      * @brief Destructor for OpenGLRenderer
      */
-    ~OpenGLRenderer() override;
+    ~OpenGLRenderer()override = default;
     /**
      * @brief Initialises OpenGL
      */
