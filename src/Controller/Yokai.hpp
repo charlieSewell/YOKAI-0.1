@@ -49,7 +49,6 @@ class Yokai
      */
     void registerClose();
 
-    void registerUI();
     /**
      * @brief Privatised Default Constructor
      */
@@ -73,23 +72,7 @@ class Yokai
 
     //SplashScreen* endScreen;
 
-    //SplashScreen* healthUI;
-
-    //SplashScreen *shieldUI;
-
-    //SplashScreen *ammoMainUI;
-    //SplashScreen *ammoMainUI2;
-    //SplashScreen *ammoReserveUI;
-    //SplashScreen *ammoReserveUI2;
-    //SplashScreen *ammoReserveUI3;
-
-    //KeyframeAnimation *keyframe;
-
-    //TESTING
-    //int healthbar;
     bool isPaused;
-    //Weapon gun;
-    //std::vector<std::string> ammoNumbers;
 
     int activeLayer;
 };

@@ -43,4 +43,5 @@ class DemoScene : public Layer
 	// test - delelt
 	int test;
 
+    SplashScreen *controlsScreen;
 };

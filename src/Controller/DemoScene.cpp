@@ -8,16 +8,14 @@ void DemoScene::Init()
     terrainManager.setSandHeight(terrainFactory.getSandHeight());
     terrainManager.setSnowHeight(terrainFactory.getSnowHeight());
     terrainManager.Init();
-    //controlsScreen = new SplashScreen("content/Textures/help_menu.png");
+    controlsScreen = new SplashScreen("content/Textures/help_menu.png");
+    controlsScreen->setupPanel(200, 1600, 200, 800);
+    controlsScreen->setActive(false);
     registerMenuButtons();
 
     GameObjectManager::getInstance().init();
     UIManager::getInstance().init();
 
-    //UIManager::getInstance().getObject("zero")->setupPanel(1700, 1750, 800, 900);
-    //std::string name = UIManager::getInstance().add("zero", "content/Textures/0.png");
-    //UIManager::getInstance().getObject(name)->setupPanel(1700, 1750, 800, 900);
-    //UIManager::getInstance().getObject("zero")->setActive();
 }
 
 #include "Model/GameObjects/NPC.hpp"
@@ -30,10 +28,6 @@ void DemoScene::Update(double frameRate)
 void DemoScene::Draw()
 {
     terrainManager.Draw(EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
-    //if(controlsScreen->isActive())
-    //{
-    //    controlsScreen->draw();
-    //}
     GameObjectManager::getInstance().draw();
 
     if (Yokai::getInstance().getIsPaused()) 
@@ -60,6 +54,9 @@ void DemoScene::Draw()
         ImGui::End();
     }
     UIManager::getInstance().draw();
+    if (controlsScreen->getActive()) {
+        controlsScreen->draw();
+    }
 }
 void DemoScene::Enable()
 {
@@ -69,33 +66,28 @@ void DemoScene::Disable()
 {
     isEnabled = false;
 }
-void DemoScene::registerMenuButtons()
-{
-    static bool isPressed;
-    auto menuButtonReleased = [&]()
-    {
-        isPressed = false;
 
+void DemoScene::registerMenuButtons() {
+    static bool isPressed;
+    auto menuButtonReleased = [&]() {
+        isPressed = false;
     };
     EMS::getInstance().add(NoReturnEvent::toggleMenuReleased, menuButtonReleased);
 
-    auto toggleMenuPressed = [&]()
-    {
-        if (!isPressed){
-            /*
-            if (controlsScreen->isActive())
-            {
-                glfwSetInputMode(Yokai::getInstance().window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-                controlsScreen->setInactive();
+    auto toggleMenuPressed = [&]() {
+        if (!isPressed) {
+
+            if (controlsScreen->getActive()) {
+                glfwSetInputMode(Yokai::getInstance().window.getWindow(), GLFW_CURSOR,
+                                 GLFW_CURSOR_DISABLED);
+                controlsScreen->setActive(false);
+                isPressed = true;
+            } else {
+                glfwSetInputMode(Yokai::getInstance().window.getWindow(), GLFW_CURSOR,
+                                 GLFW_CURSOR_NORMAL);
+                controlsScreen->setActive(true);
                 isPressed = true;
             }
-            else
-            {
-                glfwSetInputMode(Yokai::getInstance().window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-                controlsScreen->setActive();
-                isPressed = true;
-            }
-            */
         }
     };
     EMS::getInstance().add(NoReturnEvent::toggleMenuPressed, toggleMenuPressed);

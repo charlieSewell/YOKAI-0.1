@@ -49,7 +49,6 @@ void SplashScreen::setupPanel(float left, float right, float top, float bottom)
     std::vector<unsigned int> indices = {0, 1, 2, 1, 3, 2};
     vao                               = VertexArrayBuffer::Create(verts, indices);
 
-    //std::cout << "YES" << std::endl;
 }
 
 void SplashScreen::setActive(bool a)
