@@ -16,10 +16,6 @@ void DemoScene::Init()
     GameObjectManager::getInstance().init();
     UIManager::getInstance().init();
 
-    //UIManager::getInstance().getObject("zero")->setupPanel(1700, 1750, 800, 900);
-    //std::string name = UIManager::getInstance().add("zero", "content/Textures/0.png");
-    //UIManager::getInstance().getObject(name)->setupPanel(1700, 1750, 800, 900);
-    //UIManager::getInstance().getObject("zero")->setActive();
 }
 
 #include "Model/GameObjects/NPC.hpp"
@@ -32,10 +28,6 @@ void DemoScene::Update(double frameRate)
 void DemoScene::Draw()
 {
     terrainManager.Draw(EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
-    //if(controlsScreen->isActive())
-    //{
-    //    controlsScreen->draw();
-    //}
     GameObjectManager::getInstance().draw();
 
     if (Yokai::getInstance().getIsPaused()) 
