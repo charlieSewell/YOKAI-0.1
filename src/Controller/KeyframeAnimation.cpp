@@ -14,7 +14,7 @@ KeyframeAnimation::KeyframeAnimation()
     animationFinished = true;
 }
 
-void KeyframeAnimation::readFile(std::string textPath) 
+void KeyframeAnimation::readFile(const std::string &textPath)
 {
     std::ifstream file(textPath);
     std::string path;
@@ -31,15 +31,14 @@ void KeyframeAnimation::readFile(std::string textPath)
     }
 }
 
-void KeyframeAnimation::collectModel(std::string modelPath) 
+void KeyframeAnimation::collectModel(const std::string &modelPath)
 {
-    Model model = loader.loadModel(modelPath);
-    models.push_back(model);
+    models.push_back(std::make_shared<Model>(loader.loadModel(modelPath)));
 }
 
 void KeyframeAnimation::setAnimation(std::string name)
 {
-    currentAnimation = name;
+    currentAnimation = std::move(name);
 }
 
 std::string KeyframeAnimation::getCurrentAnimation() const
@@ -47,7 +46,7 @@ std::string KeyframeAnimation::getCurrentAnimation() const
     return currentAnimation;
 }
 
-void KeyframeAnimation::addAnimation(std::string animation, int firstFrame, int lastFrame) 
+void KeyframeAnimation::addAnimation(const std::string& animation, int firstFrame, int lastFrame)
 {
     if (firstFrame < 0) 
     {
@@ -64,9 +63,9 @@ void KeyframeAnimation::addAnimation(std::string animation, int firstFrame, int 
 
 void KeyframeAnimation::setCurrentFrame(double deltaTime) 
 {
+
     //std::cout << getCurrentFrame() << "\n";
     totalTime += deltaTime;
-
     if (totalTime > ((animations.at(currentAnimation).second - animations.at(currentAnimation).first + 1) / ticksPerSecond))
     {
         totalTime = 0;
@@ -75,7 +74,6 @@ void KeyframeAnimation::setCurrentFrame(double deltaTime)
     swapAnimationCheck(); 
     currentFrame = static_cast<int>(totalTime * ticksPerSecond);
     currentFrame += animations.at(currentAnimation).first - 1;
-    
 }
 
 void KeyframeAnimation::swapAnimationCheck() 
@@ -88,7 +86,7 @@ void KeyframeAnimation::swapAnimationCheck()
     tempAnimation = currentAnimation;
 }
 
-int KeyframeAnimation::getCurrentFrame() 
+int KeyframeAnimation::getCurrentFrame() const
 {
     return currentFrame;
 }
@@ -102,7 +100,7 @@ void KeyframeAnimation::draw(Transform t)
     shader->useShader();
     shader->setVec3("viewPos", EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
     //models[currentFrame].Draw(*shader, transform);
-    models[currentFrame].Draw(*shader, t.getMatrix());
+    models[currentFrame]->Draw(*shader, t.getMatrix());
 }
 
 void KeyframeAnimation::setTPS(float tps) 

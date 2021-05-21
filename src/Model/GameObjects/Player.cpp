@@ -67,7 +67,6 @@ void Player::update(float dt)
 	gun.getWeaponAnimation()->setCurrentFrame(dt);
     gun.update(m_transform, m_camera.m_frontDirection);
     LuaManager::getInstance().runScript("content/Scripts/gunLogic.lua");
-    //std::cout << health << std::endl;
 }
 
 void Player::setCollider(float width, float length, float height)
