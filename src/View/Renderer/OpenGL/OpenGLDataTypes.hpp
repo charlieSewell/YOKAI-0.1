@@ -58,7 +58,7 @@ class OpenGLVertexBuffer : public VertexBuffer
      * @brief Constructor for OpenGLVertexBuffer
      * @param vector<Vertex> - vertices
      */
-    OpenGLVertexBuffer(std::vector<Vertex> vertices);
+    OpenGLVertexBuffer(std::vector<Vertex> &vertices);
     /**
      * @brief Binds the VertexBuffer
      */
@@ -70,7 +70,7 @@ class OpenGLVertexBuffer : public VertexBuffer
 
   private:
     ///Vertex Buffer ID
-    unsigned int bufferID;
+    unsigned int vboID;
 };
 /**
  * @class OpenGLIndexBuffer
@@ -87,7 +87,7 @@ class OpenGLIndexBuffer : public IndexBuffer
      * @brief Constructor for OpenGLIndexBuffer
      * @param vector<unsigned int> - indices
      */
-    OpenGLIndexBuffer(std::vector<unsigned int> indices);
+    OpenGLIndexBuffer(std::vector<unsigned int> &indices);
     /**
      * @brief Binds the IndexBuffer
      */
@@ -99,7 +99,7 @@ class OpenGLIndexBuffer : public IndexBuffer
 
   private:
     ///Index Buffer ID
-    unsigned int bufferID;
+    unsigned int ibID;
 };
 /**
  * @class OpenGLVertexArrayBuffer
@@ -117,7 +117,7 @@ class OpenGLVertexArrayBuffer : public VertexArrayBuffer
      * @param vector<Vertex> - vertices
      * @param vector<unisigned int> - indices
      */
-    OpenGLVertexArrayBuffer(const std::vector<Vertex>& vertices,const std::vector<unsigned int>& indices);
+    OpenGLVertexArrayBuffer(std::vector<Vertex>& vertices,std::vector<unsigned int>& indices);
     /**
      * @brief Binds the VertexArrayBuffer
      */
@@ -129,7 +129,7 @@ class OpenGLVertexArrayBuffer : public VertexArrayBuffer
 
   private:
     ///Vertex Array Buffer ID
-    unsigned int bufferID;
+    unsigned int vaoID;
     ///Pointer to Vertex Buffer
     std::shared_ptr<OpenGLVertexBuffer> vertexBuffer;
     ///Pointer to Index Buffer

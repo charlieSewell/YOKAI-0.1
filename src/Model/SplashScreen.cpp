@@ -19,7 +19,7 @@ void SplashScreen::draw()
     splashShader->useShader();
     TextureManager::getInstance().getTexture(texture)->Bind(1);
     auto& engine = Yokai::getInstance();
-    engine.renderer.Draw(*vao,6);
+    //engine.renderer.Draw(*vao,6);
     glEnable(GL_DEPTH_TEST);
 }
 void SplashScreen::setupShader()
@@ -46,7 +46,8 @@ void SplashScreen::setupPanel(float left, float right, float top, float bottom)
     verts[3].textureCoords            = glm::vec2(1, 1);
     std::vector<unsigned int> indices = {0, 1, 2, 1, 3, 2};
     vao                               = VertexArrayBuffer::Create(verts, indices);
-
+    verts.clear();
+    indices.clear();
 }
 
 void SplashScreen::setActive(bool a)
