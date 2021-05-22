@@ -1,7 +1,7 @@
 uiManager = UIManager:getInstance();
 
 crosshair = uiManager:add("crosshair","content/Textures/crosshair.png");
-uiManager:setUpPanel(crosshair, (1920/2) - 25, (1920/2) + 25, (1080/2) - 25, (1080/2) + 25);
+uiManager:setUpPanel(crosshair, (1920/2) - 25, (1920/2) + 25, (1080/2) - 25, (1080/2) + 2i pulled your brac);
 
 ammoOne = uiManager:add("ammoOne", "content/Textures/3.png");
 uiManager:setUpPanel(ammoOne, 1700, 1750, 800, 900);

@@ -29,8 +29,8 @@ int RayCaster::CastRay(glm::vec3 startPosition,glm::vec3 direction,float distanc
 
 rp3d::decimal RayCaster::notifyRaycastHit(const rp3d::RaycastInfo& info)
 {
-    if(info.collider != nullptr){
-        //std::cout << info.hitFraction << " "<< info.collider->getCollisionShape()->to_string() <<std::endl;
+    if(info.collider != nullptr)
+    {
         if(info.collider->getCollisionShape()->getType() == rp3d::CollisionShapeType::CONCAVE_SHAPE)
         {
             return rp3d::decimal(1.0);
