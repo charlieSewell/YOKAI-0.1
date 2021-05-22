@@ -3,16 +3,10 @@
 //
 
 #include "Chunk.hpp"
-
-#include <utility>
 #include "View/Renderer/OpenGL/OpenGLRenderer.hpp"
 #include "Controller/Yokai.hpp"
-Chunk::Chunk()
-{
 
-}
-
-void Chunk::SetupChunk(const std::vector<Vertex>& vertices, const std::vector<unsigned int> &indices)
+void Chunk::SetupChunk(std::vector<Vertex>& vertices, std::vector<unsigned int> &indices)
 {
     VAO = VertexArrayBuffer::Create(vertices,indices);
     indicesSize = indices.size();

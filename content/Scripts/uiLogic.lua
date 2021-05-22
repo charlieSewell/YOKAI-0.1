@@ -34,5 +34,6 @@ uiManager:setUpPanel(shieldBar, 50, (50 + (player.shields * 6.5)), 875, 925);
 
 
 --player.health = 90
+
 --healthSize = 650;
 --uiManager:setUpPanel(healthBar, 50, 700, 950, 1000);

@@ -54,3 +54,7 @@ void Renderer::DeInit()
 {
     renderApi->DeInit();
 }
+void Renderer::SetDepthTesting(bool isEnabled)
+{
+    renderApi->SetDepthTesting(isEnabled);
+}

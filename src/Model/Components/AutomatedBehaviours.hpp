@@ -63,12 +63,13 @@ public:
 	glm::vec3 feelerRight;
     ///Vector for left feeler
 	glm::vec3 feelerLeft;
+
 	///has front feeler hit
-	unsigned int frontFeelerHit;
+	int frontFeelerHit = -1;
 	///has right feeler hit
-	unsigned int feelerRightHit;
+	int feelerRightHit = -1;
 	///has left feeler hit
-	unsigned int feelerLeftHit;
+	int feelerLeftHit = -1;
     /**
      * @brief Updates the feelers
      */

@@ -26,6 +26,6 @@ void ReactTerrainShape::CreateTerrainShape(reactphysics3d::PhysicsCommon &physic
 
 }
 void ReactTerrainShape::DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon){
-    physicsCommon.destroyHeightFieldShape(static_cast<reactphysics3d::HeightFieldShape*>(shape));
+    physicsCommon.destroyHeightFieldShape(dynamic_cast<reactphysics3d::HeightFieldShape*>(shape));
     delete[] heightFieldArray;
 }

@@ -9,5 +9,5 @@ void ReactBoxShape::CreateBoxShape(glm::vec3 bounds, reactphysics3d::PhysicsComm
 
 }
 void ReactBoxShape::DeleteShape(reactphysics3d::PhysicsCommon &physicsCommon){
-    physicsCommon.destroyBoxShape(static_cast<rp3d::BoxShape*>(shape));
+    physicsCommon.destroyBoxShape(dynamic_cast<rp3d::BoxShape*>(shape));
 }

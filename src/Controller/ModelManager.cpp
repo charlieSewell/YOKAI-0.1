@@ -20,7 +20,7 @@ ModelManager::ModelManager()
     models.resize(100);
 }
 
-auto ModelManager::GetModelID(std::string filename) -> size_t 
+auto ModelManager::GetModelID(const std::string& filename) -> size_t
 {
     auto id = modelIDtoName.find(filename);
     //stops files being loaded more then once

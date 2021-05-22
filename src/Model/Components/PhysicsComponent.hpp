@@ -23,7 +23,7 @@ public:
   /**
    * @brief Constructor For Physics Components
    */
-	PhysicsComponent() {}
+	PhysicsComponent()=default;
 
 	/**
 	* @brief Constructor For Physics Components
@@ -34,7 +34,7 @@ public:
     /**
    * @brief Destructor For Physics Components
    */
-	virtual ~PhysicsComponent() {}
+	virtual ~PhysicsComponent() = default;
 
     /**
      * @brief Register ReactBoxShape
@@ -52,7 +52,7 @@ public:
      * @brief Returns the rigid body of game object
      * @return
      */
-    RigidBody * getCollider();
+    RigidBody * getCollider() const;
     /**
      * @brief Deletes the Collider
      */
@@ -90,32 +90,18 @@ public:
      * @brief Gets the Max Velocity
      * @return
      */
-    int getmaxVelocity(){ return maxVelocity;}
-/**
- * @brief Gets the current velocity
- * @return
- */
+    int getmaxVelocity() const{ return static_cast<int>(maxVelocity);}
+    /**
+     * @brief Gets the current velocity
+     * @return
+     */
 	glm::vec3 getCurrentVelocity(){return getCollider()->GetLinearVelocity();}
 private:
-  /**
-   * @brief Updates Gravity
-   * @param float - jumpSpeed
-   */
-	void updateGravity(float jumpSpeed);
-    /**
-     * @brief Resolves Collisions
-     * @param float - movementSpeed
-     */
-	void resolveCollisions(float &movementSpeed);
+
     ///is physics toggle pressed
 	bool m_physicsTogglePressed = false;
 	///colliderID
-	unsigned int colliderID = -1;
+	int colliderID = -1;
 	///transform Pointer
 	Transform* m_transformPtr;
-    /**
-     * @brief Resolves collisions
-     * @param colliderID
-     */
-    void resolveCollisions(int colliderID);
 };

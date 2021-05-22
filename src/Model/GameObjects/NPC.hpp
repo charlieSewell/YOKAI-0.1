@@ -17,7 +17,7 @@ class NPC : public GameObject
      * @brief Constructor
      * @param string - modelName
      */
-    NPC(std::string modelName);
+    NPC(const std::string& modelName);
     ~NPC();
 
     /*!
@@ -35,17 +35,21 @@ class NPC : public GameObject
      * @param height
      * @param length
      */
-    void setCollider(float width, float height, float length) override;
+	void setCollider(float width, float height, float length) override;
+
+	bool hit;
+	int health;
+
+    
 
 /**
  * @brief Registers class in lua
  */
 	static void registerClass();
 
-private:
-	//Coponents
 	///Behaviours component
 	AutomatedBehaviours m_behaviours;
+private:
 	///Physics component
 	PhysicsComponent m_physicsComponent;
 	///Animator component
@@ -53,7 +57,7 @@ private:
     /**
      * @brief Group allert for AI
      */
-	void groupAlert();	//bad
+	void groupAlert() const;	//bad
     /// Stores associated model id of the NPC
     int modelID;
     ///Lua stateMachine

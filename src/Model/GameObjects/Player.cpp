@@ -19,8 +19,6 @@ Player::Player()
     shields = 100;
 }
 
-Player::~Player() {}
-
 void Player::draw() 
 {
     gun.draw();
@@ -70,13 +68,33 @@ void Player::update(float dt)
     m_physics.updatePhysics(m_movement.movementSpeed, m_movement.jumpSpeed);
     m_movement.updateVector = glm::vec3{};
 
+	gun.update(m_transform, m_camera.m_frontDirection);
 	m_camera.m_position = glm::vec3(m_transform.getPosition().x, m_transform.getPosition().y + 3, m_transform.getPosition().z);		//TODO: make this better
 
+	if(gun.getIsFiring() && gun.canFire)
+	{
+		int targetID = rayCaster.CastRay(m_camera.m_position, m_camera.m_frontDirection, 200);
+		if(targetID != -1 && GameObjectManager::getInstance().getNPC(targetID))
+		{
+			//GameObjectManager::getInstance().getNPC(targetID)->hit = true;
+			if(GameObjectManager::getInstance().getNPC(targetID)->health < 0)		//dead
+			{
+				GameObjectManager::getInstance().DeleteGameObject(targetID);
+				gun.setReserveAmmo(gun.getReserveAmmo() + 30);
+			}
+			else
+				GameObjectManager::getInstance().getNPC(targetID)->hit = true;
+		}
+	}
+	
 	gun.getWeaponAnimation()->setCurrentFrame(dt);
     gun.update(m_transform, m_camera.m_frontDirection);
     LuaManager::getInstance().runScript("content/Scripts/playerLogic.lua");
     LuaManager::getInstance().runScript("content/Scripts/gunLogic.lua");
     onBox = false;
+
+	if(hit)
+		takeDamage(dt);
 }
 
 void Player::setCollider(float width, float length, float height)
@@ -97,7 +115,7 @@ void Player::setHealth(int h)
     health = h;
 }
 
-int Player::getHealth() 
+int Player::getHealth() const
 {
     return health;
 }
@@ -107,7 +125,7 @@ void Player::setShields(int s)
     shields = s;
 }
 
-int Player::getShields() 
+int Player::getShields() const
 {
     return shields;
 }
@@ -145,5 +163,26 @@ void Player::registerClass()
 		.addProperty("gun", &Player::gun, true)
 		.addProperty("physics",&Player::m_physics,true)
 		.addProperty("onGround",&Player::onBox,true)
+		.addProperty("hit", &Player::hit, true)
 		.endClass();
+}
+
+void Player::takeDamage(float dt)
+{
+	if(takingDamage > dt * 60)
+	{
+		takingDamage = 0;
+		if(shields > 0)
+			shields -= 5;
+		else
+			health -= 5;
+		hit = false;
+	}
+	else
+		takingDamage += dt;
+
+	if(health <= 0)
+    {
+	    exit(0.0);
+    }
 }

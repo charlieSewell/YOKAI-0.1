@@ -1,6 +1,7 @@
 #include "Model/Components/Weapon.hpp"
 
 Weapon::Weapon() 
+	: canFire(false)
 {
     maxAmmo = 30;
     maxReserveAmmo = 150;
@@ -113,27 +114,9 @@ void Weapon::update(Transform playerTransform, glm::vec3 frontDirection)
 	m_transform.setPosition(playerTransform.getPosition());
 	m_transform.scale(0.02);
 	m_transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
-	m_transform.translatePostMultiply(glm::normalize(frontDirection).x * 0.7, glm::normalize(frontDirection).y + 2.5, glm::normalize(frontDirection).z * 0.75);
+	m_transform.translatePostMultiply(static_cast<float>(glm::normalize(frontDirection).x * 0.7), static_cast<float>(glm::normalize(frontDirection).y + 2.5), static_cast<float>(glm::normalize(frontDirection).z * 0.75));
 	glm::vec3 rightVector = glm::normalize((glm::cross(frontDirection, glm::vec3(0, 1, 0))));
 	m_transform.translatePostMultiply(glm::normalize(rightVector) * 0.45f);
-}
-
-void Weapon::registerClass() 
-{
-    KeyframeAnimation::registerClass();
-    luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
-        .beginClass<Weapon>("Weapon")
-        .addProperty("gunAnimation", &Weapon::weaponAnimation, true)
-        .addProperty("ammo", &Weapon::getAmmo, &Weapon::setAmmo)
-        .addProperty("reserveAmmo", &Weapon::getReserveAmmo, &Weapon::setReserveAmmo)
-        .addProperty("maxAmmo", &Weapon::getMaxAmmo, &Weapon::setMaxAmmo)
-        .addProperty("maxReserveAmmo", &Weapon::getMaxReserveAmmo, &Weapon::setMaxReserveAmmo)
-        .addFunction("reload", &Weapon::reload)
-        .addFunction("getIsFiring", &Weapon::getIsFiring)
-        .addFunction("getIsReloading", &Weapon::getIsReloading)
-        .addFunction("incrementAmmo", &Weapon::incrementAmmo)
-        .addFunction("decrementAmmo", &Weapon::decrementAmmo)
-        .endClass();
 }
 
 void Weapon::registerFire() 
@@ -179,3 +162,23 @@ bool Weapon::getIsReloading() const
 {
     return isReloading;
 }
+
+void Weapon::registerClass()
+{
+	KeyframeAnimation::registerClass();
+	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+		.beginClass<Weapon>("Weapon")
+		.addProperty("gunAnimation", &Weapon::weaponAnimation, true)
+		.addProperty("ammo", &Weapon::getAmmo, &Weapon::setAmmo)
+		.addProperty("reserveAmmo", &Weapon::getReserveAmmo, &Weapon::setReserveAmmo)
+		.addProperty("maxAmmo", &Weapon::getMaxAmmo, &Weapon::setMaxAmmo)
+		.addProperty("maxReserveAmmo", &Weapon::getMaxReserveAmmo, &Weapon::setMaxReserveAmmo)
+		.addProperty("canFire", &Weapon::canFire, true)
+		.addFunction("reload", &Weapon::reload)
+		.addFunction("getIsFiring", &Weapon::getIsFiring)
+		.addFunction("getIsReloading", &Weapon::getIsReloading)
+		.addFunction("incrementAmmo", &Weapon::incrementAmmo)
+		.addFunction("decrementAmmo", &Weapon::decrementAmmo)
+		.endClass();
+}
+

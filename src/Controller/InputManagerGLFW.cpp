@@ -94,3 +94,36 @@ void InputManagerGLFW::processMouse(GLFWwindow* window)
 	lastX = xpos;
 	lastY = ypos;
 }
+
+void InputManagerGLFW::processGamepad()
+{
+	GLFWgamepadstate state;
+
+	if (glfwGetGamepadState(GLFW_JOYSTICK_1, &state))
+	{
+		if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y] < -0.25)
+			EMS::getInstance().fire(NoReturnEvent::moveForward);
+
+		if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y] > 0.25)
+			EMS::getInstance().fire(NoReturnEvent::moveBackward);
+
+		if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_X] < -0.25)
+			EMS::getInstance().fire(NoReturnEvent::moveLeft);
+
+		if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_X] > 0.25)
+			EMS::getInstance().fire(NoReturnEvent::moveRight);
+
+		double lookx(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
+		double looky(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);
+
+		if(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] > 0.25)
+			EMS::getInstance().fire(NoReturnEvent::mouseClicked);
+		if (state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] < -0.25)
+			EMS::getInstance().fire(NoReturnEvent::mouseReleased);
+
+		if (state.buttons[GLFW_GAMEPAD_BUTTON_A])
+			EMS::getInstance().fire(NoReturnEvent::jump);
+
+		EMS::getInstance().fire(NoReturnEvent::xyLook, lookx * 10, looky * 10);
+	}
+}

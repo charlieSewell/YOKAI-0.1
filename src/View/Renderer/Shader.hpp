@@ -25,7 +25,7 @@ class Shader
     /**
      * @brief Binds the Shader for use
      */
-    void useShader();
+    void useShader() const;
     /**
      * @brief Sets a Bool uniform in the shader
      * @param string& - uniformName

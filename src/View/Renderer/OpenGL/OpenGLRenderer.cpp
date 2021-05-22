@@ -7,13 +7,6 @@
 #include "GLFW/glfw3.h"
 #include "Controller/EventManager.hpp"
 
-OpenGLRenderer::OpenGLRenderer() 
-{
-}
-
-OpenGLRenderer::~OpenGLRenderer()
-{
-}
 
 void OpenGLRenderer::Init() 
 {
@@ -65,4 +58,15 @@ void OpenGLRenderer::Draw(VertexArrayBuffer& VAO, size_t indicesSize)
 void OpenGLRenderer::DrawGui() {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+void OpenGLRenderer::SetDepthTesting(bool isEnabled)
+{
+    if(isEnabled)
+    {
+        glEnable(GL_DEPTH_TEST);
+    }
+    else
+        {
+        glDisable(GL_DEPTH_TEST);
+    }
 }

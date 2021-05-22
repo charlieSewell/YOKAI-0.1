@@ -8,6 +8,7 @@
 #include "Model/Components/Weapon.hpp"
 #include "Controller/LuaManager.hpp"
 #include "Model/Components/RayCaster.hpp"
+#include "Model/SplashScreen.hpp"
 /**
  * @class Player
  * @brief Child of GameObject for the player within the game. Inherits physics component, camera and player controlled motion
@@ -24,7 +25,7 @@ public:
 	/*!
      * @brief Deconstructor
      */
-	~Player();
+	~Player() = default;
 
     /*!
      * @brief Draw call for the player model
@@ -51,7 +52,7 @@ public:
      * @brief Gets Current Player Health
      * @return
      */
-    int getHealth();
+    int getHealth() const;
     /**
      * @brief Sets the players shields value
      * @param s
@@ -61,7 +62,7 @@ public:
      * @brief Gets the players shield ammount
      * @return
      */
-    int getShields();
+    int getShields() const;
     /**
      * @brief Registers Class in Lua
      */
@@ -72,6 +73,12 @@ public:
     PhysicsComponent m_physics;
     ///is on the ground
     bool onBox = false;
+	//player has been hit
+	bool hit = false;
+	//player is taking damage
+	float takingDamage = false;
+	//resolves the player damage
+	void takeDamage(float dt);
   private:
     ///Camera component
 	Camera m_camera;
@@ -87,5 +94,4 @@ public:
     int health;
     ///shields of player
     int shields;
-
 };

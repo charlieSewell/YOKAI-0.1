@@ -30,7 +30,7 @@ PhysicsSystem& PhysicsSystem::getInstance()
     return instance;
 }
 
-void PhysicsSystem::update(float dt)
+void PhysicsSystem::update(float dt) const
 {
 
     physicsWorld->update(static_cast<rp3d::decimal>(dt));
@@ -87,7 +87,7 @@ void PhysicsSystem::addTerrain()
     RigidBody terrain;
     ReactTerrainShape terrShape;
     glm::vec3 position(TerrainFactory::getInstance().getTerrainSize()/2, 128, TerrainFactory::getInstance().getTerrainSize()/2);
-    glm::quat orientation = glm::identity<glm::quat>();
+    auto orientation = glm::identity<glm::quat>();
     terrain.CreateBody(-2,physicsWorld,position,orientation);
     terrShape.CreateTerrainShape(physicsCommon);
     terrain.AddCollisionShape(terrShape);
