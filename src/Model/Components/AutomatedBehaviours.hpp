@@ -65,11 +65,11 @@ public:
 	glm::vec3 feelerLeft;
 
 	///has front feeler hit
-	int frontFeelerHit;
+	int frontFeelerHit = -1;
 	///has right feeler hit
-	int feelerRightHit;
+	int feelerRightHit = -1;
 	///has left feeler hit
-	int feelerLeftHit;
+	int feelerLeftHit = -1;
     /**
      * @brief Updates the feelers
      */

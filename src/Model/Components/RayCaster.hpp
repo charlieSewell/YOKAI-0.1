@@ -28,8 +28,6 @@ public:
      * @return
      */
     rp3d::decimal notifyRaycastHit(const rp3d::RaycastInfo &info) override;
-    /// ID of last object hit
-    int lastHit = -1;
     /// Sets own collider to be excluded
     void setOwnColliderID(int ownColliderID);
     /// Sets another collider to be excluded
@@ -38,6 +36,8 @@ public:
     unsigned int ownColliderID;
     ///other excluded collider ID
 	unsigned int excludedColliderID = -1;
+    ///map of hits based on distance and colliderID
+	std::map<rp3d::decimal,uint32_t> hits;
 };
 
 

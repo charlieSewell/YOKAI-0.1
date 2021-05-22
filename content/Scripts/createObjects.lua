@@ -99,7 +99,7 @@ for i=0, numZombies do
         npc = objManager:GetNPC(asset);
         npc:setScale(0.5,0.5,0.5);
         npc:setPosition(x,val,z);
-        npc:setCollider(1,4,1);
+        npc:setCollider(1,2,1);
 		npc.behaviours.rotationSpeed = 0.005;
 end
 

@@ -49,17 +49,10 @@ class SplashScreen {
     bool getActive() const;
 
   private:
-    ///Pointer to shader
-    Shader *splashShader;
     ///shared_ptr to splash screen panel
     std::shared_ptr<VertexArrayBuffer> vao;
     ///shared_ptr to splash screen texture
     int texture = -1;
     ///is splash screen active
     bool active = false;
-    /**
-     * @brief Sets up splash screen shader
-     */
-    void setupShader();
-
 };

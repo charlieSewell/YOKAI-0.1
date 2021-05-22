@@ -37,7 +37,7 @@ void NPC::setCollider(float width, float height, float length)
 void NPC::update(float dt)
 {
 	m_transform.setPosition(glm::vec3(m_transform.getPosition().x, TerrainFactory::getInstance().heightAt(m_transform.getPosition().x, m_transform.getPosition().z), m_transform.getPosition().z));
-    m_physicsComponent.getCollider()->SetPosition(m_transform.getPosition());
+    m_physicsComponent.getCollider()->SetPosition(glm::vec3(m_transform.getPosition().x,m_transform.getPosition().y +2,m_transform.getPosition().z));
     m_physicsComponent.getCollider()->SetOrientation(m_transform.getRotation());
 	m_behaviours.updateFeelers();
 	groupAlert();

@@ -65,7 +65,7 @@ class UIManager
      * @param name
      * @param texturePath
      */
-    void luaSetTexture(const std::string& name, std::string texturePath);
+    void luaSetTexture(const std::string& name, const std::string& texturePath);
     /**
      * @brief Sets a panel active
      * @param name
@@ -77,9 +77,10 @@ class UIManager
     /*!
      * @brief Constructor
      */
-    UIManager();
+    UIManager() = default;
 
     /// Map of GameObjects, with the key of the GameObject id, and value of the GameObject smart pointer
     std::map<std::string, std::shared_ptr<SplashScreen>> uiObjects;
-
+    ///Pointer to shader
+    Shader *splashShader;
 };

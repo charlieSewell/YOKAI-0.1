@@ -1,18 +1,20 @@
 #include "Controller/UIManager.hpp"
-
-#include <memory>
-#include <utility>
-
+#include <glm/gtc/matrix_transform.hpp>
 UIManager &UIManager::getInstance() 
 {
     static UIManager instance;
     return instance;
 }
 
-UIManager::UIManager() {}
 
 void UIManager::init() 
 {
+    splashShader = new Shader("content/Shaders/vertexShader.vert","content/Shaders/splashFragment.frag");
+    splashShader->useShader();
+    splashShader->setMat4("model",glm::mat4(1.0));
+    splashShader->setMat4("view",glm::mat4(1.0));
+    splashShader->setMat4("projection",glm::ortho(0.0f, (float)1920, (float)1080, 0.0f));
+    splashShader->setInt("texture_diffuse1", 1);
     registerClass();
 }
 
@@ -40,6 +42,7 @@ void UIManager::update(float dt)
 }
 void UIManager::draw() 
 {
+    splashShader->useShader();
     for (auto &gameObject : uiObjects) 
     {
         if (gameObject.second->getActive()) 
@@ -64,9 +67,9 @@ void UIManager::luaSetUpPanel(const std::string& name, float left, float right, 
     getObject(name)->setupPanel(left, right, top, bottom);
 }
 
-void UIManager::luaSetTexture(const std::string& name, std::string texturePath)
+void UIManager::luaSetTexture(const std::string& name, const std::string& texturePath)
 {
-    getObject(name)->setTexture(std::move(texturePath));
+    getObject(name)->setTexture(texturePath);
 }
 
 void UIManager::luaSetActive(const std::string& name, bool a)
