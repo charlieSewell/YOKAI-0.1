@@ -59,3 +59,14 @@ void OpenGLRenderer::DrawGui() {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
+void OpenGLRenderer::SetDepthTesting(bool isEnabled)
+{
+    if(isEnabled)
+    {
+        glEnable(GL_DEPTH_TEST);
+    }
+    else
+        {
+        glDisable(GL_DEPTH_TEST);
+    }
+}

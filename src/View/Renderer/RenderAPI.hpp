@@ -43,6 +43,11 @@ class RenderAPI
      */
     virtual void DrawGui() =0;
     /**
+     * @brief Sets Depth Testing
+     * @param bool - isEnabled
+     */
+    virtual void SetDepthTesting(bool isEnabled) = 0;
+    /**
      * @brief Creates a specific rendering API
      * @return shared_ptr<RenderAPI> - renderAPI
      */

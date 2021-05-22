@@ -15,12 +15,13 @@ void SplashScreen::setTexture(const std::string& texturePath)
 }
 void SplashScreen::draw()
 {
-    glDisable(GL_DEPTH_TEST);
+    auto& engine = Yokai::getInstance();
+    engine.renderer.SetDepthTesting(false);
     splashShader->useShader();
     TextureManager::getInstance().getTexture(texture)->Bind(1);
-    auto& engine = Yokai::getInstance();
-    //engine.renderer.Draw(*vao,6);
-    glEnable(GL_DEPTH_TEST);
+
+    engine.renderer.Draw(*vao,6);
+    engine.renderer.SetDepthTesting(true);
 }
 void SplashScreen::setupShader()
 {

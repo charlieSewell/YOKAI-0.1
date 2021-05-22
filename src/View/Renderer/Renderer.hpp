@@ -41,7 +41,11 @@ class Renderer
      * @brief Clears the screen
      */
     void Clear();
-
+    /**
+     * @brief Sets Depth Testing
+     * @brief bool - isEnabled
+     */
+    void SetDepthTesting(bool isEnabled);
   private:
     /**
      * @brief Registers button to wireframe toggle

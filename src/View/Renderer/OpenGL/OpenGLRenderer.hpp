@@ -51,7 +51,11 @@ class OpenGLRenderer : public RenderAPI
      * @brief Draws the GUI
      */
     void DrawGui() override;
-
+    /**
+     * @param Set Depth Testing
+     * @param bool - isEnabled
+     */
+    void SetDepthTesting(bool isEnabled) override;
   private:
     ///Boolean to check whether it is in wireframe
     bool isWireFrame = false;
