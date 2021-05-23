@@ -95,6 +95,7 @@ for i=0,100 do
 end
 
 --Creating Zombies in random places
+
 numZombies = 65;
 spawnRange = 250;
 for i=0, numZombies do
