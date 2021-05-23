@@ -69,7 +69,7 @@ then
 
 	if(player.gun.ads)
 	then
-		uiManager:setActive(crosshair, false);
+		--uiManager:setActive(crosshair, false);
 		player.gun.gunAnimation:setCurrentAnimation("ads");
 	else
 		uiManager:setActive(crosshair, true);

@@ -109,26 +109,36 @@ void Weapon::draw()
     weaponAnimation->draw(m_transform);
 }
 
-void Weapon::update(Transform playerTransform, glm::vec3 frontDirection) 
+void Weapon::update(glm::vec3 position, glm::vec3 frontDirection)
 {
 	glm::mat4 matrix = glm::inverse(EMS::getInstance().fire(ReturnMat4Event::getViewMatrix));
 	m_transform = Transform(matrix);
-	m_transform.setPosition(playerTransform.getPosition());
+	m_transform.setPosition(position);
 
 	if(aimDownSights)
 	{
+		m_transform.scale(0.022);
+		m_transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
+		m_transform.translate(0, -22.125, 0);
+		m_transform.translatePostMultiply(static_cast<float>(glm::normalize(frontDirection).x * 0.5), static_cast<float>(glm::normalize(frontDirection).y * 0.5), static_cast<float>(glm::normalize(frontDirection).z * 0.5));
+		/*
 		m_transform.scale(0.022);
 		m_transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
 		m_transform.translatePostMultiply(static_cast<float>(glm::normalize(frontDirection).x), static_cast<float>(glm::normalize(frontDirection).y + 2.51), static_cast<float>(glm::normalize(frontDirection).z));
 		m_transform.translatePostMultiply(frontDirection * -0.65f);
 		glm::vec3 rightVector = glm::normalize((glm::cross(frontDirection, glm::vec3(0, 1, 0))));
 		m_transform.translatePostMultiply(glm::normalize(rightVector) * -0.003f);
+		*/
 	}
 	else
 	{
+		//m_transform.translate(0, -22, 0);
+		//m_transform.translatePostMultiply(static_cast<float>(glm::normalize(frontDirection).x * 0.5), static_cast<float>(glm::normalize(frontDirection).y * 0.5), static_cast<float>(glm::normalize(frontDirection).z * 0.5));
+
 		m_transform.scale(0.02);
 		m_transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
-		m_transform.translatePostMultiply(static_cast<float>(glm::normalize(frontDirection).x * 0.7), static_cast<float>(glm::normalize(frontDirection).y + 2.5), static_cast<float>(glm::normalize(frontDirection).z * 0.75));
+		
+		m_transform.translatePostMultiply(static_cast<float>(glm::normalize(frontDirection).x * 0.7), static_cast<float>(glm::normalize(frontDirection).y - 0.55), static_cast<float>(glm::normalize(frontDirection).z * 0.75));
 		glm::vec3 rightVector = glm::normalize((glm::cross(frontDirection, glm::vec3(0, 1, 0))));
 		m_transform.translatePostMultiply(glm::normalize(rightVector) * 0.45f);
 	}

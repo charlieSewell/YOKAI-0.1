@@ -76,7 +76,7 @@ class Weapon : public GameObject
      * @param playerTransform
      * @param frontDirection
      */
-    void update(Transform playerTransform, glm::vec3 frontDirection);
+    void update(glm::vec3 position, glm::vec3 frontDirection);
     /**
      * @brief Draws the weapon
      */
