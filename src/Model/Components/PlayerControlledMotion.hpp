@@ -102,8 +102,10 @@ public:
      */
 	static void registerClass();
 
-	///Movement speed
+	///actual sprint multiplier - equals 1 when inactive
 	float sprint;
+	// sprint multiplier assigned when active
+	float sprintMultiplier;
     ///Movement speed
 	float movementSpeed;
     ///Mouse sensitivity
@@ -122,5 +124,4 @@ private:
 	float m_jumpDecay;
     ///Pointer to current transform
 	Transform* m_transformPtr;
-
 };

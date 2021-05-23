@@ -34,7 +34,7 @@ then
             player.gun:decrementAmmo();
         elseif (player.gun.gunAnimation:getAnimationFinished())
         then
-			player.gun.canFire = true;
+			player.gun.canFire = false;
             player.gun.gunAnimation.ticksPerSecond = 30;
             player.gun.gunAnimation:setCurrentAnimation("fire");
             player.gun:decrementAmmo();
@@ -51,6 +51,13 @@ then
         player.gun.gunAnimation:setCurrentAnimation("melee");
 	end
 end
+
+if(player.movement.sprint > 1)
+then
+	player.gun.canFire = false;
+	player.gun.gunAnimation.ticksPerSecond = 15;
+	player.gun.gunAnimation:setCurrentAnimation("sprint");
+end
         
 player.gun.gunAnimation:checkAnimationFinished();
 
@@ -58,6 +65,7 @@ if (player.gun.gunAnimation:getAnimationFinished())
 then
 	player.gun.canFire = true;
 	player.gun.gunAnimation.ticksPerSecond = 20;
+
 	if(player.gun.ads)
 	then
 		player.gun.gunAnimation:setCurrentAnimation("ads");

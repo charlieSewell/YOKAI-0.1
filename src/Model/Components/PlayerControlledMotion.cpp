@@ -98,7 +98,7 @@ void PlayerControlledMotion::registerSprint()
 {
 	auto sprintOn = [&]()
 	{
-		sprint = 4.0;
+		sprint = sprintMultiplier;
 	};
 
 	EMS::getInstance().add(NoReturnEvent::sprintPressed, sprintOn);
@@ -146,5 +146,7 @@ void PlayerControlledMotion::registerClass()
 		.beginClass<PlayerControlledMotion>("PlayerControlledMotion")
 		.addProperty("movementSpeed", &PlayerControlledMotion::getMovementSpeed, &PlayerControlledMotion::setMovementSpeed)
 		.addProperty("jumpSpeed", &PlayerControlledMotion::jumpSpeed, true)
+		.addProperty("sprintMultiplier", &PlayerControlledMotion::sprintMultiplier, true)
+		.addProperty("sprint", &PlayerControlledMotion::sprint, true)
 		.endClass();
 }

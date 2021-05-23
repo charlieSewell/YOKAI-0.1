@@ -10,6 +10,7 @@ player:setCollider(4, 4, 4.0);
 player.movement.movementSpeed = 10000;
 player.health = 100;
 player.shields = 100;
+player.movement.sprintMultiplier = 1.75;
 
 player.gun.maxAmmo = 30;
 player.gun.maxReserveAmmo = 150;
@@ -21,7 +22,7 @@ player.gun.gunAnimation:addAnimation("emptyreload", 55, 108);
 player.gun.gunAnimation:addAnimation("idle", 142, 164);
 player.gun.gunAnimation:addAnimation("melee", 164, 177);
 player.gun.gunAnimation:addAnimation("ads", 1, 1);
-player.gun.gunAnimation:addAnimation("sprint", 177, 177);
+player.gun.gunAnimation:addAnimation("sprint", 109, 118);
 
 player.gun.gunAnimation:setCurrentAnimation("idle");
 

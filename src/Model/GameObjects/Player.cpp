@@ -64,7 +64,6 @@ void Player::update(float dt)
         }
 	}
 
-	std::cout << m_movement.sprint << "\n";
     m_physics.updatePhysics();
     m_movement.updateVector = glm::vec3{};
 
