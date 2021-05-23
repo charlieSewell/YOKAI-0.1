@@ -5,7 +5,7 @@ objManager = ObjectManager:getInstance()
 --Creating Player Object
 playerID = objManager:Create(Types.player(),"");
 player = objManager:GetPlayer();
-player:setPosition(1000.0, 75.0, 750.0);
+player:setPosition(855.0, 90.0, 620.0);
 player:setCollider(4, 4, 4.0);
 player.movement.movementSpeed = 27000;
 player.health = 100;

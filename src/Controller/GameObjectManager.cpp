@@ -2,15 +2,16 @@
 
 #include <utility>
 
+GameObjectManager::GameObjectManager()
+	: elapsedTime(0)
+{
+
+}
+
 GameObjectManager& GameObjectManager::getInstance() 
 {
     static GameObjectManager instance;
     return instance;
-}
-
-GameObjectManager::GameObjectManager() 
-{
-
 }
 
 GameObjectManager::~GameObjectManager()
@@ -32,6 +33,7 @@ void GameObjectManager::init()
             .addFunction("GetNPC", &GameObjectManager::getNPC)
             .addFunction("Update",&GameObjectManager::update)
 			.addFunction("distance", &GameObjectManager::luaDistance)
+			.addProperty("elapsedTime", &GameObjectManager::elapsedTime)
         .endClass();
 
     luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
@@ -44,6 +46,7 @@ void GameObjectManager::init()
     LuaManager::getInstance().runScript("content/Scripts/createObjects.lua");
     std::cout << "Game Object Manager Initialised" << std::endl;
 }
+
 int GameObjectManager::CreateObject(GameObjectType type,std::string model)
 {
     if(type == GameObjectType::player){
@@ -83,6 +86,8 @@ void GameObjectManager::update(float dt)
     {
         gameObject.second->update(dt);
     }
+
+	elapsedTime += dt;
 }
 void GameObjectManager::draw()
 {
