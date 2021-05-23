@@ -118,8 +118,8 @@ void PlayerControlledMotion::registerXYLook(glm::vec3& frontDirection)
 
 	auto xyLook = [&](double xoffset, double yoffset) 
 	{
-		xoffset *= lookSensitivity;
-		yoffset *= lookSensitivity;
+		xoffset *= lookSensitivity * lookSensitivityMultiplier;
+		yoffset *= lookSensitivity * lookSensitivityMultiplier;
 
 		yaw += xoffset;
 		pitch -= yoffset;
@@ -127,7 +127,7 @@ void PlayerControlledMotion::registerXYLook(glm::vec3& frontDirection)
 		// stops bad weird camera movement
 		if (pitch > 89.0f)
 			pitch = 89.0f;
-		if (pitch < -89.0f)
+		if (pitch < -89.0f) 
 			pitch = -89.0f;
 
 		glm::vec3 direction;
@@ -148,5 +148,7 @@ void PlayerControlledMotion::registerClass()
 		.addProperty("jumpSpeed", &PlayerControlledMotion::jumpSpeed, true)
 		.addProperty("sprintMultiplier", &PlayerControlledMotion::sprintMultiplier, true)
 		.addProperty("sprint", &PlayerControlledMotion::sprint, true)
+		.addProperty("lookSensitivity", &PlayerControlledMotion::lookSensitivity, true)
+		.addProperty("lookSensitivityMultiplier", &PlayerControlledMotion::lookSensitivityMultiplier, true)
 		.endClass();
 }

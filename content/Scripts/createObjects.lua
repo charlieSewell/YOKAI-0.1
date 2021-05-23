@@ -11,6 +11,7 @@ player.movement.movementSpeed = 27000;
 player.health = 100;
 player.shields = 100;
 player.movement.sprintMultiplier = 1.75;
+player.movement.lookSensitivityMultiplier = 1;
 
 player.gun.maxAmmo = 30;
 player.gun.maxReserveAmmo = 150;

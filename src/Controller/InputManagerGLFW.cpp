@@ -115,7 +115,7 @@ void InputManagerGLFW::processMouse(GLFWwindow* window)
 	}
 }
 
-void InputManagerGLFW::processGamepad()
+void InputManagerGLFW::processGamepadButtons()
 {
 	if (glfwJoystickPresent(GLFW_JOYSTICK_1))
 	{
@@ -123,28 +123,6 @@ void InputManagerGLFW::processGamepad()
 
 		if (glfwGetGamepadState(GLFW_JOYSTICK_1, &state))
 		{
-			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y] < -0.25)
-				EMS::getInstance().fire(NoReturnEvent::moveForward);
-
-			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y] > 0.25)
-				EMS::getInstance().fire(NoReturnEvent::moveBackward);
-
-			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_X] < -0.25)
-				EMS::getInstance().fire(NoReturnEvent::moveLeft);
-
-			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_X] > 0.25)
-				EMS::getInstance().fire(NoReturnEvent::moveRight);
-
-			if(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] > 0.25)
-				EMS::getInstance().fire(NoReturnEvent::mouseClicked);
-			if (state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] < -0.25)
-				EMS::getInstance().fire(NoReturnEvent::mouseReleased);
-
-			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER] > 0.25)
-				EMS::getInstance().fire(NoReturnEvent::mouse2Clicked);
-			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER] < -0.25)
-				EMS::getInstance().fire(NoReturnEvent::mouse2Released);
-
 			if (state.buttons[GLFW_GAMEPAD_BUTTON_A])
 				EMS::getInstance().fire(NoReturnEvent::jump);		
 	
@@ -185,11 +163,44 @@ void InputManagerGLFW::processGamepad()
 				EMS::getInstance().fire(NoReturnEvent::sprintPressed);
 			if (state.buttons[GLFW_GAMEPAD_BUTTON_LEFT_THUMB] == GLFW_RELEASE)
 				EMS::getInstance().fire(NoReturnEvent::sprintReleased);
+		}
+	}
+}
+
+void InputManagerGLFW::processGamepadAxis()
+{
+	if (glfwJoystickPresent(GLFW_JOYSTICK_1))
+	{
+		GLFWgamepadstate state;
+
+		if (glfwGetGamepadState(GLFW_JOYSTICK_1, &state))
+		{
+			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y] < -0.25)
+				EMS::getInstance().fire(NoReturnEvent::moveForward);
+
+			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y] > 0.25)
+				EMS::getInstance().fire(NoReturnEvent::moveBackward);
+
+			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_X] < -0.25)
+				EMS::getInstance().fire(NoReturnEvent::moveLeft);
+
+			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_X] > 0.25)
+				EMS::getInstance().fire(NoReturnEvent::moveRight);
+
+			if (state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] > 0.25)
+				EMS::getInstance().fire(NoReturnEvent::mouseClicked);
+			if (state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] < -0.25)
+				EMS::getInstance().fire(NoReturnEvent::mouseReleased);
+
+			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER] > 0.25)
+				EMS::getInstance().fire(NoReturnEvent::mouse2Clicked);
+			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER] < -0.25)
+				EMS::getInstance().fire(NoReturnEvent::mouse2Released);
 
 			double lookx(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
 			double looky(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);
 
-			EMS::getInstance().fire(NoReturnEvent::xyLook, lookx * 16, looky * 16);
+			EMS::getInstance().fire(NoReturnEvent::xyLook, lookx * 20, looky * 20);
 		}
 	}
 }

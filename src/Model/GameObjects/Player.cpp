@@ -67,6 +67,7 @@ void Player::update(float dt)
 
     m_physics.updatePhysics();
     m_movement.updateVector = glm::vec3{};
+
 	m_camera.m_position = glm::vec3(m_transform.getPosition().x, m_transform.getPosition().y + 3, m_transform.getPosition().z);		//TODO: make this better
 
 	if (gun.getIsFiring() && gun.canFire)
@@ -76,7 +77,7 @@ void Player::update(float dt)
 		fireWeapon(10);
 
 	gun.getWeaponAnimation()->setCurrentFrame(dt);
-    gun.update(m_transform, m_camera.m_frontDirection);
+	gun.update(m_camera.m_position, m_camera.m_frontDirection);
     LuaManager::getInstance().runScript("content/Scripts/playerLogic.lua");
     LuaManager::getInstance().runScript("content/Scripts/gunLogic.lua");
     onBox = false;

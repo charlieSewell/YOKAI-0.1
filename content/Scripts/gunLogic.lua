@@ -71,8 +71,10 @@ then
 	then
 		uiManager:setActive(crosshair, false);
 		player.gun.gunAnimation:setCurrentAnimation("ads");
+		player.movement.lookSensitivityMultiplier = 0.65;
 	else
 		uiManager:setActive(crosshair, true);
 		player.gun.gunAnimation:setCurrentAnimation("idle");
+		player.movement.lookSensitivityMultiplier = 1;
 	end
 end
