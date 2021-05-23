@@ -77,7 +77,6 @@ void Player::update(float dt)
 	if (gun.getIsMeleeing() && gun.canFire)
 		fireWeapon(10);
 
-	
 	gun.getWeaponAnimation()->setCurrentFrame(dt);
     gun.update(m_transform, m_camera.m_frontDirection);
     LuaManager::getInstance().runScript("content/Scripts/playerLogic.lua");
