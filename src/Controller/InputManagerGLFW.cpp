@@ -10,120 +10,162 @@ InputManagerGLFW& InputManagerGLFW::getInstance()
 
 void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 {
-    if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
-        EMS::getInstance().fire(NoReturnEvent::closePressed);
-    if (glfwGetKey(window, GLFW_KEY_X) == GLFW_RELEASE)
-        EMS::getInstance().fire(NoReturnEvent::closeReleased);
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		EMS::getInstance().fire(NoReturnEvent::moveForward);
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		EMS::getInstance().fire(NoReturnEvent::moveBackward);
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		EMS::getInstance().fire(NoReturnEvent::moveLeft);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		EMS::getInstance().fire(NoReturnEvent::moveRight);
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-        EMS::getInstance().fire(NoReturnEvent::jump);
-	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
-		EMS::getInstance().fire(NoReturnEvent::moveDown);
 
-	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
-		EMS::getInstance().fire(NoReturnEvent::togglePhysicsPressed);
-	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_RELEASE)
-		EMS::getInstance().fire(NoReturnEvent::togglePhysicsReleased);
+	if(!glfwJoystickPresent(GLFW_JOYSTICK_1))
+	{
+		if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::closePressed);
+		if (glfwGetKey(window, GLFW_KEY_X) == GLFW_RELEASE)
+			EMS::getInstance().fire(NoReturnEvent::closeReleased);
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::moveForward);
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::moveBackward);
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::moveLeft);
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::moveRight);
+		if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::jump);
+		if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::moveDown);
 
-	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-		EMS::getInstance().fire(NoReturnEvent::toggleWireFramePressed);
-	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_RELEASE)
-		EMS::getInstance().fire(NoReturnEvent::toggleWireFrameReleased);
+		if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::togglePhysicsPressed);
+		if (glfwGetKey(window, GLFW_KEY_P) == GLFW_RELEASE)
+			EMS::getInstance().fire(NoReturnEvent::togglePhysicsReleased);
 
-    if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
-        EMS::getInstance().fire(NoReturnEvent::toggleMenuPressed);
-    if (glfwGetKey(window, GLFW_KEY_M) == GLFW_RELEASE)
-        EMS::getInstance().fire(NoReturnEvent::toggleMenuReleased);
-	//not implemented yet
-	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-		EMS::getInstance().fire(NoReturnEvent::increaseSpeed);
+		if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::toggleWireFramePressed);
+		if (glfwGetKey(window, GLFW_KEY_K) == GLFW_RELEASE)
+			EMS::getInstance().fire(NoReturnEvent::toggleWireFrameReleased);
 
-	//UI TESTING
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        EMS::getInstance().fire(NoReturnEvent::pausePressed);
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_RELEASE)
-        EMS::getInstance().fire(NoReturnEvent::pauseReleased);
+		if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::toggleMenuPressed);
+		if (glfwGetKey(window, GLFW_KEY_M) == GLFW_RELEASE)
+			EMS::getInstance().fire(NoReturnEvent::toggleMenuReleased);
+		//not implemented yet
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::increaseSpeed);
+
+		//UI TESTING
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::pausePressed);
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_RELEASE)
+			EMS::getInstance().fire(NoReturnEvent::pauseReleased);
 	
-	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-        EMS::getInstance().fire(NoReturnEvent::reloadPressed);
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_RELEASE)
-        EMS::getInstance().fire(NoReturnEvent::reloadReleased);
+		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::reloadPressed);
+		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_RELEASE)
+			EMS::getInstance().fire(NoReturnEvent::reloadReleased);
 
-	/*if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
-		if (isPressed) {
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-			isPressed = false;
-		}
-		else {
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-			isPressed = true;
-		}
-	}*/
+		/*if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
+			if (isPressed) {
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+				isPressed = false;
+			}
+			else {
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+				isPressed = true;
+			}
+		}*/
+	}
 }
 
 void InputManagerGLFW::processMouse(GLFWwindow* window)
 {
-    if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_1) == GLFW_PRESS)
-        EMS::getInstance().fire(NoReturnEvent::mouseClicked);
-
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_RELEASE)
-        EMS::getInstance().fire(NoReturnEvent::mouseReleased);
-
-	double xpos, ypos;
-	glfwGetCursorPos(window, &xpos, &ypos);
-
-	if (!mouseInit)
+	if (!glfwJoystickPresent(GLFW_JOYSTICK_1))
 	{
+		if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_1) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::mouseClicked);
+
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_RELEASE)
+			EMS::getInstance().fire(NoReturnEvent::mouseReleased);
+
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+
+		if (!mouseInit)
+		{
+			lastX = xpos;
+			lastY = ypos;
+			mouseInit = true;
+		}
+
+		double xoffset = xpos - lastX;
+		double yoffset = ypos - lastY;
+
+		EMS::getInstance().fire(NoReturnEvent::xyLook, xoffset, yoffset);
+
 		lastX = xpos;
 		lastY = ypos;
-		mouseInit = true;
 	}
-
-	double xoffset = xpos - lastX;
-	double yoffset = ypos - lastY;
-
-	EMS::getInstance().fire(NoReturnEvent::xyLook, xoffset, yoffset);
-
-	lastX = xpos;
-	lastY = ypos;
 }
 
 void InputManagerGLFW::processGamepad()
 {
-	GLFWgamepadstate state;
-
-	if (glfwGetGamepadState(GLFW_JOYSTICK_1, &state))
+	if (glfwJoystickPresent(GLFW_JOYSTICK_1))
 	{
-		if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y] < -0.25)
-			EMS::getInstance().fire(NoReturnEvent::moveForward);
+		GLFWgamepadstate state;
 
-		if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y] > 0.25)
-			EMS::getInstance().fire(NoReturnEvent::moveBackward);
+		if (glfwGetGamepadState(GLFW_JOYSTICK_1, &state))
+		{
+			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y] < -0.25)
+				EMS::getInstance().fire(NoReturnEvent::moveForward);
 
-		if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_X] < -0.25)
-			EMS::getInstance().fire(NoReturnEvent::moveLeft);
+			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y] > 0.25)
+				EMS::getInstance().fire(NoReturnEvent::moveBackward);
 
-		if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_X] > 0.25)
-			EMS::getInstance().fire(NoReturnEvent::moveRight);
+			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_X] < -0.25)
+				EMS::getInstance().fire(NoReturnEvent::moveLeft);
 
-		double lookx(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
-		double looky(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);
+			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_X] > 0.25)
+				EMS::getInstance().fire(NoReturnEvent::moveRight);
 
-		if(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] > 0.25)
-			EMS::getInstance().fire(NoReturnEvent::mouseClicked);
-		if (state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] < -0.25)
-			EMS::getInstance().fire(NoReturnEvent::mouseReleased);
+			if(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] > 0.25)
+				EMS::getInstance().fire(NoReturnEvent::mouseClicked);
+			if (state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] < -0.25)
+				EMS::getInstance().fire(NoReturnEvent::mouseReleased);
 
-		if (state.buttons[GLFW_GAMEPAD_BUTTON_A])
-			EMS::getInstance().fire(NoReturnEvent::jump);
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_A])
+				EMS::getInstance().fire(NoReturnEvent::jump);		
+	
+			if(state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_THUMB])
+				EMS::getInstance().fire(NoReturnEvent::moveDown);
 
-		EMS::getInstance().fire(NoReturnEvent::xyLook, lookx * 10, looky * 10);
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_B] == GLFW_PRESS)
+				EMS::getInstance().fire(NoReturnEvent::togglePhysicsPressed);
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_B] == GLFW_RELEASE)
+				EMS::getInstance().fire(NoReturnEvent::togglePhysicsReleased);
+
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_Y] == GLFW_PRESS)
+				EMS::getInstance().fire(NoReturnEvent::toggleWireFramePressed);
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_Y] == GLFW_RELEASE)
+				EMS::getInstance().fire(NoReturnEvent::toggleWireFrameReleased);
+
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_BACK] == GLFW_PRESS)
+				EMS::getInstance().fire(NoReturnEvent::toggleMenuPressed);
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_BACK] == GLFW_RELEASE)
+				EMS::getInstance().fire(NoReturnEvent::toggleMenuReleased);
+
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_START] == GLFW_PRESS)
+				EMS::getInstance().fire(NoReturnEvent::pausePressed);
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_START] == GLFW_RELEASE)
+				EMS::getInstance().fire(NoReturnEvent::pauseReleased);
+
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_X] == GLFW_PRESS)
+				EMS::getInstance().fire(NoReturnEvent::reloadPressed);
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_X] == GLFW_RELEASE)
+				EMS::getInstance().fire(NoReturnEvent::reloadReleased);
+		
+			//not implemented yet
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_THUMB])
+				EMS::getInstance().fire(NoReturnEvent::increaseSpeed);
+
+			double lookx(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
+			double looky(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);
+
+			EMS::getInstance().fire(NoReturnEvent::xyLook, lookx * 10, looky * 10);
+		}
 	}
 }
