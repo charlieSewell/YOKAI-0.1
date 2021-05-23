@@ -64,12 +64,11 @@ void Yokai::Run()
         {
 			accumulator += deltaTime;
 			while (accumulator >= timeStep) {
-				PhysicsSystem::getInstance().update(timeStep);
-
+                PhysicsSystem::getInstance().update(timeStep);
+                layers[activeLayer]->Update(static_cast<float>(timeStep));
 				accumulator -= timeStep;
 			}
 
-            layers[activeLayer]->Update(static_cast<float>(deltaTime));
         }
         layers[activeLayer]->Draw();
 

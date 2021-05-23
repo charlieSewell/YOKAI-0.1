@@ -1,3 +1,4 @@
+
 if ((player.gun.ammo == 0) and (player.gun.reserveAmmo == 0))
 then
 	player.gun.canFire = false;
@@ -68,8 +69,10 @@ then
 
 	if(player.gun.ads)
 	then
+		uiManager:setActive(crosshair, false);
 		player.gun.gunAnimation:setCurrentAnimation("ads");
 	else
+		uiManager:setActive(crosshair, true);
 		player.gun.gunAnimation:setCurrentAnimation("idle");
 	end
 end
