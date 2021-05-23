@@ -33,9 +33,14 @@ class InputManagerGLFW
 	  void processMouse(GLFWwindow* window);
 
 		/**
-		* @brief Processes gamepad Input	
+		* @brief Processes gamepad button Input	
 		*/
-	  void processGamepad();
+	  void processGamepadButtons();
+
+		/**
+		* @brief Processes gamepad axis Input
+		*/
+	  void processGamepadAxis();
 
   private:
       /**
