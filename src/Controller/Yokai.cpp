@@ -4,7 +4,6 @@
 
 #include "Yokai.hpp"
 
-#include "Animator.hpp"
 #include "DemoScene.hpp"
 #include "MainMenuScene.hpp"
 Yokai &Yokai::getInstance() 
@@ -15,8 +14,6 @@ Yokai &Yokai::getInstance()
 
 void Yokai::Init() 
 {
-    registerClose();
-    //registerUI();
     if(!window.Init())
     {
         exit(0);
@@ -39,6 +36,8 @@ void Yokai::Init()
     }
 
     isPaused = false;
+    registerClose();
+    registerClass();
 }
 void Yokai::Run()
 {
@@ -79,6 +78,7 @@ void Yokai::Run()
 	}
     GameObjectManager::getInstance().DeInit();
     PhysicsSystem::getInstance().DeInit();
+    UIManager::getInstance().DeInit();
     renderer.DeInit();
     window.DeInit();
 }
@@ -125,4 +125,13 @@ void Yokai::setIsPaused(bool p)
 bool Yokai::getIsPaused() const
 {
     return isPaused;
+}
+
+void Yokai::registerClass() 
+{
+    luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
+        .beginClass<Yokai>("Yokai")
+        .addStaticFunction("getInstance", &Yokai::getInstance)
+        .addProperty("isPaused", &Yokai::getIsPaused, &Yokai::setIsPaused)
+        .endClass();
 }

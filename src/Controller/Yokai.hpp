@@ -57,6 +57,8 @@ class Yokai
      */
     bool getIsPaused() const;
 
+    void registerClass();
+
   private:
     //Singleton pattern requires that all constructors,destructors and copy constructors be private
     /**

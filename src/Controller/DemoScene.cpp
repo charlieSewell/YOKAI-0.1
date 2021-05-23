@@ -15,6 +15,7 @@ void DemoScene::Init()
 
     GameObjectManager::getInstance().init();
     UIManager::getInstance().init();
+    registerExit();
 
 }
 
@@ -30,7 +31,7 @@ void DemoScene::Draw()
     terrainManager.Draw(EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
     GameObjectManager::getInstance().draw();
     UIManager::getInstance().draw();
-    if (Yokai::getInstance().getIsPaused()) 
+    if (Yokai::getInstance().getIsPaused() && !UIManager::getInstance().luaGetActive("lostScreen")) 
     {
         int width = 1920, height = 1080;
         ImGui::SetNextWindowPos(ImVec2(static_cast<float>(width) / 2, static_cast<float>(height) / 2), ImGuiCond_Always, ImVec2(0.5, 0.5));
@@ -91,4 +92,19 @@ void DemoScene::registerMenuButtons() {
         }
     };
     EMS::getInstance().add(NoReturnEvent::toggleMenuPressed, toggleMenuPressed);
+}
+
+void DemoScene::registerExit() 
+{
+    auto exit = [&]() 
+    { 
+        if (Yokai::getInstance().getIsPaused() &&
+            UIManager::getInstance().luaGetActive("lostScreen")) 
+        {
+            Yokai::getInstance().setIsRunning(false);
+        }
+    };
+
+    EMS::getInstance().add(NoReturnEvent::mouseClicked, exit);
+
 }
