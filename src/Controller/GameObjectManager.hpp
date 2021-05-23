@@ -84,6 +84,9 @@ class GameObjectManager
 	 */
     NPC* getNPC(int id);
 
+	//elapsed time
+	float elapsedTime;
+
 	/**
 	 * @brief Utility function for lua
 	 * @return distance
