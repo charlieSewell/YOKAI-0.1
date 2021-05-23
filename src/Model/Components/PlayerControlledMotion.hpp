@@ -82,6 +82,10 @@ public:
 	 * @param vec3& - upDirection
 	 */
     void registerJump(glm::vec3& upDirection);
+	/**
+	* @brief Registers sprint with EMS
+	*/
+	void registerSprint();
     /**
      * @brief Registers downward movement with EMS
      * @param vec3& - position

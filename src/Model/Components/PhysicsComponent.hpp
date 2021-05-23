@@ -18,7 +18,7 @@ public:
    * @param float - movementSpeed
    * @param float - jumpSpeed
    */
-	void updatePhysics(float &movementSpeed, float jumpSpeed);
+	void updatePhysics();
 
   /**
    * @brief Constructor For Physics Components

@@ -49,7 +49,7 @@ void Player::update(float dt)
             if (m_movement.updateVector != glm::vec3{})
             { 
                 
-                m_physics.getCollider()->ApplyForceToCentre(glm::normalize(glm::vec3(m_movement.updateVector)) * m_movement.movementSpeed * dt);
+                m_physics.getCollider()->ApplyForceToCentre(glm::normalize(glm::vec3(m_movement.updateVector)) * (m_movement.movementSpeed * m_movement.sprint) * dt);
 
             }
         }
@@ -64,8 +64,8 @@ void Player::update(float dt)
         }
 	}
 
-
-    m_physics.updatePhysics(m_movement.movementSpeed, m_movement.jumpSpeed);
+	std::cout << m_movement.sprint << "\n";
+    m_physics.updatePhysics();
     m_movement.updateVector = glm::vec3{};
 
 	gun.update(m_transform, m_camera.m_frontDirection);

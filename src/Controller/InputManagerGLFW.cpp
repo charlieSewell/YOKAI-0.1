@@ -44,9 +44,11 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 			EMS::getInstance().fire(NoReturnEvent::toggleMenuPressed);
 		if (glfwGetKey(window, GLFW_KEY_M) == GLFW_RELEASE)
 			EMS::getInstance().fire(NoReturnEvent::toggleMenuReleased);
-		//not implemented yet
+
 		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-			EMS::getInstance().fire(NoReturnEvent::increaseSpeed);
+			EMS::getInstance().fire(NoReturnEvent::sprintPressed);
+		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
+			EMS::getInstance().fire(NoReturnEvent::sprintReleased);
 
 		//UI TESTING
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -178,10 +180,11 @@ void InputManagerGLFW::processGamepad()
 				EMS::getInstance().fire(NoReturnEvent::meleePressed);
 			if (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_BUMPER] == GLFW_RELEASE)
 				EMS::getInstance().fire(NoReturnEvent::meleeReleased);
-		
-			//not implemented yet
-			if (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_THUMB])
-				EMS::getInstance().fire(NoReturnEvent::increaseSpeed);
+
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_THUMB] == GLFW_PRESS)
+				EMS::getInstance().fire(NoReturnEvent::sprintPressed);
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_THUMB] == GLFW_RELEASE)
+				EMS::getInstance().fire(NoReturnEvent::sprintReleased);
 
 			double lookx(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
 			double looky(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);

@@ -28,6 +28,8 @@ enum class NoReturnEvent
 	mouse2Released,
     reloadPressed,
     reloadReleased,
+	sprintPressed,
+	sprintReleased,
 	meleePressed,
 	meleeReleased,
     pausePressed,
