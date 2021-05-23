@@ -7,7 +7,6 @@
 #include "Animator.hpp"
 #include "DemoScene.hpp"
 #include "MainMenuScene.hpp"
-
 Yokai &Yokai::getInstance() 
 {
     static Yokai instance;

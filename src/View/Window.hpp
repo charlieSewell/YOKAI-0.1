@@ -1,10 +1,11 @@
-#include <glad/glad.h>
+#pragma once
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <imgui.h>
-#include <imgui/backends/imgui_impl_glfw.h>
-#include <imgui/backends/imgui_impl_opengl3.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
+#include <glad/glad.h>
 /**
  * @class Window
  * @brief Creates a window for rendering

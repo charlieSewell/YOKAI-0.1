@@ -6,7 +6,7 @@
 #include <glad/glad.h>
 #include "View/Renderer/RenderAPI.hpp"
 #include <glm/glm.hpp>
-#include <imgui/backends/imgui_impl_opengl3.h>
+#include <backends/imgui_impl_opengl3.h>
 #include <imgui/imgui.h>
 #include "View/Renderer/DataTypes.hpp"
 
