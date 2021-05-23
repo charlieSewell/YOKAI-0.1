@@ -73,6 +73,10 @@ class UIManager
      */
     void luaSetActive(const std::string& name, bool a);
 
+    bool luaGetActive(const std::string &name);
+
+    void DeInit();
+
   private:
     /*!
      * @brief Constructor

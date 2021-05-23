@@ -26,10 +26,7 @@ void Player::draw()
 
 void Player::update(float dt)
 {
-    if (health <= 0)
-    {
-        //exit(0.0);
-    }
+
 	if(m_physics.m_physicsActive)
 	{
         if(onBox)
@@ -169,13 +166,19 @@ void Player::takeDamage(float dt)
 		takingDamage = 0;
 		if (shields > 0)
 			shields -= 5;
-		else
-			health -= 5;
+        else 
+		{
+            if (health >= 5) 
+			{
+                health -= 5;
+			}
+		}
 		hit = false;
 	}
 	else
-		takingDamage += dt;
-
+    {
+        takingDamage += dt;
+    }
 
 }
 
