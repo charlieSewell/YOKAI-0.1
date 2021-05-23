@@ -4,7 +4,7 @@
 #include "PlayerControlledMotion.hpp"
 #include "Controller/Physics/PhysicsSystem.hpp"
 PlayerControlledMotion::PlayerControlledMotion(Transform& transform)
-	:m_transformPtr(&transform)
+	: m_transformPtr(&transform), sprint(1.0f)
 {
 
 }
@@ -27,6 +27,7 @@ void PlayerControlledMotion::registerAllMovement(glm::vec3& frontDirection, glm:
 	registerMoveLeft(frontDirection, upDirection);
 	registerMoveRight(frontDirection, upDirection);
 	registerJump(upDirection);
+	registerSprint();
 	registerMoveDown(upDirection);
 	registerXYLook(frontDirection);
 }
@@ -93,6 +94,23 @@ void PlayerControlledMotion::registerJump(glm::vec3& upDirection)
 	EMS::getInstance().add(NoReturnEvent::jump, jump);
 }
 
+void PlayerControlledMotion::registerSprint()
+{
+	auto sprintOn = [&]()
+	{
+		sprint = sprintMultiplier;
+	};
+
+	EMS::getInstance().add(NoReturnEvent::sprintPressed, sprintOn);
+
+	auto sprintOff = [&]()
+	{
+		sprint = 1.0;
+	};
+
+	EMS::getInstance().add(NoReturnEvent::sprintReleased, sprintOff);
+}
+
 void PlayerControlledMotion::registerXYLook(glm::vec3& frontDirection)
 {
 	static double yaw = -90.0f;
@@ -127,5 +145,8 @@ void PlayerControlledMotion::registerClass()
 	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
 		.beginClass<PlayerControlledMotion>("PlayerControlledMotion")
 		.addProperty("movementSpeed", &PlayerControlledMotion::getMovementSpeed, &PlayerControlledMotion::setMovementSpeed)
+		.addProperty("jumpSpeed", &PlayerControlledMotion::jumpSpeed, true)
+		.addProperty("sprintMultiplier", &PlayerControlledMotion::sprintMultiplier, true)
+		.addProperty("sprint", &PlayerControlledMotion::sprint, true)
 		.endClass();
 }

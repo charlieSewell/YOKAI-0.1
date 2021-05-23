@@ -7,7 +7,7 @@ PhysicsComponent::PhysicsComponent(Transform &transform)
 
 }
 
-void PhysicsComponent::updatePhysics(float &movementSpeed, float jumpSpeed)
+void PhysicsComponent::updatePhysics()
 {
     auto& physManager = PhysicsSystem::getInstance();
     rp3d::Vector3 temp = physManager.getRigidBody(colliderID)->getRigidBody()->getTransform().getPosition();

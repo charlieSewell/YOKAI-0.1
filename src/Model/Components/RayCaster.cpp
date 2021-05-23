@@ -40,6 +40,8 @@ rp3d::decimal RayCaster::notifyRaycastHit(const rp3d::RaycastInfo& info)
             hits.emplace(info.hitFraction,info.collider->getEntity().id);
             return rp3d::decimal(1.0);
         }
+		else
+			return rp3d::decimal(1.0);
     }
     // Return a fraction of 1.0 to gather all hits
     return rp3d::decimal(0.0);
