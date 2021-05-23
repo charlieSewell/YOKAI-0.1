@@ -127,5 +127,6 @@ void PlayerControlledMotion::registerClass()
 	luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
 		.beginClass<PlayerControlledMotion>("PlayerControlledMotion")
 		.addProperty("movementSpeed", &PlayerControlledMotion::getMovementSpeed, &PlayerControlledMotion::setMovementSpeed)
+		.addProperty("jumpSpeed", &PlayerControlledMotion::jumpSpeed, true)
 		.endClass();
 }

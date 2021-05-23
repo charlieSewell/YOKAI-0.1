@@ -1,6 +1,6 @@
 
 velocity = player.physics:getVelocity();
-if(velocity.y < -10 and velocity.y < player.physics:getMaxVelocity()) then
+if(velocity.y < -20 and velocity.y < player.physics:getMaxVelocity()) then
     player.physics:setMaxVelocity(velocity.y);
 end
 if(player.onGround) then

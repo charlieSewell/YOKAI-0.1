@@ -71,21 +71,12 @@ void Player::update(float dt)
 	gun.update(m_transform, m_camera.m_frontDirection);
 	m_camera.m_position = glm::vec3(m_transform.getPosition().x, m_transform.getPosition().y + 3, m_transform.getPosition().z);		//TODO: make this better
 
-	if(gun.getIsFiring() && gun.canFire)
-	{
-		int targetID = rayCaster.CastRay(m_camera.m_position, m_camera.m_frontDirection, 200);
-		if(targetID != -1 && GameObjectManager::getInstance().getNPC(targetID))
-		{
-			//GameObjectManager::getInstance().getNPC(targetID)->hit = true;
-			if(GameObjectManager::getInstance().getNPC(targetID)->health < 0)		//dead
-			{
-				GameObjectManager::getInstance().DeleteGameObject(targetID);
-				gun.setReserveAmmo(gun.getReserveAmmo() + 30);
-			}
-			else
-				GameObjectManager::getInstance().getNPC(targetID)->hit = true;
-		}
-	}
+	if (gun.getIsFiring() && gun.canFire)
+		fireWeapon(200);
+
+	if (gun.getIsMeleeing() && gun.canFire)
+		fireWeapon(10);
+
 	
 	gun.getWeaponAnimation()->setCurrentFrame(dt);
     gun.update(m_transform, m_camera.m_frontDirection);
@@ -95,6 +86,25 @@ void Player::update(float dt)
 
 	if(hit)
 		takeDamage(dt);
+}
+
+void Player::fireWeapon(float rayCastDistance)
+{
+	int targetID = rayCaster.CastRay(m_camera.m_position, m_camera.m_frontDirection, rayCastDistance);
+
+	if (targetID != -1 && GameObjectManager::getInstance().getNPC(targetID))
+	{
+		//GameObjectManager::getInstance().getNPC(targetID)->hit = true;
+		if (GameObjectManager::getInstance().getNPC(targetID)->health < 0)		//dead
+		{
+			GameObjectManager::getInstance().DeleteGameObject(targetID);
+			gun.setReserveAmmo(gun.getReserveAmmo() + 30);
+			if(gun.getReserveAmmo() > 150)
+				gun.setReserveAmmo(150);
+		}
+		else
+			GameObjectManager::getInstance().getNPC(targetID)->hit = true;
+	}
 }
 
 void Player::setCollider(float width, float length, float height)
@@ -150,6 +160,26 @@ void Player::registerColliderID()
 	EMS::getInstance().add(ReturnIntEvent::getPlayerColliderID, getPlayerColliderID);
 }
 
+void Player::takeDamage(float dt)
+{
+	if (takingDamage > dt * 60)
+	{
+		takingDamage = 0;
+		if (shields > 0)
+			shields -= 5;
+		else
+			health -= 5;
+		hit = false;
+	}
+	else
+		takingDamage += dt;
+
+	if (health <= 0)
+	{
+		//exit(0.0);
+	}
+}
+
 void Player::registerClass()
 {
 	PlayerControlledMotion::registerClass();
@@ -165,24 +195,4 @@ void Player::registerClass()
 		.addProperty("onGround",&Player::onBox,true)
 		.addProperty("hit", &Player::hit, true)
 		.endClass();
-}
-
-void Player::takeDamage(float dt)
-{
-	if(takingDamage > dt * 60)
-	{
-		takingDamage = 0;
-		if(shields > 0)
-			shields -= 5;
-		else
-			health -= 5;
-		hit = false;
-	}
-	else
-		takingDamage += dt;
-
-	if(health <= 0)
-    {
-	    exit(0.0);
-    }
 }

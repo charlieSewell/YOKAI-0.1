@@ -41,6 +41,16 @@ then
         end
     end
 end
+
+if(player.gun:getIsMeleeing())
+then
+    if (player.gun.gunAnimation:getCurrentAnimation() == "idle")
+    then
+		player.gun.canFire = false;
+        player.gun.gunAnimation.ticksPerSecond = 30;
+        player.gun.gunAnimation:setCurrentAnimation("melee");
+	end
+end
         
 player.gun.gunAnimation:checkAnimationFinished();
 

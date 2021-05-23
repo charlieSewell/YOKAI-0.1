@@ -98,6 +98,8 @@ public:
      */
 	static void registerClass();
 
+	///Movement speed
+	float sprint;
     ///Movement speed
 	float movementSpeed;
     ///Mouse sensitivity

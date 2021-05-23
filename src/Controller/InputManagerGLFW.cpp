@@ -59,6 +59,11 @@ void InputManagerGLFW::processKeyboard(GLFWwindow* window)
 		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_RELEASE)
 			EMS::getInstance().fire(NoReturnEvent::reloadReleased);
 
+		if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::meleePressed);
+		if (glfwGetKey(window, GLFW_KEY_F) == GLFW_RELEASE)
+			EMS::getInstance().fire(NoReturnEvent::meleeReleased);
+
 		/*if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
 			if (isPressed) {
 				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -81,6 +86,12 @@ void InputManagerGLFW::processMouse(GLFWwindow* window)
 
 		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_RELEASE)
 			EMS::getInstance().fire(NoReturnEvent::mouseReleased);
+
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_2) == GLFW_PRESS)
+			EMS::getInstance().fire(NoReturnEvent::mouse2Clicked);
+
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_2) == GLFW_RELEASE)
+			EMS::getInstance().fire(NoReturnEvent::mouse2Released);
 
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
@@ -127,6 +138,11 @@ void InputManagerGLFW::processGamepad()
 			if (state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] < -0.25)
 				EMS::getInstance().fire(NoReturnEvent::mouseReleased);
 
+			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER] > 0.25)
+				EMS::getInstance().fire(NoReturnEvent::mouse2Clicked);
+			if (state.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER] < -0.25)
+				EMS::getInstance().fire(NoReturnEvent::mouse2Released);
+
 			if (state.buttons[GLFW_GAMEPAD_BUTTON_A])
 				EMS::getInstance().fire(NoReturnEvent::jump);		
 	
@@ -157,6 +173,11 @@ void InputManagerGLFW::processGamepad()
 				EMS::getInstance().fire(NoReturnEvent::reloadPressed);
 			if (state.buttons[GLFW_GAMEPAD_BUTTON_X] == GLFW_RELEASE)
 				EMS::getInstance().fire(NoReturnEvent::reloadReleased);
+
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_BUMPER] == GLFW_PRESS)
+				EMS::getInstance().fire(NoReturnEvent::meleePressed);
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_BUMPER] == GLFW_RELEASE)
+				EMS::getInstance().fire(NoReturnEvent::meleeReleased);
 		
 			//not implemented yet
 			if (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_THUMB])
@@ -165,7 +186,7 @@ void InputManagerGLFW::processGamepad()
 			double lookx(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
 			double looky(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);
 
-			EMS::getInstance().fire(NoReturnEvent::xyLook, lookx * 10, looky * 10);
+			EMS::getInstance().fire(NoReturnEvent::xyLook, lookx * 8, looky * 8);
 		}
 	}
 }

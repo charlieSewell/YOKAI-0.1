@@ -1,7 +1,7 @@
 #include "Model/Components/Weapon.hpp"
 
 Weapon::Weapon() 
-	: canFire(false)
+	: canFire(false), aimDownSights(false)
 {
     maxAmmo = 30;
     maxReserveAmmo = 150;
@@ -12,7 +12,9 @@ Weapon::Weapon()
 
     weaponAnimation = new KeyframeAnimation();
     registerFire();
+	registerMelee();
     registerReload();
+	registerADS();
 }
 
 void Weapon::setCollider(float length, float height,float width)
@@ -112,11 +114,24 @@ void Weapon::update(Transform playerTransform, glm::vec3 frontDirection)
 	glm::mat4 matrix = glm::inverse(EMS::getInstance().fire(ReturnMat4Event::getViewMatrix));
 	m_transform = Transform(matrix);
 	m_transform.setPosition(playerTransform.getPosition());
-	m_transform.scale(0.02);
-	m_transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
-	m_transform.translatePostMultiply(static_cast<float>(glm::normalize(frontDirection).x * 0.7), static_cast<float>(glm::normalize(frontDirection).y + 2.5), static_cast<float>(glm::normalize(frontDirection).z * 0.75));
-	glm::vec3 rightVector = glm::normalize((glm::cross(frontDirection, glm::vec3(0, 1, 0))));
-	m_transform.translatePostMultiply(glm::normalize(rightVector) * 0.45f);
+
+	if(aimDownSights)
+	{
+		m_transform.scale(0.022);
+		m_transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
+		m_transform.translatePostMultiply(static_cast<float>(glm::normalize(frontDirection).x), static_cast<float>(glm::normalize(frontDirection).y + 2.51), static_cast<float>(glm::normalize(frontDirection).z));
+		m_transform.translatePostMultiply(frontDirection * -0.65f);
+		glm::vec3 rightVector = glm::normalize((glm::cross(frontDirection, glm::vec3(0, 1, 0))));
+		m_transform.translatePostMultiply(glm::normalize(rightVector) * -0.003f);
+	}
+	else
+	{
+		m_transform.scale(0.02);
+		m_transform.rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
+		m_transform.translatePostMultiply(static_cast<float>(glm::normalize(frontDirection).x * 0.7), static_cast<float>(glm::normalize(frontDirection).y + 2.5), static_cast<float>(glm::normalize(frontDirection).z * 0.75));
+		glm::vec3 rightVector = glm::normalize((glm::cross(frontDirection, glm::vec3(0, 1, 0))));
+		m_transform.translatePostMultiply(glm::normalize(rightVector) * 0.45f);
+	}
 }
 
 void Weapon::registerFire() 
@@ -141,6 +156,28 @@ bool Weapon::getIsFiring() const
     return isFiring;
 }
 
+void Weapon::registerMelee()
+{
+	auto melee = [&]()
+	{
+		isMeleeing = true;
+	};
+
+	EMS::getInstance().add(NoReturnEvent::meleePressed, melee);
+
+	auto noMelee = [&]()
+	{
+		isMeleeing = false;
+	};
+
+	EMS::getInstance().add(NoReturnEvent::meleeReleased, noMelee);
+}
+
+bool Weapon::getIsMeleeing() const
+{
+	return isMeleeing;
+}
+
 void Weapon::registerReload() 
 {
     auto reload = [&]() 
@@ -158,9 +195,26 @@ void Weapon::registerReload()
     EMS::getInstance().add(NoReturnEvent::reloadReleased, noReload);
 }
 
-bool Weapon::getIsReloading() const 
+bool Weapon::getIsReloading() const
 {
-    return isReloading;
+	return isReloading;
+}
+
+void Weapon::registerADS()
+{
+	auto ads = [&]()
+	{
+		aimDownSights = true;
+	};
+
+	EMS::getInstance().add(NoReturnEvent::mouse2Clicked, ads);
+
+	auto hipFire = [&]()
+	{
+		aimDownSights = false;
+	};
+
+	EMS::getInstance().add(NoReturnEvent::mouse2Released, hipFire);
 }
 
 void Weapon::registerClass()
@@ -176,6 +230,7 @@ void Weapon::registerClass()
 		.addProperty("canFire", &Weapon::canFire, true)
 		.addFunction("reload", &Weapon::reload)
 		.addFunction("getIsFiring", &Weapon::getIsFiring)
+		.addFunction("getIsMeleeing", &Weapon::getIsMeleeing)
 		.addFunction("getIsReloading", &Weapon::getIsReloading)
 		.addFunction("incrementAmmo", &Weapon::incrementAmmo)
 		.addFunction("decrementAmmo", &Weapon::decrementAmmo)
