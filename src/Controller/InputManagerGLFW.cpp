@@ -181,9 +181,9 @@ void InputManagerGLFW::processGamepad()
 			if (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_BUMPER] == GLFW_RELEASE)
 				EMS::getInstance().fire(NoReturnEvent::meleeReleased);
 
-			if (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_THUMB] == GLFW_PRESS)
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_LEFT_THUMB] == GLFW_PRESS)
 				EMS::getInstance().fire(NoReturnEvent::sprintPressed);
-			if (state.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_THUMB] == GLFW_RELEASE)
+			if (state.buttons[GLFW_GAMEPAD_BUTTON_LEFT_THUMB] == GLFW_RELEASE)
 				EMS::getInstance().fire(NoReturnEvent::sprintReleased);
 
 			double lookx(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
