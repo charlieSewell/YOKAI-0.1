@@ -9,7 +9,7 @@ void PhysicsSystem::Init()
     reactphysics3d::PhysicsWorld::WorldSettings settings;
     //settings.defaultVelocitySolverNbIterations = 20;
     //settings.isSleepingEnabled = false;
-    settings.gravity = reactphysics3d::Vector3(0, -9.81, 0);
+    settings.gravity = reactphysics3d::Vector3(0, -35, 0);
 
     physicsWorld = physicsCommon.createPhysicsWorld(settings);
     physicsWorld->setEventListener(&listener);

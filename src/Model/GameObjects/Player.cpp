@@ -8,7 +8,7 @@ Player::Player()
 	m_movement.movementSpeed = 2000.0f;
 
 	m_movement.lookSensitivity = 0.05f;
-	m_movement.jumpSpeed = 6.0f;
+	m_movement.jumpSpeed = 25.0f;
 	//m_mass = 0.025f;
 	registerPosition();
 	registerColliderID();
@@ -26,6 +26,10 @@ void Player::draw()
 
 void Player::update(float dt)
 {
+    if (health <= 0)
+    {
+        //exit(0.0);
+    }
 	if(m_physics.m_physicsActive)
 	{
         if(onBox)
@@ -49,7 +53,7 @@ void Player::update(float dt)
             if (m_movement.updateVector != glm::vec3{})
             { 
                 
-                m_physics.getCollider()->ApplyForceToCentre(glm::normalize(glm::vec3(m_movement.updateVector)) * (m_movement.movementSpeed * m_movement.sprint) * dt);
+                m_physics.getCollider()->ApplyForceToCentre(glm::normalize(glm::vec3(m_movement.updateVector.x,m_movement.updateVector.y,m_movement.updateVector.z)) * (m_movement.movementSpeed * m_movement.sprint) * dt);
 
             }
         }
@@ -109,12 +113,11 @@ void Player::fireWeapon(float rayCastDistance)
 void Player::setCollider(float width, float length, float height)
 {
     m_physics.registerSphere(ID,1);
-    m_physics.getCollider()->SetMass(0.1);
+    m_physics.getCollider()->SetMass(0.8);
     m_physics.getCollider()->SetIsAllowedToSleep(false);
-    m_physics.getCollider()->SetFrictionCoefficient(0.6);
-    m_physics.getCollider()->SetAngularDamping(0.6);
-    m_physics.getCollider()->SetLinearDamping(0.6);
-    m_physics.getCollider()->SetRollingResistance(0.8);
+    m_physics.getCollider()->SetFrictionCoefficient(0.2);
+    m_physics.getCollider()->SetAngularDamping(0.2);
+    m_physics.getCollider()->SetLinearDamping(0.2);
     m_physics.getCollider()->SetBounciness(0);
     rayCaster.setOwnColliderID( m_physics.getCollider()->getColliderID());
 }
@@ -173,10 +176,7 @@ void Player::takeDamage(float dt)
 	else
 		takingDamage += dt;
 
-	if (health <= 0)
-	{
-		//exit(0.0);
-	}
+
 }
 
 void Player::registerClass()
