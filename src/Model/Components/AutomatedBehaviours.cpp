@@ -163,7 +163,7 @@ void AutomatedBehaviours::updateHeading()
 
 float AutomatedBehaviours::angle_XZ(const glm::vec3 vector)
 {
-		return(std::atan2f(vector.z, vector.x));
+		return(atan2f(vector.z, vector.x));
 }
 
 void AutomatedBehaviours::registerClass()

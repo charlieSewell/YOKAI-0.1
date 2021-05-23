@@ -7,7 +7,7 @@
 #include "View/Renderer/RenderAPI.hpp"
 #include <glm/glm.hpp>
 #include <backends/imgui_impl_opengl3.h>
-#include <imgui/imgui.h>
+#include <imgui.h>
 #include "View/Renderer/DataTypes.hpp"
 
 /**
