@@ -13,7 +13,7 @@ if(player.onGround) then
 end
 
 
-if(player.health == 0 or numZombies == -1)
+if(player.health == 0 or numZombies == 0)
 
 then
     uiManager:setActive(lostScreen, true);
