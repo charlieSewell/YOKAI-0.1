@@ -22,7 +22,6 @@ add_subdirectory(lua)
 add_subdirectory(glad)
 add_subdirectory(imgui)
 add_subdirectory(reactphysics3d)
-
 option(GLFW_BUILD_DOCS OFF)
 option(GLFW_BUILD_TESTS OFF)
 option(GLFW_BUILD_EXAMPLES OFF)
@@ -46,7 +45,7 @@ target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE
         assimp/include
         LuaBridge/Source
         lua/src
-        reactphysics3d/src
+        reactphysics3d/include
         imgui/imgui
         imgui/imgui/backends
 )
