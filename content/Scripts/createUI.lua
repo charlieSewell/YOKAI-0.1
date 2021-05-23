@@ -9,6 +9,12 @@ uiManager:setUpPanel(ammoOne, 1700, 1750, 800, 900);
 ammoTwo = uiManager:add("ammoTwo", "content/Textures/0.png");
 uiManager:setUpPanel(ammoTwo, 1750, 1800, 800, 900);
 
+zombieOne = uiManager:add("zombieOne", "content/Textures/3.png");
+uiManager:setUpPanel(zombieOne, 50, 100, 50, 120);
+
+zombieTwo = uiManager:add("zombieTwo", "content/Textures/0.png");
+uiManager:setUpPanel(zombieTwo, 100, 150, 50, 120);
+
 reserveOne = uiManager:add("reserveOne", "content/Textures/1.png");
 uiManager:setUpPanel(reserveOne, 1750, 1800, 900, 1000);
 

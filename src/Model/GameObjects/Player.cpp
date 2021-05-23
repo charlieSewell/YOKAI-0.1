@@ -67,8 +67,6 @@ void Player::update(float dt)
 
     m_physics.updatePhysics();
     m_movement.updateVector = glm::vec3{};
-
-	gun.update(m_transform, m_camera.m_frontDirection);
 	m_camera.m_position = glm::vec3(m_transform.getPosition().x, m_transform.getPosition().y + 3, m_transform.getPosition().z);		//TODO: make this better
 
 	if (gun.getIsFiring() && gun.canFire)
@@ -98,7 +96,7 @@ void Player::fireWeapon(float rayCastDistance)
 		{
 			GameObjectManager::getInstance().DeleteGameObject(targetID);
             LuaManager::getInstance().runScript("content/Scripts/enemyCount.lua");
-			gun.setReserveAmmo(gun.getReserveAmmo() + 30);
+			gun.setReserveAmmo(gun.getReserveAmmo() + 15);
 			if(gun.getReserveAmmo() > 150)
 				gun.setReserveAmmo(150);
 		}
@@ -168,10 +166,7 @@ void Player::takeDamage(float dt)
 			shields -= 5;
         else 
 		{
-            if (health >= 5) 
-			{
-                health -= 5;
-			}
+            health -= 5;
 		}
 		hit = false;
 	}

@@ -50,20 +50,22 @@ void Yokai::Run()
 
     while(isRunning)
 	{
+        InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
 		double currentTime = glfwGetTime();
         double deltaTime = currentTime - lastTime;
         lastTime = currentTime;
 
         renderer.Clear();
         window.startFrame();
-        InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
-		InputManagerGLFW::getInstance().processMouse(window.getWindow());
-		InputManagerGLFW::getInstance().processGamepad();
+
 
         if (!isPaused)
         {
 			accumulator += deltaTime;
 			while (accumulator >= timeStep) {
+
+                InputManagerGLFW::getInstance().processMouse(window.getWindow());
+                InputManagerGLFW::getInstance().processGamepad();
                 PhysicsSystem::getInstance().update(timeStep);
                 layers[activeLayer]->Update(static_cast<float>(timeStep));
 				accumulator -= timeStep;
