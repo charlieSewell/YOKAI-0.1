@@ -40,8 +40,7 @@ class DemoScene : public Layer
      */
     void registerMenuButtons();
 
-	// test - delelt
-	int test;
+    void registerExit();
 
     SplashScreen *controlsScreen;
 };

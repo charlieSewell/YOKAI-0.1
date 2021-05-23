@@ -4,8 +4,7 @@
 #include "View/Renderer/Renderer.hpp"
 #include "View/Window.hpp"
 #include "Model/SplashScreen.hpp"
-//#include "Controller/KeyframeAnimation.hpp"
-//#include "Model/Components/Weapon.hpp"
+
 //workaround to allow vector of layer pointers
 class Layer;
 /**
@@ -57,6 +56,8 @@ class Yokai
      * @return bool
      */
     bool getIsPaused() const;
+
+    void registerClass();
 
   private:
     //Singleton pattern requires that all constructors,destructors and copy constructors be private

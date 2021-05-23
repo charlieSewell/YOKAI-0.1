@@ -77,6 +77,11 @@ void UIManager::luaSetActive(const std::string& name, bool a)
     getObject(name)->setActive(a);
 }
 
+bool UIManager::luaGetActive(const std::string& name) 
+{
+    return getObject(name)->getActive();
+}
+
 void UIManager::registerClass() 
 {
     luabridge::getGlobalNamespace(LuaManager::getInstance().getState())
@@ -88,9 +93,15 @@ void UIManager::registerClass()
         .addFunction("setUpPanel", &UIManager::luaSetUpPanel)
         .addFunction("setTexture", &UIManager::luaSetTexture)
         .addFunction("setActive", &UIManager::luaSetActive)
+        .addFunction("getActive", &UIManager::luaGetActive)
         .endClass();
 
     LuaManager::getInstance().runScript("content/Scripts/createUI.lua");
     
     std::cout << "UI Manager Initialised" << std::endl;
+}
+
+void UIManager::DeInit() 
+{
+    uiObjects.clear();
 }

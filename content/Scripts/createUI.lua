@@ -24,5 +24,6 @@ uiManager:setUpPanel(healthBar, 50, 700, 950, 1000);
 shieldBar = uiManager:add("shields", "content/Textures/shield.png");
 uiManager:setUpPanel(shieldBar, 50, 700, 875, 925);
 
---helpMenu = uiManager:add("helpMenu", "content/Textures/help_menu.png");
---uiManager:setUpPanel(helpMenu, 200, 1500, 200, 900);
+lostScreen = uiManager:add("lostScreen", "content/Textures/exit_screen.png");
+uiManager:setUpPanel(lostScreen, 200, 1700, 100, 900);
+uiManager:setActive(lostScreen, false);
