@@ -7,8 +7,9 @@ attack		= 2
 dead		= 3
 
 function update(obj)
-		
+
 	stateMachine(obj)
+
 
 end
 

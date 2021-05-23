@@ -6,10 +6,15 @@ if(velocity.y < -20 and velocity.y < player.physics:getMaxVelocity()) then
 end
 if(player.onGround) then
     player.health = player.health + (player.physics:getMaxVelocity() * 2);
+    if player.health < 0 then
+        player.health = 0;
+    end
     player.physics:setMaxVelocity(0);
 end
 
+
 if(player.health == 0 or numZombies == -1)
+
 then
     uiManager:setActive(lostScreen, true);
 end
