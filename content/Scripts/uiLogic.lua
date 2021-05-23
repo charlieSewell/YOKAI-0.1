@@ -11,6 +11,10 @@ ammoNumbers[7] = "content/Textures/7.png"
 ammoNumbers[8] = "content/Textures/8.png"
 ammoNumbers[9] = "content/Textures/9.png"
 
+temp = math.fmod(numZombies,10)
+uiManager:setTexture("zombieOne", ammoNumbers[(numZombies-temp)/10]);
+uiManager:setTexture("zombieTwo", ammoNumbers[temp]);
+
 if (player.gun.reserveAmmo >= 0)
 then
     remainder = math.fmod(player.gun.ammo, 10);

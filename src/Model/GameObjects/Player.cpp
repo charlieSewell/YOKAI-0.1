@@ -97,7 +97,7 @@ void Player::fireWeapon(float rayCastDistance)
 		{
 			GameObjectManager::getInstance().DeleteGameObject(targetID);
             LuaManager::getInstance().runScript("content/Scripts/enemyCount.lua");
-			gun.setReserveAmmo(gun.getReserveAmmo() + 30);
+			gun.setReserveAmmo(gun.getReserveAmmo() + 15);
 			if(gun.getReserveAmmo() > 150)
 				gun.setReserveAmmo(150);
 		}
@@ -167,10 +167,7 @@ void Player::takeDamage(float dt)
 			shields -= 5;
         else 
 		{
-            if (health >= 5) 
-			{
-                health -= 5;
-			}
+            health -= 5;
 		}
 		hit = false;
 	}

@@ -11,6 +11,7 @@ player.movement.movementSpeed = 27000;
 player.health = 100;
 player.shields = 100;
 player.movement.sprintMultiplier = 1.75;
+player.movement.lookSensitivityMultiplier = 1;
 
 player.gun.maxAmmo = 30;
 player.gun.maxReserveAmmo = 150;
@@ -96,9 +97,9 @@ end
 
 --Creating Zombies in random places
 
-numZombies = 65;
-spawnRange = 250;
-for i=0, numZombies do
+numZombies = 60;
+spawnRange = 225;
+for i=0, numZombies-1 do
         x = math.random(playerPos.x - spawnRange, playerPos.x + spawnRange);
         z = math.random(playerPos.z - spawnRange, playerPos.z + spawnRange);
         val = terrFac:getHeight(x,z)

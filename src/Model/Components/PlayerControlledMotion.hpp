@@ -109,7 +109,9 @@ public:
     ///Movement speed
 	float movementSpeed;
     ///Mouse sensitivity
-	float lookSensitivity;
+	double lookSensitivity;
+	///Mouse sensitivity Multiplier
+	double lookSensitivityMultiplier;
     ///bool to check if player can jump
 	bool canJump;
     ///bool to say whether player is in jump

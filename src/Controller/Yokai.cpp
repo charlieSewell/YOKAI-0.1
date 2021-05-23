@@ -50,14 +50,15 @@ void Yokai::Run()
 
     while(isRunning)
 	{
+		InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
+		InputManagerGLFW::getInstance().processGamepadButtons();
+
 		double currentTime = glfwGetTime();
         double deltaTime = currentTime - lastTime;
         lastTime = currentTime;
 
         renderer.Clear();
         window.startFrame();
-        InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
-		InputManagerGLFW::getInstance().processGamepadButtons();
 
         if (!isPaused)
         {
