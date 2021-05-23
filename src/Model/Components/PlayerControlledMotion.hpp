@@ -82,6 +82,10 @@ public:
 	 * @param vec3& - upDirection
 	 */
     void registerJump(glm::vec3& upDirection);
+	/**
+	* @brief Registers sprint with EMS
+	*/
+	void registerSprint();
     /**
      * @brief Registers downward movement with EMS
      * @param vec3& - position
@@ -98,6 +102,10 @@ public:
      */
 	static void registerClass();
 
+	///actual sprint multiplier - equals 1 when inactive
+	float sprint;
+	// sprint multiplier assigned when active
+	float sprintMultiplier;
     ///Movement speed
 	float movementSpeed;
     ///Mouse sensitivity
@@ -116,5 +124,4 @@ private:
 	float m_jumpDecay;
     ///Pointer to current transform
 	Transform* m_transformPtr;
-
 };

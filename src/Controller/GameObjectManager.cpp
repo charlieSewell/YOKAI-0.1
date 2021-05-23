@@ -88,8 +88,10 @@ void GameObjectManager::draw()
 {
     for(auto& gameObject :gameObjects)
     {
-        gameObject.second->draw();
+		if(gameObject.second != gameObjects[playerID])
+			gameObject.second->draw();
     }
+	getPlayer()->draw();
 }
 
 Player* GameObjectManager::getPlayer()

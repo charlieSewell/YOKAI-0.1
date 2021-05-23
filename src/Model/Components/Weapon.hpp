@@ -101,10 +101,23 @@ class Weapon : public GameObject
      * @return bool
      */
     bool getIsFiring() const;
+	/**
+	* @brief Get is Meleeing
+	* @return bool
+	*/
+	bool getIsMeleeing() const;
     /**
      * @brief registers is Firing
      */
     void registerReload();
+	/**
+	* @brief registers is meleeing
+	*/
+    void registerMelee();
+	/**
+	* @brief registers aimDownSights
+	*/
+	void registerADS();
     /**
      * @brief Gets whether weapon is reloading
      * @return
@@ -126,6 +139,10 @@ class Weapon : public GameObject
     int reserveAmmo;
     ///is weapon firing
     bool isFiring;
+	///is weapon meleeing
+	bool isMeleeing;
     ///is weapon reloading
     bool isReloading;
+	//aim down sights
+	bool aimDownSights;
 };

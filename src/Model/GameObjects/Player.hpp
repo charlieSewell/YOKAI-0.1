@@ -42,6 +42,12 @@ public:
 	 * @param length
 	 * @param height
 	 */
+
+	/**
+	* @brief fires weapon
+	*/
+	void fireWeapon(float rayCastDistance);
+
     void setCollider(float width, float length, float height) override;
     /**
      * @brief Sets the health for the player

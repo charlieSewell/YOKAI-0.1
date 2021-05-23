@@ -58,21 +58,21 @@ void Yokai::Run()
         double deltaTime = currentTime - lastTime;
         lastTime = currentTime;
 
-        accumulator += deltaTime;
-
         renderer.Clear();
         window.startFrame();
         InputManagerGLFW::getInstance().processKeyboard(window.getWindow());
 		InputManagerGLFW::getInstance().processMouse(window.getWindow());
 		InputManagerGLFW::getInstance().processGamepad();
 
-		while (accumulator >= timeStep) {
-            PhysicsSystem::getInstance().update(timeStep);
-
-            accumulator -= timeStep;
-        }
         if (!isPaused)
         {
+			accumulator += deltaTime;
+			while (accumulator >= timeStep) {
+				PhysicsSystem::getInstance().update(timeStep);
+
+				accumulator -= timeStep;
+			}
+
             layers[activeLayer]->Update(static_cast<float>(deltaTime));
         }
         layers[activeLayer]->Draw();
