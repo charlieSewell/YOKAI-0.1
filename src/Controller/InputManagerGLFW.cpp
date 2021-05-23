@@ -189,7 +189,7 @@ void InputManagerGLFW::processGamepad()
 			double lookx(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
 			double looky(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);
 
-			EMS::getInstance().fire(NoReturnEvent::xyLook, lookx * 8, looky * 8);
+			EMS::getInstance().fire(NoReturnEvent::xyLook, lookx * 16, looky * 16);
 		}
 	}
 }
