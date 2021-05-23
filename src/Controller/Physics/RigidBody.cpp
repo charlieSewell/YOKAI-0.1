@@ -4,7 +4,7 @@
 
 #include "RigidBody.hpp"
 #include "Controller/Physics/ReactMath.hpp"
-void RigidBody::CreateBody(unsigned int gameObjID,rp3d::PhysicsWorld* physicsWorld,glm::vec3 position,glm::quat orientation)
+void RigidBody::CreateBody(int gameObjID,rp3d::PhysicsWorld* physicsWorld,glm::vec3 position,glm::quat orientation)
 {
     gameObjectID = gameObjID;
     rp3d::Transform temp(ReactMath::glmVecToRP3d(position), ReactMath::glmQuatToRP3d(orientation));
@@ -50,8 +50,8 @@ void RigidBody::ApplyForceToCentre(glm::vec3 force) {
     rp3d::Vector3 addedForce = ReactMath::glmVecToRP3d(force);
     body->applyForceToCenterOfMass(addedForce);
 }
-void RigidBody::AddCollisionShape(ReactShape shape) {
-    this->shape = std::move(shape);
+void RigidBody::AddCollisionShape(ReactShape shapeToInsert) {
+    shape = std::move(shapeToInsert);
     collider = body->addCollider(this->shape.getShape(),rp3d::Transform::identity());
 
 }

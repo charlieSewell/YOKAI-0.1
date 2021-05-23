@@ -31,7 +31,7 @@ void Model::Draw(Shader &shader, glm::mat4 transform)
         mesh.Draw(shader);
     }
 }
-SkeletalAnimation* Model::getAnimation(std::string name)
+SkeletalAnimation* Model::getAnimation(const std::string& name)
 {
     for(auto& anim : animations)
     {

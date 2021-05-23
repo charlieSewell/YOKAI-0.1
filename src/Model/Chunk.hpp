@@ -20,13 +20,13 @@ class Chunk
     /**
      * @brief Constructs a Chunk Objects
      */
-    Chunk();
+    Chunk() = default;
     /**
      * @brief Constructs a chunks mesh
      * @param vector<Vertex> - vertices
      * @param vector<unsigned int> - indices
      */
-    void SetupChunk(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices);
+    void SetupChunk(std::vector<Vertex> &vertices, std::vector<unsigned int> &indices);
     /**
      * @brief Draws a chunk
      * @param Shader& - shader

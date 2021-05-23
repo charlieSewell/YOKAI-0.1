@@ -1,5 +1,7 @@
 #include "GameObjectManager.hpp"
 
+#include <utility>
+
 GameObjectManager& GameObjectManager::getInstance() 
 {
     static GameObjectManager instance;
@@ -51,7 +53,7 @@ int GameObjectManager::CreateObject(GameObjectType type,std::string model)
     }
     else
     {
-        gameObjects[objectCount] = GameAssetFactory::Create(type,model);
+        gameObjects[objectCount] = GameAssetFactory::Create(type,std::move(model));
         gameObjects[objectCount]->setID(objectCount);
     }
 

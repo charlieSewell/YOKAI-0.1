@@ -113,7 +113,7 @@ void Animator::setAnimation(std::string animationToSet)
 			currTime = 0;
 			SkeletalAnimation* test = modelToAnimate->getAnimation(animationToSet);
 			this->animation = std::move(animationToSet);
-		}catch (std::exception e)
+		}catch (std::exception &e)
 		{
 			std::cout << e.what() <<std::endl;
 		}

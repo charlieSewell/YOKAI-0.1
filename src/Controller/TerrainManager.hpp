@@ -51,11 +51,6 @@ class TerrainManager
      */
     void CreateTerrain();
 
-    /*!
-     * @brief Loads chunk
-     */
-    void LoadChunk();
-
     /// Size of chunk, maximum key value
     int chunkSize{},maxKey{};
 

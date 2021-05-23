@@ -13,7 +13,20 @@ function update(obj)
 end
 
 function stateMachine(obj)
-	if(obj.behaviours.state == wander)
+	if(obj.hit == true)
+	then
+		obj.animator:setAnimation("ZombieBite")
+		obj.behaviours.acceleration = -0.015;
+		obj.health = obj.health - 10;
+		obj.hit = false
+		obj.behaviours.state = seek;
+	elseif(obj.health < 20)
+	then
+		obj.animator:setAnimation("ZombieCrawl")
+		obj.behaviours:accelerate(0.010);
+		obj.behaviours.rotationSpeed = 0.0015;
+		obj.behaviours:seek(player:getPosition());
+	elseif(obj.behaviours.state == wander)
 	then
 		obj.animator:setAnimation("ZombieWalk");
 		obj.behaviours:wander();
@@ -38,10 +51,8 @@ function stateMachine(obj)
 	elseif(obj.behaviours.state == attack)
 	then
 		obj.animator:setAnimation("ZombieBite")
-		--obj.behaviours:seek(player:getPosition());
-		--obj.behaviours:accelerate(0.0);
 		obj.behaviours.rotationSpeed = 0.05;
-
+		player.hit = true;
 		if(objManager:distance(player:getPosition(), obj:getPosition()) > 5)
 		then
 			obj.behaviours.state = seek

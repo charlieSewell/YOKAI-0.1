@@ -3,9 +3,6 @@
 //
 
 #include "Window.hpp"
-Window::Window(){
-
-}
 void error_callback(int error, const char* description)
 {
     std::cout << "Error:" << error << " " << description << std::endl;
@@ -25,8 +22,8 @@ bool Window::Init()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 
-    window = glfwCreateWindow(1920, 1080, "ICT397 Game Engine", NULL, NULL);
-    //window = glfwCreateWindow(1920, 1080, "ICT397 Game Engine", glfwGetPrimaryMonitor(), NULL);
+    //window = glfwCreateWindow(1920, 1080, "ICT397 Game Engine", NULL, NULL);
+    window = glfwCreateWindow(1920, 1080, "ICT397 Game Engine", glfwGetPrimaryMonitor(), nullptr);
 
     if (!window)
     {
@@ -52,7 +49,7 @@ bool Window::ImguiInit()
         ImGui_ImplGlfw_InitForOpenGL(window, true);
         ImGui_ImplOpenGL3_Init("#version 130");
         return true;
-    }catch(std::exception e)
+    }catch(std::exception &e)
     {
         std::cout << e.what() <<std::endl;
     }

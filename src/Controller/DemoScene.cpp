@@ -19,7 +19,7 @@ void DemoScene::Init()
 }
 
 #include "Model/GameObjects/NPC.hpp"
-void DemoScene::Update(double frameRate)
+void DemoScene::Update(float frameRate)
 {
     GameObjectManager::getInstance().update(frameRate);
     UIManager::getInstance().update(frameRate);
@@ -29,11 +29,11 @@ void DemoScene::Draw()
 {
     terrainManager.Draw(EMS::getInstance().fire(ReturnVec3Event::getPlayerPosition));
     GameObjectManager::getInstance().draw();
-
+    UIManager::getInstance().draw();
     if (Yokai::getInstance().getIsPaused()) 
     {
         int width = 1920, height = 1080;
-        ImGui::SetNextWindowPos(ImVec2(width / 2, height / 2), ImGuiCond_Always, ImVec2(0.5, 0.5));
+        ImGui::SetNextWindowPos(ImVec2(static_cast<float>(width) / 2, static_cast<float>(height) / 2), ImGuiCond_Always, ImVec2(0.5, 0.5));
         ImGui::Begin("Pause Menu");
 
         ImGui::Text("Pause Menu");
@@ -53,7 +53,7 @@ void DemoScene::Draw()
         }
         ImGui::End();
     }
-    UIManager::getInstance().draw();
+
     if (controlsScreen->getActive()) {
         controlsScreen->draw();
     }

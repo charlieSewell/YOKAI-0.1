@@ -18,7 +18,7 @@ class OpenGLTexture : public Texture
     /**
      * @brief Destructor for an OpenGL Texture
      */
-    virtual ~OpenGLTexture();
+    ~OpenGLTexture() override;
     /**
      * @brief Constructor for OpenGLTexture
      * @param string - fileName
@@ -28,16 +28,16 @@ class OpenGLTexture : public Texture
      * @brief Binds the texture
      * @param size_t - slot
      */
-    virtual void Bind(size_t slot) override;
+    void Bind(size_t slot) override;
     /**
      * @brief Unbinds the texture
      */
-    virtual void UnBind() override;
+    void UnBind() override;
     /**
      * @brief Returns the TextureID
      * @return int
      */
-    virtual int getID() override;
+    int getID() override;
 
   private:
     ///Texture ID
@@ -53,12 +53,12 @@ class OpenGLVertexBuffer : public VertexBuffer
     /**
      * @brief Destructor for OpenGLVertexBuffer
      */
-    virtual ~OpenGLVertexBuffer();
+    ~OpenGLVertexBuffer() override;
     /**
      * @brief Constructor for OpenGLVertexBuffer
      * @param vector<Vertex> - vertices
      */
-    OpenGLVertexBuffer(std::vector<Vertex> vertices);
+    OpenGLVertexBuffer(std::vector<Vertex> &vertices);
     /**
      * @brief Binds the VertexBuffer
      */
@@ -70,7 +70,7 @@ class OpenGLVertexBuffer : public VertexBuffer
 
   private:
     ///Vertex Buffer ID
-    unsigned int bufferID;
+    unsigned int vboID;
 };
 /**
  * @class OpenGLIndexBuffer
@@ -82,12 +82,12 @@ class OpenGLIndexBuffer : public IndexBuffer
     /**
      * @brief Destructor for OpenGLIndexBuffer
      */
-    virtual ~OpenGLIndexBuffer();
+    ~OpenGLIndexBuffer() override;
     /**
      * @brief Constructor for OpenGLIndexBuffer
      * @param vector<unsigned int> - indices
      */
-    OpenGLIndexBuffer(std::vector<unsigned int> indices);
+    OpenGLIndexBuffer(std::vector<unsigned int> &indices);
     /**
      * @brief Binds the IndexBuffer
      */
@@ -99,7 +99,7 @@ class OpenGLIndexBuffer : public IndexBuffer
 
   private:
     ///Index Buffer ID
-    unsigned int bufferID;
+    unsigned int ibID;
 };
 /**
  * @class OpenGLVertexArrayBuffer
@@ -111,13 +111,13 @@ class OpenGLVertexArrayBuffer : public VertexArrayBuffer
     /**
      * @brief Destructor for OpenGLVertexArrayBuffer
      */
-    virtual ~OpenGLVertexArrayBuffer();
+    ~OpenGLVertexArrayBuffer() override;
     /**
      * @brief Constructor for OpenGLVertexArrayBuffer
      * @param vector<Vertex> - vertices
      * @param vector<unisigned int> - indices
      */
-    OpenGLVertexArrayBuffer(const std::vector<Vertex>& vertices,const std::vector<unsigned int>& indices);
+    OpenGLVertexArrayBuffer(std::vector<Vertex>& vertices,std::vector<unsigned int>& indices);
     /**
      * @brief Binds the VertexArrayBuffer
      */
@@ -129,7 +129,7 @@ class OpenGLVertexArrayBuffer : public VertexArrayBuffer
 
   private:
     ///Vertex Array Buffer ID
-    unsigned int bufferID;
+    unsigned int vaoID;
     ///Pointer to Vertex Buffer
     std::shared_ptr<OpenGLVertexBuffer> vertexBuffer;
     ///Pointer to Index Buffer

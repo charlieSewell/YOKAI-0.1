@@ -111,6 +111,8 @@ class Weapon : public GameObject
      */
     bool getIsReloading() const;
 
+	bool canFire;
+
   private:
     ///Weapon to animate
     KeyframeAnimation *weaponAnimation;

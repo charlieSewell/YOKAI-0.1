@@ -69,21 +69,21 @@ int OpenGLTexture::getID()
     return textureID;
 }
 
-OpenGLVertexBuffer::OpenGLVertexBuffer(std::vector<Vertex> vertices) 
+OpenGLVertexBuffer::OpenGLVertexBuffer(std::vector<Vertex> &vertices)
 {
-    glGenBuffers(1,&bufferID);
-    glBindBuffer(GL_ARRAY_BUFFER,bufferID);
+    glGenBuffers(1,&vboID);
+    glBindBuffer(GL_ARRAY_BUFFER,vboID);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 }
 
 OpenGLVertexBuffer::~OpenGLVertexBuffer()
 {
-    glDeleteBuffers(1,&bufferID);
+    glDeleteBuffers(1,&vboID);
 }
 
 void OpenGLVertexBuffer::Bind() 
 {
-    glBindBuffer(GL_ARRAY_BUFFER,bufferID);
+    glBindBuffer(GL_ARRAY_BUFFER,vboID);
 }
 
 void OpenGLVertexBuffer::UnBind() 
@@ -91,21 +91,21 @@ void OpenGLVertexBuffer::UnBind()
     glBindBuffer(GL_ARRAY_BUFFER,0);
 }
 
-OpenGLIndexBuffer::OpenGLIndexBuffer(std::vector<unsigned int> indices) 
+OpenGLIndexBuffer::OpenGLIndexBuffer(std::vector<unsigned int> &indices)
 {
-    glGenBuffers(1,&bufferID);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,bufferID);
+    glGenBuffers(1,&ibID);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ibID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 }
 
 OpenGLIndexBuffer::~OpenGLIndexBuffer()
 {
-    glDeleteBuffers(1,&bufferID);
+    glDeleteBuffers(1,&ibID);
 }
 
 void OpenGLIndexBuffer::Bind() 
 {
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,bufferID);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ibID);
 }
 
 void OpenGLIndexBuffer::UnBind() 
@@ -113,10 +113,10 @@ void OpenGLIndexBuffer::UnBind()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 }
 
-OpenGLVertexArrayBuffer::OpenGLVertexArrayBuffer(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)
+OpenGLVertexArrayBuffer::OpenGLVertexArrayBuffer(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices)
 {
-    glGenVertexArrays(1,&bufferID);
-    glBindVertexArray(bufferID);
+    glGenVertexArrays(1,&vaoID);
+    glBindVertexArray(vaoID);
     vertexBuffer = std::make_shared<OpenGLVertexBuffer>(vertices);
     indexBuffer = std::make_shared<OpenGLIndexBuffer>(indices);
 
@@ -139,12 +139,12 @@ OpenGLVertexArrayBuffer::OpenGLVertexArrayBuffer(const std::vector<Vertex>& vert
 
 OpenGLVertexArrayBuffer::~OpenGLVertexArrayBuffer()
 {
-    glDeleteBuffers(1,&bufferID);
+    glDeleteVertexArrays(1, &vaoID);
 }
 
 void OpenGLVertexArrayBuffer::Bind() 
 {
-    glBindVertexArray(bufferID);
+    glBindVertexArray(vaoID);
 }
 
 void OpenGLVertexArrayBuffer::UnBind() 

@@ -97,7 +97,7 @@ class VertexBuffer
      * @param vector<Vertex> - vertices
      * @return shared_ptr<VertexBuffer>
      */
-    static std::shared_ptr<VertexBuffer> Create(std::vector<Vertex> vertices);
+    static std::shared_ptr<VertexBuffer> Create(std::vector<Vertex> &vertices);
 };
 /**
  * @class IndexBuffer
@@ -123,7 +123,7 @@ class IndexBuffer
      * @param vector<unsigned int> - indices
      * @return shared_ptr<VertexBuffer>
      */
-    static std::shared_ptr<IndexBuffer> Create(std::vector<unsigned int> indices);
+    static std::shared_ptr<IndexBuffer> Create(std::vector<unsigned int> &indices);
 };
 /**
  * @class VertexArrayBuffer
@@ -147,5 +147,5 @@ class VertexArrayBuffer
      * @param vector<unsigned int> - indices
      * @return shared_ptr<VertexArrayBuffer>
      */
-    static std::shared_ptr<VertexArrayBuffer> Create(const std::vector<Vertex>& vertices,const std::vector<unsigned int>& indices);
+    static std::shared_ptr<VertexArrayBuffer> Create(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
 };

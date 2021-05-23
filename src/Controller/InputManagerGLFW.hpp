@@ -32,6 +32,11 @@ class InputManagerGLFW
        */
 	  void processMouse(GLFWwindow* window);
 
+		/**
+		* @brief Processes gamepad Input	
+		*/
+	  void processGamepad();
+
   private:
       /**
        * @brief Privatised constructor for Singleton Pattern

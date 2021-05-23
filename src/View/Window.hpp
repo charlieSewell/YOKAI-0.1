@@ -15,7 +15,7 @@ class Window {
     /**
      * @brief Default Constructor for window
      */
-    Window();
+    Window() = default;
     /**
      * @brief Initialises the window
      * @return bool

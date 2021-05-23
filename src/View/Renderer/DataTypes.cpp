@@ -6,22 +6,22 @@
 #include <utility>
 #include "View/Renderer/OpenGL/OpenGLDataTypes.hpp"
 
-std::shared_ptr<VertexBuffer> VertexBuffer::Create(std::vector<Vertex> vertices) 
+std::shared_ptr<VertexBuffer> VertexBuffer::Create(std::vector<Vertex> &vertices)
 {
-    return std::shared_ptr<VertexBuffer>(new OpenGLVertexBuffer(std::move(vertices)));
+    return std::make_shared<OpenGLVertexBuffer>(vertices);
 }
 
-std::shared_ptr<IndexBuffer> IndexBuffer::Create(std::vector<unsigned int> indices) 
+std::shared_ptr<IndexBuffer> IndexBuffer::Create(std::vector<unsigned int> &indices)
 {
-    return std::shared_ptr<IndexBuffer>(new OpenGLIndexBuffer(std::move(indices)));
+    return std::make_shared<OpenGLIndexBuffer>(indices);
 }
 
-std::shared_ptr<VertexArrayBuffer> VertexArrayBuffer::Create(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)
+std::shared_ptr<VertexArrayBuffer> VertexArrayBuffer::Create(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices)
 {
-    return std::shared_ptr<VertexArrayBuffer>(new OpenGLVertexArrayBuffer(vertices,indices));
+    return std::make_shared<OpenGLVertexArrayBuffer>(vertices,indices);
 }
 
 std::shared_ptr<Texture> Texture::Create(const std::string& fileName)
 {
-    return std::shared_ptr<Texture>(new OpenGLTexture(fileName));
+    return std::make_shared<OpenGLTexture>(fileName);
 }

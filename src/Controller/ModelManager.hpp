@@ -32,7 +32,7 @@ class ModelManager
      * @param string - filename
      * @return modelCount-1
      */
-    auto GetModelID(std::string filename) -> size_t;
+    auto GetModelID(const std::string& filename) -> size_t;
 
     /*!
      * @brief Getter for model with the specified id

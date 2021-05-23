@@ -5,9 +5,7 @@
 #include "SkeletalAnimation.hpp"
 
 #include <utility>
-SkeletalAnimation::SkeletalAnimation() {
 
-}
 SkeletalAnimation::SkeletalAnimation(std::string name, std::map<std::string,Frame> frames, float duration, float TPS)
 {
     this->frames = std::move(frames);

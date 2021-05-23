@@ -15,7 +15,7 @@ class MainMenuScene : public Layer
     /**
      * @brief Updates the Scene
      */
-    void Update(double frameRate) override;
+    void Update(float frameRate) override;
     /**
      * @brief Draws the Scene
      */
