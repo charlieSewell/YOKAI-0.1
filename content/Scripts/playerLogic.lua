@@ -9,7 +9,7 @@ if(player.onGround) then
     player.physics:setMaxVelocity(0);
 end
 
-if(player.health == 0)
+if(player.health == 0 or numZombies == -1)
 then
     uiManager:setActive(lostScreen, true);
 end

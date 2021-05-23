@@ -98,6 +98,7 @@ void Player::fireWeapon(float rayCastDistance)
 		if (GameObjectManager::getInstance().getNPC(targetID)->health < 0)		//dead
 		{
 			GameObjectManager::getInstance().DeleteGameObject(targetID);
+            LuaManager::getInstance().runScript("content/Scripts/enemyCount.lua");
 			gun.setReserveAmmo(gun.getReserveAmmo() + 30);
 			if(gun.getReserveAmmo() > 150)
 				gun.setReserveAmmo(150);

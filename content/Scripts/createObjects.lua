@@ -95,7 +95,7 @@ for i=0,100 do
 end
 
 --Creating Zombies in random places
-numZombies = 75;
+numZombies = 20;
 spawnRange = 300;
 for i=0, numZombies do
         x = math.random(playerPos.x - spawnRange, playerPos.x + spawnRange);

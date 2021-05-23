@@ -105,6 +105,6 @@ void DemoScene::registerExit()
         }
     };
 
-    EMS::getInstance().add(NoReturnEvent::mouseClicked, exit);
+    EMS::getInstance().add(NoReturnEvent::pausePressed, exit);
 
 }
