@@ -20,6 +20,9 @@ player.gun.gunAnimation:addAnimation("reload", 7, 55);
 player.gun.gunAnimation:addAnimation("emptyreload", 55, 108);
 player.gun.gunAnimation:addAnimation("idle", 142, 164);
 player.gun.gunAnimation:addAnimation("melee", 164, 177);
+player.gun.gunAnimation:addAnimation("ads", 1, 1);
+player.gun.gunAnimation:addAnimation("sprint", 177, 177);
+
 player.gun.gunAnimation:setCurrentAnimation("idle");
 
 

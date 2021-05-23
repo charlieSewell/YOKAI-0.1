@@ -26,7 +26,7 @@ if(player.gun:getIsFiring())
 then
     if (player.gun.ammo ~= 0)
     then
-        if (player.gun.gunAnimation:getCurrentAnimation() == "idle")
+        if (player.gun.gunAnimation:getCurrentAnimation() == "idle" or player.gun.gunAnimation:getCurrentAnimation() == "ads")
         then
 			player.gun.canFire = false;
             player.gun.gunAnimation.ticksPerSecond = 30;
@@ -44,7 +44,7 @@ end
 
 if(player.gun:getIsMeleeing())
 then
-    if (player.gun.gunAnimation:getCurrentAnimation() == "idle")
+    if (player.gun.gunAnimation:getCurrentAnimation() == "idle" or player.gun.gunAnimation:getCurrentAnimation() == "ads")
     then
 		player.gun.canFire = false;
         player.gun.gunAnimation.ticksPerSecond = 30;
@@ -58,5 +58,10 @@ if (player.gun.gunAnimation:getAnimationFinished())
 then
 	player.gun.canFire = true;
 	player.gun.gunAnimation.ticksPerSecond = 20;
-	player.gun.gunAnimation:setCurrentAnimation("idle");
+	if(player.gun.ads)
+	then
+		player.gun.gunAnimation:setCurrentAnimation("ads");
+	else
+		player.gun.gunAnimation:setCurrentAnimation("idle");
+	end
 end
