@@ -7,7 +7,6 @@
 #include "Animator.hpp"
 #include "DemoScene.hpp"
 #include "MainMenuScene.hpp"
-
 Yokai &Yokai::getInstance() 
 {
     static Yokai instance;
@@ -18,7 +17,6 @@ void Yokai::Init()
 {
     registerClose();
     //registerUI();
-
     if(!window.Init())
     {
         exit(0);
@@ -28,7 +26,6 @@ void Yokai::Init()
     {
         exit(0);
     }
-
     //Add layers to layer stack
     activeLayer = 0;
     //layers.push_back(std::shared_ptr<Layer>(new DemoScene()));
