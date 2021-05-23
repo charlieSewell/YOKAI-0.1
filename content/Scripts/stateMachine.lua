@@ -10,7 +10,6 @@ function update(obj)
 
 	stateMachine(obj)
 
-
 end
 
 function stateMachine(obj)
@@ -38,6 +37,10 @@ function stateMachine(obj)
 			obj.behaviours.state = seek
 		end
 
+		if(objManager.elapsedTime > 180)
+		then
+			obj.behaviours.state = seek
+		end 
 	elseif(obj.behaviours.state == seek)
 	then
 		obj.animator:setAnimation("ZombieRun")
